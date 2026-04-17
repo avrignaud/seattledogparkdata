@@ -1186,6 +1186,11 @@
     }).addTo(map);
     const acresLine = ola.acres ? `<br><em>${ola.acres} acres</em> · ${ola.neighborhood}` : '';
     marker.bindPopup(`<strong>${ola.name}</strong>${acresLine}<br><span style="color:#666;">${ola.note}</span>`);
+    // Open popup on hover (mouseover) and close on mouseout, in addition
+    // to the default click behavior. On touch devices the click handler
+    // still works.
+    marker.on('mouseover', function() { this.openPopup(); });
+    marker.on('mouseout',  function() { this.closePopup(); });
     L.circle(ola.coords, {
       radius: HALF_MILE_METERS,
       fillColor: color,

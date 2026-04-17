@@ -639,6 +639,8 @@
     }).addTo(map);
     const olaLabel = { has: 'Existing OLA on-site', no: 'No OLA', partial: 'Partial OLA (small, in larger park)', planned: 'OLA planned' }[h.ola];
     m.bindPopup(`<strong>${h.park}</strong><br>${h.neigh}<br><em>${h.count} citations</em><br>${olaLabel}<br><span style="color:#666">Nearest OLA: ${h.nearest}</span>`);
+    m.on('mouseover', function() { this.openPopup(); });
+    m.on('mouseout',  function() { this.closePopup(); });
   });
 
   // Overlay all 14 existing OLA locations as small green dots so readers can
@@ -671,7 +673,10 @@
       fillOpacity: 1,
       color: '#fff',
       weight: 2
-    }).bindPopup(`<strong>${ola.name} OLA</strong><br><em>${ola.acres} acre${ola.acres === 1 ? '' : 's'}</em><br>Existing off-leash area`).addTo(map);
+    }).bindPopup(`<strong>${ola.name} OLA</strong><br><em>${ola.acres} acre${ola.acres === 1 ? '' : 's'}</em><br>Existing off-leash area`)
+      .on('mouseover', function() { this.openPopup(); })
+      .on('mouseout',  function() { this.closePopup(); })
+      .addTo(map);
   });
 
   setTimeout(() => map.invalidateSize(), 300);
@@ -783,7 +788,10 @@
       fillOpacity: 1,
       color: '#fff',
       weight: 1.5
-    }).bindPopup(`<strong>${ola.name}</strong><br><em>${ola.acres} acres</em><br>Existing OLA`).addTo(gapMap);
+    }).bindPopup(`<strong>${ola.name}</strong><br><em>${ola.acres} acres</em><br>Existing OLA`)
+      .on('mouseover', function() { this.openPopup(); })
+      .on('mouseout',  function() { this.closePopup(); })
+      .addTo(gapMap);
   });
 
   // Neighborhood reference markers.
@@ -794,7 +802,10 @@
       fillOpacity: 0.85,
       color: '#fff',
       weight: 1
-    }).bindPopup(`<strong>${n.name}</strong><br><span style="color:#666;">Neighborhood reference point</span>`).addTo(gapMap);
+    }).bindPopup(`<strong>${n.name}</strong><br><span style="color:#666;">Neighborhood reference point</span>`)
+      .on('mouseover', function() { this.openPopup(); })
+      .on('mouseout',  function() { this.closePopup(); })
+      .addTo(gapMap);
   });
 
   setTimeout(() => gapMap.invalidateSize(), 400);
