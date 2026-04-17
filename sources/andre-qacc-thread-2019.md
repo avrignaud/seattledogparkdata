@@ -1,6 +1,6 @@
 # Andre Vrignaud — Queen Anne community thread on off-leash use in Seattle
 
-Source: community mailing-list / Nextdoor-style thread response written by Andre Vrignaud, Upper Queen Anne. Written 2019, referenced Andrew Lewis 2019 city council campaign. Retained as the primary first-person source for the site's opinion/recommendations page and as a data cross-reference.
+Source: community mailing-list / Nextdoor-style thread response written by Andre Vrignaud, Queen Anne. Written 2019, referenced Andrew Lewis 2019 city council campaign. Retained as the primary first-person source for the site's opinion/recommendations page and as a data cross-reference.
 
 This document is the **seed material for `docs/opinion.html`**. It is also the source for several data points not otherwise captured in the site's CSVs — see "Data points to cross-verify" below.
 

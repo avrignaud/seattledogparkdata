@@ -12,6 +12,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
 <style>
   :root {
     --bg: #F6F2E9;
@@ -432,11 +433,29 @@
     </div>
   </div>
   <div class="note-box"><strong>What this shows:</strong> citation activity concentrates in parks that offer no legal off-leash option — Discovery, Volunteer, Cal Anderson, Lincoln, Martha Washington, Wallingford Playfield, Seward, and Maple Leaf Reservoir all appear in the top 20 and all have zero dedicated OLA. Meanwhile, OLAs with adequate capacity (Magnuson's 9 acres, Westcrest's 5.5) draw the highest compliant use — and yet still appear in the citation data because the surrounding non-OLA portions of those parks are regularly used off-leash.</div>
-  <div class="chart-source">Source: SPR Animal Control PRR C049204 · Park coordinates geocoded from park names (approximate, city-scale)</div>
+  <div class="chart-source">Source: Seattle Animal Control citation records via public records request C049204 (full raw response in <a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C049204">data/prr-responses/C049204</a>) · consolidated in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-citations.csv">data/enforcement-citations.csv</a> · park coordinates in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/park-coordinates.csv">data/park-coordinates.csv</a> (approximate, city-scale)</div>
 </div>
 
 <!-- ==================================================================== -->
-<h2><span class="num">Finding 02</span>Top 20 locations by citation count</h2>
+<h2><span class="num">Finding 02</span>The walkshed gap — where demand meets no supply</h2>
+<p class="lead">The map above shows <em>where</em> citations happen. The map below answers the more important question: <em>why</em> they happen there. A kernel-density heatmap of citation locations is overlaid on 0.5-mile walksheds around every existing OLA (the <a href="https://www.tpl.org/parkscore/about">Trust for Public Land 10-minute-walk standard</a>). The white space — areas with citation heat but no walkshed coverage — is the supply failure made visible.</p>
+
+<div class="chart-block">
+  <div class="chart-title">Citation density vs. walkable OLA coverage</div>
+  <div class="chart-subtitle">Red/orange heat = citation density (kernel density estimate from 40 geocoded park locations, weighted by citation count). Green circles = 0.5-mile (10-minute-walk) straight-line walksheds around each of Seattle's 14 existing OLAs. Green dots = OLA locations. Grey dots = representative neighborhood centers for spatial reference.</div>
+  <div id="gap-map" style="height: 640px; border: 1px solid var(--rule);"></div>
+  <div class="map-legend">
+    <div class="legend-item"><span style="display:inline-block;width:18px;height:18px;border-radius:50%;background:radial-gradient(circle,rgba(192,74,30,0.9),rgba(192,74,30,0.15));flex-shrink:0;"></span> Citation density (heatmap)</div>
+    <div class="legend-item"><span style="display:inline-block;width:18px;height:18px;border-radius:50%;background:rgba(76,107,84,0.18);border:1.5px solid var(--accent-2);flex-shrink:0;"></span> Existing OLA 0.5-mile walkshed (14 total)</div>
+    <div class="legend-item"><span class="legend-dot has-ola"></span> Existing OLA location</div>
+    <div class="legend-item"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#888;border:1.5px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,0.2);flex-shrink:0;"></span> Neighborhood center (reference)</div>
+  </div>
+  <div class="note-box"><strong>What this shows:</strong> citation heat concentrates in areas <em>outside</em> any OLA walkshed. North of the Ship Canal — Wallingford, Ravenna, Maple Leaf, Green Lake, Laurelhurst — shows heavy citation density with almost no walkable OLA coverage. Capitol Hill, bounded by Volunteer and Cal Anderson, has two of the top-10 citation locations and a single 0.15-acre pocket OLA (<a href="part2-access.html#size-standards">Plymouth Pillars</a>). The Queen Anne / Magnolia core has Kinnear (0.1 acre) and Magnolia Manor (0.4 acre) — both below the <a href="https://images.akc.org/pdf/GLEG01.pdf">AKC one-acre minimum</a> — and a heavy citation band through Discovery, West Queen Anne Playfield, David Rodgers Park, and Smith Cove. West Seattle has 122 citations at Lincoln Park alone, with Westcrest (5.5 acre OLA) <a href="https://www.openstreetmap.org/directions?from=47.5300%2C-122.3936&to=47.5262%2C-122.3574">3.4 miles</a> away. This is the empirical version of the argument in the <a href="opinion.html">editorial</a>: dog owners run dogs off-leash where they live, and they live where the OLAs aren't.</div>
+  <div class="chart-source">Sources: citation locations from <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-citations.csv">data/enforcement-citations.csv</a> (PRR C049204) · OLA coordinates from <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">data/seattle-olas.csv</a> · walkshed methodology per <a href="https://www.tpl.org/parkscore/about">Trust for Public Land ParkScore</a> (0.5 mi = 10-min walk) · <a href="https://github.com/Leaflet/Leaflet.heat">Leaflet.heat</a> kernel density renderer · neighborhood centers are author-selected representative coordinates, not a formal centroid calculation</div>
+</div>
+
+<!-- ==================================================================== -->
+<h2><span class="num">Finding 03</span>Top 20 locations by citation count</h2>
 <p class="lead">Discovery Park alone accounts for about 9% of all citations in the dataset. The top four non-OLA parks (Discovery, Volunteer, Cal Anderson, Lincoln) account for 905 citations &mdash; nearly one in five.</p>
 
 <div class="chart-block">
@@ -447,7 +466,7 @@
 </div>
 
 <!-- ==================================================================== -->
-<h2><span class="num">Finding 03</span>Enforcement over time</h2>
+<h2><span class="num">Finding 04</span>Enforcement over time</h2>
 <p class="lead">Citations rose sharply from 2015 to 2018, more than doubling. The 2019 number covers only January through October (the public records request's cutoff). Pro-rated, 2019 would likely have exceeded 1,200 citations &mdash; roughly on par with 2018.</p>
 
 <div class="chart-block">
@@ -459,7 +478,7 @@
 </div>
 
 <!-- ==================================================================== -->
-<h2><span class="num">Finding 04</span>Citation severity mix</h2>
+<h2><span class="num">Finding 05</span>Citation severity mix</h2>
 <p class="lead">Animal Control escalates citations by offense count &mdash; 1st offense is a warning or $54 fine; 2nd is $109; 3rd is $136; 4th and beyond is $162. The vast majority are first offenses, indicating a broad population of occasional offenders rather than a small core of repeat violators.</p>
 
 <div class="chart-block">
@@ -470,7 +489,7 @@
 </div>
 
 <!-- ==================================================================== -->
-<h2><span class="num">Finding 05</span>The full top-20 table</h2>
+<h2><span class="num">Finding 06</span>The full top-20 table</h2>
 
 <table class="data">
   <thead>
@@ -488,13 +507,44 @@
 
 <!-- ==================================================================== -->
 <div class="footnotes">
-  <h3>Data notes &amp; caveats</h3>
-  <p><strong>Source.</strong> All citation records in this analysis come from Seattle public records request <strong>C049204</strong>, filed 2019-08-29 by Andre Vrignaud and produced by SPR on 2019-10-15 as five Excel workbooks covering 2014-01-01 through 2019-10-15. The raw files are in the repo under <code>data/prr-responses/C049204/</code>. A consolidated CSV is at <code>data/enforcement-citations.csv</code>.</p>
-  <p><strong>Park-name normalization.</strong> SPR's internal system recorded location names inconsistently (e.g. both "Magnuson Park" and "Warren G. Magnuson Park"). We collapsed obvious variants into canonical names. Addresses that were street addresses rather than park names were kept as-is; these account for ~111 rows (2.3%) and are not represented in the park-level counts.</p>
-  <p><strong>Coordinates.</strong> Park coordinates are approximate, geocoded from park names. They're good enough for a city-scale map; they are <em>not</em> suitable for legal, regulatory, or engineering purposes. The canonical geometry for Seattle parks is on Seattle's ArcGIS Open Data portal.</p>
+  <h3>Source</h3>
+  <p>All citation records in this analysis come from Seattle public records request <strong>C049204</strong>, filed 2019-08-29 by Andre Vrignaud and produced by SPR on 2019-10-15 as five Excel workbooks covering 2014-01-01 through 2019-10-15. The raw XLSX files are in the repo under <a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C049204"><code>data/prr-responses/C049204/</code></a> with a <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/prr-responses/C049204/README.md">README documenting the request</a>. The consolidated CSV is at <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-citations.csv"><code>data/enforcement-citations.csv</code></a>, built by the reproducible script <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/build_enforcement_datasets.py"><code>scripts/build_enforcement_datasets.py</code></a>.</p>
+
+  <h3>Data quality &amp; reconciliation</h3>
+  <p>Of the <strong>4,803 total citations</strong> in the dataset, the underlying location quality breaks down as follows (computed by <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/build_enforcement_datasets.py"><code>build_enforcement_datasets.py</code></a>, reproducible):</p>
+  <table class="data" style="max-width: 720px;">
+    <thead>
+      <tr><th>Location quality</th><th>Count</th><th>Share</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Confidently folded into a canonical named park (e.g. "Warren G Magnuson Park" → "Magnuson Park")</td><td class="num">2,679</td><td class="num">55.8%</td></tr>
+      <tr><td>Named park pass-through (clearly a Seattle park, but not in the canonicalizer's set — smaller/less-cited locations)</td><td class="num">1,341</td><td class="num">27.9%</td></tr>
+      <tr><td>Street address only (no park name — typically a report filed against a house address after the fact)</td><td class="num">672</td><td class="num">14.0%</td></tr>
+      <tr><td>Blank / no location recorded</td><td class="num">111</td><td class="num">2.3%</td></tr>
+      <tr><td><strong>Total</strong></td><td class="num"><strong>4,803</strong></td><td class="num"><strong>100%</strong></td></tr>
+    </tbody>
+  </table>
+
+  <p><strong>What "confidently folded" means.</strong> SPR's internal system recorded the same park under many different strings — inconsistent capitalization, abbreviations, sub-locations appended, minor typos. We collapse these to canonical names using a set of regular expressions in the build script. Every mapping is reviewable in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/build_enforcement_datasets.py#L32"><code>CANONICAL_PARKS</code></a>. For example:</p>
+  <ul style="margin-left: 22px; margin-bottom: 16px; font-size: 13px; color: var(--ink); line-height: 1.55;">
+    <li><strong>Magnuson Park (248 citations)</strong> collapsed from 6 distinct raw strings, including "Warren G Magnuson Park", "Warren G. Magnuson Park", "Magnuson park", "Warren G Magnuson Park - Athletic Fields", and more.</li>
+    <li><strong>Alki Beach Park (55 citations)</strong> collapsed from 6 variants, including "Alki Beach @ 52nd Ave SW" and "Alki Beach near 53rd Av SW".</li>
+    <li><strong>Woodland Park (222 citations)</strong> collapsed from 5 variants including "Lower Woodland Park ball field" and "Woodland Park Off-Leash". This fold is intentionally lossy: the Lower Woodland OLA (0.75 ac) is inside the larger Woodland Park, and the raw records often do not distinguish citations inside the OLA from citations elsewhere in the park. Citations issued <em>inside</em> a designated OLA are unusual but not impossible (leash-required perimeter, small-dog-area boundaries). The partial-OLA classification on the hotspot map reflects this ambiguity.</li>
+    <li><strong>West Queen Anne Playfield (77 citations)</strong> collapsed from 3 variants: "W. Queen Anne Playfield", "West Queen Anne Playfield", "W Queen Anne Playfield".</li>
+  </ul>
+
+  <p>Across the 811 distinct canonical entries, only 43 were multi-variant (i.e. required reconciliation). The remaining 768 distinct park names came through with only one spelling in the raw data.</p>
+
+  <p><strong>The 672 street-address rows</strong> (14.0%) are excluded from the per-park counts and the hotspot map because there is no reliable park-name association. They are preserved in <code>enforcement-citations.csv</code> with the original <code>location_raw</code> string; a future pass using a geocoding API against Seattle's park-boundary GIS layer could recover some of them. The 111 blank-location rows are lost entirely for spatial analysis — we can still count them in the year trend and offense-level breakdown, but not place them.</p>
+
+  <p><strong>Combined, citations with blank or street-only locations total 783 (16.3%).</strong> This is the floor on spatial analysis precision. The park-level totals and the hotspot map should be read as covering the <strong>4,020 citations (83.7%) with an identifiable park name</strong>, not the full 4,803.</p>
+
+  <h3>Other caveats</h3>
+  <p><strong>Coordinates.</strong> Park coordinates are approximate, geocoded from park names by hand into <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/park-coordinates.csv"><code>data/park-coordinates.csv</code></a>. They are good enough for a city-scale map; they are not suitable for legal, regulatory, or engineering purposes. Canonical geometry for Seattle parks is on <a href="https://data-seattlecitygis.opendata.arcgis.com/">Seattle's ArcGIS Open Data portal</a>.</p>
   <p><strong>"No OLA" classification.</strong> A park is labeled "no OLA" if it contains no fenced, dedicated off-leash area. Large parks with a small OLA in one section (Woodland Park, containing the 0.75-acre Lower Woodland OLA) are labeled "partial" because citations in the non-OLA portions of the park are still illegal off-leash use.</p>
-  <p><strong>2019 is partial.</strong> The dataset ends October 15, 2019. Year-over-year comparisons involving 2019 need to be interpreted as partial-year; the dashed annualization in the year-trend chart is a naive linear projection and should not be over-read. A follow-up PRR has been filed for October 2019 through present.</p>
+  <p><strong>2019 is partial.</strong> The dataset ends October 15, 2019. Year-over-year comparisons involving 2019 need to be interpreted as partial-year; the dashed annualization in the year-trend chart is a naive linear projection (count × 365 / 288) and should not be over-read. A follow-up public records request has been filed for October 2019 through present (draft at <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/prrs/01-spr-offleash-citations-post-2019.md"><code>prrs/01-spr-offleash-citations-post-2019.md</code></a>).</p>
   <p><strong>What this data does and doesn't say.</strong> Citations reflect enforcement activity, not underlying violation rates. A drop in citations at a given park could mean fewer violations, fewer patrols, or both. Conversely, a concentration at a given park reflects both where violations occur <em>and</em> where rangers chose to patrol. SPR deployment patterns over 2014&ndash;2019 are not in this dataset; a separate PRR would be needed.</p>
+  <p><strong>Fee column.</strong> Recorded fees in the raw data are $0 (1st-offense verbal warning), $54 (1st-offense citation), $109 (2nd), $136 (3rd), $162 (4th+). The Seattle Municipal Code <a href="https://library.municode.com/wa/seattle/codes/municipal_code?nodeId=TIT18PALA_CH18.12GEPRRE_SUBCHAPTER_IIOFPRPA_18.12.080DORELI">18.12.080(A)</a> and fine schedule are the legal reference.</p>
 </div>
 
 </div>
@@ -589,6 +639,129 @@
     m.bindPopup(`<strong>${h.park}</strong><br>${h.neigh}<br><em>${h.count} citations</em><br>${olaLabel}<br><span style="color:#666">Nearest OLA: ${h.nearest}</span>`);
   });
   setTimeout(() => map.invalidateSize(), 300);
+
+  // ===================================================================
+  // --- Walkshed Gap map (Finding 02) ---
+  // Heatmap of citation locations + OLA 0.5-mile walksheds + neighborhood centers.
+  // Methodology: leaflet.heat kernel density estimate over 40 geocoded parks,
+  // each weighted by citation count (2014–2019 totals). Walkshed = 0.5 mi straight
+  // line (the TPL 10-minute walk proxy). See data/build_enforcement_datasets.py
+  // for the derivation of the underlying aggregates.
+  // ===================================================================
+
+  // Additional geocoded parks beyond the top-20 in HOTSPOTS (ranks 21–40).
+  // Coords approximate from park names; see data/park-coordinates.csv.
+  const HEATMAP_EXTRA = [
+    { park: 'Ballard Playground',       count: 44, lat: 47.6687, lng: -122.3852 },
+    { park: 'Gilman Playground',        count: 35, lat: 47.6756, lng: -122.3876 },
+    { park: 'Carkeek Park',             count: 34, lat: 47.7111, lng: -122.3767 },
+    { park: 'Laurelhurst Playfield',    count: 32, lat: 47.6625, lng: -122.2770 },
+    { park: 'David Rodgers Park',       count: 31, lat: 47.6386, lng: -122.3588 },
+    { park: 'Salmon Bay Park',          count: 29, lat: 47.6711, lng: -122.3898 },
+    { park: 'Myrtle Edwards Park',      count: 27, lat: 47.6204, lng: -122.3582 },
+    { park: 'Gilman Playfield',         count: 26, lat: 47.6756, lng: -122.3876 },
+    { park: 'Smith Cove Park',          count: 25, lat: 47.6344, lng: -122.3843 },
+    { park: 'Interbay Playfield',       count: 24, lat: 47.6462, lng: -122.3789 },
+    { park: 'Alki Playground',          count: 19, lat: 47.5757, lng: -122.4064 },
+    { park: 'Leschi Park',              count: 19, lat: 47.6028, lng: -122.2861 },
+    { park: 'Madrona Park',             count: 19, lat: 47.6083, lng: -122.2886 },
+    { park: 'Ross Playground',          count: 19, lat: 47.6578, lng: -122.3655 },
+    { park: 'Madison Park',             count: 18, lat: 47.6361, lng: -122.2797 },
+    { park: 'Schmitz Preserve Park',    count: 18, lat: 47.5767, lng: -122.3933 },
+    { park: 'Pratt Park',               count: 17, lat: 47.6011, lng: -122.3066 },
+    { park: 'Gas Works Park',           count: 16, lat: 47.6456, lng: -122.3344 },
+    { park: 'Hiawatha Playfield',       count: 16, lat: 47.5785, lng: -122.3849 },
+    { park: 'Matthews Beach Park',      count: 16, lat: 47.6986, lng: -122.2684 }
+  ];
+
+  // All 14 existing OLAs with coordinates. Source: data/seattle-olas.csv.
+  const OLAS_ALL = [
+    { name: 'Magnuson Park',        lat: 47.6809, lng: -122.2574, acres: 9.0 },
+    { name: 'Westcrest',            lat: 47.5262, lng: -122.3574, acres: 5.5 },
+    { name: 'Genesee',              lat: 47.5599, lng: -122.2688, acres: 2.7 },
+    { name: 'I-5 Colonnade',        lat: 47.6486, lng: -122.3228, acres: 1.8 },
+    { name: 'Blue Dog Pond',        lat: 47.5904, lng: -122.2931, acres: 1.7 },
+    { name: 'Northacres',           lat: 47.7208, lng: -122.3247, acres: 1.4 },
+    { name: 'Dr. Jose Rizal',       lat: 47.5886, lng: -122.3190, acres: 1.3 },
+    { name: 'Golden Gardens',       lat: 47.6911, lng: -122.4034, acres: 0.95 },
+    { name: 'Lower Woodland',       lat: 47.6706, lng: -122.3358, acres: 0.75 },
+    { name: 'Denny Park',           lat: 47.6186, lng: -122.3369, acres: 0.75 },
+    { name: 'Magnolia Manor',       lat: 47.6580, lng: -122.3991, acres: 0.4 },
+    { name: 'Regrade',              lat: 47.6154, lng: -122.3416, acres: 0.2 },
+    { name: 'Plymouth Pillars',     lat: 47.6145, lng: -122.3236, acres: 0.15 },
+    { name: 'Kinnear',              lat: 47.6295, lng: -122.3683, acres: 0.1 }
+  ];
+
+  // Representative neighborhood centers — author-selected, not formal centroids.
+  // Purpose: spatial reference, so readers can locate where dogs live vs. where citations fall.
+  const NEIGHBORHOODS = [
+    { name: 'Queen Anne',      lat: 47.6345, lng: -122.3578 },
+    { name: 'Capitol Hill',    lat: 47.6253, lng: -122.3217 },
+    { name: 'Wallingford',     lat: 47.6615, lng: -122.3344 },
+    { name: 'Ballard',         lat: 47.6687, lng: -122.3852 },
+    { name: 'Magnolia',        lat: 47.6485, lng: -122.3973 },
+    { name: 'Fremont',         lat: 47.6506, lng: -122.3508 },
+    { name: 'Ravenna',         lat: 47.6697, lng: -122.3102 },
+    { name: 'Madrona',         lat: 47.6083, lng: -122.2886 },
+    { name: 'West Seattle',    lat: 47.5614, lng: -122.3866 },
+    { name: 'Central District',lat: 47.6066, lng: -122.3057 },
+    { name: 'Rainier Valley',  lat: 47.5498, lng: -122.2754 },
+    { name: 'Green Lake',      lat: 47.6780, lng: -122.3290 }
+  ];
+
+  const gapMap = L.map('gap-map', { scrollWheelZoom: false }).setView([47.6205, -122.3493], 11);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; OpenStreetMap &copy; CARTO',
+    maxZoom: 19
+  }).addTo(gapMap);
+
+  // Combine all geocoded citation points for the heatmap. Weight = citation count.
+  const ALL_CITATION_POINTS = [...HOTSPOTS, ...HEATMAP_EXTRA];
+  // Normalize weights so the max point doesn't saturate the gradient.
+  const maxWeight = Math.max(...ALL_CITATION_POINTS.map(p => p.count));
+  const heatPoints = ALL_CITATION_POINTS.map(p => [p.lat, p.lng, p.count / maxWeight]);
+
+  L.heatLayer(heatPoints, {
+    radius: 38,
+    blur: 45,
+    maxZoom: 17,
+    minOpacity: 0.35,
+    gradient: { 0.2: '#FDE5D8', 0.4: '#F3A77A', 0.6: '#E46F3D', 0.8: '#C04A1E', 1.0: '#8B2518' }
+  }).addTo(gapMap);
+
+  // 0.5-mile walksheds around each existing OLA (TPL 10-minute walk proxy).
+  const HALF_MILE_M = 804.67;
+  OLAS_ALL.forEach(ola => {
+    L.circle([ola.lat, ola.lng], {
+      radius: HALF_MILE_M,
+      fillColor: ACCENT_2,
+      fillOpacity: 0.12,
+      color: ACCENT_2,
+      weight: 1.2,
+      opacity: 0.7,
+      interactive: false
+    }).addTo(gapMap);
+    L.circleMarker([ola.lat, ola.lng], {
+      radius: 5,
+      fillColor: ACCENT_2,
+      fillOpacity: 1,
+      color: '#fff',
+      weight: 1.5
+    }).bindPopup(`<strong>${ola.name}</strong><br><em>${ola.acres} acres</em><br>Existing OLA`).addTo(gapMap);
+  });
+
+  // Neighborhood reference markers.
+  NEIGHBORHOODS.forEach(n => {
+    L.circleMarker([n.lat, n.lng], {
+      radius: 4,
+      fillColor: '#888',
+      fillOpacity: 0.85,
+      color: '#fff',
+      weight: 1
+    }).bindPopup(`<strong>${n.name}</strong><br><span style="color:#666;">Neighborhood reference point</span>`).addTo(gapMap);
+  });
+
+  setTimeout(() => gapMap.invalidateSize(), 400);
 
   // --- Top parks bar chart ---
   new Chart(document.getElementById('chartTopParks'), {

@@ -14,7 +14,7 @@ Request for data / cross-reference — seattledogparkdata.com
 
 Hi COLA team,
 
-I'm Andre Vrignaud, a long-time Upper Queen Anne resident and Seattle dog owner. I participated in SPR's 2014–2017 *People, Dogs and Parks Strategic Plan* interview process as a community member.
+I'm Andre Vrignaud, a long-time Queen Anne resident and Seattle dog owner. I participated in SPR's 2014–2017 *People, Dogs and Parks Strategic Plan* interview process as a community member.
 
 I recently launched a civic-data project at **[seattledogparkdata.com](https://seattledogparkdata.com)** that pulls together everything I could find in the public record on Seattle's off-leash area system — supply, per-capita comparison with peer cities, acreage, walkability, budget allocation, the Kinnear Park case study, and SPR's own enforcement data (obtained through public records request C049204, 4,803 citations 2014–2019). The site is meant to be a neutral, primary-source-linked reference, plus one clearly marked opinion page for my own recommendations.
 

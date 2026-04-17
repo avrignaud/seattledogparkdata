@@ -122,5 +122,5 @@ Bad answers:
 * "Let's write a script that scrapes SPR nightly." No — the data changes on multi-year timescales; a quarterly manual refresh is correct.  
 * "Let's add analytics so we can see who's reading." No.  
 ## Communication context  
-Andre (the project owner) lives in Upper Queen Anne — which is the neighborhood whose only nearby OLA is Kinnear (the 0.1-acre case study in Part II). This is personal for him as well as civic. That context matters for tone calibration, but the reports themselves should remain neutral.  
+Andre (the project owner) lives in Queen Anne — which is the neighborhood whose only nearby OLA is Kinnear (the 0.1-acre case study in Part II). This is personal for him as well as civic. That context matters for tone calibration, but the reports themselves should remain neutral.  
 The existing reports were drafted collaboratively via claude.ai; the expectation from here is that Claude Code will extend and refine the work from the repo directly.  
