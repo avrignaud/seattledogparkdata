@@ -510,6 +510,18 @@ The Park District Cycle 2 one-time capital of $3.46M is presented by SPR as a si
 <div class="chart-source">Source: <a href="https://www.seattle.gov/documents/Departments/FinanceDepartment/2631poposedcip/2026-2031%20Proposed%20CIP%20Book.pdf">Seattle 2026-2031 Proposed Capital Improvement Program</a> · <a href="https://www.seattle.gov/parks/about-us/projects/west-seattle-stadium-off-leash-area-development">SPR West Seattle Stadium project page</a></div>
 
 <!-- ==================================================================== -->
+<h2><span class="num">Chart 07</span>The disparity, one axis — so you can see it</h2>
+<p class="lead">Charts 01 and 03 put SPR's total budget and the OLA line on separate axes because the numbers are 1,000× apart. That's the most readable chart. This is the less-readable one — same numbers, one axis — because the readability problem <em>is</em> the point.</p>
+
+<div class="chart-block">
+  <div class="chart-title">Seattle SPR and related spending lines, 2026 proposed — on one dollar scale</div>
+  <div class="chart-subtitle">Horizontal bars, all in millions of dollars. Log scale (base 10) is used because otherwise the OLA-only bar is literally invisible at any reasonable chart width. Annotations point out which bars represent individual capital projects versus annual operating lines versus the OLA.</div>
+  <div class="chart-wrap tall"><canvas id="chartSingleAxis"></canvas></div>
+  <div class="note-box"><strong>What this shows:</strong> the smallest bar on the chart (<strong>$129K, OLA-only operating 2024</strong>) is 3,929× smaller than the largest ($507M, SPR 2026 total proposed). In linear terms they cannot fit on the same chart. In log terms you can finally see them together — and what you see is that the "dog-park budget," as actually reported by SPR, is comparable in scale to the purchase of supplies and equipment for a few dozen city employees, not to any recognizable line of the parks budget.</div>
+  <div class="chart-source">Source: <a href="https://www.seattle.gov/documents/departments/financedepartment/2526proposedbudget/spr.pdf">Seattle 2025-26 SPR Proposed Budget</a> · <a href="https://www.seattle.gov/documents/Departments/FinanceDepartment/2631poposedcip/2026-2031%20Proposed%20CIP%20Book.pdf">Seattle 2026-2031 Proposed CIP</a> · <a href="https://parkways.seattle.gov/">Parkways blog</a> · raw data in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/budget-detail.csv">data/budget-detail.csv</a></div>
+</div>
+
+<!-- ==================================================================== -->
 <h2><span class="num">Appendix</span>The raw budget table</h2>
 
 <p>
@@ -819,11 +831,11 @@ The full year-by-year data is in <a href="https://github.com/avrignaud/seattledo
         legend: { position: 'top', align: 'start', labels: { usePointStyle: true, padding: 12, font: { size: 11 } } },
         tooltip: { callbacks: { label: ctx => ctx.dataset.label + ': $' + ctx.parsed.y.toFixed(2) + 'M' } },
         datalabels: {
-          display: ctx => ctx.parsed.y > 0,
+          display: ctx => !!(ctx && ctx.parsed && ctx.parsed.y > 0),
           anchor: 'center', align: 'center',
           color: '#fff',
           font: { family: "'IBM Plex Mono', monospace", size: 12, weight: '500' },
-          formatter: v => '$' + v.toFixed(2) + 'M'
+          formatter: v => '$' + (v || 0).toFixed(2) + 'M'
         }
       },
       scales: {
@@ -835,6 +847,66 @@ The full year-by-year data is in <a href="https://github.com/avrignaud/seattledo
           ticks: { ...baseAxisStyle.ticks, callback: v => '$' + v + 'M' }
         }
       }
+    }
+  });
+
+  // --- Chart 07: single-axis log-scale disparity chart ---
+  // Same numbers you see split across Charts 01 and 06, put on one $M axis.
+  // Log scale is the only way to see the OLA-only line next to SPR total.
+  const SINGLE_AXIS = [
+    { label: 'SPR 2026 total budget (all funds, proposed)',                 value: 506.9, kind: 'total' },
+    { label: 'Seattle Park District annual levy (~$0.23 per $1,000 AV)',    value: 53.0,  kind: 'levy' },
+    { label: 'SPR 2026 CIP total (all capital projects)',                   value: 87.7,  kind: 'cip' },
+    { label: 'Cycle 2 OLA one-time capital (W. Seattle Stadium + Othello + Ravenna design)', value: 3.46, kind: 'ola-capital' },
+    { label: 'SPR 2026 Green Lake CC + Evans Pool planning CIP line',       value: 2.7,  kind: 'single-cip' },
+    { label: 'SPR 2026 city-restroom-improvements CIP line',                value: 2.0,  kind: 'single-cip' },
+    { label: 'OLA + P-Patch combined BSL, 2026 proposed',                   value: 1.846, kind: 'combined' },
+    { label: 'SPR 2026 Gas Works Park priority CIP line',                   value: 1.8,  kind: 'single-cip' },
+    { label: 'OLA-only operating line, 2024 (last year disclosed)',         value: 0.129, kind: 'ola-only' }
+  ];
+  SINGLE_AXIS.sort((a, b) => b.value - a.value);
+  const SINGLE_COLORS = { 'total': ACCENT_3, 'levy': ACCENT_3, 'cip': ACCENT_3, 'single-cip': ACCENT_4, 'ola-capital': ACCENT, 'combined': 'rgba(192,74,30,0.5)', 'ola-only': ACCENT };
+
+  new Chart(document.getElementById('chartSingleAxis'), {
+    type: 'bar',
+    data: {
+      labels: SINGLE_AXIS.map(r => r.label),
+      datasets: [{
+        data: SINGLE_AXIS.map(r => r.value),
+        backgroundColor: SINGLE_AXIS.map(r => SINGLE_COLORS[r.kind]),
+        borderWidth: 0,
+        borderRadius: 2
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: ctx => '$' + ctx.parsed.x + 'M' } },
+        datalabels: {
+          display: true,
+          anchor: 'end', align: 'right',
+          color: INK,
+          font: { family: "'IBM Plex Mono', monospace", size: 11, weight: '500' },
+          formatter: v => (v == null) ? '' : (v >= 1 ? '$' + v.toFixed(v >= 10 ? 0 : 1) + 'M' : '$' + Math.round(v * 1000) + 'K')
+        }
+      },
+      scales: {
+        x: {
+          type: 'logarithmic',
+          position: 'bottom',
+          min: 0.1,
+          max: 1000,
+          grid: { color: 'rgba(60,74,92,0.08)' },
+          ticks: { font: { size: 11 }, color: INK_SOFT },
+          title: { display: true, text: '$ millions (log scale)', color: INK_SOFT, font: { size: 11, family: "'IBM Plex Mono', monospace" } }
+        },
+        y: {
+          ticks: { font: { size: 11, weight: '500' }, color: INK_SOFT, autoSkip: false }
+        }
+      },
+      layout: { padding: { right: 56 } }
     }
   });
 </script>
