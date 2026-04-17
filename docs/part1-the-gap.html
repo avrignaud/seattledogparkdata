@@ -760,7 +760,7 @@
             weight: (ctx.raw && ctx.raw.label === 'Seattle') ? '600' : '400',
             family: "'IBM Plex Sans', sans-serif"
           }),
-          formatter: (v, ctx) => ctx.raw.label
+          formatter: (v, ctx) => (ctx && ctx.raw) ? ctx.raw.label : ''
         }
       },
       scales: {
