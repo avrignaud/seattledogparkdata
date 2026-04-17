@@ -26,7 +26,7 @@ If this request would be better directed to Seattle Animal Control, the Seattle 
 Thank you,
 
 Andre Vrignaud
-22 Howe Street, Seattle, WA 98109
+Queen Anne, Seattle, WA
 seattledogparkdata@ozymandi.as
 
 ## Analysis purpose
