@@ -630,9 +630,9 @@
     <div class="note">Seattle residents (TPL 2025). National best-in-class.</div>
   </div>
   <div class="stat alert">
-    <div class="label">10-min walk to an OLA (est.)</div>
-    <div class="num">~33%</div>
-    <div class="note">Estimated from OLA locations &amp; block-group population</div>
+    <div class="label">10-min network walk to an OLA</div>
+    <div class="num">9.6%</div>
+    <div class="note">Seattle residents, osmnx network + 2020 Census block groups</div>
   </div>
   <div class="stat alert">
     <div class="label">SPR's OLA amenity score</div>
@@ -658,10 +658,10 @@
 
 <div class="chart-block">
   <div class="chart-title">Share of Seattle within a 10-minute walk</div>
-  <div class="chart-subtitle">TPL's published figure for any park (99% of residents) alongside two OLA-specific estimates. The straight-line bar uses half-mile circular buffers around each OLA's entrance. The network bar uses a proper <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/compute_walkshed.py">osmnx network-distance computation</a> — half-mile walking paths respecting physical barriers (I-5, Ship Canal, etc.). Both OLA bars are <strong>area</strong> coverage unless otherwise noted; population-weighted coverage requires Census block-group overlay (pending).</div>
+  <div class="chart-subtitle">All three bars are <strong>population</strong> coverage — share of Seattle residents within the specified walk of the amenity. TPL's 99% for any park is their published figure. The two OLA bars are computed by this site: an osmnx network walkshed around every OLA (<a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/compute_walkshed.py">compute_walkshed.py</a>) intersected with 2020 Census block-group population (<a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/population_coverage.py">population_coverage.py</a>), area-weighted.</div>
   <div class="chart-wrap short"><canvas id="chartWalkshed"></canvas></div>
-  <div class="chart-takeaway"><strong>What this shows:</strong> Using the same 10-minute-walk metric TPL publishes for any park (99% of residents), a real network-distance analysis shows only <strong>5.6% of Seattle's land area</strong> is inside a 10-minute walking path of an existing OLA. Straight-line buffers suggest ~9% (overestimating because they cut through water, freeways, and greenbelts). To cover a comparable share to the "any park" figure requires going out to SPR's published <strong>2.5-mile standard</strong>, which reaches ~81% of Seattle's area — but 2.5 miles is a 50-minute walk one way, not 10. Choose your standard honestly: at 10 minutes, most Seattle dog owners have no legal walkable OLA. Many respond by illegally using a local park — <a href="#illegal-use" style="color: var(--accent-3); text-decoration: underline;">the subject of Part Three</a>. Population-weighted coverage (residents within walkshed, not area within walkshed) requires a Census block-group overlay — drafted in the <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/METHODOLOGY.md">methodology notes</a> as a planned follow-up.</div>
-  <div class="chart-source">Source: <a href="https://www.tpl.org/city/seattle-washington">TPL 2025 ParkScore Seattle</a> (all-parks access) · OLA walkshed coverage is an author straight-line estimate using <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">OLA coordinates</a> and <a href="https://www.tpl.org/parkscore/about">TPL half-mile methodology</a> — a proper network-distance version is in progress via <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/compute_walkshed.py">scripts/compute_walkshed.py</a></div>
+  <div class="chart-takeaway"><strong>What this shows:</strong> Using the same 10-minute-walk metric TPL publishes for any park (<strong>99%</strong> of Seattle residents), the equivalent OLA figure is <strong>9.6%</strong> — roughly 70,800 residents out of a total 737,600 in the 2020 Census. To reach anywhere close to the "any park" coverage requires going out to SPR's <strong>2.5-mile standard</strong>, which covers 79.4% of residents — but 2.5 miles is a ~50-minute walk one way, not 10 minutes. The 10-min standard is the one TPL, SPR itself, and the urbanist literature use for park access. SPR applied it when celebrating Seattle's park system generally; when it comes to OLAs, SPR switched to a standard 5× more permissive. That is the asymmetry. At the honest 10-min standard, more than nine out of every ten Seattle residents have no legal walkable OLA. Many respond by illegally using a local park — <a href="#illegal-use" style="color: var(--accent-3); text-decoration: underline;">the subject of Part Three</a>. Full methodology and outputs in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/walkshed/population_coverage.csv">data/walkshed/population_coverage.csv</a>.</div>
+  <div class="chart-source">Source: <a href="https://www.tpl.org/city/seattle-washington">TPL 2025 ParkScore Seattle</a> (all-parks access, 99%) · OLA network walksheds computed via <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/compute_walkshed.py">scripts/compute_walkshed.py</a> (<a href="https://github.com/gboeing/osmnx">osmnx</a> + Seattle OpenStreetMap walk network, 110,383 nodes · 305,582 edges, projected to UTM 10N) · population overlay via <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/population_coverage.py">scripts/population_coverage.py</a> against <a href="https://api.census.gov/data/2020/dec/pl">2020 Census Decennial P1</a> block-group population (<a href="https://pygris.readthedocs.io/">pygris</a> for TIGER/Line geometry, area-weighted attribution) · output in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/walkshed/population_coverage.csv">data/walkshed/population_coverage.csv</a> · methodology in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/METHODOLOGY.md">METHODOLOGY.md</a></div>
 </div>
 
 <h2><span class="num">Finding 02</span>Mapping the OLA gap</h2>
@@ -984,14 +984,13 @@
     type: 'bar',
     data: {
       labels: [
-        'Any park, 10-min walk (pop. — TPL)',
-        'OLA, 10-min straight-line (area, author est.)',
-        'OLA, 10-min network walk (area, computed)',
-        'OLA, 2.5-mi network walk (SPR standard, area)'
+        'Any park, 10-min walk (TPL)',
+        'OLA, 10-min network walk (computed)',
+        'OLA, 2.5-mi network walk (SPR standard)'
       ],
       datasets: [{
-        data: [99, 9, 5.6, 80.9],
-        backgroundColor: [PEER, SEATTLE, SEATTLE, 'rgba(192,74,30,0.5)'],
+        data: [99, 9.6, 79.4],
+        backgroundColor: [PEER, SEATTLE, 'rgba(192,74,30,0.5)'],
         borderWidth: 0,
         borderRadius: 2
       }]
