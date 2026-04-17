@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seattle Dog Park Data — Full Report (Print/PDF Edition)</title>
+<meta name="description" content="Consolidated print-optimized report combining all five reports on seattledogparkdata.com. Use File → Print → Save as PDF in your browser to generate the full PDF.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
+<style>
+  :root {
+    --bg: #F6F2E9;
+    --ink: #121820;
+    --ink-soft: #3C4A5C;
+    --rule: #D8CFBD;
+    --accent: #C04A1E;
+    --accent-2: #4C6B54;
+    --accent-3: #2C4A6E;
+    --accent-4: #A68A2E;
+    --danger: #8B2518;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .print-banner {
+    background: var(--accent-3);
+    color: #F6F2E9;
+    padding: 14px 20px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-align: center;
+    line-height: 1.5;
+  }
+  .print-banner button {
+    background: #F6F2E9;
+    color: var(--accent-3);
+    border: none;
+    padding: 8px 18px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-left: 14px;
+    cursor: pointer;
+    border-radius: 2px;
+  }
+  .print-banner a { color: #F6F2E9; text-decoration: underline; }
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 50px 60px 120px;
+  }
+  .cover {
+    text-align: center;
+    padding: 100px 0 80px;
+    border-bottom: 3px solid var(--ink);
+  }
+  .cover .logo {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 40px;
+  }
+  .cover h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    font-size: 56px;
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+    margin-bottom: 20px;
+    max-width: 780px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .cover h1 em { font-style: italic; font-weight: 400; color: var(--accent); }
+  .cover .subtitle {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    line-height: 1.4;
+    font-weight: 300;
+    color: var(--ink-soft);
+    max-width: 640px;
+    margin: 0 auto 32px;
+  }
+  .cover .meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    line-height: 1.8;
+  }
+  .toc {
+    padding: 60px 0;
+    border-bottom: 1px solid var(--rule);
+    page-break-after: always;
+    break-after: page;
+  }
+  .toc h2 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 24px;
+  }
+  .toc ol { list-style: none; counter-reset: section; padding: 0; }
+  .toc li {
+    counter-increment: section;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+  }
+  .toc li::before {
+    content: counter(section, decimal-leading-zero);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    min-width: 30px;
+  }
+  .toc li .title {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+  .toc li .tag {
+    margin-left: auto;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  section.part {
+    padding: 60px 0 40px;
+    border-bottom: 1px solid var(--rule);
+    page-break-before: always;
+    break-before: page;
+  }
+  section.part.opinion { border-left: 0; }
+  section.part h2 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 18px;
+  }
+  section.opinion h2 { color: var(--accent-3); }
+  section.part h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 36px;
+    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+    max-width: 780px;
+  }
+  section.part h3 em { font-style: italic; font-weight: 400; color: var(--accent); }
+  section.opinion h3 em { color: var(--accent-3); }
+  section.part .deck {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    line-height: 1.45;
+    font-weight: 300;
+    color: var(--ink-soft);
+    max-width: 780px;
+    margin-bottom: 32px;
+  }
+  section.part h4 {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 600;
+    margin: 32px 0 10px;
+  }
+  section.part p { margin-bottom: 14px; max-width: 780px; font-size: 15px; line-height: 1.55; }
+  section.part p.lead { font-size: 17px; line-height: 1.55; }
+  section.part p a, section.part li a { color: var(--accent-3); text-decoration: underline; text-underline-offset: 2px; }
+  section.part ul { margin: 14px 0 18px 22px; max-width: 780px; }
+  section.part li { margin-bottom: 8px; font-size: 15px; line-height: 1.55; }
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin: 24px 0 28px;
+    border-top: 2px solid var(--ink);
+    border-bottom: 1px solid var(--rule);
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  .stat-row .stat { padding: 14px 14px 12px; border-right: 1px solid var(--rule); }
+  .stat-row .stat:last-child { border-right: none; }
+  .stat-row .stat .label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 6px; }
+  .stat-row .stat .num { font-family: 'Fraunces', serif; font-size: 30px; font-weight: 600; line-height: 1; letter-spacing: -0.02em; margin-bottom: 4px; }
+  .stat-row .stat.alert .num { color: var(--accent); }
+  .stat-row .stat.accent3 .num { color: var(--accent-3); }
+  .stat-row .stat .note { font-size: 11px; color: var(--ink-soft); line-height: 1.35; }
+  .chart-block {
+    margin: 24px 0 32px;
+    padding: 22px 24px 20px;
+    background: #fff;
+    border: 1px solid var(--rule);
+    position: relative;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  .chart-block::before { content: ""; position: absolute; top: -1px; left: -1px; width: 28px; height: 28px; border-top: 2px solid var(--ink); border-left: 2px solid var(--ink); }
+  .chart-title { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 600; line-height: 1.2; margin-bottom: 4px; }
+  .chart-subtitle { font-size: 12px; color: var(--ink-soft); margin-bottom: 14px; max-width: 720px; }
+  .chart-wrap { position: relative; height: 340px; }
+  .chart-wrap.tall { height: 460px; }
+  .chart-wrap.short { height: 240px; }
+  .chart-source { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.06em; color: var(--ink-soft); margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--rule); text-transform: uppercase; }
+  .chart-source a { color: var(--ink-soft); }
+  .note-box {
+    background: var(--bg);
+    border-left: 3px solid var(--accent-3);
+    padding: 12px 16px;
+    margin: 12px 0 20px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .note-box strong { color: var(--accent-3); font-weight: 600; }
+  .signature {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 18px;
+    margin-top: 36px;
+    padding-top: 18px;
+    border-top: 1px solid var(--rule);
+  }
+  .signature .meta {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    font-style: normal;
+    margin-top: 8px;
+  }
+  table.data { width: 100%; border-collapse: collapse; font-size: 12px; margin: 12px 0 24px; font-feature-settings: "tnum"; font-variant-numeric: tabular-nums; }
+  table.data th { text-align: left; padding: 6px 12px 6px 0; border-bottom: 2px solid var(--ink); font-weight: 500; font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; }
+  table.data td { padding: 5px 12px 5px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  table.data td.num { font-family: 'IBM Plex Mono', monospace; text-align: right; padding-right: 12px; }
+  .recommendation {
+    background: #fff;
+    border: 2px solid var(--accent-3);
+    padding: 28px 30px 24px;
+    margin: 28px 0;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    position: relative;
+  }
+  .recommendation::before {
+    content: "Recommendation";
+    position: absolute;
+    top: -12px;
+    left: 22px;
+    background: var(--accent-3);
+    color: #F6F2E9;
+    padding: 4px 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .recommendation h4 { margin-top: 6px; font-size: 20px; }
+  .recommendation ol { margin-left: 20px; }
+  .recommendation li { font-size: 13px; line-height: 1.5; margin-bottom: 8px; max-width: 680px; }
+  .principle {
+    border-left: 3px solid var(--accent-3);
+    padding: 6px 0 6px 16px;
+    margin: 16px 0;
+    max-width: 780px;
+  }
+  .principle.opinion { border-left-color: var(--accent); }
+  .principle h4 { margin-top: 0; font-size: 16px; line-height: 1.3; margin-bottom: 6px; }
+  .principle h4 .num-inline { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--accent-3); margin-right: 8px; }
+  .principle.opinion h4 .num-inline { color: var(--accent); }
+  .principle p { font-size: 13px; margin-bottom: 6px; }
+  footer.report-footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 2px solid var(--ink);
+    font-size: 12px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  footer.report-footer h3 { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; margin: 18px 0 10px; color: var(--ink); font-weight: 500; }
+  footer.report-footer p { font-size: 11px; margin-bottom: 6px; }
+  footer.report-footer a { color: var(--ink-soft); }
+
+  @media (max-width: 760px) {
+    .container { padding: 30px 22px 60px; }
+    .cover h1 { font-size: 36px; }
+    section.part h3 { font-size: 26px; }
+    .stat-row { grid-template-columns: repeat(2, 1fr); }
+    .stat-row .stat:nth-child(2) { border-right: none; }
+    .stat-row .stat:nth-child(1), .stat-row .stat:nth-child(2) { border-bottom: 1px solid var(--rule); }
+  }
+
+  @page { size: Letter; margin: 0.6in 0.5in; }
+  @media print {
+    html, body { background: #fff; color: #000; font-size: 10pt; line-height: 1.4; }
+    .print-banner { display: none; }
+    .container { padding: 0; max-width: none; }
+    .cover { padding: 80px 0 60px; }
+    .cover h1 { font-size: 34pt; }
+    .cover .subtitle { font-size: 14pt; }
+    .cover .meta { font-size: 8pt; }
+    .toc { padding: 30px 0; }
+    .toc li .title { font-size: 13pt; }
+    section.part { padding: 24px 0 14px; page-break-before: always; break-before: page; }
+    section.part h2 { font-size: 8pt; margin-bottom: 10px; }
+    section.part h3 { font-size: 20pt; margin-bottom: 10px; }
+    section.part .deck { font-size: 11pt; margin-bottom: 14px; }
+    section.part h4 { font-size: 13pt; margin: 18px 0 6px; }
+    section.part p, section.part li { font-size: 9.5pt; margin-bottom: 6px; }
+    section.part p.lead { font-size: 10.5pt; }
+    .stat-row { margin: 10px 0 14px; }
+    .stat-row .stat { padding: 8px 8px 6px; }
+    .stat-row .stat .num { font-size: 18pt; }
+    .stat-row .stat .label, .stat-row .stat .note { font-size: 7pt; }
+    .chart-block { padding: 10px 12px 8px; margin: 10px 0 16px; page-break-inside: avoid; }
+    .chart-block::before { width: 16px; height: 16px; }
+    .chart-title { font-size: 11pt; }
+    .chart-subtitle { font-size: 8pt; margin-bottom: 8px; }
+    .chart-wrap { height: 2.8in; }
+    .chart-wrap.tall { height: 3.5in; }
+    .chart-wrap.short { height: 2.0in; }
+    .chart-source { font-size: 7pt; margin-top: 6px; padding-top: 4px; }
+    .note-box { font-size: 9pt; margin: 8px 0 12px; }
+    table.data { font-size: 8.5pt; }
+    table.data th, table.data td { padding: 3px 8px 3px 0; }
+    .principle { margin: 10px 0; padding-left: 10px; }
+    .principle h4 { font-size: 11pt; }
+    .principle p { font-size: 9pt; }
+    .recommendation { padding: 14px 16px 10px; margin: 14px 0; }
+    .recommendation::before { font-size: 8pt; padding: 2px 8px; top: -9px; }
+    .recommendation h4 { font-size: 14pt; }
+    .recommendation li { font-size: 9pt; }
+    .signature { font-size: 12pt; margin-top: 20px; padding-top: 10px; }
+    .signature .meta { font-size: 8pt; }
+    footer.report-footer { margin-top: 28px; padding-top: 10px; font-size: 8pt; }
+    footer.report-footer h3 { font-size: 8pt; margin: 10px 0 4px; }
+    footer.report-footer p { font-size: 7pt; }
+    a { color: #000; text-decoration: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="print-banner" id="printBanner">
+  This is the printable full report. <button onclick="window.print()">Print to PDF</button>
+  <span style="margin-left: 20px;">Or open each page on <a href="index.html">the site</a> for the interactive version.</span>
+</div>
+
+<div class="container">
+
+<!-- =================== COVER =================== -->
+<section class="cover">
+  <div class="logo">seattledogparkdata.com · Full Report</div>
+  <h1>Seattle has one of America's best park systems. <em>For dogs, it's one of the worst.</em></h1>
+  <p class="subtitle">A sourced, reproducible public-data reference on Seattle's off-leash area system, with one clearly-marked opinion page presenting policy recommendations.</p>
+  <div class="meta">
+    Compiled April 2026<br>
+    All source data and scripts at github.com/avrignaud/seattledogparkdata<br>
+    MIT license · public records where applicable
+  </div>
+</section>
+
+<!-- =================== TOC =================== -->
+<nav class="toc">
+  <h2>Contents</h2>
+  <ol>
+    <li><span class="title">Executive summary</span><span class="tag">Stats</span></li>
+    <li><span class="title">Part I — The Gap</span><span class="tag">Supply</span></li>
+    <li><span class="title">Part II — Access</span><span class="tag">Walkability</span></li>
+    <li><span class="title">Enforcement Hotspots</span><span class="tag">Citations</span></li>
+    <li><span class="title">Budget Deep Dive</span><span class="tag">Dollars</span></li>
+    <li><span class="title">Opinion &amp; Recommendation</span><span class="tag">Editorial</span></li>
+    <li><span class="title">Methodology &amp; Sources</span><span class="tag">Appendix</span></li>
+  </ol>
+</nav>
+
+<!-- =================== EXECUTIVE SUMMARY =================== -->
+<section class="part">
+  <h2>Section 01 · Executive Summary</h2>
+  <h3>Five numbers that describe the whole problem.</h3>
+  <p class="deck">Seattle has built an extraordinary park system. Its specific handling of off-leash areas is a multi-decade policy failure. These five numbers, pulled from the detailed reports that follow, describe the shape of it.</p>
+
+  <div class="stat-row">
+    <div class="stat alert">
+      <div class="label">Seattle OLAs, 2025</div>
+      <div class="num">14</div>
+      <div class="note">Same count as 2009. Two opening fall 2026.</div>
+    </div>
+    <div class="stat alert">
+      <div class="label">10-min walk to any park</div>
+      <div class="num">99%</div>
+      <div class="note">TPL 2025 ParkScore for Seattle.</div>
+    </div>
+    <div class="stat alert">
+      <div class="label">10-min walk to an OLA</div>
+      <div class="num">9.6%</div>
+      <div class="note">Computed network-distance walkshed, this site.</div>
+    </div>
+    <div class="stat alert">
+      <div class="label">OLA-only share of SPR budget</div>
+      <div class="num">0.064%</div>
+      <div class="note">Peak value (2018). Lower since.</div>
+    </div>
+  </div>
+
+  <h4>What this report does</h4>
+  <p>The site <a href="https://seattledogparkdata.com">seattledogparkdata.com</a> reopens the specific claims SPR makes about off-leash access, checks each against primary sources, and publishes the underlying data. This document is the condensed print/PDF edition of that site, optimized for a single read-through.</p>
+  <p>Every number in this report links to its source. The methodology and the scripts that compute derived figures (network walkshed, enforcement aggregates, per-dog spending) are in the <a href="https://github.com/avrignaud/seattledogparkdata">public GitHub repository</a>.</p>
+
+  <h4>What this report does not do</h4>
+  <p>It does not argue that dog owners have a constitutional right to off-leash space in every park. It does not argue that Seattle should spend on OLAs in proportion to dog ownership. It does not argue that individual rule-breaking is justified. It argues — on the opinion page, clearly marked as such — that the current policy has failed at the <em>system</em> level and that a <a href="https://www.nycgovparks.org/facilities/dogareas">shared-use / time-zoned alternative</a> used for 20+ years in New York City is worth piloting.</p>
+</section>
+
+<!-- =================== PART I =================== -->
+<section class="part">
+  <h2>Section 02 · Part I</h2>
+  <h3>The Gap — Seattle has added <em>one</em> dog park in fifteen years.</h3>
+  <p class="deck">The city's population grew by 200,000. Its parks budget nearly tripled. The first net new OLA since 2009 opens in late 2026. This is the supply problem, with sources.</p>
+
+  <div class="chart-block">
+    <div class="chart-title">Residents per OLA, 2010–2026</div>
+    <div class="chart-subtitle">Simple division: population ÷ OLA count. 43,500 in 2010 → 58,300 in 2025 → back to 52,000 in 2026 with the two new openings. Still worse than 2010.</div>
+    <div class="chart-wrap"><canvas id="r_chartResPerOla"></canvas></div>
+    <div class="chart-source">Source: <a href="https://ofm.wa.gov/washington-data-research/population-demographics/population-estimates/april-1-official-population-estimates">WA OFM April 1 estimates</a> · <a href="https://www.seattle.gov/parks/recreation/dog-off-leash-areas">SPR OLA inventory</a></div>
+  </div>
+
+  <div class="chart-block">
+    <div class="chart-title">Dog parks per 100,000 residents — West Coast peers + benchmarks</div>
+    <div class="chart-subtitle">Seattle sits at 1.82, next to Austin (which ranks 54th out of 100 on TPL's overall ParkScore). West Coast peers cluster around 5.</div>
+    <div class="chart-wrap short"><canvas id="r_chartPeer"></canvas></div>
+    <div class="chart-source">Source: <a href="https://www.tpl.org/parkscore">Trust for Public Land 2025 ParkScore</a> · <a href="https://vancouver.ca/parks-recreation-culture/peoples-parks-and-dogs-strategy.aspx">Vancouver Park Board</a></div>
+  </div>
+
+  <div class="note-box">
+    <strong>What this section argues:</strong> Seattle's OLA supply has been frozen at 14 for roughly fifteen years while the population grew 34%. On a per-capita basis, Seattle runs at roughly one-third the density of Portland, San Francisco, or Vancouver BC. The two new OLAs opening in fall 2026 — the first net increase since 2009 — do not close the per-capita gap, or even return Seattle to its own 2010 ratio. Full data in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-timeseries.csv">data/seattle-timeseries.csv</a>.
+  </div>
+</section>
+
+<!-- =================== PART II =================== -->
+<section class="part">
+  <h2>Section 03 · Part II</h2>
+  <h3>Access — 99% live near a park. <em>9.6%</em> live near a dog park.</h3>
+  <p class="deck">The walkability paradox: Seattle's park system is a national benchmark; its off-leash system is a dense-urban failure. The difference comes down to whether you have a dog.</p>
+
+  <div class="chart-block">
+    <div class="chart-title">Share of Seattle residents within a 10-minute walk</div>
+    <div class="chart-subtitle">Three population-weighted network walksheds. TPL for "any park" (their published figure, industry-standard methodology). Computed for "OLA 10-min" using osmnx + 2020 Census block groups. SPR's internal 2.5-mile access standard shown for comparison.</div>
+    <div class="chart-wrap short"><canvas id="r_chartWalkshed"></canvas></div>
+    <div class="chart-source">Source: <a href="https://www.tpl.org/city/seattle-washington">TPL 2025 ParkScore Seattle</a> · <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/compute_walkshed.py">compute_walkshed.py</a> · <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/population_coverage.py">population_coverage.py</a></div>
+  </div>
+
+  <h4>Where the system is undersized, by amenity</h4>
+  <p>Seven of 14 OLAs are below the <a href="https://images.akc.org/pdf/GLEG01.pdf">AKC 1-acre minimum</a>. Four are below a quarter-acre (pocket-run size). <a href="https://seattlecola.org">COLA</a>'s user survey adds the amenity picture:</p>
+
+  <ul>
+    <li><strong>Only 3 of 14 OLAs</strong> have lighting (Plymouth Pillars, Regrade, Golden Gardens). Fall and winter evenings after work are unusable at the other 11.</li>
+    <li><strong>Only 1 of 14</strong> has water access (Magnuson).</li>
+    <li><strong>Only 4 of 14</strong> have small-dog areas.</li>
+    <li><strong>78% of total OLA acreage is in 4 parks</strong>: Magnuson, Westcrest, Genesee, Dr. Jose Rizal. The other 10 share the remaining 22% — which is why the <a href="https://www.seattle.gov/parks/about-us/policies-and-plans/people-dogs-and-parks-strategic-plan">SPR 2016 survey's</a> #1 reason non-OLA users don't use OLAs is "not conveniently located."</li>
+  </ul>
+
+  <div class="note-box">
+    <strong>The Kinnear case study.</strong> Queen Anne's only OLA is 0.1 acre (about two tennis courts), at the bottom of a hillside greenbelt with a 20-year documented history of chronic homeless encampments. A neighbor, quoted from <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/sources/nextdoor-qacc-playfield-2021.md">the 2021 Nextdoor thread</a>: "Have you been to the only official dog park on Queen Anne? It's in Lower Kinnear Park. Not visible from the street, next to the tents full of addicts and severely mentally challenged men. I am not going to risk my life for it. My dog stays on leash."
+  </div>
+</section>
+
+<!-- =================== ENFORCEMENT =================== -->
+<section class="part">
+  <h2>Section 04 · Enforcement</h2>
+  <h3>4,803 off-leash citations. <em>Where they happened</em>, and where they didn't.</h3>
+  <p class="deck">Seattle Animal Control's own records (public records request C049204, 2014–2019) show where dog owners get cited. The pattern is simple: citations cluster where OLAs aren't, or where the one that exists is too small to matter.</p>
+
+  <div class="chart-block">
+    <div class="chart-title">Top 20 cited parks, 2014–2019</div>
+    <div class="chart-subtitle">Red bars = no designated OLA. Green = OLA host. Amber = large park with small partial OLA.</div>
+    <div class="chart-wrap tall"><canvas id="r_chartTopParks"></canvas></div>
+    <div class="chart-source">Source: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-by-park-year.csv">data/enforcement-by-park-year.csv</a> · raw files in <a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C049204">data/prr-responses/C049204/</a></div>
+  </div>
+
+  <div class="note-box">
+    <strong>Six of the top ten cited parks have no designated OLA at all.</strong> Discovery Park alone accounts for 9% of all citations in the dataset. Enforcement tripled from 2015 (519) to 2018 (1,276) — the "Making Parks Safer" program doing its job on the output side. But 90% of citations are first-offense warnings at $0 or $54. Against a dog population of at least 150,000, that is roughly a <strong>0.5% annual enforcement probability per dog</strong>. Citations are not changing behavior; they are logging it. A follow-up public records request for October 2019 to present has been filed. <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/sources/aco-moa-2016.md">The signed 2021 MOA</a> pins the FAS-side cost of the current staffing model at <strong>$152,399 per officer per year</strong> for roughly 160 officer-hours per month covering 485+ parks.
+  </div>
+</section>
+
+<!-- =================== BUDGET =================== -->
+<section class="part">
+  <h2>Section 05 · Budget Deep Dive</h2>
+  <h3>It <em>is</em> a money problem — but not the one you'd think.</h3>
+  <p class="deck">Seattle's SPR budget is one of the best-funded municipal park systems in the country. Its dedicated OLA line is a rounding error. The gap is in allocation, not total spend.</p>
+
+  <div class="chart-block">
+    <div class="chart-title">Seattle SPR and related spending lines, 2026 proposed — one axis, log scale</div>
+    <div class="chart-subtitle">On a linear axis the OLA-only bar ($129K) is literally invisible next to SPR total ($507M). Log scale is the only way they fit together. The OLA-only line is 3,929× smaller than the SPR total.</div>
+    <div class="chart-wrap tall"><canvas id="r_chartSingle"></canvas></div>
+    <div class="chart-source">Source: <a href="https://www.seattle.gov/documents/departments/financedepartment/2526proposedbudget/spr.pdf">Seattle 2025-26 SPR Proposed Budget</a> · <a href="https://www.seattle.gov/documents/Departments/FinanceDepartment/2631poposedcip/2026-2031%20Proposed%20CIP%20Book.pdf">Seattle 2026-2031 Proposed CIP</a> · <a href="https://parkways.seattle.gov/">Parkways</a> · data in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/budget-detail.csv">data/budget-detail.csv</a></div>
+  </div>
+
+  <h4>The peer-city transparency problem</h4>
+  <p>Seattle is, ironically, more transparent about OLA-specific spending than any of its peer cities. Portland, San Francisco, Vancouver BC, Austin, DC, and Minneapolis do not publish dog-park-specific budget lines in their public budget documents as of April 2026. Which means the dollar-per-capita comparison across cities cannot be done without a batch of public records requests to each city's parks department. That is itself the finding — see <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/peer-cities-budget.csv">data/peer-cities-budget.csv</a>.</p>
+</section>
+
+<!-- =================== OPINION =================== -->
+<section class="part opinion">
+  <h2>Section 06 · Opinion &amp; Recommendation</h2>
+  <h3>Seattle will not build its way out of this. <em>It needs a policy change.</em></h3>
+  <p class="deck">The rest of this report is factual. This section is opinion. Signed, sourced, and written after 20+ years of walking Seattle's parks with dogs.</p>
+
+  <h4>Six principles</h4>
+
+  <div class="principle">
+    <h4><span class="num-inline">P1</span>Seattle will never build its way out of the OLA shortage.</h4>
+    <p>The city has added one net dog park in 15 years while the population grew 34%. Even with every site SPR has on the books eventually built, the per-capita gap to Portland, SF, and Vancouver BC doesn't close. The constraint is physical.</p>
+  </div>
+  <div class="principle">
+    <h4><span class="num-inline">P2</span>The little buildable land Seattle has should not go to dog parks first.</h4>
+    <p>Seattle is in a housing-affordability crisis and an ongoing homelessness emergency. I own dogs and I still believe this. Any serious plan starts from the assumption that we will not get more than a handful of new OLAs over the coming decade.</p>
+  </div>
+  <div class="principle">
+    <h4><span class="num-inline">P3</span>Seattle has more dogs than children, and the investment gap reflects that poorly.</h4>
+    <p>SPR's own 2016 survey: 25% of residents use OLAs. The OLA-only budget line was 0.06% of SPR spending in 2018 and smaller every year since. Proportional investment would look nothing like the current allocation.</p>
+  </div>
+  <div class="principle">
+    <h4><span class="num-inline">P4</span>People who don't want to be around dogs have a right not to be.</h4>
+    <p>This is non-negotiable. The status quo — 40% of owners self-reporting monthly-plus illegal off-leash use in general parks — fails these residents directly.</p>
+  </div>
+  <div class="principle">
+    <h4><span class="num-inline">P5</span>Children have a right to play on clean, safe fields.</h4>
+    <p>A playfield with dog feces on it, or a softball practice interrupted by a loose dog, is a system failure. The current policy does not deliver clean playfields — enforcement is post-hoc and structurally insufficient.</p>
+  </div>
+  <div class="principle">
+    <h4><span class="num-inline">P6</span>Families and non-dog-owners deserve reliably dog-free park time.</h4>
+    <p>Access goes both ways. Today, dog owners have tiny, often-unsafe OLAs; non-owners have a city full of parks that are technically dog-free but in practice aren't. Both groups lose.</p>
+  </div>
+
+  <h4>Three opinions that fall out of the data</h4>
+
+  <div class="principle opinion">
+    <h4><span class="num-inline">O1</span>The current rules have failed, and Seattle is doubling down on the part that isn't working.</h4>
+    <p>The 2014–2017 SPR process heard consistent calls for shared-use / time-zoned models. SPR kept the same framework and added more enforcement. In April 2026, Axios Seattle reported another enforcement expansion. Same lever, pulled harder; at roughly $700K–$1M per year all-in, at ~0.5% annual contact probability per dog.</p>
+  </div>
+  <div class="principle opinion">
+    <h4><span class="num-inline">O2</span>Fines will never work — not at any amount Seattle could plausibly adopt.</h4>
+    <p>4,803 citations over 6 years. 90% first-offense warnings at $0 or $54. Maximum fine: $162. At that schedule, wealthy owners treat citations as a parking ticket; poorer owners are hit regressively. There is no fine-schedule version of this that fixes the structural mismatch.</p>
+  </div>
+  <div class="principle opinion">
+    <h4><span class="num-inline">O3</span>Dog owners will keep running dogs off-leash under the current rules — for rational reasons.</h4>
+    <p>Most neighborhoods have no walkable OLA. Where an OLA exists it is often too small to use safely, or in an unsafe location. Probability of citation is under 1% per year. This is a supply failure producing a compliance failure.</p>
+  </div>
+
+  <div class="recommendation">
+    <h4>A time-zoned shared-use policy for Seattle's parks.</h4>
+    <p style="font-size: 13px; margin-bottom: 12px;">Adopt a shared-use model similar to <a href="https://www.nycgovparks.org/facilities/dogareas">New York City's 20-year-running off-leash hours policy</a>. Pair it with a fundamentally different enforcement posture.</p>
+    <ol>
+      <li><strong>Designate shared-use parks</strong> by neighborhood — not every park participates. Parks with heavy children's programming stay leashed 24/7.</li>
+      <li><strong>Time-zone access</strong>: off-leash from park-opening to ~9 AM and ~9 PM to close, matching NYC. Pilot and adjust per park.</li>
+      <li><strong>Redeploy enforcement</strong>: the ~$700K–$1M per year currently headed into the expanded ACO program would fund on-site compliance staff at transition hours and post-session cleanup crews.</li>
+      <li><strong>Fund through expanded dog-license fees</strong>, not fine increases. Dedicated to the <a href="https://www.seattle.gov/animal-shelter">Seattle Animal Shelter</a> and a clean-park crew.</li>
+      <li><strong>Keep the small dedicated OLAs</strong> as all-day options. They stop being the entire answer.</li>
+      <li><strong>Measure and publish outcomes</strong> — citations, Find-It-Fix-It complaints, post-session cleanliness audits. Pull pilots that aren't working; expand the ones that are.</li>
+    </ol>
+  </div>
+
+  <h4>Honest counterarguments, taken seriously</h4>
+  <p>The full list of seven steel-manned counterarguments — dogs-as-privilege, playfield-harm, budget-ratio-logic, land-is-housing, and more — is in the <a href="opinion.html">opinion page on the site</a>. The short version: these arguments are real, some are correct, and none of them is an endorsement of the current status quo. The recommendation above is designed to address every one of them without pretending they don't exist.</p>
+
+  <div class="signature">
+    — Andre Vrignaud
+    <span class="meta">Queen Anne, Seattle · April 2026</span>
+  </div>
+</section>
+
+<!-- =================== METHODOLOGY & SOURCES =================== -->
+<section class="part">
+  <h2>Section 07 · Methodology &amp; Sources</h2>
+  <h3>Show your work.</h3>
+  <p class="deck">Every derived number in this report is reproducible from primary source data using scripts in the public GitHub repository. The key inputs and pipelines are listed here; the full detail is in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/METHODOLOGY.md">METHODOLOGY.md</a>.</p>
+
+  <h4>Primary inputs</h4>
+  <ul>
+    <li><strong>SPR OLA inventory</strong> — <a href="https://www.seattle.gov/parks/recreation/dog-off-leash-areas">seattle.gov</a>, cross-checked with <a href="https://seattlecola.org">COLA</a>. Stored as <code>data/seattle-olas.csv</code>.</li>
+    <li><strong>Off-leash citation records</strong> — Seattle public records request C049204 (filed 2019-08-29, produced 2019-10-15). 4,803 citations, all offense levels, 2014–2019. Raw XLSX files in <code>data/prr-responses/C049204/</code>, consolidated CSV at <code>data/enforcement-citations.csv</code>, built by <code>scripts/build_enforcement_datasets.py</code>.</li>
+    <li><strong>ACO staffing contract</strong> — Signed 2021 MOA between SPR and FAS (reference AG21-PRF03-032), full PDF in <code>data/moas/</code>.</li>
+    <li><strong>Population</strong> — <a href="https://ofm.wa.gov/washington-data-research/population-demographics/population-estimates/april-1-official-population-estimates">Washington OFM April 1 official estimates</a> and <a href="https://api.census.gov/data/2020/dec/pl">2020 Census Decennial P1</a>.</li>
+    <li><strong>Peer-city comparison</strong> — <a href="https://www.tpl.org/parkscore">Trust for Public Land 2025 ParkScore Index</a> city PDFs; Vancouver BC from its <a href="https://vancouver.ca/parks-recreation-culture/peoples-parks-and-dogs-strategy.aspx">People, Parks &amp; Dogs Strategy</a>.</li>
+    <li><strong>Budget</strong> — <a href="https://www.seattle.gov/city-budget-office/budget-archives">Seattle City Budget Office archives</a>, <a href="https://www.seattle.gov/seattle-park-district/park-district-planning">Seattle Park District financial plans</a>, <a href="https://parkways.seattle.gov/">Parkways</a> blog reporting.</li>
+  </ul>
+
+  <h4>Derived outputs (reproducible scripts in /scripts)</h4>
+  <ul>
+    <li><strong>Network walkshed</strong> — osmnx against OpenStreetMap, projected to UTM 10N, convex-hull isochrones at 0.5 / 1.0 / 2.5 miles per OLA. Script: <code>scripts/compute_walkshed.py</code>. Output: <code>data/walkshed/ola_isochrones.geojson</code>.</li>
+    <li><strong>Population-weighted coverage</strong> — intersection of walkshed unions with TIGER 2020 block groups clipped to Seattle city boundary, Census-population-attributed by area. Script: <code>scripts/population_coverage.py</code>. Output: <code>data/walkshed/population_coverage.csv</code>.</li>
+    <li><strong>Enforcement aggregates</strong> — park-name canonicalization regex in <code>scripts/build_enforcement_datasets.py</code>; full data-quality breakdown (83.7% spatially attributable) in <code>data/enforcement-citations.csv</code>.</li>
+  </ul>
+
+  <h4>Data gaps</h4>
+  <p>The site flags where data is missing, approximate, or stale. The most significant open items: (1) post-October-2019 enforcement data (PRR extension filed); (2) FIFI dog-complaint trend (PRR drafted); (3) OLA-only budget share 2025–2026 (PRR drafted); (4) methodology behind SPR's 2.5-mile standard (PRR drafted); (5) per-OLA usage headcounts (SPR may not track; COLA outreach drafted). All draft PRRs are in the <code>/prrs</code> directory of the repo.</p>
+
+  <footer class="report-footer">
+    <h3>Corrections and contributions</h3>
+    <p>If you find an error, have a better primary source, or can fill a data gap — email <a href="mailto:seattledogparkdata@ozymandi.as">seattledogparkdata@ozymandi.as</a> or file an issue on the <a href="https://github.com/avrignaud/seattledogparkdata/issues">repo</a>. Every correction with a citable source will be applied.</p>
+
+    <h3>License and reuse</h3>
+    <p>Code and analysis released under MIT. Underlying data is public record and not separately licensed. Reuse of the narrative and analysis is encouraged with attribution to seattledogparkdata.com.</p>
+
+    <h3>This document</h3>
+    <p>Generated April 2026. The live, interactive version of every report in this document is at <a href="https://seattledogparkdata.com">seattledogparkdata.com</a>. All GitHub links point at the permanent <code>main</code> branch; specific commits are archived under tagged releases when milestone changes land.</p>
+  </footer>
+</section>
+
+</div>
+
+<script>
+  Chart.register(ChartDataLabels);
+  Chart.defaults.font.family = "'IBM Plex Sans', sans-serif";
+  Chart.defaults.font.weight = '400';
+  Chart.defaults.color = '#3C4A5C';
+  Chart.defaults.plugins.datalabels.display = false;
+
+  const INK = '#121820';
+  const INK_SOFT = '#3C4A5C';
+  const RULE = '#D8CFBD';
+  const ACCENT = '#C04A1E';
+  const ACCENT_2 = '#4C6B54';
+  const ACCENT_3 = '#2C4A6E';
+  const ACCENT_4 = '#A68A2E';
+  const DANGER = '#8B2518';
+  const baseAxisStyle = { grid: { color: 'rgba(60,74,92,0.08)', drawBorder: false }, ticks: { font: { size: 10 }, color: INK_SOFT } };
+
+  // --- Part I: Residents per OLA ---
+  new Chart(document.getElementById('r_chartResPerOla'), {
+    type: 'line',
+    data: {
+      labels: [2010, 2016, 2017, 2019, 2020, 2021, 2023, 2024, 2025, 2026],
+      datasets: [{
+        label: 'Residents per OLA',
+        data: [43476, 50314, 51767, 53836, 52644, 52386, 55657, 56979, 58329, 52000],
+        borderColor: ACCENT, backgroundColor: 'rgba(192,74,30,0.08)',
+        borderWidth: 2, pointRadius: 4, pointBackgroundColor: ACCENT, pointBorderColor: '#fff', pointBorderWidth: 1.5,
+        fill: true, tension: 0.25
+      }]
+    },
+    options: { responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, datalabels: { display: false } },
+      scales: { x: baseAxisStyle, y: { ...baseAxisStyle, min: 40000, max: 65000, ticks: { ...baseAxisStyle.ticks, callback: v => v.toLocaleString() } } }
+    }
+  });
+
+  // --- Part I: Peer cities bar ---
+  const peerLabels = ['Boise', 'Portland', 'Vancouver BC', 'San Francisco', 'Seattle', 'Austin'];
+  new Chart(document.getElementById('r_chartPeer'), {
+    type: 'bar',
+    data: {
+      labels: peerLabels,
+      datasets: [{
+        data: [7.6, 5.74, 5.44, 5.03, 1.82, 1.28],
+        backgroundColor: peerLabels.map(l => l === 'Seattle' ? ACCENT : ACCENT_2),
+        borderWidth: 0, borderRadius: 2
+      }]
+    },
+    options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false },
+        datalabels: { display: true, anchor: 'end', align: 'right', color: INK, font: { family: "'IBM Plex Mono', monospace", size: 11, weight: '500' }, formatter: v => (v == null ? '' : v.toFixed(2)) }
+      },
+      scales: { x: { ...baseAxisStyle, beginAtZero: true, max: 9, title: { display: true, text: 'Dog parks per 100K', color: INK_SOFT, font: { size: 10 } } }, y: baseAxisStyle },
+      layout: { padding: { right: 36 } }
+    }
+  });
+
+  // --- Part II: Walkshed comparison ---
+  new Chart(document.getElementById('r_chartWalkshed'), {
+    type: 'bar',
+    data: {
+      labels: ['Any park (TPL, 10-min walk)', 'OLA (computed, 10-min network)', 'OLA (SPR standard, 2.5-mi)'],
+      datasets: [{
+        data: [99, 9.6, 79.4],
+        backgroundColor: [ACCENT_2, ACCENT, 'rgba(192,74,30,0.5)'],
+        borderWidth: 0, borderRadius: 2
+      }]
+    },
+    options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false },
+        datalabels: { display: true, anchor: 'end', align: 'right', color: INK, font: { family: "'Fraunces', serif", size: 18, weight: '600' }, formatter: v => (v == null ? '' : v + '%') }
+      },
+      scales: { x: { ...baseAxisStyle, beginAtZero: true, max: 110, ticks: { ...baseAxisStyle.ticks, callback: v => v + '%' } }, y: { ...baseAxisStyle, ticks: { ...baseAxisStyle.ticks, font: { size: 11, weight: '500' } } } },
+      layout: { padding: { right: 56 } }
+    }
+  });
+
+  // --- Enforcement: top 20 bar ---
+  const HOTSPOTS_R = [
+    ['Discovery Park', 420, ACCENT], ['Magnuson Park', 248, ACCENT_2], ['Volunteer Park', 230, ACCENT],
+    ['Woodland Park', 222, ACCENT_4], ['Golden Gardens Park', 174, ACCENT_2], ['Cal Anderson Park', 133, ACCENT],
+    ['Genesee Park', 130, ACCENT_2], ['Lincoln Park', 122, ACCENT], ['Martha Washington Park', 103, ACCENT],
+    ['Green Lake Park', 96, ACCENT], ['Wallingford Playfield', 89, ACCENT], ['Seward Park', 88, ACCENT],
+    ['Westcrest Park', 86, ACCENT_2], ['West Queen Anne Playfield', 77, ACCENT], ['Maple Leaf Reservoir Park', 73, ACCENT],
+    ['Rogers Playground', 66, ACCENT], ['Soundview Playfield', 56, ACCENT], ['Alki Beach Park', 55, ACCENT],
+    ['Ravenna Park', 54, '#888'], ['Meridian Playground', 45, ACCENT]
+  ];
+  new Chart(document.getElementById('r_chartTopParks'), {
+    type: 'bar',
+    data: {
+      labels: HOTSPOTS_R.map(h => h[0]),
+      datasets: [{ data: HOTSPOTS_R.map(h => h[1]), backgroundColor: HOTSPOTS_R.map(h => h[2]), borderWidth: 0, borderRadius: 2 }]
+    },
+    options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false },
+        datalabels: { display: true, anchor: 'end', align: 'right', color: INK, font: { family: "'IBM Plex Mono', monospace", size: 10, weight: '500' }, formatter: v => v }
+      },
+      scales: { x: { ...baseAxisStyle, beginAtZero: true, max: 470, title: { display: true, text: 'Citations 2014–2019', color: INK_SOFT, font: { size: 10 } } }, y: baseAxisStyle },
+      layout: { padding: { right: 36 } }
+    }
+  });
+
+  // --- Budget: one-axis log-scale disparity ---
+  const SINGLE_R = [
+    { label: 'SPR 2026 total (all funds)', value: 506.9, color: ACCENT_3 },
+    { label: 'SPR 2026 CIP total', value: 87.7, color: ACCENT_3 },
+    { label: 'Seattle Park District annual levy', value: 53.0, color: ACCENT_3 },
+    { label: 'Cycle 2 OLA capital (2 new OLAs)', value: 3.46, color: ACCENT },
+    { label: 'SPR 2026 Green Lake CC planning', value: 2.7, color: ACCENT_4 },
+    { label: 'SPR 2026 restroom improvements', value: 2.0, color: ACCENT_4 },
+    { label: 'OLA + P-Patch combined BSL, 2026', value: 1.85, color: 'rgba(192,74,30,0.5)' },
+    { label: 'SPR 2026 Gas Works Park CIP', value: 1.8, color: ACCENT_4 },
+    { label: 'OLA-only operating, 2024', value: 0.129, color: ACCENT }
+  ];
+  new Chart(document.getElementById('r_chartSingle'), {
+    type: 'bar',
+    data: {
+      labels: SINGLE_R.map(r => r.label),
+      datasets: [{ data: SINGLE_R.map(r => r.value), backgroundColor: SINGLE_R.map(r => r.color), borderWidth: 0, borderRadius: 2 }]
+    },
+    options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false },
+        datalabels: { display: true, anchor: 'end', align: 'right', color: INK, font: { family: "'IBM Plex Mono', monospace", size: 10, weight: '500' }, formatter: v => (v == null ? '' : (v >= 1 ? '$' + v.toFixed(v >= 10 ? 0 : 1) + 'M' : '$' + Math.round(v * 1000) + 'K')) }
+      },
+      scales: { x: { type: 'logarithmic', min: 0.1, max: 1000, grid: { color: 'rgba(60,74,92,0.08)' }, ticks: { font: { size: 10 }, color: INK_SOFT }, title: { display: true, text: '$ millions (log scale)', color: INK_SOFT, font: { size: 10 } } }, y: { ...baseAxisStyle, ticks: { ...baseAxisStyle.ticks, font: { size: 10, weight: '500' }, autoSkip: false } } },
+      layout: { padding: { right: 56 } }
+    }
+  });
+</script>
+</body>
+</html>
