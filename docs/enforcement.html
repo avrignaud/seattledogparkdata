@@ -389,7 +389,7 @@
 <h1 class="hed">4,803 off-leash citations. <em>Where they happened</em>, and where they didn't.</h1>
 <p class="deck">Seattle Animal Control's own records show where dog owners are cited for illegal off-leash use. The map is the argument: six of the top ten citation locations have no designated off-leash area at all.</p>
 
-<div class="byline">Source: <a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C049204">Seattle Animal Control PRR C049204</a> (2014-01-01 through 2019-10-15) · staffing cost from <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/moas/SPR-FAS-ACO2-MOA-2021-AG21-PRF03-032.pdf">signed 2021 SPR/FAS MOA (AG21-PRF03-032, PDF)</a> · coordinates geocoded from park names, approximate</div>
+<div class="byline">Source: <a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C049204">Seattle Animal Control PRR C049204</a> (2014-01-01 through 2019-10-15) · staffing contracts: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/moas/SPR-FAS-ACO2-MOA-2016-04-02.pdf">2016 MOA (PDF)</a> and <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/moas/SPR-FAS-ACO2-MOA-2021-AG21-PRF03-032.pdf">signed 2021 MOA AG21-PRF03-032 (PDF)</a> · coordinates geocoded from park names, approximate</div>
 
 <div class="stat-grid">
   <div class="stat alert">
@@ -656,7 +656,7 @@
   }
 
   // --- Leaflet map ---
-  const map = L.map('hotspot-map', { scrollWheelZoom: false }).setView([47.6205, -122.3493], 11);
+  const map = L.map('hotspot-map', { scrollWheelZoom: false }).setView([47.6205, -122.3493], 12);
   L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; OpenStreetMap &copy; CARTO',
     maxZoom: 19
@@ -786,7 +786,7 @@
     { name: 'Green Lake',      lat: 47.6780, lng: -122.3290 }
   ];
 
-  const gapMap = L.map('gap-map', { scrollWheelZoom: false }).setView([47.6205, -122.3493], 11);
+  const gapMap = L.map('gap-map', { scrollWheelZoom: false }).setView([47.6205, -122.3493], 12);
   L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; OpenStreetMap &copy; CARTO',
     maxZoom: 19

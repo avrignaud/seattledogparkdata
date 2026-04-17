@@ -9,13 +9,13 @@ park patrols under the "Making Parks Safer" initiative.
 
 | File | Dated | Reference | Notes |
 |---|---|---|---|
+| `SPR-FAS-ACO2-MOA-2016-04-02.pdf` | Signed 2016-04-02 | — | Prior (Cycle 1) agreement between SPR and FAS. Establishes the original "Making Parks Safer" ACO II position assigned to park patrols. Original source of the staffing model captured later in the 2021 renewal. |
 | `SPR-FAS-ACO2-MOA-2021-AG21-PRF03-032.pdf` | Signed 2021-01-10 (FAS) / 2021-01-25 (SPR) | AG21-PRF03-032 | Current publicly-filed version. Attachment A discloses the per-officer cost: $43.07/hr × 45% OH × 2,088 hrs + $3,000 supplies + $19,000 divisional overhead = **$152,398.73/year**. |
 
 ## What's pending
 
 | File | Dated | Notes |
 |---|---|---|
-| `SPR-FAS-ACO2-MOA-2016-04-02.pdf` | 2016-04-02 | Prior (Cycle 1) agreement. Andre has a personal-archive copy but the file is locked behind OneDrive's CloudStorage permissions and Terminal cannot read it directly. To include: drag the file from OneDrive to a regular folder (e.g. `~/Downloads`) and ask to add it to the repo. |
 | `SPR-FAS-ACO2-MOA-2023-*` | 2023 onwards | Cycle 2 renewal of the 2021 MOA. Not yet on hand — the 2021 MOA's stated end date was 2022-12-31 so a renewal or amendment is expected. Filing a public records request for the successor agreement would surface it. |
 | `SPR-FAS-ACO2-MOA-2026-*` | 2026 | Amendment or new MOA reflecting the April 2026 Axios-reported expansion to 2 FTE seven-day coverage plus backup. Likely not yet publicly filed as of April 2026 capture date. |
 
