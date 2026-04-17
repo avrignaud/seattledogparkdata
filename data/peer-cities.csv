@@ -1,0 +1,14 @@
+city,population,parkland_acres,pct_city_area,dog_parks,dog_parks_per_100k,investment_per_capita,parkscore_rank,ola_acres_total_est,ola_acres_per_10k,counting_methodology
+Seattle WA,816600,6662,12.6,14,1.82,418,8,26,0.32,All fenced dedicated
+Portland OR,660000,13029,15.8,38,5.74,274,9,85,1.29,Mostly unfenced voice control
+San Francisco CA,870000,6398,21.4,42,5.03,561,6,120,1.38,Mix fenced and unfenced
+Vancouver BC,662000,7413,11.2,36,5.44,,,168,2.54,Mostly time-restricted shared
+Austin TX,1025000,18437,9.0,13,1.28,211,54,80,0.78,Mix (excl. outlier Red Bud Isle)
+Boise ID,240000,3400,10.4,18,7.60,,,,,National best-in-class dog parks
+Washington DC,699000,8151,21.5,20,2.86,393,1,,,
+Minneapolis MN,435000,6739,15.9,3,0.69,254,3,,,
+Cincinnati OH,311000,5200,10.9,4,1.29,242,4,,,
+Denver CO,713000,6200,7.8,13,1.82,196,10,,,
+Chicago IL,2660000,12000,8.9,14,0.53,168,11,,,
+Boston MA,670000,5100,16.3,5,0.75,300,12,,,
+Arlington VA,236000,1800,11.0,9,3.81,449,7,,,

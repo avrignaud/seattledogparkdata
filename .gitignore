@@ -1,0 +1,35 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*~
+
+# Python (in case any analysis scripts get added)
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+env/
+
+# Node (in case any build tooling gets added)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+
+# OS
+Thumbs.db
+
+# Local scratch
+scratch/
+tmp/
+*.local.*
+
+# Local agent/tool config (not source-controlled)
+.claude/
+.railroad/

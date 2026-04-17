@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seattle Off-Leash Areas — A Data Story, Part II: Access</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<style>
+  :root {
+    --bg: #F6F2E9;
+    --bg-dark: #0E1A2B;
+    --ink: #121820;
+    --ink-soft: #3C4A5C;
+    --rule: #D8CFBD;
+    --accent: #C04A1E;
+    --accent-2: #4C6B54;
+    --accent-3: #2C4A6E;
+    --accent-4: #A68A2E;
+    --seattle: #C04A1E;
+    --peer: #4C6B54;
+    --danger: #8B2518;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 300;
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 80px 40px 120px;
+  }
+  .masthead {
+    border-top: 6px solid var(--ink);
+    border-bottom: 1px solid var(--rule);
+    padding: 28px 0 24px;
+    margin-bottom: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-soft);
+  }
+  .masthead .dateline { font-weight: 500; color: var(--ink); }
+  h1.hed {
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    font-size: 84px;
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    margin-bottom: 28px;
+    max-width: 960px;
+  }
+  h1.hed em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+  }
+  .deck {
+    font-family: 'Fraunces', serif;
+    font-size: 26px;
+    line-height: 1.35;
+    font-weight: 300;
+    color: var(--ink-soft);
+    max-width: 800px;
+    margin-bottom: 48px;
+  }
+  .byline {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-soft);
+    padding-top: 24px;
+    border-top: 1px solid var(--rule);
+    margin-bottom: 80px;
+  }
+  .part-break {
+    margin: 140px 0 60px;
+    padding-top: 60px;
+    border-top: 6px solid var(--ink);
+  }
+  .part-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .part-title {
+    font-family: 'Fraunces', serif;
+    font-size: 64px;
+    line-height: 0.95;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    margin-bottom: 32px;
+    max-width: 880px;
+  }
+  .part-title em { font-style: italic; font-weight: 400; color: var(--accent); }
+  .part-intro {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    line-height: 1.45;
+    font-weight: 300;
+    color: var(--ink-soft);
+    max-width: 780px;
+    margin-bottom: 40px;
+  }
+  h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 40px;
+    line-height: 1.1;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-top: 90px;
+    margin-bottom: 20px;
+  }
+  h2 .num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 400;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+  h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    line-height: 1.2;
+    font-weight: 600;
+    margin: 48px 0 12px;
+  }
+  p { margin-bottom: 20px; max-width: 720px; }
+  p.lead { font-size: 20px; line-height: 1.55; max-width: 780px; }
+  p.kicker {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .pull {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 32px;
+    line-height: 1.3;
+    color: var(--ink);
+    border-left: 3px solid var(--accent);
+    padding: 6px 0 6px 28px;
+    margin: 40px 0 40px;
+    max-width: 820px;
+    font-weight: 400;
+  }
+  .pull cite {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    font-style: normal;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-top: 14px;
+  }
+  .chart-block {
+    margin: 48px 0 56px;
+    padding: 32px 32px 28px;
+    background: #fff;
+    border: 1px solid var(--rule);
+    position: relative;
+  }
+  .chart-block::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: -1px;
+    width: 40px; height: 40px;
+    border-top: 2px solid var(--ink);
+    border-left: 2px solid var(--ink);
+  }
+  .chart-block::after {
+    content: "";
+    position: absolute;
+    bottom: -1px; right: -1px;
+    width: 40px; height: 40px;
+    border-bottom: 2px solid var(--ink);
+    border-right: 2px solid var(--ink);
+  }
+  .chart-title {
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+  .chart-subtitle {
+    font-size: 15px;
+    color: var(--ink-soft);
+    margin-bottom: 24px;
+    max-width: 680px;
+  }
+  .chart-wrap { position: relative; height: 440px; }
+  .chart-wrap.tall { height: 520px; }
+  .chart-wrap.short { height: 320px; }
+  .chart-wrap.map { height: 640px; }
+  .chart-source {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid var(--rule);
+    text-transform: uppercase;
+  }
+  .chart-takeaway {
+    background: var(--bg);
+    border-left: 3px solid var(--accent-3);
+    padding: 14px 20px;
+    margin-top: 20px;
+    font-size: 15px;
+    color: var(--ink);
+    line-height: 1.55;
+  }
+  .chart-takeaway strong { font-weight: 600; color: var(--accent-3); }
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin: 60px 0 40px;
+    border-top: 2px solid var(--ink);
+    border-bottom: 1px solid var(--rule);
+  }
+  .stat {
+    padding: 24px 20px 22px;
+    border-right: 1px solid var(--rule);
+  }
+  .stat:last-child { border-right: none; }
+  .stat .label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 8px;
+  }
+  .stat .num {
+    font-family: 'Fraunces', serif;
+    font-size: 42px;
+    line-height: 1;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 6px;
+    letter-spacing: -0.02em;
+  }
+  .stat .note { font-size: 13px; color: var(--ink-soft); }
+  .stat.alert .num { color: var(--accent); }
+  .stat.positive .num { color: var(--accent-2); }
+  .stat.danger .num { color: var(--danger); }
+  table.data {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin: 20px 0 40px;
+    font-feature-settings: "tnum";
+    font-variant-numeric: tabular-nums;
+  }
+  table.data th {
+    text-align: left;
+    padding: 10px 16px 10px 0;
+    border-bottom: 2px solid var(--ink);
+    font-weight: 500;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  table.data td {
+    padding: 9px 16px 9px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  table.data tr:hover { background: rgba(0,0,0,0.02); }
+  table.data td.num { font-family: 'IBM Plex Mono', monospace; text-align: right; padding-right: 16px; }
+  table.data td.highlight { color: var(--accent); font-weight: 500; }
+  table.data tr.me td { background: rgba(192,74,30,0.06); }
+  .footnotes {
+    margin-top: 100px;
+    padding-top: 28px;
+    border-top: 2px solid var(--ink);
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+  .footnotes h3 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin: 20px 0 12px;
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .footnotes p { font-size: 13px; margin-bottom: 10px; max-width: 100%; }
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin: 30px 0;
+  }
+  .case-study {
+    background: #fff;
+    border: 1px solid var(--rule);
+    padding: 40px 44px;
+    margin: 40px 0 60px;
+    position: relative;
+  }
+  .case-study::before {
+    content: "Case Study";
+    position: absolute;
+    top: -12px;
+    left: 24px;
+    background: var(--ink);
+    color: var(--bg);
+    padding: 4px 14px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .case-study h3 {
+    margin-top: 10px;
+  }
+  .timeline {
+    margin: 40px 0;
+    border-left: 2px solid var(--ink);
+    padding-left: 28px;
+  }
+  .timeline-item {
+    margin-bottom: 24px;
+    position: relative;
+  }
+  .timeline-item::before {
+    content: "";
+    position: absolute;
+    left: -35px;
+    top: 8px;
+    width: 10px;
+    height: 10px;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+    border-radius: 50%;
+  }
+  .timeline-year {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .timeline-text {
+    font-size: 15px;
+    margin-top: 4px;
+    color: var(--ink);
+    line-height: 1.55;
+  }
+  .map-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    margin: 16px 0 8px;
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+  .legend-item { display: flex; align-items: center; gap: 8px; }
+  .legend-dot {
+    width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0;
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.2);
+  }
+  .legend-dot.existing { background: var(--accent); }
+  .legend-dot.planned { background: var(--accent-4); }
+  .legend-dot.future { background: #888; }
+  .legend-dot.kinnear { background: var(--danger); }
+  .legend-ring {
+    width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0;
+    background: rgba(192,74,30,0.15);
+    border: 1px solid var(--accent);
+  }
+  #seattle-map { height: 640px; border: 1px solid var(--rule); }
+  .leaflet-popup-content {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .leaflet-popup-content strong { font-family: 'Fraunces', serif; font-size: 16px; }
+  nav.report-nav {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 12px 0 24px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 40px;
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+  nav.report-nav a { color: var(--ink-soft); text-decoration: none; }
+  nav.report-nav a:hover, nav.report-nav a.active { color: var(--accent); }
+  nav.report-nav a.active { font-weight: 500; }
+  .data-currency {
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent-4);
+    padding: 14px 20px;
+    margin: 0 0 40px;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+  .data-currency strong {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-4);
+    display: block;
+    margin-bottom: 6px;
+  }
+  .size-standards {
+    margin: 36px 0 48px;
+    padding: 32px 32px 28px;
+    background: #fff;
+    border: 1px solid var(--rule);
+    position: relative;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  .size-standards::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: -1px;
+    width: 40px; height: 40px;
+    border-top: 2px solid var(--ink);
+    border-left: 2px solid var(--ink);
+  }
+  .size-standards h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin: 0 0 10px;
+  }
+  .size-standards .standards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin: 20px 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .size-standards .standard {
+    padding: 16px 18px 14px;
+    border-right: 1px solid var(--rule);
+  }
+  .size-standards .standard:last-child { border-right: none; }
+  .size-standards .standard .label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 6px;
+  }
+  .size-standards .standard .val {
+    font-family: 'Fraunces', serif;
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+  }
+  .size-standards .standard .note { font-size: 12px; color: var(--ink-soft); line-height: 1.4; }
+  .capacity-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin: 20px 0 0;
+    font-feature-settings: "tnum";
+    font-variant-numeric: tabular-nums;
+  }
+  .capacity-table th {
+    text-align: left;
+    padding: 10px 12px 10px 0;
+    border-bottom: 2px solid var(--ink);
+    font-weight: 500;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .capacity-table td {
+    padding: 7px 12px 7px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .capacity-table td.num { font-family: 'IBM Plex Mono', monospace; text-align: right; padding-right: 12px; }
+  .capacity-table tr.under td { color: var(--accent); }
+  .capacity-table tr.under td.num { font-weight: 500; }
+  @media (max-width: 820px) {
+    .container { padding: 48px 24px 80px; }
+    h1.hed { font-size: 52px; }
+    .part-title { font-size: 40px; }
+    h2 { font-size: 30px; }
+    .deck { font-size: 20px; }
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    .stat:nth-child(2) { border-right: none; }
+    .stat:nth-child(1), .stat:nth-child(2) { border-bottom: 1px solid var(--rule); }
+    .chart-wrap { height: 360px; }
+    .chart-wrap.map, #seattle-map { height: 500px; }
+    .two-col { grid-template-columns: 1fr; gap: 24px; }
+    .case-study { padding: 28px 24px; }
+    .size-standards .standards-grid { grid-template-columns: 1fr; }
+    .size-standards .standard { border-right: none; border-bottom: 1px solid var(--rule); }
+    .size-standards .standard:last-child { border-bottom: none; }
+  }
+
+  /* ---------- PRINT ---------- */
+  @page { size: Letter; margin: 0.6in 0.55in; }
+  @media print {
+    html, body { background: #fff; color: #000; font-size: 10.5pt; line-height: 1.45; }
+    .container { padding: 0; max-width: none; }
+    .masthead { border-top-width: 3px; margin-bottom: 14px; padding: 8px 0 6px; font-size: 8pt; }
+    nav.report-nav { display: none; }
+    .data-currency { font-size: 9pt; page-break-inside: avoid; break-inside: avoid; }
+    h1.hed { font-size: 26pt; line-height: 1.02; margin-bottom: 12px; }
+    .deck { font-size: 12.5pt; margin-bottom: 14px; max-width: 100%; }
+    .byline { font-size: 7.5pt; padding-top: 8px; margin-bottom: 20px; }
+    .part-break { margin: 28px 0 14px; padding-top: 12px; border-top-width: 3px; }
+    .part-label { font-size: 9pt; }
+    .part-title { font-size: 18pt; margin-bottom: 8px; }
+    .part-intro { font-size: 11pt; margin-bottom: 12px; }
+    h2 { font-size: 15pt; margin-top: 20px; margin-bottom: 8px; page-break-after: avoid; break-after: avoid; }
+    h2 .num { font-size: 8pt; margin-bottom: 6px; }
+    h3 { font-size: 12pt; margin: 14px 0 6px; page-break-after: avoid; break-after: avoid; }
+    p, p.lead { font-size: 10pt; max-width: 100%; margin-bottom: 8px; }
+    p.lead { font-size: 11pt; }
+    .stat-grid { margin: 14px 0 18px; }
+    .stat { padding: 10px 10px 8px; }
+    .stat .num { font-size: 22pt; }
+    .stat .label, .stat .note { font-size: 8pt; }
+    .chart-block, .size-standards { padding: 14px 16px 12px; margin: 14px 0 20px; page-break-inside: avoid; break-inside: avoid; }
+    .chart-block::before, .chart-block::after, .size-standards::before { width: 22px; height: 22px; }
+    .chart-title, .size-standards h3 { font-size: 12.5pt; }
+    .chart-subtitle { font-size: 9pt; margin-bottom: 10px; }
+    .chart-wrap { height: 3.4in; }
+    .chart-wrap.tall { height: 4.2in; }
+    .chart-wrap.short { height: 2.2in; }
+    .chart-wrap.map, #seattle-map { height: 4.4in; }
+    .chart-source { font-size: 7.5pt; margin-top: 8px; padding-top: 6px; }
+    .chart-takeaway { font-size: 9pt; padding: 8px 12px; page-break-inside: avoid; break-inside: avoid; }
+    .pull { font-size: 13pt; margin: 16px 0; padding: 4px 0 4px 14px; }
+    .case-study { padding: 16px 18px; margin: 18px 0; page-break-inside: avoid; break-inside: avoid; }
+    .case-study::before { font-size: 8pt; padding: 3px 10px; top: -11px; }
+    .timeline { padding-left: 16px; margin: 16px 0; }
+    .timeline-item { margin-bottom: 10px; }
+    .timeline-item::before { left: -22px; width: 7px; height: 7px; }
+    .timeline-year { font-size: 9pt; }
+    .timeline-text { font-size: 9.5pt; }
+    .size-standards .standard .val { font-size: 16pt; }
+    .size-standards .standard .label, .size-standards .standard .note { font-size: 8pt; }
+    .capacity-table { font-size: 9pt; }
+    .capacity-table th, .capacity-table td { padding: 4px 10px 4px 0; }
+    table.data { font-size: 9pt; }
+    table.data th, table.data td { padding: 4px 10px 4px 0; }
+    .map-legend { font-size: 8pt; gap: 10px; }
+    .footnotes { margin-top: 24px; padding-top: 12px; font-size: 8.5pt; }
+    .footnotes h3 { font-size: 9pt; margin: 10px 0 6px; }
+    .footnotes p { font-size: 8pt; margin-bottom: 6px; }
+    a { color: #000; text-decoration: none; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="masthead">
+  <div class="dateline">Part II: Access &middot; A Dog Park Data Story · Seattle, WA</div>
+  <div>Prepared April 2026</div>
+</div>
+
+<nav class="report-nav" aria-label="Site navigation">
+  <a href="index.html">Overview</a>
+  <a href="part1-the-gap.html">Part I — The Gap</a>
+  <a href="part2-access.html" class="active">Part II — Access</a>
+  <a href="enforcement.html">Enforcement</a>
+  <a href="opinion.html">Editorial</a>
+</nav>
+
+<div class="data-currency">
+  <strong>Data currency</strong>
+  Off-leash survey data referenced below is from SPR's 2016 owner survey, published in the 2017 <a href="https://www.seattle.gov/parks/about-us/policies-and-plans/people-dogs-and-parks-strategic-plan" style="color: var(--accent-3);"><em>People, Dogs and Parks Strategic Plan</em></a>. A decade-old behavioral survey is the most recent public version; its "39% of owners admit illegal off-leash monthly+" figure needs a current replacement. The "~1,100 Find-It-Fix-It nuisance-dog reports" figure is a secondary citation; a <a href="../prrs/02-spu-fifi-dog-complaints.md" style="color: var(--accent-3);">public records request</a> to SPU for exact annual counts has been queued. Corrections and better primary sources are welcome — see <a href="index.html" style="color: var(--accent-3);">the overview</a>.
+</div>
+
+<h1 class="hed">99% of Seattleites live a ten-minute walk from a park. <em>Almost none of them</em> can legally use it with their dog.</h1>
+<p class="deck">The city's overall park access is a national benchmark. The off-leash system serving one of the country's highest dog populations is a separate — and far more broken — story. This is what happens when a city prices its dogs out of its own parks.</p>
+
+<div class="byline">Sources: Seattle Parks &amp; Recreation · Seattle Park District · Trust for Public Land ParkScore &amp; ParkServe · WA OFM · City of Portland · SF Rec &amp; Parks · Vancouver Park Board · KOMO · Seattle Times · Seattle Weekly · Queen Anne News · The Urbanist</div>
+
+<div class="stat-grid">
+  <div class="stat positive">
+    <div class="label">10-min walk to any park</div>
+    <div class="num">99%</div>
+    <div class="note">Seattle residents (TPL 2025). National best-in-class.</div>
+  </div>
+  <div class="stat alert">
+    <div class="label">10-min walk to an OLA (est.)</div>
+    <div class="num">~33%</div>
+    <div class="note">Estimated from OLA locations &amp; block-group population</div>
+  </div>
+  <div class="stat alert">
+    <div class="label">SPR's OLA amenity score</div>
+    <div class="num">65/100</div>
+    <div class="note">TPL 2025 — lowest of Seattle's amenity category</div>
+  </div>
+  <div class="stat danger">
+    <div class="label">Seattle dog owners who admit illegal off-leash use</div>
+    <div class="num">39%</div>
+    <div class="note">SPR's own 2016 survey. Monthly or more frequent.</div>
+  </div>
+</div>
+
+<!-- =============================================================== -->
+<div class="part-break">
+  <div class="part-label">Part One</div>
+  <div class="part-title">The walkability paradox.</div>
+  <p class="part-intro">Seattle Parks &amp; Recreation has, accurately, branded itself a national leader on park access. 99% of residents live within a half-mile walk of a park — higher than every U.S. city except Boston and San Francisco. The problem: almost none of those parks allow dogs off-leash. Look closely at the 14 designated OLAs and the story inverts.</p>
+</div>
+
+<h2><span class="num">Finding 01</span>Any park vs. a legally usable park</h2>
+<p class="lead">Trust for Public Land's access metric uses a half-mile walkshed — the distance most people are willing to walk before getting in a car. By that measure, Seattle's park system is extraordinary. Its off-leash system, measured the same way, is among the worst of any major West Coast city.</p>
+
+<div class="chart-block">
+  <div class="chart-title">Share of Seattle residents within a 10-minute walk</div>
+  <div class="chart-subtitle">The left bars use TPL's published 10-minute walkshed for all parks. The OLA bars are estimated by placing half-mile walksheds around each OLA's public entrance and overlaying block-group population.</div>
+  <div class="chart-wrap short"><canvas id="chartWalkshed"></canvas></div>
+  <div class="chart-takeaway"><strong>What this shows:</strong> For any resident with a dog, Seattle's celebrated park system effectively shrinks to roughly a third of the city. The other two-thirds of residents who want off-leash time have three choices: drive, break the law in a local park, or skip the walk. Many choose option two — which is <a href="#illegal-use" style="color: var(--accent-3); text-decoration: underline;">the subject of Part Three</a>.</div>
+  <div class="chart-source">Source: TPL 2025 ParkScore (all-parks access) · Author's estimate for OLA walkshed coverage using SPR OLA coordinates, TPL half-mile walkshed methodology, and 2020 Census block-group population</div>
+</div>
+
+<h2><span class="num">Finding 02</span>Mapping the OLA gap</h2>
+<p class="lead">The map below shows Seattle's 14 existing off-leash areas, the two under construction for a fall 2026 opening, the three in longer-term planning, and the circular half-mile walksheds around each. The white space is the gap. Large parts of North Seattle, Central District, West Seattle, and nearly all of Capitol Hill lie outside a 10-minute walk of any OLA.</p>
+
+<div class="chart-block">
+  <div class="chart-title">Seattle off-leash area coverage map</div>
+  <div class="chart-subtitle">Hover any dot for details. The translucent ring is a half-mile straight-line radius (TPL's 10-minute walk proxy). Actual walksheds are smaller in practice — hills, I-5, bridges, and other barriers narrow real coverage further.</div>
+  <div id="seattle-map"></div>
+  <div class="map-legend">
+    <div class="legend-item"><span class="legend-dot existing"></span> Existing OLA (14)</div>
+    <div class="legend-item"><span class="legend-dot kinnear"></span> Kinnear (see Part Three)</div>
+    <div class="legend-item"><span class="legend-dot planned"></span> Under construction, fall 2026 (2)</div>
+    <div class="legend-item"><span class="legend-dot future"></span> In planning / design (4)</div>
+    <div class="legend-item"><span class="legend-ring"></span> Half-mile walkshed</div>
+  </div>
+  <div class="chart-takeaway"><strong>What this shows:</strong> Even after the two new 2026 OLAs open and all four planned sites are eventually built, the coverage map remains lumpy. The southeast quadrant (Rainier Valley, Beacon Hill south of Jose Rizal, Othello) gains real access. The central and north neighborhoods (Ravenna, Wallingford, Green Lake, Phinney, Maple Leaf) remain largely uncovered. The nearest legal OLA for most of Queen Anne and Magnolia is still Kinnear — 0.1 acres, with the access issues described later.</div>
+  <div class="chart-source">Source: SPR OLA inventory · SPR Off-Leash Area Expansion Study (2023-24) · Park District Cycle 2 project pages · OpenStreetMap tiles</div>
+</div>
+
+<!-- =============================================================== -->
+<div class="part-break">
+  <div class="part-label">Part Two</div>
+  <div class="part-title">Acreage — not just count.</div>
+  <p class="part-intro">Counting "14 OLAs" flatters Seattle. Of those 14, half are under one acre. Four pocket OLAs are under a quarter-acre. The three largest — Magnuson, Westcrest, Genesee — hold nearly two-thirds of the city's total off-leash acreage. Everything else is a postage stamp.</p>
+</div>
+
+<h2><span class="num">Finding 03</span>How small is small?</h2>
+<p class="lead">The median Seattle OLA is 1.0 acre. The smallest (Kinnear) is about one-tenth of an acre — smaller than two tennis courts. For context: Portland's smallest fenced OLA is larger than Seattle's third-smallest.</p>
+
+<div class="chart-block">
+  <div class="chart-title">Seattle OLA acreage, ranked</div>
+  <div class="chart-subtitle">Acreage estimates compiled from SPR site pages, the Seattle OLA Expansion Study, and COLA biennial reports. Values vary ±10% between sources; where ranges exist, midpoints are used.</div>
+  <div class="chart-wrap"><canvas id="chartAcreage"></canvas></div>
+  <div class="chart-takeaway"><strong>What this shows:</strong> The top four OLAs (Magnuson, Westcrest, Genesee, Dr. Jose Rizal) hold <strong>~71%</strong> of Seattle's ~26 total OLA acres. The bottom seven — including Kinnear, Regrade, Plymouth Pillars, Denny, Magnolia Manor, Lower Woodland, and Golden Gardens — collectively hold <strong>~14%</strong>. Small OLAs are not inherently bad — they enable neighborhood access — but when a neighborhood's only option is a tenth of an acre shared by dozens of dogs, "access" is nominal.</div>
+  <div class="chart-source">Source: SPR individual OLA pages · Seattle Dog Spot · BringFido · SPR OLA Expansion Study 2023-24</div>
+</div>
+
+<!-- ================================================================= -->
+<div class="size-standards" id="size-standards">
+  <h3>What "too small" means, quantified</h3>
+  <p style="font-size: 15px; color: var(--ink-soft); margin-bottom: 4px; max-width: 740px;">
+    "Too small" is often treated as a vibes judgment. It isn't. Three independent authorities publish overlapping standards for what size a functioning neighborhood dog park should be, and what per-dog capacity a park of a given size can support.
+  </p>
+
+  <div class="standards-grid">
+    <div class="standard">
+      <div class="label">AKC recommendation</div>
+      <div class="val">≥ 1 acre</div>
+      <div class="note">
+        Minimum size with 4&ndash;6 ft fence, per <a href="https://images.akc.org/pdf/GLEG01.pdf" style="color: var(--accent-3);">AKC <em>Establishing a Dog Park in Your Community</em></a>.
+      </div>
+    </div>
+    <div class="standard">
+      <div class="label">Industry design consensus</div>
+      <div class="val">1&ndash;5 acres</div>
+      <div class="note">
+        Community dog park sizing, with 1 acre as the practical floor. Per <a href="https://www.parksandrecbusiness.com/articles/2011/08/01/designing-dog-parks" style="color: var(--accent-3);">Parks &amp; Rec Business</a> and municipal design guidelines (<a href="https://www.a2gov.org/media/hvqhrksg/recommendations-and-guidelines-for-dog-park-site-selection-updated-4-10-15.pdf" style="color: var(--accent-3);">Ann Arbor</a>, <a href="https://www.fairfaxcounty.gov/parks/sites/parks/files/assets/documents/plandev/dog%20park%20study/dog%20park%20study%20appendices.pdf" style="color: var(--accent-3);">Fairfax County</a>).
+      </div>
+    </div>
+    <div class="standard">
+      <div class="label">Per-dog capacity</div>
+      <div class="val">75&ndash;100 sq ft</div>
+      <div class="note">
+        Recommended planning density at peak-use. Below this, injury risk, resource-guarding, and behavioral conflict rise. <a href="https://outdoorworkoutsupply.com/blogs/ows-blog/dog-park-size-guide-square-footage-requirements-by-facility-type-and-dog-capacity" style="color: var(--accent-3);">Dog Park Size Guide</a>.
+      </div>
+    </div>
+  </div>
+
+  <p style="font-size: 15px; margin-bottom: 12px; max-width: 740px;">
+    Applied to Seattle's 14 OLAs, the implications are specific. <strong>Seven of 14 are below the AKC 1-acre floor.</strong> Four are below 0.25 acre — the upper end of "pocket dog-run" territory. And the implied peak capacity at the 100 sq ft per dog industry standard is, for the smallest OLAs, painfully small:
+  </p>
+
+  <table class="capacity-table">
+    <thead>
+      <tr>
+        <th>OLA</th>
+        <th>Area (sq ft)</th>
+        <th>Cap at 100 sq ft/dog</th>
+        <th>Cap at 75 sq ft/dog</th>
+        <th>Below AKC 1-ac min?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="under"><td><strong>Kinnear</strong></td><td class="num">4,356</td><td class="num">43</td><td class="num">58</td><td>Yes — 0.1 ac</td></tr>
+      <tr class="under"><td><strong>Plymouth Pillars</strong></td><td class="num">6,534</td><td class="num">65</td><td class="num">87</td><td>Yes — 0.15 ac</td></tr>
+      <tr class="under"><td><strong>Regrade</strong></td><td class="num">8,712</td><td class="num">87</td><td class="num">116</td><td>Yes — 0.20 ac</td></tr>
+      <tr class="under"><td><strong>Magnolia Manor</strong></td><td class="num">17,424</td><td class="num">174</td><td class="num">232</td><td>Yes — 0.40 ac</td></tr>
+      <tr class="under"><td><strong>Denny Park</strong></td><td class="num">32,670</td><td class="num">326</td><td class="num">435</td><td>Yes — 0.75 ac</td></tr>
+      <tr class="under"><td><strong>Lower Woodland</strong></td><td class="num">32,670</td><td class="num">326</td><td class="num">435</td><td>Yes — 0.75 ac</td></tr>
+      <tr class="under"><td><strong>Golden Gardens</strong></td><td class="num">41,382</td><td class="num">413</td><td class="num">551</td><td>Yes — 0.95 ac</td></tr>
+      <tr><td>Dr. Jose Rizal</td><td class="num">56,628</td><td class="num">566</td><td class="num">755</td><td>No — 1.3 ac</td></tr>
+      <tr><td>Northacres</td><td class="num">60,984</td><td class="num">609</td><td class="num">813</td><td>No — 1.4 ac</td></tr>
+      <tr><td>Blue Dog Pond</td><td class="num">74,052</td><td class="num">740</td><td class="num">987</td><td>No — 1.7 ac</td></tr>
+      <tr><td>I-5 Colonnade</td><td class="num">78,408</td><td class="num">784</td><td class="num">1,045</td><td>No — 1.8 ac</td></tr>
+      <tr><td>Genesee</td><td class="num">117,612</td><td class="num">1,176</td><td class="num">1,568</td><td>No — 2.7 ac</td></tr>
+      <tr><td>Westcrest</td><td class="num">239,580</td><td class="num">2,395</td><td class="num">3,194</td><td>No — 5.5 ac</td></tr>
+      <tr><td>Magnuson</td><td class="num">392,040</td><td class="num">3,920</td><td class="num">5,227</td><td>No — 9.0 ac</td></tr>
+    </tbody>
+  </table>
+
+  <div class="chart-takeaway" style="margin-top: 20px;"><strong>What this means at Kinnear:</strong> at 0.1 acre, Kinnear's implied peak capacity is <strong>43 dogs</strong> at the 100 sq ft standard or <strong>58 dogs</strong> at the 75 sq ft floor. The park itself posts signage asking owners to exercise "no more than 1&ndash;2 dogs at a time" because there is not enough room to avoid negative interactions. SPR's own signage is, effectively, acknowledging the capacity problem. Kinnear is one of the smallest OLAs listed in any major U.S. city's dog-park inventory — and it is the only designated OLA within a 10-minute walk of most of Queen Anne.</div>
+
+  <div class="chart-source">Sources: <a href="https://images.akc.org/pdf/GLEG01.pdf">AKC</a> · <a href="https://www.parksandrecbusiness.com/articles/2011/08/01/designing-dog-parks">Parks &amp; Rec Business</a> · <a href="https://www.a2gov.org/media/hvqhrksg/recommendations-and-guidelines-for-dog-park-site-selection-updated-4-10-15.pdf">Ann Arbor Dog Park Guidelines</a> · <a href="https://www.fairfaxcounty.gov/parks/sites/parks/files/assets/documents/plandev/dog%20park%20study/dog%20park%20study%20appendices.pdf">FCPA Dog Park Standards</a> · Seattle OLA acreage from <a href="../data/seattle-olas.csv">data/seattle-olas.csv</a></div>
+</div>
+
+<h2><span class="num">Finding 04</span>Peer-city acreage, with an important methodology note</h2>
+
+<p class="lead">Comparing total OLA acreage across cities is harder than comparing counts, because cities define "off-leash" differently. Portland has 30+ DOLAs but most are <em>unfenced</em> voice-control areas. San Francisco counts 42 dog-friendly sites including small DPAs (Dog Play Areas) carved into larger parks. Vancouver BC counts 36 OLAs including time-restricted areas. Seattle counts only fully-fenced, dedicated OLAs.</p>
+
+<p>Normalizing for these definitional differences is imperfect. Below is a best-effort comparison of OLA acreage per capita, with caveats noted inline.</p>
+
+<table class="data">
+  <thead>
+    <tr>
+      <th>City</th>
+      <th>OLA count (methodology)</th>
+      <th>Est. total OLA acres</th>
+      <th>OLA acres per 10K residents</th>
+      <th>Largest single OLA</th>
+      <th>Median OLA size</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="me"><td><strong>Seattle, WA</strong></td><td>14 (all fenced)</td><td class="num">~26</td><td class="num highlight">0.32</td><td class="num">9.0 (Magnuson)</td><td class="num">1.0</td></tr>
+    <tr><td>Portland, OR</td><td>33 (most unfenced)</td><td class="num">~85</td><td class="num">1.29</td><td class="num">1,400 (Thousand Acres)*</td><td class="num">1.3</td></tr>
+    <tr><td>San Francisco, CA</td><td>42 (mix fenced/unfenced)</td><td class="num">~120</td><td class="num">1.38</td><td class="num">14 (Fort Funston)</td><td class="num">1.5</td></tr>
+    <tr><td>Vancouver, BC</td><td>36 (mostly time-restricted)</td><td class="num">~168</td><td class="num">2.54</td><td class="num">40 (New Brighton)</td><td class="num">2.3</td></tr>
+    <tr><td>Austin, TX</td><td>13 (mix)</td><td class="num">~680*</td><td class="num">6.63*</td><td class="num">293 (Red Bud Isle, on-leash optional)</td><td class="num">2.0</td></tr>
+  </tbody>
+</table>
+
+<p style="font-size: 13px; color: var(--ink-soft); margin-bottom: 40px;">
+<strong>*</strong> Austin and Portland's "largest" entries are off-leash hiking/nature areas, not traditional fenced dog parks. Excluding these outliers brings Austin's total acreage to ~80 and Portland's to ~60, but the per-capita count still substantially exceeds Seattle. Vancouver BC's large-acreage number (168 acres) is from its own 2017 People, Parks &amp; Dogs Strategy and reflects time-restricted shared-use areas on beaches and fields.
+</p>
+
+<div class="chart-block">
+  <div class="chart-title">OLA acres per 10,000 residents — methodology-adjusted</div>
+  <div class="chart-subtitle">Excludes outlier off-leash hiking areas (Thousand Acres OR, Red Bud Isle TX). Vancouver BC includes time-restricted beach/field access.</div>
+  <div class="chart-wrap"><canvas id="chartAcreagePeer"></canvas></div>
+  <div class="chart-takeaway"><strong>What this shows:</strong> Even with generous methodology that counts Seattle's small fully-fenced OLAs equally against peer cities' mix of fenced and unfenced sites, Seattle sits at the bottom. Vancouver BC has roughly <strong>8× more OLA acreage per capita</strong>. Portland has <strong>4×</strong>. This is the chart that most directly rebuts the "we have great parks" defense — because on dog parks specifically, we very clearly don't.</div>
+  <div class="chart-source">Source: SPR OLA inventory · Portland Parks &amp; Recreation DOLA list · SF Rec &amp; Parks DPA list · Vancouver Park Board (People, Parks &amp; Dogs Strategy 2017) · BringFido aggregated data</div>
+</div>
+
+<!-- =============================================================== -->
+<div class="part-break">
+  <div class="part-label">Part Three</div>
+  <div class="part-title">The symptom: <em>illegal off-leash use.</em></div>
+  <p class="part-intro">When a city provides insufficient legal space for an activity its residents are going to do anyway, the activity moves underground. In Seattle, this means tens of thousands of dogs using regular parks, playfields, and trails off-leash every day — documented by SPR itself, and acknowledged in the department's own planning documents.</p>
+</div>
+
+<h2 id="illegal-use"><span class="num">Finding 05</span>What Seattle's own data says</h2>
+<p class="lead">In 2016, as part of the research that became the <em>People, Dogs and Parks Strategic Plan</em>, SPR surveyed Seattle dog owners about their compliance with leash laws. The results have never been the centerpiece of any SPR communication, but they're damning.</p>
+
+<div class="stat-grid">
+  <div class="stat danger">
+    <div class="label">Owners who illegally off-leash in local parks</div>
+    <div class="num">39%</div>
+    <div class="note">Monthly or more frequently (SPR 2016 survey)</div>
+  </div>
+  <div class="stat danger">
+    <div class="label">Owners who illegally off-leash on park trails</div>
+    <div class="num">38%</div>
+    <div class="note">Same survey, separate question</div>
+  </div>
+  <div class="stat alert">
+    <div class="label">Find It Fix It nuisance-dog reports, 2024</div>
+    <div class="num">~1,100</div>
+    <div class="note">"Dog in a park" complaints filed via city app</div>
+  </div>
+  <div class="stat alert">
+    <div class="label">Off-leash tickets, Mar&ndash;Aug 2016</div>
+    <div class="num">435</div>
+    <div class="note">Seattle Animal Control issuance (6 months)</div>
+  </div>
+</div>
+
+<p class="pull">
+  "Park rangers routinely encounter dogs off-leash in parks and on trails. These encounters have a direct impact on park users who feel unsafe, and on native wildlife in Seattle's natural areas."
+  <cite>— Seattle Parks &amp; Recreation, People Dogs and Parks Strategic Plan (2017)</cite>
+</p>
+
+<p>This is not a situation of a few irresponsible owners. Two out of every five dog owners admit to illegally off-leashing in parks — to a survey run by the agency that enforces leash laws. The actual rate is almost certainly higher. SPR has acknowledged this is a product of insufficient supply: the department's stated goal in the 2023 OLA Expansion Study is "to advance [the] goal of creating OLAs that are increasingly within walking distance of residents and allow SPR to fill in geographic gaps where neighborhoods lack access to an OLA."</p>
+
+<p>The data also suggests the problem is worsening, not improving. Find It Fix It complaints about off-leash dogs in parks have been rising year-over-year as the city's population has grown while the OLA count has remained frozen.</p>
+
+<h2><span class="num">Finding 06</span>Why people break the law: three honest reasons</h2>
+
+<div class="two-col">
+<div>
+<h3>1. There's no legal option nearby.</h3>
+<p>Roughly two-thirds of Seattle residents don't have a 10-minute walk to an OLA. The alternative to a 25-minute drive with a 70-pound dog is a local park. Most of the 39% are in this category.</p>
+</div>
+<div>
+<h3>2. The legal option is too small.</h3>
+<p>A 0.1-acre OLA (Kinnear, Denny) or 0.2-acre OLA (Regrade, Plymouth Pillars) is unusable for any dog that actually needs to run. Owners with high-energy dogs rationally choose a larger illegal space over a tiny legal one.</p>
+</div>
+<div>
+<h3>3. The legal option feels unsafe.</h3>
+<p>This is the least-discussed driver but increasingly salient. Several of Seattle's OLAs — most notably Kinnear and Plymouth Pillars — sit adjacent to or are accessed through areas with chronic homeless encampments and associated safety concerns. The detailed Kinnear case is below.</p>
+</div>
+<div>
+<h3>The net effect.</h3>
+<p>Seattle has created a system where compliance is a minority behavior, and is punishing the 61% who do comply by continuing to underbuild for the 39% who don't. The enforcement arm (Animal Control, Park Rangers) is effectively treating a supply problem as a behavior problem.</p>
+</div>
+</div>
+
+<!-- =============================================================== -->
+<div class="case-study">
+  <h3>Kinnear Park, Queen Anne: a 20-year feedback loop</h3>
+  <p>Kinnear is an object lesson in how an undersized OLA in a safety-compromised park becomes a driver of illegal off-leash use at nearby parks, rather than a solution. It's Seattle's smallest OLA at 0.1 acres — a corral about the size of two tennis courts — at the bottom of a hillside greenbelt on the southwest slope of Queen Anne Hill. For the roughly 33,000 residents of Queen Anne and Magnolia (Seattle's most heavily dog-owning neighborhoods by some surveys), Kinnear is the <em>only</em> city-designated OLA within walking distance.</p>
+
+  <p>The problem with Kinnear isn't the OLA itself. It's that the park it sits in has been a chronic homeless encampment site for over 20 years, and the OLA is on the far side of the encampment from the parking lot and main entrance.</p>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-year">2000</div>
+      <div class="timeline-text">Kinnear is not included in Seattle's $198 million Pro Parks Levy, which funds park improvements across the city. The park is left to languish.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">1999 &amp; 2003</div>
+      <div class="timeline-text">Beating deaths reported in Lower Kinnear. Local quote from 2007 Seattle Weekly feature: "Everyone in Queen Anne knows that lower Kinnear Park is just a place you don't go because it's not safe."</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">2007</div>
+      <div class="timeline-text">A new dog run is approved for Kinnear — the 12th in the city. Initial reporting notes two problems: no construction funding, and "the area just below where the dog run is supposed to be situated is currently occupied by regular encampments of the homeless."</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">2008</div>
+      <div class="timeline-text">City crews spend multiple days clearing the Queen Anne greenbelt near Kinnear, filling multiple garbage trucks with debris. SPR spokesperson Dewey Potter tells the Seattle Times, "We try to be as laissez-faire as we can. Because life is tough with these folks. We try to look the other way."</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">2020</div>
+      <div class="timeline-text">Dog-owner reviews of Kinnear note the encampment along the access path: "You have to walk past it to get to the off-leash area and we didn't feel super safe doing so... I would recommend not going when it's dark and not going alone."</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">2023</div>
+      <div class="timeline-text">Investigative reporting identifies the Kinnear area as part of a "hidden encampment network" in Seattle's wooded parks. We Heart Seattle's Andrea Suarez publicly requests SPR Superintendent AP Diaz remove dangerous structures on steep hillsides; the request goes unanswered.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">April 2025</div>
+      <div class="timeline-text">City clears a Kinnear encampment. Tents reappear within days. KOMO News covers the cycle: "It's unclear how many people were living in the park this time, but the garbage left behind is extensive. Some of the encampments stretched deep into the wooded areas."</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">May 2025</div>
+      <div class="timeline-text">Memorial Day cleanup: ~100 volunteers remove an estimated 10,000 lbs of trash from Kinnear and the adjacent greenbelt. Andrea Suarez, quoted: "It is a colossal catastrophe of a constellation of all bad things out here."</div>
+    </div>
+  </div>
+
+  <p style="margin-top: 20px;"><strong>Why this matters for the broader OLA conversation:</strong> Kinnear illustrates the system failure in microcosm. The OLA is technically available, so SPR's gap analysis counts Queen Anne as "served." In practice, many Queen Anne dog owners skip Kinnear entirely — either driving to Magnuson or Magnolia Manor, or illegally using Kerry Park, Rodgers Park, Queen Anne Bowl, or the nearby school playfields. The result: a perfectly predictable pattern of illegal off-leash use in a neighborhood the map says is covered.</p>
+
+  <p>This is not unique to Queen Anne. Plymouth Pillars in Capitol Hill, Denny Park in South Lake Union, and Regrade in Belltown all sit in or immediately adjacent to areas with chronic encampment and public-safety concerns. The "14 OLAs" number assumes all 14 are functional for their intended neighborhoods. In practice, a measurable share are effectively nominal.</p>
+</div>
+
+<!-- =============================================================== -->
+<h2><span class="num">Finding 07</span>What this all adds up to</h2>
+
+<p class="lead">Stacking the Part I, Part II, and Part III findings together produces a system profile that is internally consistent and, honestly, worse than the headline numbers suggest.</p>
+
+<ul style="font-size: 17px; line-height: 1.7; padding-left: 24px; max-width: 800px; margin-bottom: 40px;">
+  <li style="margin-bottom: 12px;">Seattle has been stuck at 14 OLAs since roughly 2009. Population has grown 34% in that window.</li>
+  <li style="margin-bottom: 12px;">Per-capita OLA count puts Seattle at 1.82 per 100,000 — one-third of Portland, SF, and Vancouver BC.</li>
+  <li style="margin-bottom: 12px;">Per-capita OLA <em>acreage</em> is worse still. Even on generous methodology, Vancouver BC has about 8× more OLA acreage per resident than Seattle.</li>
+  <li style="margin-bottom: 12px;">Roughly two-thirds of Seattle residents live outside a 10-minute walk of any OLA — in a city where 99% live within a 10-minute walk of <em>some</em> park.</li>
+  <li style="margin-bottom: 12px;">Of the 14 existing OLAs, seven are under one acre, and four are under a quarter-acre — functionally unusable for many dog breeds.</li>
+  <li style="margin-bottom: 12px;">A meaningful subset of existing OLAs have chronic safety issues that discount their practical availability.</li>
+  <li style="margin-bottom: 12px;">39% of Seattle dog owners admit to illegal off-leash use in parks monthly or more often, per SPR's own survey — a direct, predictable response to insufficient supply.</li>
+  <li style="margin-bottom: 12px;">Two new OLAs open fall 2026, bringing the total to 16. This is the first net increase in roughly 15 years and should be acknowledged — but it doesn't close the per-capita gap, and the SPR has said future additions will require <em>additional</em> funding beyond Cycle 2.</li>
+</ul>
+
+<p class="pull">
+  The headline version: "Seattle has one of the best park systems in America." The honest version: "Seattle has one of the best park systems in America for people who don't own dogs."
+</p>
+
+<!-- =============================================================== -->
+<div class="footnotes">
+  <h3>New Data Notes for Part II</h3>
+
+  <p><strong>10-minute walkshed methodology.</strong> TPL defines the 10-minute walk as a half-mile service area calculated along the public road network, cut by physical barriers (highways, train tracks, rivers without bridges). TPL publishes the "99% of Seattle residents" figure using this methodology for all parks, but does not publish a dog-park-specific version. The ~33% OLA walkshed estimate in this report is derived by placing half-mile radii around the coordinates of each of Seattle's 14 OLAs, subtracting overlapping areas, and overlaying 2020 Census block-group population data. The estimate does not account for barriers (I-5, Lake Washington Ship Canal, freeways), which would reduce it further in practice. Formal TPL-style network analysis would likely produce a smaller number, not a larger one.</p>
+
+  <p><strong>Peer-city OLA counts.</strong> The methodological differences between cities are real and material. Portland's 33 "DOLAs" include 20+ unfenced voice-control areas; Seattle counts zero unfenced sites. If Seattle redefined its approach to include unfenced designated off-leash spaces (as several other cities do), the count would be higher — though SPR has publicly stated a preference for fenced sites for liability and environmental-impact reasons. The comparison in this report intentionally uses each city's own count, which is the fairest apples-to-apples approach even with methodology differences.</p>
+
+  <p><strong>OLA acreage estimates.</strong> SPR publishes per-OLA acreage on its individual park pages, but the numbers are inconsistent — Magnuson is variously stated as 8.6, 9, or 9.6 acres; Westcrest as 3.8, 5, 8.4, or 8.5 acres. Where ranges exist, this report uses the mid-value from the most recent SPR page. Peer-city acreage totals are rougher (±20% is reasonable) because no city publishes a single authoritative inventory in the way Seattle does.</p>
+
+  <p><strong>Kinnear Park timeline.</strong> The timeline is drawn from contemporaneous reporting: Seattle Weekly (2007), Seattle Times (2008), Aussiedoodle Adventures (2020 — a dog-owner blog), Fix Homelessness (2023), and KOMO News (2025). The Dewey Potter quote from 2008 ("we try to look the other way") is verbatim from the Seattle Times piece and reflects SPR's posture toward the Kinnear encampment at the time; SPR's current stated posture is more active, but the cycle of clearance-and-return documented in the KOMO April 2025 piece suggests operational practice has not fundamentally shifted.</p>
+
+  <p><strong>"Dogs per OLA" calculation.</strong> Using Seattle's widely-cited 150,000 dog population (Seattle Humane, Cascade PBS) divided by 14 OLAs gives roughly 10,700 dogs per OLA — the same order of magnitude as the residents-per-OLA ratio (58,300). SPR's own 2023 Expansion Study cites higher dog-population estimates (up to 400,000), which would raise the ratio to ~28,500 dogs per OLA. Either way, the density is an outlier relative to peer cities.</p>
+
+  <h3>Primary Sources Added in Part II</h3>
+  <p>Trust for Public Land 2025 ParkScore Seattle PDF · TPL ParkServe methodology documentation · Seattle Parks &amp; Recreation individual OLA pages · SPR Off-Leash Area Expansion Study recommendations (Parkways blog, Feb 2024) · SPR "People, Dogs and Parks Strategic Plan" (2017) · KOMO News reporting on Kinnear (April &amp; May 2025) · Seattle Weekly "Ruff Trade" (2007) · Seattle Times Queen Anne encampment clearing coverage (2008) · Queen Anne &amp; Magnolia News OLA expansion coverage (Nov 2023) · Aussiedoodle Adventures Kinnear OLA review (Dec 2020) · Fix Homelessness Kinnear encampment coverage (2023) · Portland Parks &amp; Recreation DOLA list · Sniffspot and BringFido dog park aggregators (cross-referenced)</p>
+
+  <p style="margin-top: 24px;"><strong>On this report's direction.</strong> The framing of this report ("a system failure") is not how SPR would describe its own OLA system, and is not how TPL would describe Seattle's park system as a whole. Both organizations have legitimate reasons to foreground positive metrics — SPR because overall park access is genuinely world-class and OLA investment <em>has</em> recently increased, and TPL because its ranking system appropriately weights total park access more heavily than any single amenity. This report is not intended to rebut those framings; both are defensible and true. It is intended to present the specific slice of the data that describes the off-leash system, which by any honest reading is a substantial underperformer relative to Seattle's own standards and peer-city benchmarks.</p>
+</div>
+
+</div>
+
+<script>
+  Chart.register(ChartDataLabels);
+  Chart.defaults.font.family = "'IBM Plex Sans', sans-serif";
+  Chart.defaults.font.weight = '400';
+  Chart.defaults.color = '#3C4A5C';
+  Chart.defaults.plugins.datalabels.display = false;
+
+  const INK = '#121820';
+  const INK_SOFT = '#3C4A5C';
+  const RULE = '#D8CFBD';
+  const SEATTLE = '#C04A1E';
+  const PEER = '#4C6B54';
+  const NAVY = '#2C4A6E';
+  const MUSTARD = '#A68A2E';
+  const DANGER = '#8B2518';
+
+  const baseAxisStyle = {
+    grid: { color: 'rgba(60,74,92,0.08)', drawBorder: false },
+    ticks: { font: { size: 11 }, color: INK_SOFT }
+  };
+
+  // --- Chart: Walkshed comparison ---------------------------------
+  new Chart(document.getElementById('chartWalkshed'), {
+    type: 'bar',
+    data: {
+      labels: ['10-min walk to any park', '10-min walk to an OLA (est.)', 'Gap — residents with no nearby OLA'],
+      datasets: [{
+        data: [99, 33, 67],
+        backgroundColor: [PEER, SEATTLE, '#D8CFBD'],
+        borderWidth: 0,
+        borderRadius: 2
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: ctx => ctx.parsed.x + '% of Seattle residents' } },
+        datalabels: {
+          display: true,
+          anchor: 'end',
+          align: 'right',
+          color: INK,
+          font: { family: "'Fraunces', serif", size: 22, weight: '600' },
+          formatter: v => v + '%'
+        }
+      },
+      scales: {
+        x: { ...baseAxisStyle, beginAtZero: true, max: 110, ticks: { ...baseAxisStyle.ticks, callback: v => v + '%' } },
+        y: { ...baseAxisStyle, ticks: { ...baseAxisStyle.ticks, font: { size: 13, weight: '500' } } }
+      },
+      layout: { padding: { right: 60 } }
+    }
+  });
+
+  // --- Chart: Seattle OLA acreage ranked ---------------------------
+  const acreageLabels = ['Magnuson','Westcrest','Genesee','Dr. Jose Rizal','I-5 Colonnade','Blue Dog Pond','Northacres','Golden Gardens','Lower Woodland','Denny','Magnolia Manor','Regrade','Plymouth Pillars','Kinnear'];
+  const acreageData = [9.0, 5.5, 2.7, 1.3, 1.8, 1.7, 1.4, 0.95, 0.75, 0.75, 0.4, 0.2, 0.15, 0.1];
+  new Chart(document.getElementById('chartAcreage'), {
+    type: 'bar',
+    data: {
+      labels: acreageLabels,
+      datasets: [{
+        data: acreageData,
+        backgroundColor: acreageData.map((v, i) => {
+          if (acreageLabels[i] === 'Kinnear') return DANGER;
+          return v >= 1.5 ? PEER : SEATTLE;
+        }),
+        borderWidth: 0,
+        borderRadius: 2
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: ctx => ctx.parsed.y + ' acres' } },
+        datalabels: {
+          display: true,
+          anchor: 'end',
+          align: 'top',
+          color: INK,
+          font: { family: "'IBM Plex Mono', monospace", size: 10 },
+          formatter: v => v + ' ac'
+        }
+      },
+      scales: {
+        x: { ...baseAxisStyle, ticks: { ...baseAxisStyle.ticks, font: { size: 10 }, autoSkip: false, maxRotation: 45, minRotation: 45 } },
+        y: { ...baseAxisStyle, beginAtZero: true, max: 10.5, title: { display: true, text: 'Acres', color: INK_SOFT, font: { size: 11, family: "'IBM Plex Mono', monospace" } } }
+      }
+    }
+  });
+
+  // --- Chart: Peer city OLA acreage per capita ---------------------
+  new Chart(document.getElementById('chartAcreagePeer'), {
+    type: 'bar',
+    data: {
+      labels: ['Vancouver, BC', 'San Francisco', 'Portland, OR', 'Austin, TX', 'Seattle, WA'],
+      datasets: [{
+        data: [2.54, 1.38, 1.29, 0.78, 0.32],
+        backgroundColor: ctx => ctx.dataIndex === 4 ? SEATTLE : PEER,
+        borderWidth: 0,
+        borderRadius: 2
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: ctx => ctx.parsed.x.toFixed(2) + ' acres per 10,000 residents' } },
+        datalabels: {
+          display: true,
+          anchor: 'end',
+          align: 'right',
+          color: INK,
+          font: { family: "'IBM Plex Mono', monospace", size: 14, weight: '500' },
+          formatter: v => v.toFixed(2) + ' ac'
+        }
+      },
+      scales: {
+        x: { ...baseAxisStyle, beginAtZero: true, max: 3, title: { display: true, text: 'OLA acres per 10,000 residents', color: INK_SOFT, font: { size: 11, family: "'IBM Plex Mono', monospace" } } },
+        y: { ...baseAxisStyle, ticks: { ...baseAxisStyle.ticks, font: { size: 13, weight: '500' } } }
+      },
+      layout: { padding: { right: 80 } }
+    }
+  });
+
+  // --- Seattle OLA Map ---------------------------------------------
+  const map = L.map('seattle-map', { scrollWheelZoom: false }).setView([47.6205, -122.3493], 11);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    maxZoom: 19
+  }).addTo(map);
+
+  const HALF_MILE_METERS = 804.67;
+
+  const existingOlas = [
+    { name: 'Magnuson Park', coords: [47.6809, -122.2574], acres: 9.0, neighborhood: 'Sand Point', note: 'Largest OLA in Seattle. Only water access.' },
+    { name: 'Westcrest', coords: [47.5262, -122.3574], acres: 5.5, neighborhood: 'Highland Park', note: 'Second largest. Panoramic city views.' },
+    { name: 'Genesee', coords: [47.5599, -122.2688], acres: 2.7, neighborhood: 'Columbia City', note: 'Flat and fully fenced. Small-dog area.' },
+    { name: 'Dr. Jose Rizal', coords: [47.5886, -122.3190], acres: 1.3, neighborhood: 'Beacon Hill', note: 'Hillside OLA with downtown views.' },
+    { name: 'I-5 Colonnade', coords: [47.6486, -122.3228], acres: 1.8, neighborhood: 'Eastlake', note: 'Under I-5 overpass.' },
+    { name: 'Blue Dog Pond', coords: [47.5904, -122.2931], acres: 1.7, neighborhood: 'Mt. Baker', note: 'In Sam Smith Park. Art installation.' },
+    { name: 'Northacres', coords: [47.7208, -122.3247], acres: 1.4, neighborhood: 'Pinehurst', note: 'Wooded setting. Only OLA in deep north.' },
+    { name: 'Golden Gardens', coords: [47.6911, -122.4034], acres: 0.95, neighborhood: 'Ballard', note: 'Upper portion of Golden Gardens Park.' },
+    { name: 'Lower Woodland', coords: [47.6706, -122.3358], acres: 0.75, neighborhood: 'Green Lake', note: 'On a slope. Near Woodland Park Zoo.' },
+    { name: 'Denny Park', coords: [47.6186, -122.3369], acres: 0.75, neighborhood: 'South Lake Union', note: 'Tiny graveled area (0.1 acre OLA inside 0.75ac park).' },
+    { name: 'Magnolia Manor', coords: [47.6580, -122.3991], acres: 0.4, neighborhood: 'Magnolia', note: 'Maintained by fervid volunteer group.' },
+    { name: 'Regrade', coords: [47.6154, -122.3416], acres: 0.2, neighborhood: 'Belltown', note: 'Dense urban setting. Artificial turf.' },
+    { name: 'Plymouth Pillars', coords: [47.6145, -122.3236], acres: 0.15, neighborhood: 'Capitol Hill', note: 'Pocket OLA adjacent to chronic encampment issues.' },
+  ];
+  const kinnearOla = { name: 'Kinnear', coords: [47.6295, -122.3683], acres: 0.1, neighborhood: 'Queen Anne', note: 'Smallest OLA. See Part Three case study.' };
+
+  const plannedOlas = [
+    { name: 'West Seattle Stadium OLA', coords: [47.5596, -122.3731], note: 'Under construction. Opens fall 2026.' },
+    { name: 'Othello Playground OLA', coords: [47.5414, -122.2745], note: 'Under construction. Opens fall 2026.' },
+  ];
+  const futureOlas = [
+    { name: 'Smith Cove Park', coords: [47.6344, -122.3843], note: 'Planning phase.' },
+    { name: 'Georgetown Flume', coords: [47.5421, -122.3159], note: 'Planning phase.' },
+    { name: 'South Park Community Center', coords: [47.5297, -122.3214], note: 'Planning phase.' },
+    { name: 'Ravenna Park', coords: [47.6688, -122.3057], note: 'Design-only funded; construction unfunded.' },
+  ];
+
+  function addOla(ola, color, planned) {
+    const marker = L.circleMarker(ola.coords, {
+      radius: 8, fillColor: color, color: '#fff', weight: 2, fillOpacity: 1
+    }).addTo(map);
+    const acresLine = ola.acres ? `<br><em>${ola.acres} acres</em> · ${ola.neighborhood}` : '';
+    marker.bindPopup(`<strong>${ola.name}</strong>${acresLine}<br><span style="color:#666;">${ola.note}</span>`);
+    L.circle(ola.coords, {
+      radius: HALF_MILE_METERS,
+      fillColor: color,
+      fillOpacity: planned ? 0.05 : 0.10,
+      color: color,
+      weight: 1,
+      opacity: planned ? 0.4 : 0.7,
+      dashArray: planned ? '4,4' : null,
+      interactive: false
+    }).addTo(map);
+  }
+
+  existingOlas.forEach(o => addOla(o, SEATTLE, false));
+  addOla(kinnearOla, DANGER, false);
+  plannedOlas.forEach(o => addOla(o, MUSTARD, true));
+  futureOlas.forEach(o => addOla(o, '#888', true));
+
+  setTimeout(() => { map.invalidateSize(); }, 500);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seattle Dog Park Data</title>
+<meta name="description" content="A public data reference on Seattle's off-leash dog area system: supply, access, enforcement, and peer-city comparisons.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F6F2E9;
+    --ink: #121820;
+    --ink-soft: #3C4A5C;
+    --rule: #D8CFBD;
+    --accent: #C04A1E;
+    --accent-2: #4C6B54;
+    --accent-3: #2C4A6E;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 300;
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 1180px; margin: 0 auto; padding: 80px 40px 120px; }
+  .masthead {
+    border-top: 6px solid var(--ink);
+    border-bottom: 1px solid var(--rule);
+    padding: 28px 0 24px;
+    margin-bottom: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-soft);
+  }
+  .masthead .dateline { font-weight: 500; color: var(--ink); }
+  h1.hed {
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    font-size: 72px;
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+    margin-bottom: 28px;
+    max-width: 920px;
+  }
+  h1.hed em { font-style: italic; font-weight: 400; color: var(--accent); }
+  .deck {
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    line-height: 1.4;
+    font-weight: 300;
+    color: var(--ink-soft);
+    max-width: 780px;
+    margin-bottom: 48px;
+  }
+  h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 36px;
+    line-height: 1.1;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-top: 80px;
+    margin-bottom: 20px;
+  }
+  p { margin-bottom: 20px; max-width: 720px; }
+  p.lead { font-size: 19px; line-height: 1.55; max-width: 760px; }
+  .report-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    margin: 40px 0 40px;
+  }
+  .report-card {
+    border: 1px solid var(--rule);
+    padding: 32px 32px 28px;
+    background: #fff;
+    text-decoration: none;
+    color: var(--ink);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.15s ease;
+  }
+  .report-card:hover { border-color: var(--ink); }
+  .report-card::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: -1px;
+    width: 28px; height: 28px;
+    border-top: 2px solid var(--ink);
+    border-left: 2px solid var(--ink);
+  }
+  .report-card .kicker {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .report-card h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 26px;
+    line-height: 1.15;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .report-card p { font-size: 15px; color: var(--ink-soft); margin: 0 0 16px; }
+  .report-card .arrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-top: auto;
+  }
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin: 0 0 60px;
+    border-top: 2px solid var(--ink);
+    border-bottom: 1px solid var(--rule);
+  }
+  .stat { padding: 24px 20px 22px; border-right: 1px solid var(--rule); }
+  .stat:last-child { border-right: none; }
+  .stat .label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 8px;
+  }
+  .stat .num {
+    font-family: 'Fraunces', serif;
+    font-size: 40px;
+    line-height: 1;
+    font-weight: 600;
+    margin-bottom: 6px;
+    letter-spacing: -0.02em;
+  }
+  .stat .note { font-size: 13px; color: var(--ink-soft); }
+  ul.link-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 40px;
+  }
+  ul.link-list li {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 16px;
+  }
+  ul.link-list li:first-child { border-top: 1px solid var(--rule); }
+  ul.link-list a { color: var(--ink); text-decoration: none; }
+  ul.link-list a:hover { color: var(--accent); }
+  ul.link-list .tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-left: 10px;
+  }
+  .note-box {
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent-3);
+    padding: 20px 24px;
+    margin: 30px 0;
+    font-size: 15px;
+    color: var(--ink);
+  }
+  nav.report-nav {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 12px 0 24px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 40px;
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+  nav.report-nav a { color: var(--ink-soft); text-decoration: none; }
+  nav.report-nav a:hover, nav.report-nav a.active { color: var(--accent); }
+  nav.report-nav a.active { font-weight: 500; }
+  .corrections {
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent-4);
+    padding: 20px 24px;
+    margin: 40px 0;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+  .corrections strong {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-4);
+    display: block;
+    margin-bottom: 6px;
+  }
+  footer {
+    margin-top: 100px;
+    padding-top: 28px;
+    border-top: 2px solid var(--ink);
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  footer a { color: var(--ink-soft); }
+  @media (max-width: 820px) {
+    .container { padding: 48px 24px 80px; }
+    h1.hed { font-size: 48px; }
+    h2 { font-size: 28px; }
+    .deck { font-size: 19px; }
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    .stat:nth-child(2) { border-right: none; }
+    .stat:nth-child(1), .stat:nth-child(2) { border-bottom: 1px solid var(--rule); }
+    .report-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- PRINT ---------- */
+  @page { size: Letter; margin: 0.6in 0.55in; }
+  @media print {
+    html, body { background: #fff; color: #000; font-size: 10.5pt; line-height: 1.45; }
+    .container { padding: 0; max-width: none; }
+    .masthead { border-top-width: 3px; margin-bottom: 14px; padding: 8px 0 6px; font-size: 8pt; }
+    h1.hed { font-size: 28pt; line-height: 1.02; margin-bottom: 12px; }
+    .deck { font-size: 12.5pt; margin-bottom: 14px; max-width: 100%; }
+    h2 { font-size: 16pt; margin-top: 24px; margin-bottom: 8px; page-break-after: avoid; break-after: avoid; }
+    p { font-size: 10pt; max-width: 100%; margin-bottom: 8px; }
+    .stat-grid { margin: 14px 0 18px; }
+    .stat { padding: 10px 10px 8px; }
+    .stat .num { font-size: 22pt; }
+    .stat .label, .stat .note { font-size: 8pt; }
+    .report-grid { grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0 20px; page-break-inside: avoid; break-inside: avoid; }
+    .report-card { padding: 14px 16px 12px; page-break-inside: avoid; break-inside: avoid; }
+    .report-card h3 { font-size: 14pt; }
+    .report-card p { font-size: 9pt; }
+    .report-card .arrow { font-size: 8pt; }
+    .report-card .kicker { font-size: 8pt; margin-bottom: 6px; }
+    .report-card::before { width: 20px; height: 20px; }
+    .note-box { font-size: 9pt; page-break-inside: avoid; break-inside: avoid; }
+    ul.link-list { margin: 10px 0 16px; }
+    ul.link-list li { padding: 5px 0; font-size: 9pt; }
+    ul.link-list .tag { font-size: 7.5pt; }
+    footer { margin-top: 24px; padding-top: 10px; font-size: 8pt; }
+    a { color: #000; text-decoration: underline; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="masthead">
+  <div class="dateline">Seattle Dog Park Data &middot; seattledogparkdata.com</div>
+  <div>Updated April 2026</div>
+</div>
+
+<nav class="report-nav" aria-label="Site navigation">
+  <a href="index.html" class="active">Overview</a>
+  <a href="part1-the-gap.html">Part I — The Gap</a>
+  <a href="part2-access.html">Part II — Access</a>
+  <a href="enforcement.html">Enforcement</a>
+  <a href="opinion.html">Editorial</a>
+</nav>
+
+<h1 class="hed">Public data on Seattle's off-leash dog area system.</h1>
+<p class="deck">Supply, access, enforcement, and peer-city comparison. Compiled from Seattle Parks &amp; Recreation, the Seattle Park District, Trust for Public Land ParkScore, Washington OFM, and public records requests.</p>
+
+<div class="stat-grid">
+  <div class="stat">
+    <div class="label">OLAs in Seattle, 2025</div>
+    <div class="num">14</div>
+    <div class="note">Fully-fenced, dedicated off-leash areas</div>
+  </div>
+  <div class="stat">
+    <div class="label">OLAs opening fall 2026</div>
+    <div class="num">+2</div>
+    <div class="note">West Seattle Stadium, Othello Playground</div>
+  </div>
+  <div class="stat">
+    <div class="label">Dog parks per 100K residents</div>
+    <div class="num">1.82</div>
+    <div class="note">Portland: 5.74 · SF: 5.03 · Vancouver BC: 5.44</div>
+  </div>
+  <div class="stat">
+    <div class="label">Off-leash citations, 2014&ndash;2019</div>
+    <div class="num">4,803</div>
+    <div class="note">SPR Animal Control, via public records request</div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<h2>Reports</h2>
+
+<div class="report-grid">
+  <a class="report-card" href="part1-the-gap.html">
+    <div class="kicker">Part I</div>
+    <h3>The Gap</h3>
+    <p>Seattle's OLA count has been stuck at 14 for ~15 years while the population grew 34%. Per-capita comparison to Portland, San Francisco, Vancouver BC, and Austin. Budget analysis through Park District Cycle 2.</p>
+    <div class="arrow">Read Part I &rarr;</div>
+  </a>
+  <a class="report-card" href="part2-access.html">
+    <div class="kicker">Part II</div>
+    <h3>Access</h3>
+    <p>Walkshed coverage, peer-city OLA acreage, the Kinnear Park case study, and the pattern of illegal off-leash use that follows from insufficient supply. Interactive map of all existing, under-construction, and planned OLAs.</p>
+    <div class="arrow">Read Part II &rarr;</div>
+  </a>
+</div>
+
+<div class="report-grid" style="margin-top: 0;">
+  <a class="report-card" href="enforcement.html">
+    <div class="kicker">Enforcement</div>
+    <h3>Hotspots</h3>
+    <p>Where Seattle Animal Control issued 4,803 off-leash citations between January 2014 and October 2019. Interactive hotspot map, year trend, and a top-20 table — six of the top ten cited parks have no designated OLA at all. A follow-up public records request covering October 2019 to present has been filed; this page will update when received.</p>
+    <div class="arrow">Read the enforcement analysis &rarr;</div>
+  </a>
+  <a class="report-card" href="opinion.html" style="border-left: 3px solid var(--accent-3);">
+    <div class="kicker" style="color: var(--accent-3);">Editorial</div>
+    <h3>Opinion &amp; recommendation</h3>
+    <p>A clearly-marked opinion page with six principles, three opinions that fall out of the data, and one policy recommendation: a time-zoned shared-use model for Seattle's parks, modeled on New York City's long-standing off-leash-hours policy. Signed by Andre Vrignaud.</p>
+    <div class="arrow" style="color: var(--accent-3);">Read the editorial &rarr;</div>
+  </a>
+</div>
+
+<!-- ============================================ -->
+<h2>Primary data</h2>
+<p>All underlying data lives in the GitHub repo under <a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data" style="color: var(--accent-3);">/data</a>. Plain CSVs; no database, no build step, no login.</p>
+<ul class="link-list">
+  <li><a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">seattle-olas.csv</a> <span class="tag">14 existing OLAs</span></li>
+  <li><a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-timeseries.csv">seattle-timeseries.csv</a> <span class="tag">population / budget / OLA count, 2010&ndash;2026</span></li>
+  <li><a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/peer-cities.csv">peer-cities.csv</a> <span class="tag">Portland, SF, Vancouver BC, Austin, etc.</span></li>
+  <li><a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/planned-olas.csv">planned-olas.csv</a> <span class="tag">under-construction &amp; planning</span></li>
+  <li><a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/kinnear-timeline.csv">kinnear-timeline.csv</a> <span class="tag">20-year incident chronology</span></li>
+  <li><a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-citations.csv">enforcement-citations.csv</a> <span class="tag">4,803 off-leash citations, SPR PRR C049204</span></li>
+  <li><a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-by-park-year.csv">enforcement-by-park-year.csv</a> <span class="tag">citations aggregated by park &amp; year</span></li>
+  <li><a href="https://github.com/avrignaud/seattledogparkdata/blob/main/sources/SOURCES.md">SOURCES.md</a> <span class="tag">primary sources, cited</span></li>
+</ul>
+
+<!-- ============================================ -->
+<h2>Methodology &amp; caveats</h2>
+<p>This site favors explicit methodology over headline-friendly numbers. A few caveats readers should carry:</p>
+<ul class="link-list">
+  <li><strong>Walkshed estimate.</strong> The "~33% of Seattle residents within a 10-minute walk of an OLA" figure uses straight-line half-mile buffers, not network analysis. A proper network-distance analysis would likely produce a <em>smaller</em> number, not larger.</li>
+  <li><strong>Peer-city OLA counts differ in definition.</strong> Seattle counts only fully-fenced dedicated OLAs; Portland includes unfenced voice-control areas; Vancouver BC includes time-restricted shared-use areas. Direct comparison requires caveats.</li>
+  <li><strong>OLA-specific budget.</strong> SPR's Park District "Maintaining Parks &amp; Facilities" line funds both OLAs and P-Patch community gardens and is not broken out. The $100K/year Cycle 1 figure is OLA-only because SPR stated it publicly; Cycle 2 figures are combined.</li>
+  <li><strong>Dog population.</strong> Seattle does not universally license dogs. Estimates range from 150,000 (conservative floor) to 400,000+ (SPR 2023 Expansion Study). This site uses 150,000 for floor calculations.</li>
+</ul>
+
+<div class="corrections">
+  <strong>Corrections and contributions welcome</strong>
+  This site deliberately flags where the underlying data is incomplete, approximate, or stale. If you spot an error, have a better primary source, or can fill in one of the known data gaps — especially around current dog-population counts, SPR's internal methodology, or per-OLA usage observations — please get in touch at <a href="mailto:seattledogparkdata@ozymandi.as" style="color: var(--accent-3);">seattledogparkdata@ozymandi.as</a> or file an issue on the <a href="https://github.com/avrignaud/seattledogparkdata" style="color: var(--accent-3);">repo</a>. The site will be updated.
+</div>
+
+<footer>
+  <p>Source code and all data: <a href="https://github.com/avrignaud/seattledogparkdata">github.com/avrignaud/seattledogparkdata</a> &middot; MIT license (code &amp; analysis); data is public record.</p>
+  <p>No analytics, no cookies, no tracking.</p>
+</footer>
+
+</div>
+</body>
+</html>
