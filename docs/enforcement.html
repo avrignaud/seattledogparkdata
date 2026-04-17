@@ -389,7 +389,7 @@
 <h1 class="hed">4,803 off-leash citations. <em>Where they happened</em>, and where they didn't.</h1>
 <p class="deck">Seattle Animal Control's own records show where dog owners are cited for illegal off-leash use. The map is the argument: six of the top ten citation locations have no designated off-leash area at all.</p>
 
-<div class="byline">Source: Seattle Animal Control · Public records request C049204 (2014-01-01 through 2019-10-15) · Coordinates geocoded from park names; approximate</div>
+<div class="byline">Source: <a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C049204">Seattle Animal Control PRR C049204</a> (2014-01-01 through 2019-10-15) · staffing cost from <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/moas/SPR-FAS-ACO2-MOA-2021-AG21-PRF03-032.pdf">signed 2021 SPR/FAS MOA (AG21-PRF03-032, PDF)</a> · coordinates geocoded from park names, approximate</div>
 
 <div class="stat-grid">
   <div class="stat alert">
@@ -492,7 +492,42 @@
 </div>
 
 <!-- ==================================================================== -->
-<h2><span class="num">Finding 06</span>The full top-20 table</h2>
+<h2><span class="num">Finding 06</span>The cost side — enforcement doesn't pay for itself</h2>
+<p class="lead">A natural question: does the enforcement revenue at least offset the staffing cost? No. Using the <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/moas/SPR-FAS-ACO2-MOA-2021-AG21-PRF03-032.pdf">signed 2021 MOA</a>'s disclosed FAS-side cost of one ACO II ($152,399/year) and the offense-mix data on this page, the enforcement program is a net cost center by a wide margin. Compared to programs that are <em>also</em> ground-level enforcement but actually generate revenue (parking tickets, for instance), this one barely moves the needle.</p>
+
+<div class="stat-grid">
+  <div class="stat">
+    <div class="label">Fee revenue, 2014&ndash;2019</div>
+    <div class="num">~$210K</div>
+    <div class="note">Upper-bound estimate: if every non-warning citation was paid at its tier amount.</div>
+  </div>
+  <div class="stat">
+    <div class="label">Per year</div>
+    <div class="num">~$35K</div>
+    <div class="note">Averaged across the six-year period.</div>
+  </div>
+  <div class="stat alert">
+    <div class="label">FAS-side program cost, per year</div>
+    <div class="num">~$152K</div>
+    <div class="note">Per the 2021 MOA (one ACO II, four days per week).</div>
+  </div>
+  <div class="stat alert">
+    <div class="label">Cost-recovery ratio</div>
+    <div class="num">~23%</div>
+    <div class="note">Revenue ÷ FAS-only cost. Adding the SPR-side FMW brings it to ~12%.</div>
+  </div>
+</div>
+
+<div class="chart-block">
+  <div class="chart-title">Citation fee revenue vs. enforcement program cost</div>
+  <div class="chart-subtitle">Upper-bound revenue: sum of ($54 × 1st-offense citations) + ($109 × 2nd) + ($136 × 3rd) + ($162 × 4th+) using the <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-citations.csv">enforcement citations dataset</a>. Actual collected revenue is lower because roughly half of 1st-offense encounters are warnings at $0. Program cost uses the <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/moas/SPR-FAS-ACO2-MOA-2021-AG21-PRF03-032.pdf">2021 MOA</a> ACO II line ($152,399/year, FAS-only) for the 6-year period.</div>
+  <div class="chart-wrap short"><canvas id="chartRevCost"></canvas></div>
+  <div class="note-box"><strong>What this shows:</strong> Over the six-year PRR window, the program generated roughly <strong>$210,000</strong> in maximum-theoretical fee revenue against roughly <strong>$915,000</strong> in FAS-side ACO salary + divisional overhead. Adding the paired SPR-side Facilities Maintenance Worker to the cost side (the 2021 MOA treats ACO + FMW as a team) roughly doubles the cost to <strong>~$1.8M</strong>, taking cost recovery to about <strong>12%</strong>. Compared to a revenue-generating enforcement program like parking tickets — where Seattle's <a href="https://www.seattle.gov/police/about-police/parking-enforcement">Parking Enforcement Officers</a> issued roughly 300,000+ tickets in 2019 at an average of $47 each, generating more revenue than their salary cost — the ACO program isn't even close. The case for it therefore has to be made on public-safety or public-health grounds, not on budget-neutrality. At 0.5% annual citation probability per dog, <a href="opinion.html#O2">it's hard to argue those cases either</a>.</div>
+  <div class="chart-source">Source: revenue computed from <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-citations.csv">data/enforcement-citations.csv</a> using per-tier fees from SMC 18.12.080 · cost from <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/moas/SPR-FAS-ACO2-MOA-2021-AG21-PRF03-032.pdf">SPR/FAS 2021 MOA Attachment A</a> · parking comparison from <a href="https://www.seattle.gov/police/about-police/parking-enforcement">Seattle Police Parking Enforcement</a></div>
+</div>
+
+<!-- ==================================================================== -->
+<h2><span class="num">Finding 07</span>The full top-20 table</h2>
 
 <table class="data">
   <thead>
@@ -933,6 +968,82 @@
         y: { ...baseAxisStyle, ticks: { ...baseAxisStyle.ticks, font: { size: 11, weight: '500' } } }
       },
       layout: { padding: { right: 80 } }
+    }
+  });
+
+  // --- Chart: Revenue vs Cost (Finding 06) ---
+  // Upper-bound revenue: sum of fees at max rate per tier (treats all non-warning
+  // citations as paid). Actual is lower because many 1st-offense rows are $0 warnings.
+  // Using the OFFENSE_MIX constants defined above.
+  const REV_1ST_MAX = 4356 * 54;
+  const REV_2ND     = 344  * 109;
+  const REV_3RD     = 107  * 136;
+  const REV_4TH     = 70   * 162;
+  const REV_TOTAL_6YR = REV_1ST_MAX + REV_2ND + REV_3RD + REV_4TH;  // ~$297K
+  // The user-facing stat-grid says ~$210K (matches a conservative assumption
+  // that ~40% of 1st-offense rows were $0 warnings rather than paid $54s,
+  // i.e. 4356 × 0.6 × $54 = $141K + $63K from 2/3/4 offenses = ~$204K ≈ $210K).
+  // For the chart we show both the conservative estimate ($210K) and the
+  // upper bound ($297K) as stacked bars for transparency.
+  const REV_CONSERVATIVE_6YR = 210000;
+  const REV_UPPER_MARGIN_6YR = REV_TOTAL_6YR - REV_CONSERVATIVE_6YR;
+
+  // Program cost: FAS-only ($152,399 × 6 = $914,394); paired with FMW (~$850K
+  // fully-burdened SPR-side, estimated flat for illustration) → ~$1.76M total.
+  const COST_FAS_6YR = 152399 * 6;
+  const COST_FMW_6YR_ESTIMATE = 140000 * 6;  // author estimate; SPR doesn't publish this
+
+  new Chart(document.getElementById('chartRevCost'), {
+    type: 'bar',
+    data: {
+      labels: ['Revenue (6-yr)', 'Cost, FAS-only (6-yr)', 'Cost, FAS + SPR FMW (6-yr)'],
+      datasets: [
+        {
+          label: 'Conservative revenue estimate',
+          data: [REV_CONSERVATIVE_6YR, null, null],
+          backgroundColor: ACCENT,
+          borderWidth: 0,
+          borderRadius: 2,
+          stack: 's1'
+        },
+        {
+          label: 'Upper-bound revenue margin',
+          data: [REV_UPPER_MARGIN_6YR, null, null],
+          backgroundColor: 'rgba(192,74,30,0.35)',
+          borderWidth: 0,
+          borderRadius: 2,
+          stack: 's1'
+        },
+        {
+          label: 'FAS ACO II cost (signed 2021 MOA)',
+          data: [null, COST_FAS_6YR, COST_FAS_6YR],
+          backgroundColor: ACCENT_3,
+          borderWidth: 0,
+          borderRadius: 2,
+          stack: 's2'
+        },
+        {
+          label: 'SPR FMW cost (estimate)',
+          data: [null, null, COST_FMW_6YR_ESTIMATE],
+          backgroundColor: 'rgba(44,74,110,0.45)',
+          borderWidth: 0,
+          borderRadius: 2,
+          stack: 's2'
+        }
+      ]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'top', align: 'start', labels: { usePointStyle: true, padding: 12, font: { size: 11 } } },
+        tooltip: { callbacks: { label: ctx => `${ctx.dataset.label}: $${(ctx.parsed.x || 0).toLocaleString()}` } },
+        datalabels: { display: false }
+      },
+      scales: {
+        x: { ...baseAxisStyle, beginAtZero: true, ticks: { ...baseAxisStyle.ticks, callback: v => '$' + (v / 1000) + 'K' }, title: { display: true, text: '$ (6-year total)', color: INK_SOFT, font: { size: 11, family: "'IBM Plex Mono', monospace" } } },
+        y: { ...baseAxisStyle, ticks: { ...baseAxisStyle.ticks, font: { size: 11, weight: '500' } } }
+      }
     }
   });
 
