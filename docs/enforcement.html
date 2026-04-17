@@ -419,12 +419,12 @@
 
 <div class="chart-block">
   <div class="chart-title">Where off-leash citations were issued, 2014&ndash;2019</div>
-  <div class="chart-subtitle">Circles sized by citation count. Popup shows location, count, and nearest OLA (if any).</div>
+  <div class="chart-subtitle">Red/amber circles sized by citation count at the cited park. Small solid-green dots mark all 14 existing OLAs — including the tiny pocket OLAs (Kinnear, Plymouth Pillars, Regrade) that <em>don't</em> appear as citation hotspots because they are already legal. Click any marker for details.</div>
   <div id="hotspot-map"></div>
   <div class="map-legend">
     <div class="legend-item"><span class="legend-dot no-ola"></span> Cited location, no OLA</div>
     <div class="legend-item"><span class="legend-dot partial"></span> Cited location, has partial OLA in larger park</div>
-    <div class="legend-item"><span class="legend-dot has-ola"></span> Existing OLA</div>
+    <div class="legend-item"><span class="legend-dot has-ola"></span> Existing OLA (all 14 shown, not just those cited)</div>
     <div class="legend-item"><span class="legend-dot planned"></span> Under construction / planned OLA</div>
     <div class="legend-item">
       <span class="legend-scale">
@@ -434,7 +434,7 @@
       </span>
     </div>
   </div>
-  <div class="note-box"><strong>What this shows:</strong> citation activity concentrates in parks that offer no legal off-leash option — Discovery, Volunteer, Cal Anderson, Lincoln, Martha Washington, Wallingford Playfield, Seward, and Maple Leaf Reservoir all appear in the top 20 and all have zero dedicated OLA. Meanwhile, OLAs with adequate capacity (Magnuson's 9 acres, Westcrest's 5.5) draw the highest compliant use — and yet still appear in the citation data because the surrounding non-OLA portions of those parks are regularly used off-leash.</div>
+  <div class="note-box"><strong>What this shows:</strong> the red circles (citation hotspots) and the green dots (existing OLAs) are in mostly different places. Citation activity concentrates in parks that offer <em>no</em> legal off-leash option — Discovery, Volunteer, Cal Anderson, Lincoln, Martha Washington, Wallingford Playfield, Seward, and Maple Leaf Reservoir all appear in the top 20 and all have zero dedicated OLA. Meanwhile, the small pocket OLAs (Kinnear, Plymouth Pillars, Regrade, Denny, Magnolia Manor — all below the <a href="part2-access.html#size-standards">AKC one-acre minimum</a>) sit as lonely green dots with few or no adjacent hotspots, which is the flip-side of the same story: the small ones are too small to actually draw use, and the neighborhoods around them generate their off-leash citations at the nearest real open space instead. Magnuson and Westcrest (the only two OLAs with enough room to be useful) do appear as hotspots — not because the OLAs are overused, but because the <em>surrounding</em> non-OLA parts of those parks are regularly used off-leash. The empirical pattern: <strong>citations cluster where OLAs aren't, or where the OLA that exists is too small to matter.</strong></div>
   <div class="chart-source">Source: Seattle Animal Control citation records via public records request C049204 (full raw response in <a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C049204">data/prr-responses/C049204</a>) · consolidated in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-citations.csv">data/enforcement-citations.csv</a> · park coordinates in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/park-coordinates.csv">data/park-coordinates.csv</a> (approximate, city-scale)</div>
 </div>
 
@@ -640,6 +640,40 @@
     const olaLabel = { has: 'Existing OLA on-site', no: 'No OLA', partial: 'Partial OLA (small, in larger park)', planned: 'OLA planned' }[h.ola];
     m.bindPopup(`<strong>${h.park}</strong><br>${h.neigh}<br><em>${h.count} citations</em><br>${olaLabel}<br><span style="color:#666">Nearest OLA: ${h.nearest}</span>`);
   });
+
+  // Overlay all 14 existing OLA locations as small green dots so readers can
+  // see the entire OLA inventory, including the small pocket OLAs (Kinnear,
+  // Plymouth Pillars, Regrade) that don't appear as citation hotspots
+  // precisely because they're already legal off-leash space. Inline here so
+  // the hotspot map stands alone from the Finding 02 gap map.
+  const OLAS_ALL_FOR_HOTSPOT = [
+    { name: 'Magnuson Park',     lat: 47.6809, lng: -122.2574, acres: 9.0 },
+    { name: 'Westcrest',         lat: 47.5262, lng: -122.3574, acres: 5.5 },
+    { name: 'Genesee',           lat: 47.5599, lng: -122.2688, acres: 2.7 },
+    { name: 'I-5 Colonnade',     lat: 47.6486, lng: -122.3228, acres: 1.8 },
+    { name: 'Blue Dog Pond',     lat: 47.5904, lng: -122.2931, acres: 1.7 },
+    { name: 'Northacres',        lat: 47.7208, lng: -122.3247, acres: 1.4 },
+    { name: 'Dr. Jose Rizal',    lat: 47.5886, lng: -122.3190, acres: 1.3 },
+    { name: 'Golden Gardens',    lat: 47.6911, lng: -122.4034, acres: 0.95 },
+    { name: 'Lower Woodland',    lat: 47.6706, lng: -122.3358, acres: 0.75 },
+    { name: 'Denny Park',        lat: 47.6186, lng: -122.3369, acres: 0.75 },
+    { name: 'Magnolia Manor',    lat: 47.6580, lng: -122.3991, acres: 0.4 },
+    { name: 'Regrade',           lat: 47.6154, lng: -122.3416, acres: 0.2 },
+    { name: 'Plymouth Pillars',  lat: 47.6145, lng: -122.3236, acres: 0.15 },
+    { name: 'Kinnear',           lat: 47.6295, lng: -122.3683, acres: 0.1 }
+  ];
+  OLAS_ALL_FOR_HOTSPOT.forEach(ola => {
+    // Use a thin-ringed marker so it's visible on top of heat/circles without
+    // being confused with a citation hotspot.
+    L.circleMarker([ola.lat, ola.lng], {
+      radius: 5,
+      fillColor: ACCENT_2,
+      fillOpacity: 1,
+      color: '#fff',
+      weight: 2
+    }).bindPopup(`<strong>${ola.name} OLA</strong><br><em>${ola.acres} acre${ola.acres === 1 ? '' : 's'}</em><br>Existing off-leash area`).addTo(map);
+  });
+
   setTimeout(() => map.invalidateSize(), 300);
 
   // ===================================================================
