@@ -33,3 +33,6 @@ tmp/
 # Local agent/tool config (not source-controlled)
 .claude/
 .railroad/
+
+# osmnx cache — large OSM tile blobs regenerated on demand
+cache/
