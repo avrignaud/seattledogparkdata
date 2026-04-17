@@ -257,6 +257,7 @@
   }
   table.data tr:hover { background: rgba(0,0,0,0.02); }
   table.data td.num { font-family: 'IBM Plex Mono', monospace; text-align: right; padding-right: 16px; }
+  table.data th.num { text-align: right; padding-right: 16px; }
   table.data td.highlight { color: var(--accent); font-weight: 500; }
   .footnotes {
     margin-top: 100px;
@@ -511,13 +512,13 @@
   <thead>
     <tr>
       <th>City</th>
-      <th>Population</th>
-      <th>Parkland acres</th>
-      <th>% city area</th>
-      <th>Dog parks</th>
-      <th>Per 100K</th>
-      <th>$/capita</th>
-      <th>ParkScore rank</th>
+      <th class="num">Population</th>
+      <th class="num">Parkland acres</th>
+      <th class="num">% city area</th>
+      <th class="num">Dog parks</th>
+      <th class="num">Per 100K</th>
+      <th class="num">$/capita</th>
+      <th class="num">ParkScore rank</th>
     </tr>
   </thead>
   <tbody>
@@ -536,11 +537,11 @@
   <thead>
     <tr>
       <th>Year</th>
-      <th>Population</th>
-      <th>OLAs</th>
-      <th>Residents / OLA</th>
-      <th>SPR budget (all funds)</th>
-      <th>OLA improvement $</th>
+      <th class="num">Population</th>
+      <th class="num">OLAs</th>
+      <th class="num">Residents / OLA</th>
+      <th class="num">SPR budget (all funds)</th>
+      <th class="num">OLA improvement $</th>
     </tr>
   </thead>
   <tbody>

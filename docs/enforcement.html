@@ -285,6 +285,7 @@
     padding: 9px 16px 9px 0;
     border-bottom: 1px solid var(--rule);
   }
+  table.data th.num { text-align: right; padding-right: 16px; }
   table.data td.num { font-family: 'IBM Plex Mono', monospace; text-align: right; padding-right: 16px; }
   table.data td.ola-yes { color: var(--accent-2); font-weight: 500; }
   table.data td.ola-no { color: var(--accent); font-weight: 500; }
@@ -496,10 +497,10 @@
 <table class="data">
   <thead>
     <tr>
-      <th>Rank</th>
+      <th class="num">Rank</th>
       <th>Park</th>
       <th>Neighborhood</th>
-      <th>Citations 2014&ndash;2019</th>
+      <th class="num">Citations 2014&ndash;2019</th>
       <th>Has OLA?</th>
       <th>Nearest OLA if none</th>
     </tr>
@@ -516,7 +517,7 @@
   <p>Of the <strong>4,803 total citations</strong> in the dataset, the underlying location quality breaks down as follows (computed by <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/build_enforcement_datasets.py"><code>build_enforcement_datasets.py</code></a>, reproducible):</p>
   <table class="data" style="max-width: 720px;">
     <thead>
-      <tr><th>Location quality</th><th>Count</th><th>Share</th></tr>
+      <tr><th>Location quality</th><th class="num">Count</th><th class="num">Share</th></tr>
     </thead>
     <tbody>
       <tr><td>Confidently folded into a canonical named park (e.g. "Warren G Magnuson Park" → "Magnuson Park")</td><td class="num">2,679</td><td class="num">55.8%</td></tr>

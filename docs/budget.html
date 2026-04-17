@@ -252,6 +252,7 @@
     border-bottom: 1px solid var(--rule);
     vertical-align: top;
   }
+  table.data th.num { text-align: right; padding-right: 16px; }
   table.data td.num { font-family: 'IBM Plex Mono', monospace; text-align: right; padding-right: 16px; }
   table.data td.unknown { color: var(--accent-4); font-style: italic; }
   table.data td.seattle { color: var(--accent); font-weight: 500; }
@@ -493,7 +494,7 @@ The Park District Cycle 2 one-time capital of $3.46M is presented by SPR as a si
 
 <table class="data">
   <thead>
-    <tr><th>Reference point</th><th>Amount</th><th>Source</th></tr>
+    <tr><th>Reference point</th><th class="num">Amount</th><th>Source</th></tr>
   </thead>
   <tbody>
     <tr><td>Cycle 2 OLA capital (W. Seattle Stadium + Othello construction + Ravenna design)</td><td class="num">$3.46M</td><td><a href="https://www.seattle.gov/parks/about-us/projects/west-seattle-stadium-off-leash-area-development">SPR project page</a></td></tr>
@@ -531,13 +532,13 @@ The full year-by-year data is in <a href="https://github.com/avrignaud/seattledo
 <table class="data">
   <thead>
     <tr>
-      <th>Year</th>
+      <th class="num">Year</th>
       <th>Cycle</th>
-      <th>SPR total ($M)</th>
-      <th>OLA + P-Patch combined ($K)</th>
-      <th>OLA-only ($K)</th>
-      <th>One-time capital ($K)</th>
-      <th>OLA as % of SPR</th>
+      <th class="num">SPR total ($M)</th>
+      <th class="num">OLA + P-Patch combined ($K)</th>
+      <th class="num">OLA-only ($K)</th>
+      <th class="num">One-time capital ($K)</th>
+      <th class="num">OLA as % of SPR</th>
     </tr>
   </thead>
   <tbody>
