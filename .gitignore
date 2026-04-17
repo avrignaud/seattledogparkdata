@@ -36,3 +36,6 @@ tmp/
 
 # osmnx cache — large OSM tile blobs regenerated on demand
 cache/
+
+# Agent/context scratch files
+AGENTS.md
