@@ -1089,7 +1089,7 @@
   const walkshedEl = document.getElementById('mapWalkshed');
   if (walkshedEl) {
     const walkshedMap = L.map(walkshedEl, { zoomControl: false, scrollWheelZoom: false, dragging: false, attributionControl: false })
-      .setView([47.6205, -122.3493], 11);
+      .setView([47.6205, -122.3493], 12);
     L.tileLayer(tileUrl, { attribution: tileAttr, subdomains: 'abcd', maxZoom: 18 }).addTo(walkshedMap);
     // Load 0.5-mile isochrone polygons from mirrored geojson, then put OLA
     // dots on top (addTo order determines z-order in Leaflet).
@@ -1120,7 +1120,7 @@
   const hotspotEl = document.getElementById('mapHotspot');
   if (hotspotEl) {
     const hotspotMap = L.map(hotspotEl, { zoomControl: false, scrollWheelZoom: false, dragging: false, attributionControl: false })
-      .setView([47.6205, -122.3493], 11);
+      .setView([47.6205, -122.3493], 12);
     L.tileLayer(tileUrl, { attribution: tileAttr, subdomains: 'abcd', maxZoom: 18 }).addTo(hotspotMap);
     HOTSPOTS.forEach(h => {
       const radius = Math.sqrt(h.count) * 1.6;
