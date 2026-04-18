@@ -731,6 +731,29 @@
 </div>
 
 <!-- =============================================================== -->
+<h2 id="finding-access-gap"><span class="num">Finding 02b</span>The access gap, measured: where citations happen vs. where walkshed reaches</h2>
+<p class="lead">If the thesis &mdash; that people run dogs off-leash where they live, and they live where OLAs aren't &mdash; is true, it should be visible in the enforcement data. It is.</p>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin: 24px 0 32px; max-width: 780px;">
+  <div style="border-left: 3px solid var(--accent); padding: 10px 0 10px 18px;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 4px;">Citations at parks OUTSIDE any OLA 0.5-mi walkshed</div>
+    <div style="font-family: 'Fraunces', serif; font-size: 42px; font-weight: 600; line-height: 1.02; color: var(--accent);">84.6%</div>
+    <div style="font-size: 13px; color: var(--ink-soft); margin-top: 4px;">2,378 of the 2,812 geocoded park-named citations</div>
+  </div>
+  <div style="border-left: 3px solid var(--accent-2); padding: 10px 0 10px 18px;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 4px;">Citations INSIDE an OLA walkshed</div>
+    <div style="font-family: 'Fraunces', serif; font-size: 42px; font-weight: 600; line-height: 1.02; color: var(--accent-2);">15.4%</div>
+    <div style="font-size: 13px; color: var(--ink-soft); margin-top: 4px;">434 citations &mdash; mostly on non-OLA parts of the host parks (Magnuson, Westcrest, Genesee, Golden Gardens)</div>
+  </div>
+</div>
+
+<p>Of 37 uniquely identified parks appearing in the citation data, <strong>33 sit outside any OLA's 10-minute walkshed</strong>. Only 4 sit inside &mdash; and those 4 <em>are</em> OLAs (Magnuson, Westcrest, Genesee, Golden Gardens). Citations at those four host parks are happening in the non-OLA portions: on the athletic fields, along the shorelines, in the wooded sections where people bring their dogs because they live nearby and the fenced OLA doesn't serve the use they actually want.</p>
+
+<div class="note-box"><strong>What this rules out.</strong> "Dog owners are scofflaws who violate the law anywhere" predicts citations spread evenly across the city, uncorrelated with OLA access. The data doesn't support that &mdash; citations cluster in very specific places. "Dog owners break the law because enforcement is lax" predicts the same even-spread pattern scaled up. The data doesn't support that either. The pattern that <em>does</em> fit the data: people break the law where no legal alternative exists within walking distance, and they comply where one does. <a href="enforcement.html#finding-02">Finding 02 on the enforcement page</a> shows this on a map &mdash; kernel-density heatmap of citation locations overlaid on OLA walksheds.</p></div>
+
+<p class="chart-source" style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); margin-top: 12px;">Source: point-in-polygon intersection of geocoded park citations from <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-citations.csv">data/enforcement-citations.csv</a> (PRR C049204) against 0.5-mile network isochrones in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/walkshed/ola_isochrones.geojson">data/walkshed/ola_isochrones.geojson</a>. 2,812 of 4,803 citations placed (58.5% &mdash; limited by the top-~40-park geocoded subset in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/park-coordinates.csv">data/park-coordinates.csv</a>). Street-address rows and blank-location rows are excluded from this analysis (pending geocode of the remaining 672 street-address rows).</p>
+
+<!-- =============================================================== -->
 <div class="part-break">
   <div class="part-label">Part Two</div>
   <div class="part-title">Acreage — not just count.</div>

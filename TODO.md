@@ -2,24 +2,21 @@
 
 Concrete next-work ideas, organized by effort and value. Kept up-to-date as work progresses.
 
-## Filed / in progress
+## Filed / awaiting response
 
 - [x] **PRR C049204** — off-leash citations 2014–2019. Responded Oct 2019; data at `data/prr-responses/C049204/` and consolidated as `data/enforcement-citations.csv`.
-- [ ] **PRR #1 (filed, awaiting response)** — off-leash citations Oct 2019 to present. Draft at `prrs/01-spr-offleash-citations-post-2019.md`.
+- [x] **PRR #1 (filed)** — off-leash citations Oct 2019 to present. Draft at `prrs/01-spr-offleash-citations-post-2019.md`. Awaiting SPR response.
+- [x] **PRR #2 to SPU** for Find-It-Fix-It "dog in a park" complaint counts by year and park. Filed. Awaiting response.
+- [x] **PRR #3 to SPR** for OLA-only share of the Maintaining Parks & Facilities BSL. Filed. Awaiting response.
+- [x] **PRR #4 to SPR** for the 2.5-mile OLA access standard methodology. Filed. Awaiting response.
+- [x] **PRR #5 to SPR** for per-OLA usage/headcount data. Filed. Awaiting response.
+- [x] **PRR #6 to SAS** for Seattle Animal Shelter dog-license history + compliance estimate. Filed. Awaiting response.
 
-## Ready-to-file, drafted
+## Outreach sent
 
-- [ ] **PRR #2 to SPU** for Find-It-Fix-It "dog in a park" complaint counts by year and park. Draft at `prrs/02-spu-fifi-dog-complaints.md`. Replaces the approximate ~1,100/year figure in Part II.
-- [ ] **PRR #3 to SPR** for OLA-only share of the Maintaining Parks & Facilities BSL (BC-PR-50000), 2023–present. Draft at `prrs/03-spr-ola-budget-split.md`. Separates OLA from P-Patch so Cycle 2 numbers are honest.
-- [ ] **PRR #4 to SPR** for the methodology behind the 2.5-mile OLA access standard. Draft at `prrs/04-spr-access-methodology.md`. Either exposes a real methodology we can compare to TPL's 0.5-mi network walkshed, or shows there isn't one.
-- [ ] **PRR #5 to SPR** for per-OLA usage/headcount data. Draft at `prrs/05-spr-ola-usage-counts.md`. Low-probability return; absence of data is itself a finding.
-- [ ] **PRR #6 to SAS** for Seattle Animal Shelter dog-license history + compliance estimate. Draft at `prrs/06-sas-dog-license-history.md`.
-
-## Outreach (handled off-site)
-
-- [ ] Email to COLA (Citizens for Off-Leash Areas) — usage-count data, corrections, coordination.
-- [ ] Email to QACC / Don Harper — specifically on the Queen Anne hilltop OLA priority.
-- [ ] Email to Colin Campbell (SPR, project lead on West Seattle Stadium OLA) — confirmed 2026 opening, final site acreages, updated OLA-only budget.
+- [x] Email to COLA (Citizens for Off-Leash Areas) — usage-count data, corrections, coordination.
+- [x] Email to QACC / Don Harper — Queen Anne hilltop OLA priority.
+- [x] Email to Colin Campbell (SPR, project lead on West Seattle Stadium OLA) — confirmed 2026 opening, final site acreages, updated OLA-only budget.
 
 ## High value, low effort
 
