@@ -18,14 +18,15 @@ const ROOT = path.resolve(__dirname, '..');
 const DOCS = path.join(ROOT, 'docs');
 const OUT  = path.join(DOCS, 'seattle-dog-parks-report.pdf');
 
-// Order matches the reading order for the printed report.
+// As of April 2026, the report is generated from a single dedicated
+// print template (docs/print.html) with print-first CSS. The template
+// condenses the six-page website into one long document with data
+// tables instead of Chart.js charts — Chromium's PDF engine handles
+// this cleanly at Letter size. The earlier multi-page concatenation
+// approach produced 87 visually-noisy pages because each HTML page
+// carried web-first responsive CSS.
 const PAGES = [
-  'index.html',
-  'part1-the-gap.html',
-  'part2-access.html',
-  'budget.html',
-  'enforcement.html',
-  'opinion.html',
+  'print.html',
 ];
 
 const MIME = {
@@ -69,17 +70,18 @@ function startStaticServer(dir) {
 
 async function renderPageToPdf(browser, baseUrl, page) {
   const p = await browser.newPage();
-  await p.emulateMediaType('screen');
+  // Use print media so @page rules and page-break CSS apply properly.
+  await p.emulateMediaType('print');
   const u = `${baseUrl}/${page}`;
   console.log(`Rendering ${u}`);
   await p.goto(u, { waitUntil: 'networkidle0', timeout: 60_000 });
-  // Chart.js + Leaflet settle a beat after network idle. Give them room.
-  await new Promise(r => setTimeout(r, 2500));
+  // Fonts can still be settling after networkidle; give them a beat.
+  await new Promise(r => setTimeout(r, 1500));
   const bytes = await p.pdf({
     format: 'Letter',
     printBackground: true,
-    margin: { top: '0.5in', right: '0.5in', bottom: '0.5in', left: '0.5in' },
-    preferCSSPageSize: false,
+    // print.html owns its own page margins via @page rules.
+    preferCSSPageSize: true,
   });
   await p.close();
   return bytes;
