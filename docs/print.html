@@ -8,8 +8,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
 <style>
   @page {
     size: letter;
@@ -242,6 +245,24 @@
   .chart-wrap.tall { height: 3.4in; }
   .chart-wrap.short { height: 2.0in; }
   canvas { max-width: 100% !important; }
+  .map-wrap {
+    width: 100%;
+    max-width: 6.5in;
+    height: 4.0in;
+    margin: 10px 0 4px;
+    border: 1px solid #D8CFBD;
+    break-inside: avoid;
+    position: relative;
+  }
+  .map-wrap .leaflet-container { background: #F6F2E9; }
+  .map-caption {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8.5pt;
+    color: #3C4A5C;
+    font-style: italic;
+    margin-bottom: 14px;
+    line-height: 1.45;
+  }
 </style>
 </head>
 <body>
@@ -387,6 +408,9 @@
   <h2>01 · The walkshed</h2>
   <p>Trust for Public Land's 2025 ParkScore shows 99% of Seattle residents live within a 10-minute walk of a park — an industry-standard 0.5-mile half-mile walkshed. We applied the same methodology to OLAs only, using osmnx against Seattle's full OpenStreetMap walk network (110,383 nodes / 305,582 edges, projected to UTM 10N, physical barriers respected) and 2020 Census block-group population clipped to the Seattle city boundary.</p>
   <div class="chart-wrap short"><canvas id="chartWalkshed"></canvas></div>
+
+  <div class="map-wrap" id="mapWalkshed"></div>
+  <p class="map-caption"><strong>The walkshed, mapped.</strong> Green polygons are the 0.5-mile (10-minute) network walksheds around each of Seattle's 14 existing OLAs. Orange dots are OLAs. The unshaded area — most of the city — is what "9.5%" means in practice. Interactive version with zoom, hover, and the 1.0-mi and 2.5-mi isochrones at <strong>seattledogparkdata.com/part2-access.html</strong>.</p>
   <table>
     <thead><tr><th>Measure</th><th class="num">% of residents</th></tr></thead>
     <tbody>
@@ -458,6 +482,9 @@
 
   <h2>01 · Overview of the data</h2>
   <p>Seattle Animal Control issued 4,803 off-leash citations between January 2014 and October 2019 under Seattle Municipal Code 18.12.080(A). 4,020 had an identifiable park name (83.7%); 672 had only a street address (14.0%); 111 had no location recorded (2.3%).</p>
+
+  <div class="map-wrap" id="mapHotspot"></div>
+  <p class="map-caption"><strong>Where citations concentrated, 2014&ndash;2019.</strong> Circle size is citation count at that park; orange fill marks hotspots without an OLA, sage-green outline marks the 14 existing OLA locations. The empirical pattern: citations cluster <em>away</em> from OLAs, at parks where no legal off-leash option exists. Interactive version at <strong>seattledogparkdata.com/enforcement.html</strong>.</p>
 
   <h2>02 · Offense mix</h2>
   <div class="chart-wrap short"><canvas id="chartOffenseMix"></canvas></div>
@@ -827,6 +854,101 @@
       scales: { x: axis, y: { ...axis, type: 'logarithmic', min: 0.05, max: 1000, title: { display: true, text: '$ Millions (log scale)', color: INK_SOFT }, ticks: { ...axis.ticks, callback: v => '$' + v + 'M' } } }
     }
   });
+})();
+
+// ==================================================================== Leaflet maps ====================================================================
+(function(){
+  if (typeof L === 'undefined') return;
+
+  const OLAS = [
+    { name: 'Magnuson Park',   lat: 47.68270, lng: -122.25710 },
+    { name: 'Westcrest',       lat: 47.52578, lng: -122.34172 },
+    { name: 'Dr. Jose Rizal',  lat: 47.59386, lng: -122.31809 },
+    { name: 'Genesee',         lat: 47.56395, lng: -122.27608 },
+    { name: 'Blue Dog Pond',   lat: 47.58889, lng: -122.29863 },
+    { name: 'Northacres',      lat: 47.72178, lng: -122.32612 },
+    { name: 'Golden Gardens',  lat: 47.69090, lng: -122.40064 },
+    { name: 'Lower Woodland',  lat: 47.67042, lng: -122.34431 },
+    { name: 'I-5 Colonnade',   lat: 47.63483, lng: -122.32376 },
+    { name: 'Magnolia Manor',  lat: 47.65155, lng: -122.39198 },
+    { name: 'Regrade',         lat: 47.61435, lng: -122.34478 },
+    { name: 'Plymouth Pillars',lat: 47.61434, lng: -122.32895 },
+    { name: 'Kinnear',         lat: 47.62696, lng: -122.36766 },
+    { name: 'Denny Park',      lat: 47.61937, lng: -122.34108 },
+  ];
+
+  const HOTSPOTS = [
+    { park: 'Discovery Park',            count: 420, lat: 47.6564, lng: -122.4063, ola: 'no' },
+    { park: 'Magnuson Park',             count: 248, lat: 47.6827, lng: -122.2571, ola: 'has' },
+    { park: 'Volunteer Park',            count: 230, lat: 47.6302, lng: -122.3157, ola: 'no' },
+    { park: 'Woodland Park',             count: 222, lat: 47.6722, lng: -122.3322, ola: 'partial' },
+    { park: 'Golden Gardens Park',       count: 174, lat: 47.6909, lng: -122.4006, ola: 'has' },
+    { park: 'Cal Anderson Park',         count: 133, lat: 47.6178, lng: -122.3202, ola: 'no' },
+    { park: 'Genesee Park',              count: 130, lat: 47.5640, lng: -122.2761, ola: 'has' },
+    { park: 'Lincoln Park',              count: 122, lat: 47.5300, lng: -122.3936, ola: 'no' },
+    { park: 'Martha Washington Park',    count: 103, lat: 47.5347, lng: -122.2567, ola: 'no' },
+    { park: 'Green Lake Park',           count:  96, lat: 47.6805, lng: -122.3290, ola: 'no' },
+    { park: 'Wallingford Playfield',     count:  89, lat: 47.6578, lng: -122.3337, ola: 'no' },
+    { park: 'Seward Park',               count:  88, lat: 47.5526, lng: -122.2558, ola: 'no' },
+    { park: 'Westcrest Park',            count:  86, lat: 47.5258, lng: -122.3417, ola: 'has' },
+    { park: 'West Queen Anne Playfield', count:  77, lat: 47.6359, lng: -122.3656, ola: 'no' },
+    { park: 'Maple Leaf Reservoir Park', count:  73, lat: 47.6912, lng: -122.3198, ola: 'no' },
+    { park: 'Rogers Playground',         count:  66, lat: 47.6431, lng: -122.3240, ola: 'no' },
+    { park: 'Soundview Playfield',       count:  56, lat: 47.6869, lng: -122.3715, ola: 'no' },
+    { park: 'Alki Beach Park',           count:  55, lat: 47.5762, lng: -122.4047, ola: 'no' },
+    { park: 'Ravenna Park',              count:  54, lat: 47.6697, lng: -122.3102, ola: 'planned' },
+    { park: 'Meridian Playground',       count:  45, lat: 47.6571, lng: -122.3342, ola: 'no' },
+  ];
+
+  const tileUrl = 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
+  const tileAttr = '&copy; OpenStreetMap &copy; CARTO';
+
+  // Walkshed map — centered on Seattle, OLA dots + 0.5mi isochrones as green polygons
+  const walkshedEl = document.getElementById('mapWalkshed');
+  if (walkshedEl) {
+    const walkshedMap = L.map(walkshedEl, { zoomControl: false, scrollWheelZoom: false, dragging: false, attributionControl: false })
+      .setView([47.6205, -122.3493], 11);
+    L.tileLayer(tileUrl, { attribution: tileAttr, subdomains: 'abcd', maxZoom: 18 }).addTo(walkshedMap);
+    // Load 0.5-mile isochrone polygons from mirrored geojson
+    fetch('data/walkshed/ola_isochrones.geojson')
+      .then(r => r.json())
+      .then(gj => {
+        const halfMi = { type: 'FeatureCollection', features: gj.features.filter(f => f.properties && f.properties.distance === '0.5mi') };
+        L.geoJSON(halfMi, {
+          style: { color: '#4C6B54', fillColor: '#4C6B54', fillOpacity: 0.22, weight: 1 }
+        }).addTo(walkshedMap);
+        // Signal maps-done for puppeteer
+        window.__walkshedReady = true;
+      })
+      .catch(() => { window.__walkshedReady = true; });
+    OLAS.forEach(o => {
+      L.circleMarker([o.lat, o.lng], { radius: 4, fillColor: '#C04A1E', color: '#fff', weight: 1, fillOpacity: 0.95 })
+        .addTo(walkshedMap);
+    });
+  }
+
+  // Hotspot map — heat circles scaled by citation count + small sage rings at OLAs
+  const hotspotEl = document.getElementById('mapHotspot');
+  if (hotspotEl) {
+    const hotspotMap = L.map(hotspotEl, { zoomControl: false, scrollWheelZoom: false, dragging: false, attributionControl: false })
+      .setView([47.6205, -122.3493], 11);
+    L.tileLayer(tileUrl, { attribution: tileAttr, subdomains: 'abcd', maxZoom: 18 }).addTo(hotspotMap);
+    HOTSPOTS.forEach(h => {
+      const radius = Math.sqrt(h.count) * 1.6;
+      const hasOla = h.ola === 'has';
+      L.circleMarker([h.lat, h.lng], {
+        radius,
+        fillColor: hasOla ? '#A68A2E' : '#C04A1E',
+        color: '#fff', weight: 1,
+        fillOpacity: 0.7
+      }).addTo(hotspotMap);
+    });
+    // OLA locations as sage-green rings on top
+    OLAS.forEach(o => {
+      L.circleMarker([o.lat, o.lng], { radius: 3, fillColor: '#4C6B54', color: '#fff', weight: 1, fillOpacity: 1 })
+        .addTo(hotspotMap);
+    });
+  }
 })();
 </script>
 

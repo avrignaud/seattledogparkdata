@@ -77,9 +77,14 @@ async function renderPageToPdf(browser, baseUrl, page) {
   await p.setViewport({ width: 850, height: 1100, deviceScaleFactor: 2 });
   const u = `${baseUrl}/${page}`;
   console.log(`Rendering ${u}`);
-  await p.goto(u, { waitUntil: 'networkidle0', timeout: 60_000 });
-  // Chart.js + font-load + image decode all settle a beat after networkidle.
-  await new Promise(r => setTimeout(r, 4000));
+  await p.goto(u, { waitUntil: 'networkidle0', timeout: 90_000 });
+  // Chart.js, Leaflet tile loads, font-load, and image decode all settle a
+  // beat after networkidle. Wait for the walkshed geojson + map tiles to
+  // finish, and extend the fallback timer generously.
+  try {
+    await p.waitForFunction('window.__walkshedReady === true', { timeout: 30_000 });
+  } catch {}
+  await new Promise(r => setTimeout(r, 6000));
   const bytes = await p.pdf({
     format: 'Letter',
     printBackground: true,
