@@ -407,20 +407,20 @@
 <section class="chapter">
   <div class="chapter-kicker">Part II</div>
   <h1 class="chapter-title">Access.</h1>
-  <p class="chapter-deck">99% of Seattleites live within a 10-minute walk of a park. 9.5% live that close to a dog park. Network walkshed analysis; amenity breakdown; the asymmetry between SPR's 2.5-mile OLA standard and TPL's 0.5-mile general-parks standard.</p>
+  <p class="chapter-deck">99% of Seattleites live within a 10-minute walk of a park. 11.9% live that close to a dog park. Network walkshed analysis; amenity breakdown; the asymmetry between SPR's 2.5-mile OLA standard and TPL's 0.5-mile general-parks standard.</p>
 
   <h2>01 · The walkshed</h2>
   <p>Trust for Public Land's 2025 ParkScore shows 99% of Seattle residents live within a 10-minute walk of a park — an industry-standard 0.5-mile half-mile walkshed. We applied the same methodology to OLAs only, using osmnx against Seattle's full OpenStreetMap walk network (110,383 nodes / 305,582 edges, projected to UTM 10N, physical barriers respected) and 2020 Census block-group population clipped to the Seattle city boundary.</p>
   <div class="chart-wrap short"><canvas id="chartWalkshed"></canvas></div>
 
   <div class="map-wrap" id="mapWalkshed"></div>
-  <p class="map-caption"><strong>The walkshed, mapped.</strong> Green polygons are the 0.5-mile (10-minute) network walksheds around each of Seattle's 14 existing OLAs. Orange dots are OLAs. The unshaded area — most of the city — is what "9.5%" means in practice. Interactive version with zoom, hover, and the 1.0-mi and 2.5-mi isochrones at <strong>seattledogparkdata.com/part2-access.html</strong>.</p>
+  <p class="map-caption"><strong>The walkshed, mapped.</strong> Green polygons are the 0.5-mile (10-minute) network walksheds around each of Seattle's 14 existing OLAs. Orange dots are OLAs. The unshaded area — most of the city — is what "11.9%" means in practice. Interactive version with zoom, hover, and the 1.0-mi and 2.5-mi isochrones at <strong>seattledogparkdata.com/part2-access.html</strong>.</p>
   <table>
     <thead><tr><th>Measure</th><th class="num">% of residents</th></tr></thead>
     <tbody>
       <tr><td>Within 10-min walk of any park (TPL 2025)</td><td class="num">99%</td></tr>
-      <tr><td>Within 10-min walk of an OLA (repo-computed)</td><td class="num">9.5%</td></tr>
-      <tr><td>Within SPR's 2.5-mi OLA access standard</td><td class="num">78.3%</td></tr>
+      <tr><td>Within 10-min walk of an OLA (repo-computed)</td><td class="num">11.9%</td></tr>
+      <tr><td>Within SPR's 2.5-mi OLA access standard</td><td class="num">79.6%</td></tr>
     </tbody>
   </table>
   <p class="caption"><strong>Source:</strong> scripts/compute_walkshed.py + scripts/population_coverage.py · data in data/walkshed/population_coverage.csv.</p>
@@ -499,16 +499,14 @@
   <table>
     <thead><tr><th>Measure</th><th class="num">Value</th></tr></thead>
     <tbody>
-      <tr><td>Citations at parks OUTSIDE any OLA 0.5-mi walkshed</td><td class="num"><strong>84.6% (2,378 of 2,812)</strong></td></tr>
-      <tr><td>Citations INSIDE an OLA walkshed (at host parks &mdash; non-OLA portions)</td><td class="num">15.4% (434)</td></tr>
-      <tr><td>Unique parks in citation data sitting outside any OLA walkshed</td><td class="num">33 of 37</td></tr>
-      <tr><td>Per-capita citation rate, inside walkshed (2014&ndash;2019)</td><td class="num">2.93 per 1,000 residents</td></tr>
-      <tr><td>Per-capita citation rate, outside walkshed</td><td class="num">3.90 per 1,000 residents</td></tr>
-      <tr><td>Outside-walkshed ratio vs inside</td><td class="num">1.3&times; higher</td></tr>
+      <tr><td>Citations at parks OUTSIDE any OLA 0.5-mi walkshed</td><td class="num"><strong>76.2% (2,144 of 2,812)</strong></td></tr>
+      <tr><td>Citations INSIDE an OLA walkshed (at host parks &mdash; non-OLA portions)</td><td class="num">23.8% (668)</td></tr>
+      <tr><td>Unique parks in citation data sitting outside any OLA walkshed</td><td class="num">29 of 37</td></tr>
+      <tr><td>Unique parks inside an OLA walkshed</td><td class="num">8 of 37</td></tr>
     </tbody>
   </table>
   <div class="map-wrap" id="mapMerged"></div>
-  <p class="map-caption"><strong>Access &times; enforcement, one map.</strong> Green polygons = 0.5-mi OLA walksheds. Orange bubbles = citation hotspots (radius scales with count); amber = hotspots at OLA host parks where citations fall inside the walkshed (Magnuson, Golden Gardens &mdash; on the non-OLA portions). Westcrest and Genesee bubbles appear orange because their park centroids sit just outside their own OLA walksheds &mdash; a convex-hull/geocoding artifact documented in the site methodology note. Most bubbles sit outside the green regardless. Interactive version at <strong>seattledogparkdata.com/part2-access.html#finding-access-gap</strong>.</p>
+  <p class="map-caption"><strong>Access &times; enforcement, one map.</strong> Green polygons = 0.5-mi OLA walksheds. Orange bubbles = citation hotspots (radius scales with count); amber = hotspots at OLA host parks where citations fall inside the walkshed (Magnuson, Westcrest, Genesee, Golden Gardens &mdash; citations on the non-OLA portions of those parks). Most bubbles sit outside the green. Interactive version at <strong>seattledogparkdata.com/part2-access.html#finding-access-gap</strong>.</p>
   <div class="callout">
     <strong class="label">What this rules out</strong>
     "Dog owners are scofflaws who violate the law anywhere" predicts citations spread evenly across the city, uncorrelated with OLA access. The data doesn't support that &mdash; citations cluster in very specific places. "Owners break the law because enforcement is lax" predicts the same even-spread pattern scaled up. The data doesn't support that either. What fits the data: people break the law where no legal alternative exists within walking distance, and they comply where one does.
@@ -590,7 +588,7 @@
 
   <div class="callout">
     <strong class="label">Enforcement probability</strong>
-    4,803 citations over 6 years against a dog population of at least 150,000 = on the order of a <strong>0.5% chance per dog per year</strong> of being cited. Roughly 90% of citations are $0 or $54 first-offense warnings. The fine-based enforcement model is structurally mismatched to the behavior it attempts to deter.
+    4,803 citations over 6 years against a dog population of at least 150,000 yields a city-wide-average <strong>0.5% chance per dog per year</strong> of being cited. Treat this as a rough SWAG &mdash; it averages over wide variation (owners who never go off-leash have zero exposure; owners who visit high-citation parks frequently face higher probabilities; quiet neighborhoods see near-zero enforcement). Even so, the average is a useful floor: Seattle cannot close the gap via enforcement without orders-of-magnitude more staff. Roughly 90% of citations are $0 or $54 first-offense warnings. The fine-based enforcement model is structurally mismatched to the behavior it attempts to deter.
   </div>
 </section>
 
@@ -767,7 +765,7 @@
   <ul>
     <li><strong>O1 · Expanding enforcement does not change the structural math.</strong> Going from one ACO to two full-time seven-day positions moves 0.5% citation probability to maybe 0.8%. The behavior does not meaningfully change below ~5% enforcement probability, which Seattle cannot staff.</li>
     <li><strong>O2 · The fine-based model is regressive and structurally mismatched.</strong> $54 is trivial to wealthy owners and meaningful to lower-income ones. Raising fines doesn't close the gap; it widens the regressive one.</li>
-    <li><strong>O3 · Owners break the rule for rational reasons — it's a supply failure producing a compliance failure.</strong> 9.5% live near a legal OLA. Seven of 14 OLAs are below AKC's 1-acre floor. Several OLAs are adjacent to chronic encampment safety issues. Enforcement alone does not address any of these causes.</li>
+    <li><strong>O3 · Owners break the rule for rational reasons — it's a supply failure producing a compliance failure.</strong> 11.9% live near a legal OLA. Seven of 14 OLAs are below AKC's 1-acre floor. Several OLAs are adjacent to chronic encampment safety issues. Enforcement alone does not address any of these causes.</li>
   </ul>
 
   <h2>Does the NYC model actually work?</h2>
@@ -805,7 +803,7 @@
   </table>
 
   <h2>10-minute walkshed</h2>
-  <p>Repo-computed via <code>scripts/compute_walkshed.py</code> (osmnx against Seattle OSM walk network, projected to UTM 10N, convex-hull isochrones at 0.5 / 1.0 / 2.5 miles) and <code>scripts/population_coverage.py</code> (2020 Census decennial P1 block-group population via pygris/TIGER 2020, area-weighted attribution, clipped to Seattle Places boundary). Convex-hull approximation tends to slightly overstate walkable area; true alpha-shape would likely shift the 9.5% figure a percentage point or two down. Output in <code>data/walkshed/population_coverage.csv</code>.</p>
+  <p>Repo-computed via <code>scripts/compute_walkshed.py</code> (osmnx against Seattle OSM walk network, projected to UTM 10N, convex-hull isochrones at 0.5 / 1.0 / 2.5 miles) and <code>scripts/population_coverage.py</code> (2020 Census decennial P1 block-group population via pygris/TIGER 2020, area-weighted attribution, clipped to Seattle Places boundary). Convex-hull approximation tends to slightly overstate walkable area; true alpha-shape would likely shift the 11.9% figure a percentage point or two down. Output in <code>data/walkshed/population_coverage.csv</code>.</p>
 
   <h2>OLA coordinates</h2>
   <p>Authoritative geometry pulled April 2026 from SPR's Dog Off-Leash Areas ArcGIS feature service (<code>services.arcgis.com/ZOyb2t4B0UYuYNYH/arcgis/rest/services/Dog_Off_Leash_Areas/FeatureServer/0</code>). Replaces earlier address-derived approximations. Several points moved 0.3–1.5 km in the process.</p>

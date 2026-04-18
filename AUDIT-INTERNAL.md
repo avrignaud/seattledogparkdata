@@ -405,6 +405,89 @@ replaced with the redirect everywhere the URL is hit.
 Both findings added to the "what was weak" list in the executive
 summary.
 
+## Follow-up: multi-seed walkshed + park-coord fix
+
+The "Westcrest methodology artifact" wasn't an artifact — it was a real
+bug with two root causes I fixed rather than papered over:
+
+1. **`compute_walkshed.py` single-seed traversal.** The isochrone was
+   built from nodes reachable within 0.5 mi of the *single nearest
+   network node* to each OLA. For OLAs at the edge of Seattle's OSM
+   walk network (Westcrest next to a wooded hillside; Kinnear on the
+   Queen Anne hillside; Dr. Jose Rizal), that nearest node could be
+   50–200 m from the actual OLA, biasing the traversal toward one
+   side. The convex hull of the resulting node cloud sometimes didn't
+   even contain the OLA's own coordinate. Westcrest's walkshed came
+   out at 0.258 km² (vs ~1.0 km² for comparable OLAs).
+
+   **Fix:** build a KDTree of projected node coords; for each OLA,
+   seed the traversal from *all* network nodes within a 100 m radius,
+   union their reachable sets, add the OLA's own point to the hull
+   point set, and union-buffer the result by 25 m as a safety net.
+   Shipped in commit to `scripts/compute_walkshed.py`.
+
+2. **`data/park-coordinates.csv` had wrong lat/lng for Westcrest Park
+   and Genesee Park.** Westcrest was off by ~1.17 km to the west —
+   likely a data-entry error during the enforcement canonicalization
+   pass. Genesee was off by ~650 m. Both now reconciled to the
+   SPR ArcGIS OLA point (which matches the real park location on
+   any web map).
+
+### Net effect on headline numbers
+
+| Stat | Before | After fix | Delta |
+|---|---:|---:|---:|
+| 10-min-walk OLA coverage | 9.47% | **11.95%** | +2.48 pt |
+| 2.5-mi OLA coverage | 78.32% | **79.64%** | +1.32 pt |
+| 84.6% outside walkshed | 84.6% / 15.4% | **76.2% / 23.8%** | ±8.4 pt |
+| Unique parks outside walkshed | 33 of 37 | **29 of 37** | −4 |
+| Unique parks inside walkshed | 4 of 37 | **8 of 37** | +4 |
+| Westcrest walkshed area | 0.258 km² | **0.765 km²** | ×3 |
+| All 14 OLAs inside own walkshed? | No (Westcrest fails) | **Yes** | ✓ |
+
+### Thesis holds, numbers sharpened
+
+The asymmetry argument doesn't depend on the precise coverage number.
+99% of Seattleites live within 10 min of any park; 11.95% live within
+10 min of an OLA. Still an 8× gap. SPR's 2.5-mi standard covers 79.64%,
+which is still 4.2× more permissive than TPL's 10-min standard.
+
+76.2% of geocoded citations still occur outside walksheds. The prior
+84.6% figure was inflated by the Westcrest/Genesee bugs; the corrected
+number is honest.
+
+### Dropped: per-capita 1.3× claim
+
+The BG-level per-capita citation rate comparison (inside 2.93 vs
+outside 3.90 per 1,000 residents → outside 1.3× higher) flipped
+direction after the walkshed fix (inside 5.11 vs outside 3.65 → inside
+1.4× higher). The flip is a symptom of the statistic's flawed
+denominator: it attributes citations to the BG containing the park,
+not to the BG containing the resident. That's a spurious denominator
+for "per-capita" framing. Removed the claim from the site and from
+`data/walkshed/citation-rate-by-walkshed-status.csv`.
+
+### Site updates propagated
+
+9.5 → 11.9, 9.47 → 11.95, 78.3 → 79.6, 78.32 → 79.64, 84.6 → 76.2,
+15.4 → 23.8, 434 → 668, 33 → 29, "only 4 sit inside" → "eight sit
+inside," removed the 1.3× claim and the Westcrest/Genesee methodology
+artifact note. Files: `docs/index.html`, `docs/part2-access.html`,
+`docs/print.html`, `README.md`, `METHODOLOGY.md`,
+`data/illegal-use-indicators.csv`, and
+`data/walkshed/citation-rate-by-walkshed-status.csv`. The mirrored
+geojson at `docs/data/walkshed/ola_isochrones.geojson` was refreshed.
+
+### O2 enforcement probability — now caveated as SWAG
+
+Per user feedback, the 0.5% per-dog-per-year citation probability now
+carries an explicit "rough SWAG" caveat on both `docs/opinion.html`
+(Opinion O2) and the PDF callout. The argument stands — the city-wide
+average is a useful floor and Seattle can't close the gap via
+enforcement staffing — but the per-owner risk varies enormously with
+behavior (never-off-leash owners have zero exposure; frequent-visitor
+owners have far higher).
+
 ## What I deliberately did not audit
 
 - Every external link on every page (hundreds — Codex's pass should

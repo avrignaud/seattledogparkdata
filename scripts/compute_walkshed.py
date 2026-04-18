@@ -88,17 +88,40 @@ def load_olas() -> pd.DataFrame:
     return df
 
 
-def isochrone_polygon(G: nx.MultiDiGraph, center_node: int, distance_m: float) -> Polygon | MultiPolygon | None:
-    """Return the convex hull of all nodes reachable within `distance_m` from center_node."""
-    # ego_graph using the 'length' attribute (meters) as the weight
-    sub = nx.ego_graph(G, center_node, radius=distance_m, distance="length")
-    if len(sub) < 3:
+def isochrone_polygon(
+    G: nx.MultiDiGraph,
+    seed_nodes: list[int],
+    distance_m: float,
+    ola_pt_proj: Point,
+) -> Polygon | MultiPolygon | None:
+    """Walkshed around an OLA as the convex hull of network-reachable nodes.
+
+    Seeds the traversal from MULTIPLE network nodes within a small radius of
+    the OLA point, not just the single nearest node — this fixes edge-cases
+    like Westcrest where the OLA sits next to sparse network and the nearest
+    node lands far from the actual OLA coordinate.
+
+    Always includes the OLA's own point in the hull (so the OLA is guaranteed
+    to fall inside its own walkshed), and unions the result with a 25 m buffer
+    around the OLA point as a safety net against degenerate hulls.
+    """
+    reachable: set[int] = set()
+    for seed in seed_nodes:
+        sub = nx.ego_graph(G, seed, radius=distance_m, distance="length")
+        reachable.update(sub.nodes)
+    if len(reachable) < 3:
         return None
-    # Collect point geometries for reachable nodes
-    xs = [G.nodes[n]["x"] for n in sub.nodes]
-    ys = [G.nodes[n]["y"] for n in sub.nodes]
-    points = gpd.GeoSeries([Point(x, y) for x, y in zip(xs, ys)], crs="EPSG:4326")
+    xs = [G.nodes[n]["x"] for n in reachable]
+    ys = [G.nodes[n]["y"] for n in reachable]
+    # Include the OLA point itself so the hull is guaranteed to contain it.
+    xs.append(ola_pt_proj.x)
+    ys.append(ola_pt_proj.y)
+    points = gpd.GeoSeries([Point(x, y) for x, y in zip(xs, ys)], crs="EPSG:32610")
     hull = points.union_all().convex_hull
+    # Safety net: small buffer around the OLA point guarantees a non-degenerate
+    # polygon even if the hull collapses (shouldn't happen given the OLA point
+    # is included above, but cheap and defensive).
+    hull = hull.union(ola_pt_proj.buffer(25))
     return hull
 
 
@@ -129,6 +152,17 @@ def main() -> None:
     print("Projecting graph to UTM zone 10N (EPSG:32610)...")
     G_proj = ox.project_graph(G, to_crs="EPSG:32610")
 
+    # Build a KDTree of projected node coords so we can query all network
+    # nodes within a small radius of an OLA point (multi-seed traversal).
+    from scipy.spatial import cKDTree
+    node_ids = list(G_proj.nodes)
+    node_coords = [(G_proj.nodes[n]["x"], G_proj.nodes[n]["y"]) for n in node_ids]
+    node_tree = cKDTree(node_coords)
+    # Radius for picking seed nodes around each OLA. 100 m is enough to catch
+    # the pedestrian network inside a park footprint for every OLA we have,
+    # while being small enough that all seeds are genuinely adjacent to the OLA.
+    SEED_RADIUS_M = 100.0
+
     features: list[dict] = []
     coverage_rows: list[dict] = []
 
@@ -144,14 +178,22 @@ def main() -> None:
         lat = float(ola["latitude"])
         lng = float(ola["longitude"])
         pt_proj = ola_points_proj.iloc[idx]
-        try:
-            center_node = ox.distance.nearest_nodes(G_proj, X=pt_proj.x, Y=pt_proj.y)
-        except Exception as e:
-            print(f"  ! {name}: could not find nearest node — {e}")
-            continue
+        # Gather all seed nodes within SEED_RADIUS_M of the OLA. Fall back to
+        # the single nearest node if nothing is that close (extreme edge case;
+        # shouldn't happen for any Seattle OLA).
+        seed_idxs = node_tree.query_ball_point([pt_proj.x, pt_proj.y], r=SEED_RADIUS_M)
+        if seed_idxs:
+            seed_nodes = [node_ids[i] for i in seed_idxs]
+        else:
+            try:
+                seed_nodes = [ox.distance.nearest_nodes(G_proj, X=pt_proj.x, Y=pt_proj.y)]
+            except Exception as e:
+                print(f"  ! {name}: could not find any seed node — {e}")
+                continue
+        print(f"  {name:25s}: {len(seed_nodes)} seed node(s) within {SEED_RADIUS_M:.0f} m")
 
         for label, dist_m in DISTANCES_M.items():
-            poly = isochrone_polygon(G_proj, center_node, dist_m)
+            poly = isochrone_polygon(G_proj, seed_nodes, dist_m, pt_proj)
             if poly is None or poly.is_empty:
                 continue
             # poly is in EPSG:32610 (meters); convert back to WGS84 for GeoJSON output

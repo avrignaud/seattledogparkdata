@@ -5,13 +5,13 @@ Volunteer Park,47.6302,-122.3157,no,Capitol Hill,No OLA; nearest is Plymouth Pil
 Woodland Park,47.6722,-122.3322,partial,Green Lake,Lower Woodland has 0.75-acre OLA in larger park
 Golden Gardens Park,47.6911,-122.4034,yes,Ballard,0.95-acre OLA in upper portion
 Cal Anderson Park,47.6178,-122.3202,no,Capitol Hill,No OLA
-Genesee Park,47.5599,-122.2688,yes,Columbia City,3.2-acre OLA (Genesee Park and Playfield)
+Genesee Park,47.56395,-122.27608,yes,Columbia City,2.7-acre OLA (Genesee Park and Playfield); coord reconciled to SPR ArcGIS April 2026
 Lincoln Park,47.5300,-122.3936,no,West Seattle,No OLA; West Seattle Stadium OLA opens fall 2026
 Martha Washington Park,47.5347,-122.2567,no,Rainier Beach,No OLA
 Green Lake Park,47.6805,-122.3290,no,Green Lake,No OLA at Green Lake itself
 Wallingford Playfield,47.6578,-122.3337,no,Wallingford,No OLA
 Seward Park,47.5526,-122.2558,no,Seward Park,No OLA; 300-acre peninsular forest
-Westcrest Park,47.5262,-122.3574,yes,Highland Park,5.5-acre OLA (second largest)
+Westcrest Park,47.52578,-122.34172,yes,Highland Park,8.4-acre OLA (second largest); coord reconciled to SPR ArcGIS April 2026 (prior value was ~1.17 km west — likely data-entry error)
 West Queen Anne Playfield,47.6359,-122.3656,no,Queen Anne,No OLA; Kinnear (0.1 ac) is nearest
 Maple Leaf Reservoir Park,47.6912,-122.3198,no,Maple Leaf,No OLA
 Rogers Playground,47.6431,-122.3240,no,Eastlake,No OLA
