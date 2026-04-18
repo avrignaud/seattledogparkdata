@@ -516,13 +516,13 @@
 
 <!-- ================================================================= -->
 <h2><span class="num">Finding 07</span>Acreage, not just count</h2>
-<p class="lead">The "14 OLAs" number also flatters Seattle — the four largest parks hold 71% of total OLA acreage, and half of the city's OLAs are under one acre. <a href="https://www.seattle.gov/parks/find/parks/kinnear-park">Kinnear Park</a>'s OLA (the closest to Queen Anne) is <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">0.1 acres</a>. The <a href="part2-access.html#size-standards">dog-park size standards</a> in Part II quantify what "too small" means.</p>
+<p class="lead">The "14 OLAs" number also flatters Seattle — the four largest parks hold ~79% of total OLA acreage, and half of the city's OLAs are under one acre. The two smallest (<a href="https://www.seattle.gov/parks/find/parks/denny-park">Denny</a> at 0.105 and <a href="https://www.seattle.gov/parks/find/parks/kinnear-park">Kinnear</a> at 0.124) are roughly a tenth of an acre each. The <a href="part2-access.html#size-standards">dog-park size standards</a> in Part II quantify what "too small" means.</p>
 
 <div class="chart-block">
   <div class="chart-title">OLA acreage concentration</div>
-  <div class="chart-subtitle">Approximate share of Seattle's ~26 total OLA acres by park. Data reconstructed from <a href="https://seattlecola.org">COLA</a> biennial reports and <a href="https://www.seattle.gov/parks/recreation/dog-off-leash-areas">SPR site inventories</a>.</div>
+  <div class="chart-subtitle">Share of Seattle's ~31 total OLA acres by park. Acreages from SPR's individual OLA pages (reconciled April 2026); see <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">data/seattle-olas.csv</a>.</div>
   <div class="chart-wrap short"><canvas id="chartAcreage"></canvas></div>
-  <div class="chart-takeaway"><strong>What this shows:</strong> <a href="https://www.seattle.gov/parks/find/parks/magnuson-park">Magnuson</a> alone holds roughly a third of the city's total OLA acreage (9.0 of ~26.7 acres). The bottom ten OLAs, combined, hold under 30%. "Neighborhood-scale" access to a reasonably-sized OLA is available in a handful of neighborhoods and essentially nowhere else. See <a href="part2-access.html#size-standards">Part II: What "too small" means, quantified</a> for the AKC 1-acre minimum and per-dog capacity math.</div>
+  <div class="chart-takeaway"><strong>What this shows:</strong> <a href="https://www.seattle.gov/parks/find/parks/magnuson-park">Magnuson</a> alone holds nearly a third of the city's total OLA acreage (9.0 of ~30.7 acres). The bottom ten OLAs, combined, hold about a fifth. "Neighborhood-scale" access to a reasonably-sized OLA is available in a handful of neighborhoods and essentially nowhere else. See <a href="part2-access.html#size-standards">Part II: What "too small" means, quantified</a> for the AKC 1-acre minimum and per-dog capacity math.</div>
   <div class="chart-source">Source: <a href="https://seattlecola.org">COLA</a> 2017 biennial report · <a href="https://www.seattle.gov/parks/recreation/dog-off-leash-areas">SPR off-leash area inventory</a> · data in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">data/seattle-olas.csv</a></div>
 </div>
 
@@ -1027,9 +1027,9 @@
   });
 
   // --- Chart 7: OLA acreage concentration ----------------------------------
-  // Source: data/seattle-olas.csv, sorted by acres desc.
-  const acreageLabels = ['Magnuson', 'Westcrest', 'Genesee', 'I-5 Colonnade', 'Blue Dog Pond', 'Northacres', 'Dr. Jose Rizal', 'Golden Gardens', 'Woodland', 'Denny', 'Magnolia Manor', 'Regrade', 'Plymouth Pillars', 'Kinnear'];
-  const acreageData = [9.0, 5.5, 2.7, 1.8, 1.7, 1.4, 1.3, 0.95, 0.75, 0.75, 0.4, 0.2, 0.15, 0.1];
+  // Source: data/seattle-olas.csv (reconciled to SPR individual OLA pages April 2026), sorted by acres desc.
+  const acreageLabels = ['Magnuson', 'Westcrest', 'Dr. Jose Rizal', 'Genesee', 'Blue Dog Pond', 'Northacres', 'Golden Gardens', 'Woodland', 'I-5 Colonnade', 'Magnolia Manor', 'Regrade', 'Plymouth Pillars', 'Kinnear', 'Denny'];
+  const acreageData = [9.0, 8.4, 4.0, 2.7, 1.7, 1.4, 1.0, 0.75, 0.5, 0.48, 0.3, 0.2, 0.124, 0.105];
   new Chart(document.getElementById('chartAcreage'), {
     type: 'bar',
     data: {

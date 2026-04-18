@@ -474,7 +474,7 @@
     <div class="legend-item"><span class="legend-dot has-ola"></span> Existing OLA location</div>
     <div class="legend-item"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#888;border:1.5px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,0.2);flex-shrink:0;"></span> Neighborhood center (reference)</div>
   </div>
-  <div class="note-box"><strong>What this shows:</strong> citation heat concentrates in areas <em>outside</em> any OLA walkshed. North of the Ship Canal — Wallingford, Ravenna, Maple Leaf, Green Lake, Laurelhurst — shows heavy citation density with almost no walkable OLA coverage. Capitol Hill, bounded by Volunteer and Cal Anderson, has two of the top-10 citation locations and a single 0.15-acre pocket OLA (<a href="part2-access.html#size-standards">Plymouth Pillars</a>). The Queen Anne / Magnolia core has Kinnear (0.1 acre) and Magnolia Manor (0.4 acre) — both below the <a href="https://images.akc.org/pdf/GLEG01.pdf">AKC one-acre minimum</a> — and a heavy citation band through Discovery, West Queen Anne Playfield, David Rodgers Park, and Smith Cove. West Seattle has 122 citations at Lincoln Park alone, with Westcrest (5.5 acre OLA) <a href="https://www.openstreetmap.org/directions?from=47.5300%2C-122.3936&to=47.5262%2C-122.3574">3.4 miles</a> away. This is the empirical version of the argument in the <a href="opinion.html">editorial</a>: dog owners run dogs off-leash where they live, and they live where the OLAs aren't.</div>
+  <div class="note-box"><strong>What this shows:</strong> citation heat concentrates in areas <em>outside</em> any OLA walkshed. North of the Ship Canal — Wallingford, Ravenna, Maple Leaf, Green Lake, Laurelhurst — shows heavy citation density with almost no walkable OLA coverage. Capitol Hill, bounded by Volunteer and Cal Anderson, has two of the top-10 citation locations and a single 0.2-acre pocket OLA (<a href="part2-access.html#size-standards">Plymouth Pillars</a>). The Queen Anne / Magnolia core has Kinnear (0.124 acre) and Magnolia Manor (0.48 acre) — both below the <a href="https://images.akc.org/pdf/GLEG01.pdf">AKC one-acre minimum</a> — and a heavy citation band through Discovery, West Queen Anne Playfield, David Rodgers Park, and Smith Cove. West Seattle has 122 citations at Lincoln Park alone, with Westcrest (8.4 acre OLA) <a href="https://www.openstreetmap.org/directions?from=47.5300%2C-122.3936&to=47.5262%2C-122.3574">3.4 miles</a> away. This is the empirical version of the argument in the <a href="opinion.html">editorial</a>: dog owners run dogs off-leash where they live, and they live where the OLAs aren't.</div>
   <div class="chart-source">Sources: citation locations from <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-citations.csv">data/enforcement-citations.csv</a> (PRR C049204) · OLA coordinates from <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">data/seattle-olas.csv</a> · walkshed methodology per <a href="https://www.tpl.org/parkscore/about">Trust for Public Land ParkScore</a> (0.5 mi = 10-min walk) · <a href="https://github.com/Leaflet/Leaflet.heat">Leaflet.heat</a> kernel density renderer · neighborhood centers are author-selected representative coordinates, not a formal centroid calculation</div>
 </div>
 
@@ -639,17 +639,17 @@
     { park: 'Golden Gardens Park',       count: 174, lat: 47.6911, lng: -122.4034, neigh: 'Ballard',            ola: 'has',     nearest: '—' },
     { park: 'Cal Anderson Park',         count: 133, lat: 47.6178, lng: -122.3202, neigh: 'Capitol Hill',       ola: 'no',      nearest: 'Plymouth Pillars (0.15 ac, 0.3 mi)' },
     { park: 'Genesee Park',              count: 130, lat: 47.5599, lng: -122.2688, neigh: 'Columbia City',      ola: 'has',     nearest: '—' },
-    { park: 'Lincoln Park',              count: 122, lat: 47.5300, lng: -122.3936, neigh: 'West Seattle',       ola: 'no',      nearest: 'Westcrest (5.5 ac, 3.4 mi)' },
+    { park: 'Lincoln Park',              count: 122, lat: 47.5300, lng: -122.3936, neigh: 'West Seattle',       ola: 'no',      nearest: 'Westcrest (8.4 ac, 3.4 mi)' },
     { park: 'Martha Washington Park',    count: 103, lat: 47.5347, lng: -122.2567, neigh: 'Rainier Beach',      ola: 'no',      nearest: 'Genesee (3.2 ac, 2.2 mi)' },
     { park: 'Green Lake Park',           count:  96, lat: 47.6805, lng: -122.3290, neigh: 'Green Lake',         ola: 'no',      nearest: 'Lower Woodland (0.75 ac, 0.5 mi)' },
     { park: 'Wallingford Playfield',     count:  89, lat: 47.6578, lng: -122.3337, neigh: 'Wallingford',        ola: 'no',      nearest: 'Lower Woodland (0.75 ac, 0.8 mi)' },
     { park: 'Seward Park',               count:  88, lat: 47.5526, lng: -122.2558, neigh: 'Seward Park',        ola: 'no',      nearest: 'Genesee (3.2 ac, 1.2 mi)' },
     { park: 'Westcrest Park',            count:  86, lat: 47.5262, lng: -122.3574, neigh: 'Highland Park',      ola: 'has',     nearest: '—' },
-    { park: 'West Queen Anne Playfield', count:  77, lat: 47.6359, lng: -122.3656, neigh: 'Queen Anne',         ola: 'no',      nearest: 'Kinnear (0.1 ac, 0.7 mi)' },
+    { park: 'West Queen Anne Playfield', count:  77, lat: 47.6359, lng: -122.3656, neigh: 'Queen Anne',         ola: 'no',      nearest: 'Kinnear (0.124 ac, 0.7 mi)' },
     { park: 'Maple Leaf Reservoir Park', count:  73, lat: 47.6912, lng: -122.3198, neigh: 'Maple Leaf',         ola: 'no',      nearest: 'Northacres (1.4 ac, 1.8 mi)' },
     { park: 'Rogers Playground',         count:  66, lat: 47.6431, lng: -122.3240, neigh: 'Eastlake',           ola: 'no',      nearest: 'I-5 Colonnade (1.8 ac, 0.3 mi)' },
     { park: 'Soundview Playfield',       count:  56, lat: 47.6869, lng: -122.3715, neigh: 'Crown Hill',         ola: 'no',      nearest: 'Golden Gardens (0.95 ac, 1.3 mi)' },
-    { park: 'Alki Beach Park',           count:  55, lat: 47.5762, lng: -122.4047, neigh: 'Alki',               ola: 'no',      nearest: 'Westcrest (5.5 ac, 2.7 mi)' },
+    { park: 'Alki Beach Park',           count:  55, lat: 47.5762, lng: -122.4047, neigh: 'Alki',               ola: 'no',      nearest: 'Westcrest (8.4 ac, 2.7 mi)' },
     { park: 'Ravenna Park',              count:  54, lat: 47.6697, lng: -122.3102, neigh: 'Ravenna',            ola: 'planned', nearest: 'Design-only funded (on-site)' },
     { park: 'Meridian Playground',       count:  45, lat: 47.6571, lng: -122.3342, neigh: 'Wallingford',        ola: 'no',      nearest: 'Lower Woodland (0.75 ac, 0.8 mi)' },
   ];
@@ -709,19 +709,19 @@
   // the hotspot map stands alone from the Finding 02 gap map.
   const OLAS_ALL_FOR_HOTSPOT = [
     { name: 'Magnuson Park',     lat: 47.6809, lng: -122.2574, acres: 9.0 },
-    { name: 'Westcrest',         lat: 47.5262, lng: -122.3574, acres: 5.5 },
+    { name: 'Westcrest',         lat: 47.5262, lng: -122.3574, acres: 8.4 },
+    { name: 'Dr. Jose Rizal',    lat: 47.5886, lng: -122.3190, acres: 4.0 },
     { name: 'Genesee',           lat: 47.5599, lng: -122.2688, acres: 2.7 },
-    { name: 'I-5 Colonnade',     lat: 47.6486, lng: -122.3228, acres: 1.8 },
     { name: 'Blue Dog Pond',     lat: 47.5904, lng: -122.2931, acres: 1.7 },
     { name: 'Northacres',        lat: 47.7208, lng: -122.3247, acres: 1.4 },
-    { name: 'Dr. Jose Rizal',    lat: 47.5886, lng: -122.3190, acres: 1.3 },
-    { name: 'Golden Gardens',    lat: 47.6911, lng: -122.4034, acres: 0.95 },
+    { name: 'Golden Gardens',    lat: 47.6911, lng: -122.4034, acres: 1.0 },
     { name: 'Lower Woodland',    lat: 47.6706, lng: -122.3358, acres: 0.75 },
-    { name: 'Denny Park',        lat: 47.6186, lng: -122.3369, acres: 0.75 },
-    { name: 'Magnolia Manor',    lat: 47.6580, lng: -122.3991, acres: 0.4 },
-    { name: 'Regrade',           lat: 47.6154, lng: -122.3416, acres: 0.2 },
-    { name: 'Plymouth Pillars',  lat: 47.6145, lng: -122.3236, acres: 0.15 },
-    { name: 'Kinnear',           lat: 47.6295, lng: -122.3683, acres: 0.1 }
+    { name: 'I-5 Colonnade',     lat: 47.6486, lng: -122.3228, acres: 0.5 },
+    { name: 'Magnolia Manor',    lat: 47.6580, lng: -122.3991, acres: 0.48 },
+    { name: 'Regrade',           lat: 47.6154, lng: -122.3416, acres: 0.3 },
+    { name: 'Plymouth Pillars',  lat: 47.6145, lng: -122.3236, acres: 0.2 },
+    { name: 'Kinnear',           lat: 47.6295, lng: -122.3683, acres: 0.124 },
+    { name: 'Denny Park',        lat: 47.6186, lng: -122.3369, acres: 0.105 }
   ];
   OLAS_ALL_FOR_HOTSPOT.forEach(ola => {
     // Use a thin-ringed marker so it's visible on top of heat/circles without
@@ -777,19 +777,19 @@
   // All 14 existing OLAs with coordinates. Source: data/seattle-olas.csv.
   const OLAS_ALL = [
     { name: 'Magnuson Park',        lat: 47.6809, lng: -122.2574, acres: 9.0 },
-    { name: 'Westcrest',            lat: 47.5262, lng: -122.3574, acres: 5.5 },
+    { name: 'Westcrest',            lat: 47.5262, lng: -122.3574, acres: 8.4 },
+    { name: 'Dr. Jose Rizal',       lat: 47.5886, lng: -122.3190, acres: 4.0 },
     { name: 'Genesee',              lat: 47.5599, lng: -122.2688, acres: 2.7 },
-    { name: 'I-5 Colonnade',        lat: 47.6486, lng: -122.3228, acres: 1.8 },
     { name: 'Blue Dog Pond',        lat: 47.5904, lng: -122.2931, acres: 1.7 },
     { name: 'Northacres',           lat: 47.7208, lng: -122.3247, acres: 1.4 },
-    { name: 'Dr. Jose Rizal',       lat: 47.5886, lng: -122.3190, acres: 1.3 },
-    { name: 'Golden Gardens',       lat: 47.6911, lng: -122.4034, acres: 0.95 },
+    { name: 'Golden Gardens',       lat: 47.6911, lng: -122.4034, acres: 1.0 },
+    { name: 'I-5 Colonnade',        lat: 47.6486, lng: -122.3228, acres: 0.5 },
     { name: 'Lower Woodland',       lat: 47.6706, lng: -122.3358, acres: 0.75 },
-    { name: 'Denny Park',           lat: 47.6186, lng: -122.3369, acres: 0.75 },
-    { name: 'Magnolia Manor',       lat: 47.6580, lng: -122.3991, acres: 0.4 },
-    { name: 'Regrade',              lat: 47.6154, lng: -122.3416, acres: 0.2 },
-    { name: 'Plymouth Pillars',     lat: 47.6145, lng: -122.3236, acres: 0.15 },
-    { name: 'Kinnear',              lat: 47.6295, lng: -122.3683, acres: 0.1 }
+    { name: 'Denny Park',           lat: 47.6186, lng: -122.3369, acres: 0.105 },
+    { name: 'Magnolia Manor',       lat: 47.6580, lng: -122.3991, acres: 0.48 },
+    { name: 'Regrade',              lat: 47.6154, lng: -122.3416, acres: 0.3 },
+    { name: 'Plymouth Pillars',     lat: 47.6145, lng: -122.3236, acres: 0.2 },
+    { name: 'Kinnear',              lat: 47.6295, lng: -122.3683, acres: 0.124 }
   ];
 
   // Representative neighborhood centers — author-selected, not formal centroids.
