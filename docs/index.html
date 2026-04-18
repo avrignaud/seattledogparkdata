@@ -421,7 +421,7 @@
   <li><strong>Walkshed (now network-based).</strong> Previously a straight-line estimate of ~33% of residents; replaced April 2026 with a proper network-distance analysis: <strong>9.5% of Seattle residents</strong> live within a 10-minute walking path of an OLA, computed via <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/compute_walkshed.py" style="color: var(--accent-3);"><code>scripts/compute_walkshed.py</code></a> (osmnx against Seattle's full OSM walk network) and <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/population_coverage.py" style="color: var(--accent-3);"><code>scripts/population_coverage.py</code></a> (2020 Census block-group overlay, area-weighted). SPR's published 2.5-mile standard covers 78.3%.</li>
   <li><strong>Peer-city OLA counts differ in definition.</strong> Seattle counts only fully-fenced dedicated OLAs; Portland includes unfenced voice-control areas; Vancouver BC includes time-restricted shared-use areas. Direct comparison requires caveats.</li>
   <li><strong>OLA-specific budget.</strong> SPR's Park District "Maintaining Parks &amp; Facilities" line funds both OLAs and P-Patch community gardens and is not broken out. The $100K/year Cycle 1 figure is OLA-only because SPR stated it publicly; Cycle 2 figures are combined.</li>
-  <li><strong>Dog population.</strong> Seattle does not universally license dogs. Estimates range from 150,000 (conservative floor) to 400,000+ (SPR 2023 Expansion Study). This site uses 150,000 for floor calculations.</li>
+  <li><strong>Dog population.</strong> Triangulated from three independent sources: <a href="https://data.seattle.gov/dataset/Active-Pet-Licenses/jguv-t9rb/about_data">~26,700 active dog licenses</a> (Seattle Open Data, hard floor implying ~90&ndash;135K actual), an <a href="https://www.avma.org/resources-tools/reports-statistics/us-pet-ownership-statistics">AVMA-derived demographic estimate</a> of ~248,500 (364,627 Seattle households &times; 42.6% dog-owning &times; 1.6 dogs/household), and the <a href="https://www.seattle.gov/parks/about-us/plans-and-reports/recreation-plans-and-reports/off-leash-area-study">SPR 2023 Expansion Study</a> range of 187K&ndash;400K. The site uses 150,000 as a conservative floor for per-dog math; see <a href="part1-the-gap.html#methodology">Part I methodology</a> for the full triangulation.</li>
 </ul>
 
 <div class="note-box" style="margin-top: 8px;">
@@ -436,7 +436,7 @@
 
 <footer>
   <p>Source code and all data: <a href="https://github.com/avrignaud/seattledogparkdata">github.com/avrignaud/seattledogparkdata</a> &middot; MIT license (code &amp; analysis); data is public record.</p>
-  <p>No analytics, no cookies, no tracking. &middot; <a href="opinion.html#about">About this project</a></p>
+  <p>Basic Cloudflare Web Analytics for uptime and load time only. No cookies, no personal tracking, no ad networks. &middot; <a href="opinion.html#about">About this project</a></p>
 </footer>
 
 </div>

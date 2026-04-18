@@ -66,6 +66,14 @@ All primary sources used in the Seattle Off-Leash Areas data analysis, organized
 - [The Urbanist — Seattle's Park System Rated 9th (2021)](https://www.theurbanist.org/2021/06/01/seattles-park-system-rated-9th-best-in-new-national-ranking/)
 - [Axios Seattle — best park systems (2024)](https://www.axios.com/local/seattle/2024/05/24/seattle-parks-ranking-trust-for-public-land)
 
+## Dog Population Estimates
+
+- [Seattle Animal Shelter — Active Pet Licenses dataset](https://data.seattle.gov/dataset/Active-Pet-Licenses/jguv-t9rb/about_data) on Seattle Open Data. Current count: ~26,700 active dog licenses — the licensed floor.
+- [AVMA U.S. Pet Ownership Statistics](https://www.avma.org/resources-tools/reports-statistics/us-pet-ownership-statistics). 2025 Sourcebook figures: 42.6% of U.S. households own a dog; average 1.6 dogs per dog-owning household. Used with ACS household count to derive Seattle estimate.
+- [U.S. Census ACS 1-year 2023, Seattle households (table B11001)](https://api.census.gov/data/2023/acs/acs1?get=NAME,B11001_001E&for=place:63000&in=state:53). 364,627 occupied households.
+- [Seattle Humane](https://www.seattlehumane.org) / [Cascade PBS](https://www.cascadepbs.org) coverage — original source for the long-cited 150,000-dog floor.
+- [SPR 2023-24 OLA Expansion Study](https://www.seattle.gov/parks/about-us/plans-and-reports/recreation-plans-and-reports/off-leash-area-study) — cites 187K to "upwards of 400,000" dogs.
+
 ## Geographic Data
 
 - [Seattle GeoData 2023 SPR Walkability Gap Analysis](https://data-seattlecitygis.opendata.arcgis.com/maps/6ae790444cbd404f9e8421e2bd89eebc) (referenced; data not yet extracted)
