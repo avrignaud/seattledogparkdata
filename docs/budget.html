@@ -412,13 +412,13 @@
 
 <!-- ==================================================================== -->
 <h2><span class="num">Chart 02</span>OLA budget as a percentage of SPR total</h2>
-<p class="lead">Expressed as a share, the OLA investment is so small it rounds to zero at any reasonable precision. Using only the publicly disclosed OLA-only figures, the <strong>highest</strong> share ever recorded was 0.064% in 2018. Since then — even accounting for the one-time Cycle 2 construction capital — the proportional OLA investment has trended down, not up.</p>
+<p class="lead">Expressed as a share, the OLA investment is so small it rounds to zero at any reasonable precision. Using only the publicly disclosed OLA-only figures, the <strong>highest</strong> share ever recorded was 0.064% in 2018. Post-2018 bars on the chart use the combined OLA + P-Patch "Maintaining Parks &amp; Facilities" line because SPR no longer publishes the OLA-only split — so those bars are an <em>upper bound</em>, not the OLA share itself.</p>
 
 <div class="chart-block">
-  <div class="chart-title">OLA-only budget as a share of SPR total, 2016&ndash;2026</div>
-  <div class="chart-subtitle">Bars plot share in basis points (1 bp = 0.01%). A proportional baseline of 25% (SPR's own 2016 survey finding for the share of Seattle residents using OLAs) is <strong>2,500 basis points</strong> — not shown, because it would render the actual bars as invisible.</div>
+  <div class="chart-title">OLA-related budget as a share of SPR total, 2016&ndash;2026</div>
+  <div class="chart-subtitle">Bars plot share in basis points (1 bp = 0.01%). Solid bars are SPR's publicly-disclosed OLA-only operating figure + any Cycle 2 capital. Hollow/dashed bars are the combined OLA + P-Patch "Maintaining Parks &amp; Facilities" BSL (SPR does not publish the OLA-only split for 2019&ndash;2022 or 2025&ndash;2026) — those bars <em>overstate</em> the OLA share. A proportional baseline of 25% (SPR's own 2016 survey finding for the share of Seattle residents using OLAs) is <strong>2,500 basis points</strong> — not shown, because it would render the actual bars as invisible.</div>
   <div class="chart-wrap"><canvas id="chartPercentage"></canvas></div>
-  <div class="note-box"><strong>What this shows:</strong> the tallest bar on the chart is <strong>6.4 basis points</strong> (0.064% of SPR spending) in 2018. If OLA spending were merely proportional to the share of Seattle residents who use OLAs — <a href="https://www.seattle.gov/parks/about-us/policies-and-plans/people-dogs-and-parks-strategic-plan">25% according to SPR's own 2016 survey</a> — the bars would be roughly <strong>390× taller</strong>. The 2025&ndash;2026 Park District Cycle 2 boost, included as the one-time capital line, pushes the combined share to ~0.6% — still 40× below the population-proportional baseline.</div>
+  <div class="note-box"><strong>What this shows:</strong> the tallest <em>disclosed OLA-only</em> bar is 2018 at <strong>6.4 basis points</strong> (0.064% of SPR spending). If OLA spending were proportional to the share of Seattle residents who use OLAs — <a href="https://www.seattle.gov/parks/about-us/policies-and-plans/people-dogs-and-parks-strategic-plan">25% according to SPR's own 2016 survey</a> — the bars would be roughly <strong>390× taller</strong>. The hollow bars for 2025&ndash;2026 reach ~100 bp (~1%) because they include P-Patch community gardens <em>and</em> the one-time Cycle 2 OLA construction capital; the OLA-only slice is smaller and SPR does not publish it.</div>
   <div class="chart-source">Source: Seattle budget books (SPR total) · <a href="https://www.seattle.gov/parks/about-us/policies-and-plans/people-dogs-and-parks-strategic-plan">SPR People, Dogs and Parks Strategic Plan (2017)</a> · raw calculation in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/budget-detail.csv">data/budget-detail.csv</a></div>
 </div>
 
@@ -731,40 +731,54 @@ The full year-by-year data is in <a href="https://github.com/avrignaud/seattledo
   });
 
   // --- Chart 02: OLA as % of SPR (basis points) ---
-  // Only compute where we have OLA-only data; otherwise use combined and flag it
-  const BP = YEARS.map((y, i) => {
-    const olaK = OLA_ONLY_K[i] !== null ? OLA_ONLY_K[i] : COMBINED_K[i];
+  // Split into two series so the legend makes the data treatment explicit:
+  // solid = disclosed OLA-only + capital; hollow = combined OLA+P-Patch + capital.
+  const BP_OLA_ONLY = YEARS.map((y, i) => {
+    if (OLA_ONLY_K[i] === null) return null;
     const capK = CAPITAL_K[i] || 0;
-    const totalBp = ((olaK + capK) * 1000) / (SPR_TOTAL_M[i] * 1000000) * 10000;
-    return { total: Math.round(totalBp * 10) / 10, disclosed: OLA_ONLY_K[i] !== null };
+    return Math.round(((OLA_ONLY_K[i] + capK) * 1000) / (SPR_TOTAL_M[i] * 1000000) * 10000 * 10) / 10;
+  });
+  const BP_COMBINED = YEARS.map((y, i) => {
+    if (OLA_ONLY_K[i] !== null) return null;
+    const capK = CAPITAL_K[i] || 0;
+    return Math.round(((COMBINED_K[i] + capK) * 1000) / (SPR_TOTAL_M[i] * 1000000) * 10000 * 10) / 10;
   });
 
   new Chart(document.getElementById('chartPercentage'), {
     type: 'bar',
     data: {
       labels: YEARS,
-      datasets: [{
-        label: 'OLA-related budget (basis points of SPR total)',
-        data: BP.map(b => b.total),
-        backgroundColor: BP.map(b => b.disclosed ? ACCENT : 'rgba(192,74,30,0.4)'),
-        borderColor: BP.map(b => b.disclosed ? ACCENT : ACCENT),
-        borderWidth: BP.map(b => b.disclosed ? 0 : 1.5),
-        borderDash: BP.map(b => b.disclosed ? [] : [4, 3]),
-        borderRadius: 2
-      }]
+      datasets: [
+        {
+          label: 'OLA-only + capital (disclosed)',
+          data: BP_OLA_ONLY,
+          backgroundColor: ACCENT,
+          borderWidth: 0,
+          borderRadius: 2
+        },
+        {
+          label: 'OLA + P-Patch combined + capital (SPR does not split)',
+          data: BP_COMBINED,
+          backgroundColor: 'rgba(192,74,30,0.25)',
+          borderColor: ACCENT,
+          borderWidth: 1.5,
+          borderDash: [4, 3],
+          borderRadius: 2
+        }
+      ]
     },
     options: {
       responsive: true, maintainAspectRatio: false,
       plugins: {
-        legend: { display: false },
-        tooltip: { callbacks: { label: ctx => (BP[ctx.dataIndex].disclosed ? 'OLA-only: ' : 'OLA+P-Patch (combined): ') + ctx.parsed.y + ' bp (' + (ctx.parsed.y/100).toFixed(3) + '%)' } },
+        legend: { position: 'top', align: 'start', labels: { usePointStyle: true, padding: 12, font: { size: 11 } } },
+        tooltip: { callbacks: { label: ctx => ctx.dataset.label + ': ' + ctx.parsed.y + ' bp (' + (ctx.parsed.y/100).toFixed(3) + '%)' } },
         datalabels: {
-          display: true,
+          display: ctx => ctx && ctx.parsed && ctx.parsed.y != null,
           anchor: 'end',
           align: 'top',
           color: INK,
           font: { family: "'IBM Plex Mono', monospace", size: 10, weight: '500' },
-          formatter: v => v + ' bp'
+          formatter: v => v == null ? '' : v + ' bp'
         }
       },
       scales: {
