@@ -519,12 +519,12 @@
 <div class="stat-grid">
   <div class="stat">
     <div class="label">Fee revenue, 2014&ndash;2019</div>
-    <div class="num">~$210K</div>
-    <div class="note">Upper-bound estimate: if every non-warning citation was paid at its tier amount.</div>
+    <div class="num">~$241K</div>
+    <div class="note">Sum of the <code>fee</code> column in the citations CSV (actual assessed fees).</div>
   </div>
   <div class="stat">
     <div class="label">Per year</div>
-    <div class="num">~$35K</div>
+    <div class="num">~$40K</div>
     <div class="note">Averaged across the six-year period.</div>
   </div>
   <div class="stat alert">
@@ -534,16 +534,16 @@
   </div>
   <div class="stat alert">
     <div class="label">Cost-recovery ratio</div>
-    <div class="num">~23%</div>
-    <div class="note">Revenue ÷ FAS-only cost. Adding the SPR-side FMW brings it to ~12%.</div>
+    <div class="num">~26%</div>
+    <div class="note">Revenue ÷ FAS-only cost. Adding the SPR-side FMW brings it to ~14%.</div>
   </div>
 </div>
 
 <div class="chart-block">
   <div class="chart-title">Citation fee revenue vs. enforcement program cost</div>
-  <div class="chart-subtitle">Upper-bound revenue: sum of ($54 × 1st-offense citations) + ($109 × 2nd) + ($136 × 3rd) + ($162 × 4th+) using the <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-citations.csv">enforcement citations dataset</a>. Actual collected revenue is lower because roughly half of 1st-offense encounters are warnings at $0. Program cost uses the <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/moas/SPR-FAS-ACO2-MOA-2021-AG21-PRF03-032.pdf">2021 MOA</a> ACO II line ($152,399/year, FAS-only) for the 6-year period.</div>
+  <div class="chart-subtitle">Actual revenue: sum of the <code>fee</code> column in the <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-citations.csv">enforcement citations dataset</a> ($240,652 across 2014&ndash;2019). The lighter band shows the upper bound if every row had been billed at the maximum fee for its offense tier ($54/$109/$136/$162 under SMC 18.12.080). Program cost uses the <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/moas/SPR-FAS-ACO2-MOA-2021-AG21-PRF03-032.pdf">2021 MOA</a> ACO II line ($152,399/year, FAS-only) for the 6-year period.</div>
   <div class="chart-wrap short"><canvas id="chartRevCost"></canvas></div>
-  <div class="note-box"><strong>What this shows:</strong> Over the six-year PRR window, the program generated roughly <strong>$210,000</strong> in maximum-theoretical fee revenue against roughly <strong>$915,000</strong> in FAS-side ACO salary + divisional overhead. Adding the paired SPR-side Facilities Maintenance Worker to the cost side (the 2021 MOA treats ACO + FMW as a team) roughly doubles the cost to <strong>~$1.8M</strong>, taking cost recovery to about <strong>12%</strong>. Compared to a revenue-generating enforcement program like parking tickets — where Seattle's <a href="https://www.seattle.gov/police/about-police/parking-enforcement">Parking Enforcement Officers</a> issued roughly 300,000+ tickets in 2019 at an average of $47 each, generating more revenue than their salary cost — the ACO program isn't even close. The case for it therefore has to be made on public-safety or public-health grounds, not on budget-neutrality. At 0.5% annual citation probability per dog, <a href="opinion.html#O2">it's hard to argue those cases either</a>.</div>
+  <div class="note-box"><strong>What this shows:</strong> Over the six-year PRR window, the program generated roughly <strong>$241,000</strong> in assessed fee revenue against roughly <strong>$915,000</strong> in FAS-side ACO salary + divisional overhead. Adding the paired SPR-side Facilities Maintenance Worker to the cost side (the 2021 MOA treats ACO + FMW as a team) roughly doubles the cost to <strong>~$1.8M</strong>, taking cost recovery to about <strong>14%</strong>. Compared to a revenue-generating enforcement program like parking tickets — where Seattle's <a href="https://www.seattle.gov/police/about-police/parking-enforcement">Parking Enforcement Officers</a> issued roughly 300,000+ tickets in 2019 at an average of $47 each, generating more revenue than their salary cost — the ACO program isn't even close. The case for it therefore has to be made on public-safety or public-health grounds, not on budget-neutrality. At 0.5% annual citation probability per dog, <a href="opinion.html#O2">it's hard to argue those cases either</a>.</div>
   <div class="chart-source">Source: revenue computed from <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-citations.csv">data/enforcement-citations.csv</a> using per-tier fees from SMC 18.12.080 · cost from <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/moas/SPR-FAS-ACO2-MOA-2021-AG21-PRF03-032.pdf">SPR/FAS 2021 MOA Attachment A</a> · parking comparison from <a href="https://www.seattle.gov/police/about-police/parking-enforcement">Seattle Police Parking Enforcement</a></div>
 </div>
 
@@ -664,13 +664,15 @@
   ];
   const YEAR_2019_PROJECTED = Math.round(1029 / (288/365));  // naive linear annualization
 
+  // Computed from data/enforcement-citations.csv by scripts/build_enforcement_datasets.py.
+  // See the 'Data quality & reconciliation' footnote below for the location-quality
+  // breakdown; these counts include all rows regardless of location attributability.
   const OFFENSE_MIX = [
-    { level: '1st offense (warning / $54)',  count: 4356 },
-    { level: '2nd offense ($109)',            count: 344 },
-    { level: '3rd offense ($136)',            count: 107 },
-    { level: '4th+ offense ($162)',           count:  70 },
+    { level: '1st offense (warning / $54)',  count: 4179 },
+    { level: '2nd offense ($109)',            count: 418 },
+    { level: '3rd offense ($136)',            count: 123 },
+    { level: '4th+ offense ($162)',           count:  83 },
   ];
-  // approximate — computed from the 4,803 total breakdown
 
   function olaColor(s) {
     return s === 'has' ? ACCENT_2 : s === 'no' ? ACCENT : s === 'partial' ? ACCENT_4 : '#888';
@@ -993,21 +995,17 @@
   });
 
   // --- Chart: Revenue vs Cost (Finding 06) ---
-  // Upper-bound revenue: sum of fees at max rate per tier (treats all non-warning
-  // citations as paid). Actual is lower because many 1st-offense rows are $0 warnings.
-  // Using the OFFENSE_MIX constants defined above.
-  const REV_1ST_MAX = 4356 * 54;
-  const REV_2ND     = 344  * 109;
-  const REV_3RD     = 107  * 136;
-  const REV_4TH     = 70   * 162;
-  const REV_TOTAL_6YR = REV_1ST_MAX + REV_2ND + REV_3RD + REV_4TH;  // ~$297K
-  // The user-facing stat-grid says ~$210K (matches a conservative assumption
-  // that ~40% of 1st-offense rows were $0 warnings rather than paid $54s,
-  // i.e. 4356 × 0.6 × $54 = $141K + $63K from 2/3/4 offenses = ~$204K ≈ $210K).
-  // For the chart we show both the conservative estimate ($210K) and the
-  // upper bound ($297K) as stacked bars for transparency.
-  const REV_CONSERVATIVE_6YR = 210000;
-  const REV_UPPER_MARGIN_6YR = REV_TOTAL_6YR - REV_CONSERVATIVE_6YR;
+  // Actual revenue: sum of the `fee` column from the CSV (PRR C049204, 2014-2019).
+  // Upper bound: every non-warning row billed at max fee for its offense tier.
+  // Actual is lower because many 1st-offense rows are $0 warnings.
+  const REV_1ST_MAX = 4179 * 54;
+  const REV_2ND     = 418  * 109;
+  const REV_3RD     = 123  * 136;
+  const REV_4TH     = 83   * 162;
+  const REV_TOTAL_6YR = REV_1ST_MAX + REV_2ND + REV_3RD + REV_4TH;  // ~$301K upper bound
+  // Actual fee sum from CSV: $240,652 (Level 1 $164,916 + L2 $45,562 + L3 $16,728 + L4 $13,446).
+  const REV_ACTUAL_6YR = 240652;
+  const REV_UPPER_MARGIN_6YR = REV_TOTAL_6YR - REV_ACTUAL_6YR;
 
   // Program cost: FAS-only ($152,399 × 6 = $914,394); paired with FMW (~$850K
   // fully-burdened SPR-side, estimated flat for illustration) → ~$1.76M total.
@@ -1020,8 +1018,8 @@
       labels: ['Revenue (6-yr)', 'Cost, FAS-only (6-yr)', 'Cost, FAS + SPR FMW (6-yr)'],
       datasets: [
         {
-          label: 'Conservative revenue estimate',
-          data: [REV_CONSERVATIVE_6YR, null, null],
+          label: 'Actual revenue (CSV fee sum)',
+          data: [REV_ACTUAL_6YR, null, null],
           backgroundColor: ACCENT,
           borderWidth: 0,
           borderRadius: 2,
