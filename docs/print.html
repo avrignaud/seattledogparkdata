@@ -281,7 +281,7 @@
     <strong>Andre Vrignaud</strong> · Queen Anne, Seattle · April 2026<br>
     Full website: <strong>seattledogparkdata.com</strong><br>
     Source code and data: <strong>github.com/avrignaud/seattledogparkdata</strong><br>
-    License: MIT (code + analysis); data is public record.<br>
+    License: MIT (author-written code + analysis); primary data is public record. TPL ParkServe material carries TPL's own terms of use.<br>
     This print edition is auto-generated from the website on every update.
   </div>
 </section>
@@ -399,7 +399,7 @@
 
   <div class="callout">
     <strong class="label">The framing</strong>
-    Prioritizing kids over dogs is right. No reasonable person disputes that. The argument on this site is that the <em>magnitude</em> of the gap has gone beyond any reasonable prioritization: the dedicated OLA budget was about <strong>$106,000 out of a $168M SPR total</strong> in 2018 (0.06%); OLAs occupy about <strong>31 of Seattle's ~53,100 acres</strong> (0.06% of the city). A population the size of all dog owners deserves more than 0.06%.
+    Prioritizing kids over dogs is right. No reasonable person disputes that. The argument on this site is that the <em>magnitude</em> of the gap has gone beyond any reasonable prioritization: the dedicated OLA budget was about <strong>$100,000 out of a $168M SPR total</strong> in 2018 (0.06%); OLAs occupy about <strong>31 of Seattle's ~53,100 acres</strong> (0.06% of the city). A population the size of all dog owners deserves more than 0.06%.
   </div>
 </section>
 
@@ -407,27 +407,27 @@
 <section class="chapter">
   <div class="chapter-kicker">Part II</div>
   <h1 class="chapter-title">Access.</h1>
-  <p class="chapter-deck">99% of Seattleites live within a 10-minute walk of a park. 11.9% live that close to a dog park. Network walkshed analysis; amenity breakdown; the asymmetry between SPR's 2.5-mile OLA standard and TPL's 0.5-mile general-parks standard.</p>
+  <p class="chapter-deck">99% of Seattleites live within a 10-minute walk of a park. 11.6% live that close to a dog park. Network walkshed analysis; amenity breakdown; the asymmetry between SPR's 2.5-mile OLA standard and TPL's 0.5-mile general-parks standard.</p>
 
   <h2>01 · The walkshed</h2>
   <p>Trust for Public Land's 2025 ParkScore shows 99% of Seattle residents live within a 10-minute walk of a park — an industry-standard 0.5-mile half-mile walkshed. We applied the same methodology to OLAs only, using osmnx against Seattle's full OpenStreetMap walk network (110,383 nodes / 305,582 edges, projected to UTM 10N, physical barriers respected) and 2020 Census block-group population clipped to the Seattle city boundary.</p>
   <div class="chart-wrap short"><canvas id="chartWalkshed"></canvas></div>
 
   <div class="map-wrap" id="mapWalkshed"></div>
-  <p class="map-caption"><strong>The walkshed, mapped.</strong> Green polygons are the 0.5-mile (10-minute) network walksheds around each of Seattle's 14 existing OLAs. Orange dots are OLAs. The unshaded area — most of the city — is what "11.9%" means in practice. Interactive version with zoom, hover, and the 1.0-mi and 2.5-mi isochrones at <strong>seattledogparkdata.com/part2-access.html</strong>.</p>
+  <p class="map-caption"><strong>The walkshed, mapped.</strong> Green polygons are the 0.5-mile (10-minute) network walksheds around each of Seattle's 14 existing OLAs. Orange dots are OLAs. The unshaded area — most of the city — is what "11.6%" means in practice. Interactive version with zoom, hover, and the 1.0-mi and 2.5-mi isochrones at <strong>seattledogparkdata.com/part2-access.html</strong>.</p>
   <table>
     <thead><tr><th>Measure</th><th class="num">% of residents</th></tr></thead>
     <tbody>
       <tr><td>Within 10-min walk of any park (TPL 2025)</td><td class="num">99%</td></tr>
-      <tr><td>Within 10-min walk of an OLA (repo-computed)</td><td class="num">11.9%</td></tr>
-      <tr><td>Within SPR's 2.5-mi OLA access standard</td><td class="num">79.6%</td></tr>
+      <tr><td>Within 10-min walk of an OLA (repo-computed)</td><td class="num">11.6%</td></tr>
+      <tr><td>Within SPR's 2.5-mi OLA access standard</td><td class="num">76.6%</td></tr>
     </tbody>
   </table>
   <p class="caption"><strong>Source:</strong> scripts/compute_walkshed.py + scripts/population_coverage.py · data in data/walkshed/population_coverage.csv.</p>
 
   <div class="callout">
     <strong class="label">The asymmetry</strong>
-    The 10-minute walk is the standard used by TPL, NRPA, the Urban Land Institute, the National Park Service, and the CDC. SPR cites it proudly when celebrating Seattle's park system generally. For dog parks specifically, SPR switched to a 2.5-mile standard — <strong>5× more permissive</strong>. There is no national planning standard specific to dog parks. The industry default for an OLA access metric is the same 10-minute walk used for any other park.
+    The 10-minute walk is the standard used by TPL, NRPA, the Urban Land Institute, the National Park Service, and the CDC. SPR cites it proudly when celebrating Seattle's park system generally. For dog parks specifically, SPR switched to a 2.5-mile standard — <strong>5× more permissive</strong>. No universal national consensus comparable to TPL's 10-min standard exists for dog parks specifically — a handful of agencies use OLA-specific radii (Seattle's own 2016 Recreation Demand Study used 2.5 mi; Fairfax County has a published dog-park siting study) — but nothing approaching TPL's benchmark has been widely adopted. The industry default for an OLA access metric is the same 10-minute walk used for any other park.
   </div>
 
   <h2>02 · AKC size standards and per-dog capacity</h2>
@@ -499,10 +499,12 @@
   <table>
     <thead><tr><th>Measure</th><th class="num">Value</th></tr></thead>
     <tbody>
-      <tr><td>Citations at parks OUTSIDE any OLA 0.5-mi walkshed</td><td class="num"><strong>76.2% (2,144 of 2,812)</strong></td></tr>
-      <tr><td>Citations INSIDE an OLA walkshed (at host parks &mdash; non-OLA portions)</td><td class="num">23.8% (668)</td></tr>
+      <tr><td>Citations OUTSIDE any OLA 0.5-mi walkshed (park-named + geocoded street addresses)</td><td class="num"><strong>77.9% (2,715 of 3,484)</strong></td></tr>
+      <tr><td>Citations OUTSIDE (park-named only, prior headline)</td><td class="num">76.2% (2,144 of 2,812)</td></tr>
+      <tr><td>Citations INSIDE an OLA walkshed</td><td class="num">19.2% (668)</td></tr>
       <tr><td>Unique parks in citation data sitting outside any OLA walkshed</td><td class="num">29 of 37</td></tr>
       <tr><td>Unique parks inside an OLA walkshed</td><td class="num">8 of 37</td></tr>
+      <tr><td>Street addresses successfully geocoded via Census Bureau batch geocoder</td><td class="num">449 of 481 (93.3%)</td></tr>
     </tbody>
   </table>
   <div class="map-wrap" id="mapMerged"></div>
@@ -737,7 +739,7 @@
   <div class="callout">
     <strong class="label">Cross-cutting takeaways</strong>
     <ol style="margin-top: 4px;">
-      <li>No peer city publishes a dog-park-specific walkshed standard. All use the general 10-min / 0.5-mi park standard. SPR's 2.5-mi OLA standard is 5&times; more permissive than any benchmark any peer publishes.</li>
+      <li>No peer city publishes a dog-park-specific walkshed standard comparable to TPL's 10-min park standard. A handful of agencies have experimented with OLA-specific radii (Seattle's 2016 Recreation Demand Study used 2.5 mi; Fairfax County has a published siting study) but nothing approaches TPL's benchmark in adoption. SPR's 2.5-mi OLA standard is 5&times; more permissive than any widely-adopted park standard.</li>
       <li>Two cities have elected park bodies (Vancouver, Minneapolis). Both have the most ambitious OLA programs of the six peers; Minneapolis has the only dedicated OLA revenue model.</li>
       <li>DC is the only peer with OLA-specific enabling legislation.</li>
       <li>Shared-use models (Portland voice-control, Vancouver time-zoned beaches, NYC off-leash hours) are widely precedented. The opinion recommendation is not radical.</li>
@@ -765,7 +767,7 @@
   <ul>
     <li><strong>O1 · Expanding enforcement does not change the structural math.</strong> Going from one ACO to two full-time seven-day positions moves 0.5% citation probability to maybe 0.8%. The behavior does not meaningfully change below ~5% enforcement probability, which Seattle cannot staff.</li>
     <li><strong>O2 · The fine-based model is regressive and structurally mismatched.</strong> $54 is trivial to wealthy owners and meaningful to lower-income ones. Raising fines doesn't close the gap; it widens the regressive one.</li>
-    <li><strong>O3 · Owners break the rule for rational reasons — it's a supply failure producing a compliance failure.</strong> 11.9% live near a legal OLA. Seven of 14 OLAs are below AKC's 1-acre floor. Several OLAs are adjacent to chronic encampment safety issues. Enforcement alone does not address any of these causes.</li>
+    <li><strong>O3 · Owners break the rule for rational reasons — it's a supply failure producing a compliance failure.</strong> 11.6% live near a legal OLA. Seven of 14 OLAs are below AKC's 1-acre floor. Several OLAs are adjacent to chronic encampment safety issues. Enforcement alone does not address any of these causes.</li>
   </ul>
 
   <h2>Does the NYC model actually work?</h2>
@@ -796,14 +798,14 @@
     <thead><tr><th>Estimate</th><th class="num">Value</th><th>Source</th></tr></thead>
     <tbody>
       <tr><td>Licensed floor</td><td class="num">~26,700</td><td>Seattle Open Data dataset <code>jguv-t9rb</code> (active dog licenses)</td></tr>
-      <tr><td>AVMA-derived demographic estimate</td><td class="num">~248,500</td><td>364,627 Seattle households (ACS 2023) × 42.6% dog-owning (AVMA 2025) × 1.6 dogs/HH</td></tr>
+      <tr><td>AVMA-derived demographic estimate</td><td class="num">~248,900</td><td>364,627 Seattle households (ACS 2023) × 45.5% dog-owning (AVMA 2025) × 1.6 dogs/HH</td></tr>
       <tr><td>SPR Expansion Study range</td><td class="num">187K–400K</td><td>SPR 2023–24 OLA Expansion Study</td></tr>
       <tr><td><strong>Working floor used site-wide</strong></td><td class="num"><strong>150,000</strong></td><td>Seattle Humane / Cascade PBS (legacy conservative figure, sits below all three estimates)</td></tr>
     </tbody>
   </table>
 
   <h2>10-minute walkshed</h2>
-  <p>Repo-computed via <code>scripts/compute_walkshed.py</code> (osmnx against Seattle OSM walk network, projected to UTM 10N, convex-hull isochrones at 0.5 / 1.0 / 2.5 miles) and <code>scripts/population_coverage.py</code> (2020 Census decennial P1 block-group population via pygris/TIGER 2020, area-weighted attribution, clipped to Seattle Places boundary). Convex-hull approximation tends to slightly overstate walkable area; true alpha-shape would likely shift the 11.9% figure a percentage point or two down. Output in <code>data/walkshed/population_coverage.csv</code>.</p>
+  <p>Repo-computed via <code>scripts/compute_walkshed.py</code> (osmnx against Seattle OSM walk network, projected to UTM 10N, multi-seed alpha-shape isochrones at 0.5 / 1.0 / 2.5 miles) and <code>scripts/population_coverage.py</code> (2020 Census decennial P1 block-group population via pygris/TIGER 2020, area-weighted attribution, clipped to Seattle Places boundary). Convex-hull approximation tends to slightly overstate walkable area; true alpha-shape would likely shift the 11.6% figure a percentage point or two down. Output in <code>data/walkshed/population_coverage.csv</code>.</p>
 
   <h2>OLA coordinates</h2>
   <p>Authoritative geometry pulled April 2026 from SPR's Dog Off-Leash Areas ArcGIS feature service (<code>services.arcgis.com/ZOyb2t4B0UYuYNYH/arcgis/rest/services/Dog_Off_Leash_Areas/FeatureServer/0</code>). Replaces earlier address-derived approximations. Several points moved 0.3–1.5 km in the process.</p>
@@ -819,8 +821,8 @@
 
   <h2>Known limitations</h2>
   <ul>
-    <li>Walkshed isochrones use convex hulls, slight over-estimate of reach</li>
-    <li>150,000-dog floor is legacy; the AVMA-derived estimate (~248,500) is probably closer to reality</li>
+    <li>Walkshed isochrones use an alpha-shape of reachable network nodes (multi-seed, 100 m seed radius, alpha=0.003). Small residual inflation at OLA boundaries but much tighter than the original convex-hull approach.</li>
+    <li>150,000-dog floor is legacy; the AVMA-derived estimate (~248,900) is probably closer to reality</li>
     <li>Enforcement data ends October 2019; PRR for post-2019 citations pending</li>
     <li>Post-2018 OLA-only budget split not publicly disclosed by SPR</li>
     <li>Find-It-Fix-It "dog in a park" complaint count is approximate; PRR #2 drafted for authoritative number</li>
@@ -829,11 +831,11 @@
 
   <footer class="colophon">
     <h3>How this report was built</h3>
-    <p>Underlying data — public records requests, SPR budget documents, Census block-group data, peer-city research — was collected by Andre Vrignaud. Analysis, report writing, and code were produced with substantial assistance from Claude Code (Anthropic). Every factual claim on this report links to its primary source; every derived number is reproducible from a CSV in the public repo via a committed script. All AI-generated content was reviewed and approved by a human before publication. Errors are Andre's.</p>
+    <p>Underlying data — public records requests, SPR budget documents, Census block-group data, peer-city research — was collected by Andre Vrignaud. Analysis, report writing, and code were produced with substantial assistance from Claude Code (Anthropic). Factual claims link to their primary source; most derived numbers are reproducible from a CSV in the public repo via a committed script (see METHODOLOGY.md for the full list of reproducible pipelines). All AI-generated content was reviewed and approved by a human before publication. Errors are Andre's.</p>
     <h3>Online version</h3>
     <p><strong>seattledogparkdata.com</strong> is the authoritative edition. This print edition is a single-document snapshot; the website carries interactive maps, charts, and a full data browser alongside the prose.</p>
     <h3>Repository</h3>
-    <p><strong>github.com/avrignaud/seattledogparkdata</strong> — MIT license (code + analysis); data is public record.</p>
+    <p><strong>github.com/avrignaud/seattledogparkdata</strong> — MIT license covers author-written code + analysis. Primary data (SPR, Seattle Open Data, Census) is public record; TPL ParkServe material carries TPL's own terms of use.</p>
     <h3>Corrections</h3>
     <p>File an issue on GitHub or email <strong>seattledogparkdata@ozymandi.as</strong>. Corrections are published publicly.</p>
   </footer>

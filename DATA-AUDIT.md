@@ -3,8 +3,14 @@
 A full pass over every CSV in `data/` and every numeric claim on the
 site, checking: (a) math is consistent with the underlying data,
 (b) every figure has a traceable primary source, (c) no hallucinated
-numbers. Every CSV now carries a `provenance` column distinguishing
-`sourced`, `calculated`, `interpolated`, `estimated`, and `missing`.
+numbers. Every small reference CSV now carries a `provenance` column
+distinguishing `sourced`, `calculated`, `interpolated`, `estimated`,
+and `missing`. Derived / output CSVs (under `data/walkshed/` and
+`data/tpl-parkserve/`, and the wide `enforcement-citations.csv` +
+`enforcement-by-park-year.csv`) do NOT carry a row-level
+`provenance` column — those are script outputs whose provenance is
+the script itself (see `METHODOLOGY.md` for the mapping from output
+file to the script that produced it).
 
 This document is the running log of what was checked and what was
 fixed. Append as new audits happen.
@@ -76,7 +82,7 @@ Three independent estimates now cited on the site:
 | Estimate | Value | Provenance |
 |---|---:|---|
 | Licensed floor | ~26,700 active | sourced: [Seattle Open Data dataset `jguv-t9rb`](https://data.seattle.gov/dataset/Active-Pet-Licenses/jguv-t9rb/about_data) |
-| AVMA-derived demographic | ~248,500 | calculated: 364,627 households (ACS 2023) × 42.6% × 1.6 dogs/HH — components sourced from [AVMA 2025 Sourcebook](https://www.avma.org/resources-tools/reports-statistics/us-pet-ownership-statistics) + [Census API](https://api.census.gov/data/2023/acs/acs1?get=NAME,B11001_001E&for=place:63000&in=state:53) |
+| AVMA-derived demographic | ~248,900 | calculated: 364,627 households (ACS 2023) × 45.5% × 1.6 dogs/HH — components sourced from [AVMA 2025 Sourcebook](https://www.avma.org/resources-tools/reports-statistics/us-pet-ownership-statistics) + [Census API](https://api.census.gov/data/2023/acs/acs1?get=NAME,B11001_001E&for=place:63000&in=state:53) |
 | SPR Expansion Study range | 187K–400K | sourced: SPR 2023-24 OLA Expansion Study |
 
 Site uses the 150K Seattle Humane / Cascade PBS floor for all

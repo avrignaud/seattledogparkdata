@@ -2,7 +2,7 @@ year,population,olas,residents_per_ola,spr_budget_all_funds_m,ola_improvement_bu
 2000,563375,,,,,,Census,sourced: 2000 US Census decennial (population); OLA count from SPR inventory
 2010,608660,14,43476,,,,Census; OLA count approximate,interpolated/approximate: 2010 population (noted in notes column)
 2016,704400,14,50314,156,100,Cycle 1,$100K/yr for OLAs,sourced: population: WA OFM annual estimate; OLAs: SPR inventory; budget: Seattle adopted/proposed budget book
-2017,724745,14,51767,163,100,Cycle 1,Operating budget only,sourced: population: WA OFM annual estimate; OLAs: SPR inventory; budget: Seattle adopted/proposed budget book
+2017,724745,14,51768,163,100,Cycle 1,Operating budget only,sourced: population: WA OFM annual estimate; OLAs: SPR inventory; budget: Seattle adopted/proposed budget book
 2018,739500,14,52821,168,100,Cycle 1,User original reference year,sourced: population: WA OFM annual estimate; OLAs: SPR inventory; budget: Seattle adopted/proposed budget book
 2019,753700,14,53836,247.7,160.8,Cycle 1,All-funds; Maintaining Parks & Facilities BSL,sourced: population: WA OFM annual estimate; OLAs: SPR inventory; budget: Seattle adopted/proposed budget book
 2020,737015,14,52644,261.9,338.0,Cycle 1,Census; COVID impact begins,sourced: 2020 US Census decennial (population); OLA count from SPR inventory

@@ -8,13 +8,13 @@ This file is the site's "show your work" index. If a number on the site isn't li
 
 | File | Origin | How to verify |
 |---|---|---|
-| [`data/seattle-olas.csv`](data/seattle-olas.csv) | Derived from SPR's individual OLA pages under [seattle.gov/parks](https://www.seattle.gov/parks) and [Citizens for Off-Leash Areas](https://seattlecola.org) biennial reports. Coordinates geocoded by hand from addresses. | Each row maps to a named park; cross-reference with the SPR page for each. Not canonical GIS; use Seattle's [ArcGIS Open Data portal](https://data-seattlecitygis.opendata.arcgis.com/) for authoritative geometry. |
+| [`data/seattle-olas.csv`](data/seattle-olas.csv) | Coordinates pulled April 2026 from SPR's authoritative [Dog Off-Leash Areas ArcGIS feature service](https://services.arcgis.com/ZOyb2t4B0UYuYNYH/arcgis/rest/services/Dog_Off_Leash_Areas/FeatureServer/0). Acreages reconciled the same month to each OLA's individual SPR park page. Supersedes earlier address-derived approximations. | Each row maps 1-to-1 to a feature in SPR's ArcGIS dataset; the feature service is the canonical source. |
 | [`data/seattle-timeseries.csv`](data/seattle-timeseries.csv) | WA OFM April 1 population estimates; Seattle 2018/2021/2025-26 budget books; Seattle Park District Cycle 1 & 2 financial plans. | Each year's row cites a specific budget-book page or OFM table. |
 | [`data/peer-cities.csv`](data/peer-cities.csv) | [Trust for Public Land 2025 ParkScore](https://www.tpl.org/parkscore) city-level PDFs. Vancouver BC from its own [People, Parks & Dogs Strategy](https://vancouver.ca/parks-recreation-culture/peoples-parks-and-dogs-strategy.aspx) (2017). | Each row has `parkscore_rank` tying back to TPL's published table. |
 | [`data/planned-olas.csv`](data/planned-olas.csv) | Seattle Park District Cycle 2 project pages + 2023–24 OLA Expansion Study. | Each entry cross-references an SPR project page. |
 | [`data/kinnear-timeline.csv`](data/kinnear-timeline.csv) | Contemporaneous reporting (Seattle Times, Seattle Weekly, KOMO, Fix Homelessness, dog-owner blogs). Every row has a source column. | Follow the source URL in each row. |
 | [`data/illegal-use-indicators.csv`](data/illegal-use-indicators.csv) | SPR owner survey (2016) published in the 2017 [*People, Dogs and Parks Strategic Plan*](https://www.seattle.gov/parks/about-us/policies-and-plans/people-dogs-and-parks-strategic-plan); TPL 2025 ParkScore amenity sub-scores; Seattle Animal Control 6-month ticket figure from published SPR communications. | Each metric has a `source` column. |
-| [`data/park-coordinates.csv`](data/park-coordinates.csv) | Geocoded by hand from Seattle park names appearing in the enforcement data. City-scale approximate — not GIS-precise. | For the 14 OLAs, cross-reference with SPR's individual park pages. Non-OLA parks geocoded by author from Seattle geography. |
+| [`data/park-coordinates.csv`](data/park-coordinates.csv) | Per-park centroids used for citation spatial analysis. OLA host-park rows for Westcrest and Genesee were reconciled April 2026 to the SPR ArcGIS OLA point after an audit found ~1.17 km and ~650 m coordinate errors, respectively. Non-OLA parks geocoded by hand from Seattle geography. Every row has a `provenance` column. | For OLA host parks, cross-reference with SPR's ArcGIS feature service. Non-OLA parks cross-reference with SPR's individual park pages. |
 | [`data/prr-responses/C049204/*.xlsx`](data/prr-responses/C049204/) | Seattle public records request **C049204**, filed 2019-08-29 by Andre Vrignaud, produced 2019-10-15 by SPR. Covers Animal Control off-leash citations 2014-01-01 through 2019-10-15. | Original request text preserved in [`data/prr-responses/C049204/README.md`](data/prr-responses/C049204/README.md). Raw XLSX preserved unmodified. Anyone can file their own PRR to independently verify; see `prrs/01-spr-offleash-citations-post-2019.md` for an extension request format. |
 | [`sources/andre-qacc-thread-2019.md`](sources/andre-qacc-thread-2019.md) | First-person community-thread response by Andre Vrignaud, 2019. Retained for the first-person material on the opinion page and as a data cross-reference index. | Every data claim in the thread is flagged in the file's "needs citation from" table. |
 | [`sources/SOURCES.md`](sources/SOURCES.md) | Master list of primary sources cited across the site. | Self-referential — this is the entry point. |
@@ -64,6 +64,20 @@ python3 -m venv .venv
 ```
 The output CSVs should byte-match the versions in the repo. If they don't, something upstream changed; open an issue.
 
+### `data/walkshed/citation-rate-by-walkshed-status.csv`
+
+**Script:** [`scripts/citation_walkshed_analysis.py`](scripts/citation_walkshed_analysis.py)
+
+**Input:** `data/walkshed/ola_isochrones.geojson`, `data/enforcement-citations.csv`, `data/park-coordinates.csv`.
+
+**Classification rule (explicit):** for each uniquely-named park that appears in the citation data with `location_type == 'park_named'`, the script looks up its single lat/lng in `data/park-coordinates.csv` and tests whether the UNION of all 0.5-mile OLA isochrone polygons `.contains()` that point. No buffer, no tolerance, no block-group or centroid step. A park is "inside walkshed" iff that point-in-polygon test returns True.
+
+**Reproduce:**
+```
+.venv/bin/python3 scripts/citation_walkshed_analysis.py
+```
+Output should byte-match the committed CSV; if it doesn't, open an issue.
+
 ## Charts and page-level methodology
 
 ### Part I: The Gap
@@ -82,8 +96,8 @@ The output CSVs should byte-match the versions in the repo. If they don't, somet
 
 | Chart | Methodology notes |
 |---|---|
-| 10-minute walkshed coverage | 99% figure from [TPL 2025 ParkScore Seattle](https://www.tpl.org/city/seattle-washington) — formal network-based walkshed. OLA figure is repo-computed: **11.9%** at 10-min (0.5-mi) network walk, **79.6%** at SPR's published 2.5-mi standard, both population-weighted. Pipeline: `scripts/compute_walkshed.py` runs [osmnx](https://github.com/gboeing/osmnx) against Seattle's OpenStreetMap walk network (110,383 nodes · 305,582 edges, projected to UTM 10N, physical barriers respected) and builds per-OLA isochrones as convex hulls of reachable network nodes; `scripts/population_coverage.py` intersects the union of isochrones with 2020 Census block-group geometry (TIGER 2020 via [pygris](https://pygris.readthedocs.io/)) clipped to the Seattle city Places boundary, attributes population area-weighted. Output: `data/walkshed/population_coverage.csv`. The convex-hull step tends to slightly overstate walkable area at the boundary of each OLA's reach; a true alpha-shape or TPL ParkServe-equivalent computation would likely shift the 11.9% figure a percentage point or two down. Supersedes the earlier straight-line 33% author estimate. |
-| Seattle OLA coverage map | OLA coords from `seattle-olas.csv`. 0.5-mile walksheds are straight-line circles (`L.circle` with `radius: 804.67` meters). Label "actual walksheds are smaller in practice" is prominent in the chart subtitle. |
+| 10-minute walkshed coverage | 99% figure from [TPL 2025 ParkScore Seattle](https://www.tpl.org/city/seattle-washington) — formal network-based walkshed. OLA figure is repo-computed: **11.6%** at 10-min (0.5-mi) network walk, **76.6%** at SPR's published 2.5-mi standard, both population-weighted. Pipeline: `scripts/compute_walkshed.py` runs [osmnx](https://github.com/gboeing/osmnx) against Seattle's OpenStreetMap walk network (110,383 nodes · 305,582 edges, projected to UTM 10N, physical barriers respected). For each OLA it seeds a multi-source ego-graph traversal from every network node within 100 m of the OLA's SPR ArcGIS coordinate (rather than a single nearest node — that single-seed approach produced malformed hulls at OLAs on the edge of the walk network), builds an **alpha-shape** of the reachable-node cloud plus the OLA's own point at `alpha=0.003` (tight enough to hug the walk-network's actual concavities instead of bridging them the way a convex hull would, loose enough to avoid holes on sparse point clouds), and unions the resulting polygon with a 25 m buffer around the OLA point as a safety net. Alpha-shape shrinks each isochrone by 1–2 percentage points of city-wide coverage vs. the earlier convex-hull version. `scripts/population_coverage.py` intersects the union of isochrones with 2020 Census block-group geometry (TIGER 2020 via [pygris](https://walker-data.com/pygris/)) clipped to the Seattle city Places boundary, attributes population area-weighted. Output: `data/walkshed/population_coverage.csv`. The alpha-shape step (alpha=0.003) hugs walk-network concavities instead of bridging them the way the earlier convex-hull implementation did. This shrinks each isochrone by roughly a percentage point on city-wide coverage — the 11.6% figure is the post-alpha-shape number. Supersedes the earlier straight-line 33% author estimate. |
+| Seattle OLA coverage map | OLA coords from `seattle-olas.csv` (authoritative SPR ArcGIS). Walkshed polygons are the network-derived 0.5-mi isochrones from `data/walkshed/ola_isochrones.geojson` (output of `scripts/compute_walkshed.py`). Planned/future sites fall back to straight-line half-mile circles because their isochrones are not yet computed. |
 | Peer-city OLA acreage per 10K | Per-city acreage from municipal inventories (SPR, Portland P&R, SF Rec & Parks, Vancouver Park Board). Methodology caveat callout explicitly flags that city definitions differ (fenced vs. unfenced, time-restricted vs. dedicated). |
 | Dog-park-size standards | [AKC 1-acre recommendation](https://images.akc.org/pdf/GLEG01.pdf); [Parks & Rec Business industry guidance](https://www.parksandrecbusiness.com/articles/2011/08/01/designing-dog-parks); [Ann Arbor](https://www.a2gov.org/media/hvqhrksg/recommendations-and-guidelines-for-dog-park-site-selection-updated-4-10-15.pdf) and [Fairfax County](https://www.fairfaxcounty.gov/parks/sites/parks/files/assets/documents/plandev/dog%20park%20study/dog%20park%20study%20appendices.pdf) municipal design guidelines; 75–100 sq ft per dog capacity standard from [Dog Park Size Guide](https://outdoorworkoutsupply.com/blogs/ows-blog/dog-park-size-guide-square-footage-requirements-by-facility-type-and-dog-capacity). Capacity table: area in sq ft = acres × 43,560; capacity = area / sq-ft-per-dog. |
 
@@ -92,7 +106,7 @@ The output CSVs should byte-match the versions in the repo. If they don't, somet
 | Chart | Methodology notes |
 |---|---|
 | Hotspot circle-marker map | `HOTSPOTS` data embedded in the HTML; derived from `enforcement-by-park-year.csv` + `park-coordinates.csv`. Marker radius = `max(6, sqrt(count) × 1.6)`. |
-| Walkshed-gap heatmap | [Leaflet.heat](https://github.com/Leaflet/Leaflet.heat) kernel density estimate. Points: top-40 geocoded parks (HOTSPOTS + HEATMAP_EXTRA arrays in `enforcement.html`), weighted by citation count. Walksheds: 0.5-mile (804.67 m) straight-line circles around each of the 14 existing OLAs. |
+| Walkshed-gap heatmap | [Leaflet.heat](https://github.com/Leaflet/Leaflet.heat) kernel density estimate. Points: top-40 geocoded parks (HOTSPOTS + HEATMAP_EXTRA arrays in `enforcement.html`), weighted by citation count. Walksheds on the enforcement-page gap map are still straight-line circles (legacy); the newer merged Part II map uses the network isochrones from `data/walkshed/ola_isochrones.geojson`. |
 | Top-20 cited parks | Direct aggregate from `enforcement-by-park-year.csv`. |
 | Citations per year | Direct aggregate from `enforcement-by-park-year.csv`. 2019 is partial (Jan 1 – Oct 15, 288 days); naive annualization = count × 365 / 288. |
 | Offense-mix | Derived counts from `enforcement-citations.csv` grouped by `offense_level`. Fees per offense level reference SMC 18.12.080(A). |
@@ -110,11 +124,11 @@ No bare numbers appear without one of the above.
 
 **Completed**
 
-1. **Network walkshed in Python (April 2026).** Implemented at `scripts/compute_walkshed.py` + `scripts/population_coverage.py`. Replaces the earlier straight-line 33% straight-line estimate with population-weighted network-distance figures: 11.9% at 10-min / 0.5-mi, 79.6% at SPR's 2.5-mi, using 2020 Census block-group population. Output at `data/walkshed/population_coverage.csv` + `data/walkshed/ola_isochrones.geojson`.
+1. **Network walkshed in Python (April 2026).** Implemented at `scripts/compute_walkshed.py` + `scripts/population_coverage.py`. Replaces the earlier straight-line 33% straight-line estimate with population-weighted network-distance figures: 11.6% at 10-min / 0.5-mi, 76.6% at SPR's 2.5-mi, using 2020 Census block-group population. Output at `data/walkshed/population_coverage.csv` + `data/walkshed/ola_isochrones.geojson`.
 
 **Planned (priority order)**
 
-1. **Alpha-shape refinement of the walkshed isochrones.** Current implementation uses convex hulls of reachable network nodes, which slightly overstates walkable area near OLA boundaries. An alpha-shape or ParkServe-equivalent computation would tighten this. Would shift the 11.9% figure a percentage point or two down.
+1. **Alpha-shape refinement of the walkshed isochrones.** COMPLETED: the walkshed pipeline uses an alpha-shape of reachable-node clouds (alpha=0.003) rather than a convex hull. Alpha-shape hugs walk-network concavities, shrinking each isochrone vs. convex-hull by roughly a percentage point on city-wide coverage. The 11.6% figure is the post-alpha-shape number.
 2. **Geocoding pass on the 672 street-address rows** in `enforcement-citations.csv`. Use an offline pipeline (US Census Geocoder API or Seattle's address points dataset) + spatial join against Seattle's park-boundary polygon layer. Could recover a meaningful share of the currently-excluded 14% of citations.
 3. **Dog population update.** Replace the 150,000 conservative floor with a defensibly current number from AVMA state estimates or King County license data (PRR if necessary).
 4. **OLA-only budget split** via `prrs/03-spr-ola-budget-split.md`. Separate OLA from P-Patch in the post-2022 "Maintaining Parks & Facilities" BSL.

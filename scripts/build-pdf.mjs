@@ -122,6 +122,22 @@ async function main() {
   const out = await merged.save();
   await fs.writeFile(OUT, out);
   console.log(`Wrote ${OUT} (${(out.length / 1024).toFixed(0)} KB, ${merged.getPageCount()} pages)`);
+
+  // Cache-bust the PDF link on docs/index.html by stamping a version
+  // based on PDF size + mtime. Browsers and Cloudflare treat a different
+  // query string as a new URL, so readers don't get stuck on an old copy.
+  const stat = await fs.stat(OUT);
+  const v = `${out.length}-${Math.floor(stat.mtimeMs / 1000)}`;
+  const indexPath = path.join(DOCS, 'index.html');
+  let html = await fs.readFile(indexPath, 'utf8');
+  // Match either the bare path or an existing versioned path
+  const newRef = `seattle-dog-parks-report.pdf?v=${v}`;
+  const before = html;
+  html = html.replace(/seattle-dog-parks-report\.pdf(\?v=[^"'\s]*)?/g, newRef);
+  if (html !== before) {
+    await fs.writeFile(indexPath, html);
+    console.log(`Stamped PDF link with ?v=${v} on docs/index.html`);
+  }
 }
 
 main().catch(err => { console.error(err); process.exit(1); });

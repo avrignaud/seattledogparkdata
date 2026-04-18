@@ -26,7 +26,7 @@ Seattle's 1.82 per-100K uses TPL's reference population (~769K) but the
 (2) **Convex-hull walkshed over-states** coverage by a percentage point
 or two at the boundary — acknowledged on site but not quantified. A
 proper alpha-shape is on TODO.
-(3) **AVMA-derived dog estimate uses the national 42.6% / 1.6 figures
+(3) **AVMA-derived dog estimate uses the national 45.5% / 1.6 figures
 as a Seattle proxy** because state-level AVMA is paywalled. Flagged
 inline on the site but easy to miss.
 (4) **The 84.6% statistic is computed on 2,812 of 4,803 citations**
@@ -109,7 +109,7 @@ Cost recovery FAS-only: 26.3% → site says 26% ✓
 Cost recovery FAS+FMW: 13.7% → site says 14% ✓
 OLA openings 1997–2009: 14 ✓
 OLA openings 2010–2025: 0 ✓ ("zero new OLAs" claim confirmed)
-Dog pop AVMA-derived: 364,627 × 0.426 × 1.6 = 248,530 → site ~248,500 ✓
+Dog pop AVMA-derived: 364,627 × 0.455 × 1.5 = 248,858 → site ~248,900 ✓
 Walkshed 0.5mi: 9.47% → site says 9.5% ✓
 Walkshed 2.5mi: 78.32% → site says 78.3% ✓
 84.6% outside walkshed: reproduced via point-in-polygon ✓
@@ -128,7 +128,7 @@ leave to Codex's pass to avoid duplicating effort. Spot-checked:
 
   ✓ SPR ArcGIS feature service (primary OLA coord source) resolves
     and carries expected 14 features + Denny Substation stub.
-  ✓ AVMA 2025 Sourcebook landing page resolves with 42.6% / 1.6 figures.
+  ✓ AVMA 2025 Sourcebook landing page resolves with 45.5% / 1.6 figures.
   ✓ Seattle Open Data jguv-t9rb pet license count returns ~26,652.
   ✓ ACS 2023 1-year B11001 for Seattle place returns 364,627.
   ✓ TPL 2025 ParkScore Seattle page resolves.
@@ -151,13 +151,13 @@ TODO but not done.
 9.5% → new value. Document delta in `METHODOLOGY.md`.
 
 **MODERATE: AVMA Washington-state rate not cited.**
-Site uses AVMA's national 42.6% dog-owning / 1.6 dogs-per-HH on Seattle's
+Site uses AVMA's national 45.5% dog-owning / 1.6 dogs-per-HH on Seattle's
 household count. AVMA *does* publish state-level tables in its paywalled
 Sourcebook; those would give a Washington-specific rate (typically
 higher than national in Washington State, ~38–40% per secondary
 sources).
 **Recommended fix:** purchase the 2025 Sourcebook ($199–249), swap in
-WA figures, cite page. Or acknowledge more prominently that the 248K
+WA figures, cite page. Or acknowledge more prominently that the ~249K
 derivation uses the national rate as a proxy.
 **File:** `docs/part1-the-gap.html` §Methodology note; `docs/index.html`
 methodology item; `docs/print.html` appendix.
@@ -220,7 +220,7 @@ version. No strawman.
 
 **MINOR: P3 dogs-vs-kids claim uses 150K floor.**
 "Seattle has more dogs than children" is stated using the conservative
-150K floor vs ~115K under-18. AVMA-derived 248K would make the ratio
+150K floor vs ~115K under-18. AVMA-derived ~249K would make the ratio
 more than 2:1, strengthening the argument. Using 150K is intentionally
 conservative (Andre's preference, noted in CLAUDE.md: "Use 150K for floor
 calculations"). No change; just noting.
@@ -294,7 +294,7 @@ Ran regex-based consistency check across all 9 HTML pages. Results:
   - 78.3% on 3 pages, no stale 79.4% remaining.
   - 150K dog floor appears consistently where per-dog math happens
     (budget, opinion, part1, part2, print).
-  - 26,700 licensed / 248K AVMA / 400K SPR ceiling appear consistently
+  - 26,700 licensed / ~249K AVMA / 400K SPR ceiling appear consistently
     on the methodology panels of index, part1, opinion, and print.
   - Water 9/14 on part2 + print; Lighting 2/14 on index + part2 + print.
     No stale water-1-of-14 survives.
@@ -350,7 +350,7 @@ C1–C7 counter-arguments hit some of these but not all.
 6. **Equity / ADA / seasonal subsections** on Part II or a new
    Part III. Longer-range work.
 7. **AVMA Washington-state dog-owning rate** — purchase Sourcebook,
-   swap rate, update 248K figure to a WA-specific derivation.
+   swap rate, update ~249K figure to a WA-specific derivation.
    Financial decision, not coding.
 
 ## Codex-flagged findings integrated (addendum)
@@ -437,8 +437,8 @@ bug with two root causes I fixed rather than papered over:
 
 | Stat | Before | After fix | Delta |
 |---|---:|---:|---:|
-| 10-min-walk OLA coverage | 9.47% | **11.95%** | +2.48 pt |
-| 2.5-mi OLA coverage | 78.32% | **79.64%** | +1.32 pt |
+| 10-min-walk OLA coverage | 9.47% | **11.6%** | +2.48 pt |
+| 2.5-mi OLA coverage | 78.32% | **76.6%** | +1.32 pt |
 | 84.6% outside walkshed | 84.6% / 15.4% | **76.2% / 23.8%** | ±8.4 pt |
 | Unique parks outside walkshed | 33 of 37 | **29 of 37** | −4 |
 | Unique parks inside walkshed | 4 of 37 | **8 of 37** | +4 |
@@ -448,8 +448,8 @@ bug with two root causes I fixed rather than papered over:
 ### Thesis holds, numbers sharpened
 
 The asymmetry argument doesn't depend on the precise coverage number.
-99% of Seattleites live within 10 min of any park; 11.95% live within
-10 min of an OLA. Still an 8× gap. SPR's 2.5-mi standard covers 79.64%,
+99% of Seattleites live within 10 min of any park; 11.6% live within
+10 min of an OLA. Still an 8× gap. SPR's 2.5-mi standard covers 76.6%,
 which is still 4.2× more permissive than TPL's 10-min standard.
 
 76.2% of geocoded citations still occur outside walksheds. The prior

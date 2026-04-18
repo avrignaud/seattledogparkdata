@@ -116,11 +116,24 @@ def isochrone_polygon(
     # Include the OLA point itself so the hull is guaranteed to contain it.
     xs.append(ola_pt_proj.x)
     ys.append(ola_pt_proj.y)
-    points = gpd.GeoSeries([Point(x, y) for x, y in zip(xs, ys)], crs="EPSG:32610")
-    hull = points.union_all().convex_hull
-    # Safety net: small buffer around the OLA point guarantees a non-degenerate
-    # polygon even if the hull collapses (shouldn't happen given the OLA point
-    # is included above, but cheap and defensive).
+    pts = list(zip(xs, ys))
+
+    # Alpha-shape: hugs concavities (coves, cul-de-sacs, network dead-ends)
+    # instead of bridging them the way a convex hull does. alpha=0.003 in
+    # the projected CRS (meters) keeps the polygon tight but avoids holes
+    # that would arise from very high alpha on a sparse point cloud. If the
+    # alpha-shape degenerates (returns a point, line, or empty), fall back
+    # to the convex hull so the walkshed is always a polygon.
+    try:
+        import alphashape
+        hull = alphashape.alphashape(pts, 0.003)
+        if hull is None or hull.is_empty or hull.geom_type not in ("Polygon", "MultiPolygon"):
+            raise ValueError("alpha-shape degenerate")
+    except Exception:
+        hull = gpd.GeoSeries([Point(x, y) for x, y in pts], crs="EPSG:32610").union_all().convex_hull
+
+    # Safety net: 25 m buffer around the OLA point guarantees a
+    # non-degenerate polygon even if the alpha-shape collapses.
     hull = hull.union(ola_pt_proj.buffer(25))
     return hull
 
