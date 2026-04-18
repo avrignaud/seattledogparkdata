@@ -1,0 +1,50 @@
+name: Build PDF report
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**'
+      - 'scripts/build-pdf.mjs'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/build-pdf.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-pdf
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci || npm install
+
+      - name: Build PDF
+        run: npm run build:pdf
+
+      - name: Commit updated PDF
+        run: |
+          git config user.name  'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          if git diff --quiet -- docs/seattle-dog-parks-report.pdf; then
+            echo "No change to PDF."
+            exit 0
+          fi
+          git add docs/seattle-dog-parks-report.pdf
+          git commit -m "chore(pdf): regenerate report from latest site [skip ci]"
+          git push
