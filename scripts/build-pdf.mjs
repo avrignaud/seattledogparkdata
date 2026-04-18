@@ -70,17 +70,19 @@ function startStaticServer(dir) {
 
 async function renderPageToPdf(browser, baseUrl, page) {
   const p = await browser.newPage();
-  // Use print media so @page rules and page-break CSS apply properly.
-  await p.emulateMediaType('print');
+  // Emulate SCREEN media so Chart.js (and other JS-driven rendering) executes
+  // — emulating print media freezes JS in a way that leaves <canvas> blank.
+  // print.html's @page rules + @media print CSS still apply during pdf().
+  await p.emulateMediaType('screen');
+  await p.setViewport({ width: 850, height: 1100, deviceScaleFactor: 2 });
   const u = `${baseUrl}/${page}`;
   console.log(`Rendering ${u}`);
   await p.goto(u, { waitUntil: 'networkidle0', timeout: 60_000 });
-  // Fonts can still be settling after networkidle; give them a beat.
-  await new Promise(r => setTimeout(r, 1500));
+  // Chart.js + font-load + image decode all settle a beat after networkidle.
+  await new Promise(r => setTimeout(r, 4000));
   const bytes = await p.pdf({
     format: 'Letter',
     printBackground: true,
-    // print.html owns its own page margins via @page rules.
     preferCSSPageSize: true,
   });
   await p.close();

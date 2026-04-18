@@ -8,6 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
 <style>
   @page {
     size: letter;
@@ -230,6 +232,16 @@
     color: #C04A1E;
     margin-top: 14px;
   }
+  .chart-wrap {
+    width: 100%;
+    max-width: 6.5in;
+    height: 2.6in;
+    margin: 10px 0 6px;
+    break-inside: avoid;
+  }
+  .chart-wrap.tall { height: 3.4in; }
+  .chart-wrap.short { height: 2.0in; }
+  canvas { max-width: 100% !important; }
 </style>
 </head>
 <body>
@@ -271,6 +283,7 @@
 
   <h2>01 · Residents per off-leash area, over time</h2>
   <p>In 2010, one OLA served 43,476 Seattle residents. In 2025, it serves 58,329 — a <strong>34% increase in crowding</strong> with no corresponding increase in OLA supply. Two new OLAs open in fall 2026 (West Seattle Stadium + Othello Playground). Even after they open, residents-per-OLA will remain worse than it was in 2010.</p>
+  <div class="chart-wrap"><canvas id="chartResPerOla"></canvas></div>
 
   <table>
     <thead><tr><th>Year</th><th class="num">Population</th><th class="num">OLAs</th><th class="num">Residents per OLA</th></tr></thead>
@@ -293,6 +306,7 @@
 
   <h2>02 · When Seattle's OLAs opened</h2>
   <p>The 1997–2009 build-out added Seattle's 14 existing OLAs. Then nothing — <strong>16 consecutive years with zero new OLAs, 2010 through 2025</strong>, while the city's population grew from ~609,000 to ~817,000.</p>
+  <div class="chart-wrap short"><canvas id="chartOlaOpenings"></canvas></div>
   <table>
     <thead><tr><th>Year</th><th>OLAs opened</th></tr></thead>
     <tbody>
@@ -314,6 +328,7 @@
 
   <h2>03 · Peer-city comparison</h2>
   <p>TPL's 2025 ParkScore measures dog parks per 100,000 residents across the 100 largest U.S. cities. Seattle ranks well below every major West Coast peer. Portland has more than three times Seattle's dog-park density. Methodology note: each city counts differently — Portland's total includes ~20 unfenced voice-control areas, SF's DPAs include carved-out sections of larger parks, Vancouver's 36 includes time-restricted beach/field access, Austin's number is inflated by Red Bud Isle (293 acres unfenced).</p>
+  <div class="chart-wrap tall"><canvas id="chartPeer"></canvas></div>
   <table>
     <thead><tr><th>City</th><th class="num">Population</th><th class="num">Dog parks</th><th class="num">Per 100K</th><th class="num">ParkScore rank</th></tr></thead>
     <tbody>
@@ -331,6 +346,7 @@
 
   <h2>04 · Acreage, not just count</h2>
   <p>The "14 OLAs" number also flatters Seattle. The four largest parks hold 79% of total OLA acreage. Seven of 14 are under one acre; the two smallest (Denny Park at 0.105 ac and Kinnear at 0.124 ac) are smaller than two tennis courts.</p>
+  <div class="chart-wrap tall"><canvas id="chartAcreage"></canvas></div>
   <table>
     <thead><tr><th>OLA</th><th class="num">Acres</th><th>Neighborhood</th><th class="num">Year opened</th></tr></thead>
     <tbody>
@@ -370,6 +386,7 @@
 
   <h2>01 · The walkshed</h2>
   <p>Trust for Public Land's 2025 ParkScore shows 99% of Seattle residents live within a 10-minute walk of a park — an industry-standard 0.5-mile half-mile walkshed. We applied the same methodology to OLAs only, using osmnx against Seattle's full OpenStreetMap walk network (110,383 nodes / 305,582 edges, projected to UTM 10N, physical barriers respected) and 2020 Census block-group population clipped to the Seattle city boundary.</p>
+  <div class="chart-wrap short"><canvas id="chartWalkshed"></canvas></div>
   <table>
     <thead><tr><th>Measure</th><th class="num">% of residents</th></tr></thead>
     <tbody>
@@ -443,6 +460,7 @@
   <p>Seattle Animal Control issued 4,803 off-leash citations between January 2014 and October 2019 under Seattle Municipal Code 18.12.080(A). 4,020 had an identifiable park name (83.7%); 672 had only a street address (14.0%); 111 had no location recorded (2.3%).</p>
 
   <h2>02 · Offense mix</h2>
+  <div class="chart-wrap short"><canvas id="chartOffenseMix"></canvas></div>
   <table>
     <thead><tr><th>Level</th><th class="num">Count</th><th class="num">Share</th><th class="num">Fee</th><th class="num">Fee subtotal</th></tr></thead>
     <tbody>
@@ -499,6 +517,7 @@
   <p class="chapter-deck">SPR's total budget grew from $156M in 2016 to $507M projected in 2026 — up 3.2×. The OLA line went from $100K/yr to $129K/yr over the same period. One-time Cycle 2 capital adds $3.46M for two new OLAs + design of a third.</p>
 
   <h2>01 · SPR total vs OLA-only spend</h2>
+  <div class="chart-wrap"><canvas id="chartBudget"></canvas></div>
   <table>
     <thead><tr><th>Year</th><th class="num">SPR total ($M, all funds)</th><th class="num">OLA-only operating ($K)</th><th class="num">OLA as % of SPR</th><th>Cycle</th></tr></thead>
     <tbody>
@@ -634,6 +653,182 @@
     <p>File an issue on GitHub or email <strong>seattledogparkdata@ozymandi.as</strong>. Corrections are published publicly.</p>
   </footer>
 </section>
+
+<script>
+(function(){
+  if (typeof Chart === 'undefined') return;
+  Chart.defaults.font.family = "'IBM Plex Mono', ui-monospace, monospace";
+  Chart.defaults.font.size = 9;
+  Chart.defaults.color = '#121820';
+  Chart.defaults.animation = false;
+  const SEATTLE = '#C04A1E', PEER = '#4C6B54', NAVY = '#2C4A6E', INK = '#121820', INK_SOFT = '#3C4A5C', RULE = '#D8CFBD';
+  const axis = { grid: { color: RULE, drawBorder: false }, ticks: { color: INK_SOFT } };
+
+  // Chart 1: Residents per OLA, 2010-2026
+  new Chart(document.getElementById('chartResPerOla'), {
+    type: 'line',
+    data: {
+      labels: ['2010','2016','2017','2018','2019','2020','2021','2023','2024','2025','2026'],
+      datasets: [{
+        label: 'Residents per OLA',
+        data: [43476, 50314, 51767, 52821, 53836, 52644, 52386, 55657, 56979, 58329, 52000],
+        borderColor: SEATTLE, backgroundColor: 'rgba(192,74,30,0.1)',
+        borderWidth: 2.5, pointRadius: 3, pointBackgroundColor: SEATTLE, tension: 0.15, fill: true
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, title: { display: true, text: 'Residents per OLA, 2010-2026', font: { size: 10, weight: '500' }, color: INK } },
+      scales: { x: axis, y: { ...axis, beginAtZero: true } }
+    }
+  });
+
+  // Chart 2: OLA openings per year
+  const openY = Array.from({length: 2026-1997+1}, (_,i)=>1997+i);
+  const openExisting = openY.map(y => ({1997:1,1998:1,1999:1,2000:2,2001:2,2002:1,2003:1,2004:1,2005:1,2008:1,2009:2}[y] || 0));
+  const openPlanned = openY.map(y => y===2026 ? 2 : 0);
+  new Chart(document.getElementById('chartOlaOpenings'), {
+    type: 'bar',
+    data: {
+      labels: openY,
+      datasets: [
+        { label: 'Existing OLAs', data: openExisting, backgroundColor: PEER, stack: 's1', borderWidth: 0 },
+        { label: 'Planned (fall 2026)', data: openPlanned, backgroundColor: SEATTLE, stack: 's1', borderWidth: 0 }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'top', align: 'start', labels: { usePointStyle: true, padding: 8, font: { size: 8 } } }, title: { display: true, text: 'OLAs opened per year (note the 2010-2025 gap)', font: { size: 10, weight: '500' }, color: INK } },
+      scales: {
+        x: { ...axis, ticks: { ...axis.ticks, callback: function(v, i){ const y = this.getLabelForValue(v); return (y%5===0 || y===1997 || y===2026) ? y : ''; } } },
+        y: { ...axis, beginAtZero: true, max: 3, ticks: { ...axis.ticks, stepSize: 1 } }
+      }
+    }
+  });
+
+  // Chart 3: Peer cities dog parks per 100K
+  const peers = [
+    { c: 'Boise, ID', v: 7.60 },
+    { c: 'Portland, OR', v: 5.74 },
+    { c: 'Vancouver, BC', v: 5.44 },
+    { c: 'San Francisco, CA', v: 5.03 },
+    { c: 'Arlington, VA', v: 3.81 },
+    { c: 'Washington, DC', v: 2.29 },
+    { c: 'Minneapolis, MN', v: 2.07 },
+    { c: 'Seattle, WA', v: 1.82 },
+    { c: 'Denver, CO', v: 1.82 },
+    { c: 'Cincinnati, OH', v: 1.29 },
+    { c: 'Austin, TX', v: 1.28 },
+    { c: 'Boston, MA', v: 0.75 },
+    { c: 'Chicago, IL', v: 0.53 }
+  ];
+  new Chart(document.getElementById('chartPeer'), {
+    type: 'bar',
+    data: {
+      labels: peers.map(p => p.c),
+      datasets: [{
+        data: peers.map(p => p.v),
+        backgroundColor: peers.map(p => p.c === 'Seattle, WA' ? SEATTLE : PEER),
+        borderWidth: 0
+      }]
+    },
+    options: {
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, title: { display: true, text: 'Dog parks per 100,000 residents (TPL 2025)', font: { size: 10, weight: '500' }, color: INK } },
+      scales: { x: { ...axis, beginAtZero: true, title: { display: true, text: 'Per 100K residents', color: INK_SOFT } }, y: { ...axis, ticks: { ...axis.ticks, font: { size: 9 } } } }
+    }
+  });
+
+  // Chart 4: OLA acreage ranked
+  const aLabels = ['Magnuson','Westcrest','Dr. Jose Rizal','Genesee','Blue Dog Pond','Northacres','Golden Gardens','Lower Woodland','I-5 Colonnade','Magnolia Manor','Regrade','Plymouth Pillars','Kinnear','Denny'];
+  const aData = [9.0, 8.4, 4.0, 2.7, 1.7, 1.4, 1.0, 0.75, 0.5, 0.48, 0.3, 0.2, 0.124, 0.105];
+  new Chart(document.getElementById('chartAcreage'), {
+    type: 'bar',
+    data: {
+      labels: aLabels,
+      datasets: [{
+        data: aData,
+        backgroundColor: aData.map(v => v >= 1.5 ? PEER : SEATTLE),
+        borderWidth: 0
+      }]
+    },
+    options: {
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, title: { display: true, text: 'OLA acreage, ranked — orange = below AKC 1-acre floor', font: { size: 10, weight: '500' }, color: INK } },
+      scales: { x: { ...axis, beginAtZero: true, title: { display: true, text: 'Acres', color: INK_SOFT } }, y: axis }
+    }
+  });
+
+  // Chart 5: Walkshed 99 / 9.5 / 78.3
+  new Chart(document.getElementById('chartWalkshed'), {
+    type: 'bar',
+    data: {
+      labels: ['Any park — 10-min walk (TPL)', 'OLA — 10-min walk', 'OLA — SPR 2.5-mi standard'],
+      datasets: [{
+        data: [99, 9.5, 78.3],
+        backgroundColor: [PEER, SEATTLE, 'rgba(192,74,30,0.5)'],
+        borderWidth: 0
+      }]
+    },
+    options: {
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false }, title: { display: true, text: 'Share of Seattle residents within the stated walkshed (%)', font: { size: 10, weight: '500' }, color: INK },
+        datalabels: { anchor: 'end', align: 'end', offset: -4, color: INK, font: { weight: '600', size: 10 }, formatter: v => v + '%' }
+      },
+      scales: { x: { ...axis, beginAtZero: true, max: 105, ticks: { ...axis.ticks, callback: v => v + '%' } }, y: axis },
+      layout: { padding: { right: 50 } }
+    }
+  });
+
+  // Chart 6: Offense mix (1st/2nd/3rd/4th)
+  new Chart(document.getElementById('chartOffenseMix'), {
+    type: 'bar',
+    data: {
+      labels: ['1st offense (warning or $54)', '2nd offense ($109)', '3rd offense ($136)', '4th+ offense ($162)'],
+      datasets: [{
+        data: [4179, 418, 123, 83],
+        backgroundColor: [SEATTLE, 'rgba(192,74,30,0.75)', 'rgba(192,74,30,0.55)', 'rgba(192,74,30,0.35)'],
+        borderWidth: 0
+      }]
+    },
+    options: {
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false }, title: { display: true, text: 'Offense mix: 4,803 citations, 2014-2019', font: { size: 10, weight: '500' }, color: INK },
+        datalabels: { anchor: 'end', align: 'end', offset: -4, color: INK, font: { weight: '600', size: 9 }, formatter: v => v.toLocaleString() }
+      },
+      scales: { x: { ...axis, beginAtZero: true, max: 5200, title: { display: true, text: 'Citations', color: INK_SOFT } }, y: axis },
+      layout: { padding: { right: 80 } }
+    }
+  });
+
+  // Chart 7: SPR total vs OLA budget (log scale, single axis)
+  const years = [2016,2017,2018,2019,2020,2021,2023,2024,2025,2026];
+  const sprTotalM = [156,163,168,247.7,261.9,228.1,328.2,320.7,339.4,506.9];
+  const olaOnlyK = [100,100,100,null,null,null,126,129,null,null];
+  const combinedK = [100,100,100,160.8,338.0,346.7,475.1,614.3,1829.7,1845.7];
+  // Convert to consistent M units
+  const combinedM = combinedK.map(v => v/1000);
+  const olaOnlyM = olaOnlyK.map(v => v == null ? null : v/1000);
+  new Chart(document.getElementById('chartBudget'), {
+    type: 'bar',
+    data: {
+      labels: years,
+      datasets: [
+        { label: 'SPR total ($M, all funds)', data: sprTotalM, backgroundColor: NAVY, borderWidth: 0, order: 3 },
+        { label: 'OLA + P-Patch combined ($M)', data: combinedM, backgroundColor: 'rgba(192,74,30,0.4)', borderWidth: 0, order: 2 },
+        { label: 'OLA-only disclosed ($M)', data: olaOnlyM, backgroundColor: SEATTLE, borderWidth: 0, order: 1 }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'top', align: 'start', labels: { usePointStyle: true, padding: 8, font: { size: 8 } } }, title: { display: true, text: 'SPR total vs OLA spend, 2016-2026 (log scale)', font: { size: 10, weight: '500' }, color: INK } },
+      scales: { x: axis, y: { ...axis, type: 'logarithmic', min: 0.05, max: 1000, title: { display: true, text: '$ Millions (log scale)', color: INK_SOFT }, ticks: { ...axis.ticks, callback: v => '$' + v + 'M' } } }
+    }
+  });
+})();
+</script>
 
 </body>
 </html>
