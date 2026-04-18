@@ -743,11 +743,13 @@
   <div style="border-left: 3px solid var(--accent-2); padding: 10px 0 10px 18px;">
     <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 4px;">Citations INSIDE an OLA walkshed</div>
     <div style="font-family: 'Fraunces', serif; font-size: 42px; font-weight: 600; line-height: 1.02; color: var(--accent-2);">15.4%</div>
-    <div style="font-size: 13px; color: var(--ink-soft); margin-top: 4px;">434 citations &mdash; mostly on non-OLA parts of the host parks (Magnuson, Westcrest, Genesee, Golden Gardens)</div>
+    <div style="font-size: 13px; color: var(--ink-soft); margin-top: 4px;">434 citations &mdash; concentrated at Magnuson (248) and Golden Gardens (174); the remaining 12 at Denny Park (10) and Northacres (2)</div>
   </div>
 </div>
 
-<p>Of 37 uniquely identified parks appearing in the citation data, <strong>33 sit outside any OLA's 10-minute walkshed</strong>. Only 4 sit inside &mdash; and those 4 <em>are</em> OLAs (Magnuson, Westcrest, Genesee, Golden Gardens). Citations at those four host parks are happening in the non-OLA portions: on the athletic fields, along the shorelines, in the wooded sections where people bring their dogs because they live nearby and the fenced OLA doesn't serve the use they actually want.</p>
+<p>Of 37 uniquely identified parks appearing in the citation data, <strong>33 sit outside any OLA's 10-minute walkshed</strong>. Only 4 sit inside, and all four are themselves OLA host parks: <strong>Magnuson (248 citations), Golden Gardens (174), Denny Park (10), and Northacres (2)</strong>. At Magnuson and Golden Gardens in particular, the citations are happening on the non-OLA portions of those parks &mdash; athletic fields, shorelines, wooded sections &mdash; where people bring their dogs because they live nearby and the fenced OLA doesn't serve the use they actually want.</p>
+
+<p style="font-size: 15px; color: var(--ink-soft); max-width: 720px;"><strong>Methodology note.</strong> Two OLA host parks that should appear in the "inside" list don't: Westcrest (86 citations) and Genesee (130). The reason is mechanical, not substantive. <strong>Westcrest:</strong> the 0.5-mi network walkshed around the OLA is malformed at the edge of Seattle's OSM walk network (the convex-hull algorithm produces a 0.258 km&sup2; polygon that doesn't contain the OLA's own coordinate). <strong>Genesee:</strong> the park centroid used in the citation geocode is ~400 m south of the OLA-specific SPR ArcGIS point, so the park point sits just outside the walkshed even though the OLA is inside. Both are on <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/TODO.md">the alpha-shape walkshed refinement TODO</a>. If corrected, those 216 citations would move from "outside" to "inside," shifting the headline from 84.6% / 15.4% to roughly 77% / 23% &mdash; still dominantly outside, but a more honest split.</p>
 
 <div class="chart-block" style="margin-top: 24px;">
   <div class="chart-title">Access × enforcement, one map</div>

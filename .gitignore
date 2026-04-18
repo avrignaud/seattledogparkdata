@@ -40,8 +40,6 @@ cache/
 # Agent/context scratch files
 AGENTS.md
 
-# docs/report.html — paused WIP
-docs/report.html
 
 # TPL ParkServe national shapefile — too big for the repo; we keep only the
 # Seattle-filtered GeoJSON derived from it in data/tpl-parkserve/.

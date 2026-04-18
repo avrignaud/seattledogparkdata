@@ -35,7 +35,9 @@ Concrete next-work ideas, organized by effort and value. Kept up-to-date as work
 - [ ] **Historical OLA timeline map.** Animated year-opened visualization. Current site has a year-opened bar chart; an actual map over time would make the 1997–2009 build-out + 2010–2025 drought visually concrete.
 - [ ] **Per-OLA usage/density estimates.** From MOLG/COLA volunteer counts or direct observation. Would convert the Kinnear capacity argument from theoretical to empirical.
 - [ ] **Citation-density backfill pass on Part I and Part II.** Every bare number should link to a primary source, a CSV row, or be marked as derived/approximate. New pages (enforcement, opinion, peer-cities, print) already follow this rule.
-- [ ] **Alpha-shape refinement of the walkshed isochrones.** Current implementation uses convex hulls, slightly overstates walkable area at OLA boundaries. Would shift 9.5% down by 1–2 pts.
+- [ ] **Alpha-shape refinement of the walkshed isochrones.** Current implementation uses convex hulls. Two concrete problems:
+  1. Over-states walkable area at most OLA boundaries — shifts the 9.5% headline down by 1–2 pts.
+  2. **Under-states at Westcrest specifically** — the convex hull clips at the edge of Seattle's OSM walk network and produces a 0.258 km² polygon (vs ~0.9–1.4 km² for peer OLAs). Westcrest's OLA coordinate isn't even inside its own walkshed polygon. This mis-counts Westcrest's 86 citations as "outside walkshed," inflating the 84.6% headline in `docs/part2-access.html` Finding 02b. Combined with the ~400 m offset between Genesee's park centroid (park-coordinates.csv) and its SPR ArcGIS OLA point, the corrected split is closer to **~77% outside / 23% inside**. The site carries a methodology note on Finding 02b flagging this; fix properly via alpha-shape.
 
 ## Part III ideas (new report)
 
