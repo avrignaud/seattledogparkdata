@@ -749,9 +749,23 @@
 
 <p>Of 37 uniquely identified parks appearing in the citation data, <strong>33 sit outside any OLA's 10-minute walkshed</strong>. Only 4 sit inside &mdash; and those 4 <em>are</em> OLAs (Magnuson, Westcrest, Genesee, Golden Gardens). Citations at those four host parks are happening in the non-OLA portions: on the athletic fields, along the shorelines, in the wooded sections where people bring their dogs because they live nearby and the fenced OLA doesn't serve the use they actually want.</p>
 
-<div class="note-box"><strong>What this rules out.</strong> "Dog owners are scofflaws who violate the law anywhere" predicts citations spread evenly across the city, uncorrelated with OLA access. The data doesn't support that &mdash; citations cluster in very specific places. "Dog owners break the law because enforcement is lax" predicts the same even-spread pattern scaled up. The data doesn't support that either. The pattern that <em>does</em> fit the data: people break the law where no legal alternative exists within walking distance, and they comply where one does. <a href="enforcement.html#finding-02">Finding 02 on the enforcement page</a> shows this on a map &mdash; kernel-density heatmap of citation locations overlaid on OLA walksheds.</p></div>
+<div class="chart-block" style="margin-top: 24px;">
+  <div class="chart-title">Access × enforcement, one map</div>
+  <div class="chart-subtitle">The 14 existing OLAs' 0.5-mi network walksheds are shaded green. Citation hotspots are orange bubbles (radius scales with citation count, 2014&ndash;2019). What you're looking for: overlap vs. non-overlap. Where the hotspots sit <em>inside</em> a green polygon, owners had a legal option within 10 minutes and still broke the law. Where they sit <em>outside</em>, there was no legal option &mdash; that's the supply failure the opinion page argues about. <strong>Most hotspots are outside.</strong></div>
+  <div id="walkshed-citation-map" style="height: 640px; border: 1px solid var(--rule); background: #F6F2E9;"></div>
+  <div class="map-legend">
+    <div class="legend-item"><span style="display:inline-block;width:18px;height:18px;border-radius:50%;background:rgba(76,107,84,0.35);border:1.5px solid var(--accent-2);flex-shrink:0;"></span> 0.5-mi OLA walkshed (network)</div>
+    <div class="legend-item"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--accent);border:1.5px solid #fff;flex-shrink:0;"></span> OLA location</div>
+    <div class="legend-item"><span style="display:inline-block;width:14px;height:14px;border-radius:50%;background:rgba(192,74,30,0.6);border:1.5px solid #fff;flex-shrink:0;"></span> Citation hotspot &mdash; no OLA</div>
+    <div class="legend-item"><span style="display:inline-block;width:14px;height:14px;border-radius:50%;background:rgba(166,138,46,0.6);border:1.5px solid #fff;flex-shrink:0;"></span> Citation hotspot &mdash; at an OLA host park</div>
+  </div>
+  <div class="note-box"><strong>What this shows:</strong> the map is a direct visual test of the thesis. If the current framework worked &mdash; owners comply because the fenced OLAs meet the demand &mdash; citation hotspots would cluster <em>inside</em> green polygons (people citing scofflaws for off-leash use when an OLA was available). They don't. The bubbles cluster in the unshaded space: Capitol Hill (outside Plymouth Pillars' 0.2-ac footprint), Queen Anne (outside Kinnear's 0.124-ac footprint), Wallingford / Maple Leaf / Ravenna (north Seattle gap), Lincoln Park (a 3.4-mi drive from Westcrest). Even after population normalization, the outside-walkshed citation rate is <strong>1.3&times; the inside-walkshed rate</strong> &mdash; 3.90 vs 2.93 citations per 1,000 residents across the 2014&ndash;2019 window (see <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/walkshed/citation-rate-by-walkshed-status.csv">data/walkshed/citation-rate-by-walkshed-status.csv</a>).</div>
+  <div class="chart-source">Sources: walkshed polygons from <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/compute_walkshed.py">scripts/compute_walkshed.py</a> via <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/walkshed/ola_isochrones.geojson">data/walkshed/ola_isochrones.geojson</a> · citation locations from <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-citations.csv">data/enforcement-citations.csv</a> (PRR C049204) aggregated by canonical park name · park coordinates from <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/park-coordinates.csv">data/park-coordinates.csv</a> · tiles: <a href="https://carto.com/">CARTO</a> / <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a></div>
+</div>
 
-<p class="chart-source" style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); margin-top: 12px;">Source: point-in-polygon intersection of geocoded park citations from <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-citations.csv">data/enforcement-citations.csv</a> (PRR C049204) against 0.5-mile network isochrones in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/walkshed/ola_isochrones.geojson">data/walkshed/ola_isochrones.geojson</a>. 2,812 of 4,803 citations placed (58.5% &mdash; limited by the top-~40-park geocoded subset in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/park-coordinates.csv">data/park-coordinates.csv</a>). Street-address rows and blank-location rows are excluded from this analysis (pending geocode of the remaining 672 street-address rows).</p>
+<div class="note-box" style="margin-top: 24px;"><strong>What this rules out.</strong> "Dog owners are scofflaws who violate the law anywhere" predicts citations spread evenly across the city, uncorrelated with OLA access. The data doesn't support that &mdash; citations cluster in very specific places. "Dog owners break the law because enforcement is lax" predicts the same even-spread pattern scaled up. The data doesn't support that either. The pattern that <em>does</em> fit the data: people break the law where no legal alternative exists within walking distance, and they comply where one does.</div>
+
+<p class="chart-source" style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); margin-top: 12px;">Headline statistic source: point-in-polygon intersection of geocoded park citations from <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-citations.csv">data/enforcement-citations.csv</a> (PRR C049204) against 0.5-mile network isochrones in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/walkshed/ola_isochrones.geojson">data/walkshed/ola_isochrones.geojson</a>. 2,812 of 4,803 citations placed (58.5% &mdash; limited by the top-~40-park geocoded subset in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/park-coordinates.csv">data/park-coordinates.csv</a>). Street-address rows and blank-location rows are excluded from this analysis (pending geocode of the remaining 672 street-address rows).</p>
 
 <!-- =============================================================== -->
 <div class="part-break">
@@ -1240,27 +1254,44 @@
     { name: 'Ravenna Park', coords: [47.6688, -122.3057], note: 'Design-only funded; construction unfunded.' },
   ];
 
+  // Render the real 0.5-mile network walkshed polygons from compute_walkshed.py
+  // underneath everything, so the shapes on the map reflect actual reachable
+  // walking distance, not a straight-line half-mile circle. Planned sites
+  // (no isochrone computed yet) still get a dashed straight-line circle as
+  // a speculative visual.
+  fetch('data/walkshed/ola_isochrones.geojson')
+    .then(r => r.json())
+    .then(gj => {
+      const halfMi = { type: 'FeatureCollection', features: gj.features.filter(f => f.properties && f.properties.distance === '0.5mi') };
+      L.geoJSON(halfMi, {
+        style: { color: SEATTLE, fillColor: SEATTLE, fillOpacity: 0.10, weight: 1, opacity: 0.65 },
+        interactive: false
+      }).addTo(map);
+    })
+    .catch(err => console.error('walkshed fetch failed', err));
+
   function addOla(ola, color, planned) {
     const marker = L.circleMarker(ola.coords, {
       radius: 8, fillColor: color, color: '#fff', weight: 2, fillOpacity: 1
     }).addTo(map);
     const acresLine = ola.acres ? `<br><em>${ola.acres} acres</em> · ${ola.neighborhood}` : '';
     marker.bindPopup(`<strong>${ola.name}</strong>${acresLine}<br><span style="color:#666;">${ola.note}</span>`);
-    // Open popup on hover (mouseover) and close on mouseout, in addition
-    // to the default click behavior. On touch devices the click handler
-    // still works.
     marker.on('mouseover', function() { this.openPopup(); });
     marker.on('mouseout',  function() { this.closePopup(); });
-    L.circle(ola.coords, {
-      radius: HALF_MILE_METERS,
-      fillColor: color,
-      fillOpacity: planned ? 0.05 : 0.10,
-      color: color,
-      weight: 1,
-      opacity: planned ? 0.4 : 0.7,
-      dashArray: planned ? '4,4' : null,
-      interactive: false
-    }).addTo(map);
+    // For planned/future sites we don't yet have a network isochrone in the
+    // geojson, so draw a dashed straight-line half-mile circle as a proxy.
+    if (planned) {
+      L.circle(ola.coords, {
+        radius: HALF_MILE_METERS,
+        fillColor: color,
+        fillOpacity: 0.05,
+        color: color,
+        weight: 1,
+        opacity: 0.4,
+        dashArray: '4,4',
+        interactive: false
+      }).addTo(map);
+    }
   }
 
   existingOlas.forEach(o => addOla(o, SEATTLE, false));
@@ -1269,6 +1300,74 @@
   futureOlas.forEach(o => addOla(o, '#888', true));
 
   setTimeout(() => { map.invalidateSize(); }, 500);
+
+  // =================================================================== //
+  //  Merged walkshed × citation map (Finding 02b)
+  // =================================================================== //
+  const mergedEl = document.getElementById('walkshed-citation-map');
+  if (mergedEl) {
+    const mergedMap = L.map('walkshed-citation-map', { scrollWheelZoom: false }).setView([47.6205, -122.3493], 11);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+      subdomains: 'abcd', maxZoom: 18
+    }).addTo(mergedMap);
+
+    // 1) Walkshed polygons under everything
+    fetch('data/walkshed/ola_isochrones.geojson')
+      .then(r => r.json())
+      .then(gj => {
+        const halfMi = { type: 'FeatureCollection', features: gj.features.filter(f => f.properties && f.properties.distance === '0.5mi') };
+        L.geoJSON(halfMi, {
+          style: { color: PEER, fillColor: PEER, fillOpacity: 0.28, weight: 1.5, opacity: 0.75 },
+          interactive: false
+        }).addTo(mergedMap);
+      })
+      .catch(err => console.error('merged-map walkshed fetch failed', err));
+
+    // 2) Citation hotspots — top 20 parks, with OLA host parks shaded amber
+    //    to distinguish from the no-OLA hotspots (orange).
+    const HOTSPOTS = [
+      { park: 'Discovery Park',            count: 420, lat: 47.6564, lng: -122.4063, ola: 'no' },
+      { park: 'Magnuson Park',             count: 248, lat: 47.6827, lng: -122.2571, ola: 'has' },
+      { park: 'Volunteer Park',            count: 230, lat: 47.6302, lng: -122.3157, ola: 'no' },
+      { park: 'Woodland Park',             count: 222, lat: 47.6722, lng: -122.3322, ola: 'partial' },
+      { park: 'Golden Gardens Park',       count: 174, lat: 47.6909, lng: -122.4006, ola: 'has' },
+      { park: 'Cal Anderson Park',         count: 133, lat: 47.6178, lng: -122.3202, ola: 'no' },
+      { park: 'Genesee Park',              count: 130, lat: 47.5640, lng: -122.2761, ola: 'has' },
+      { park: 'Lincoln Park',              count: 122, lat: 47.5300, lng: -122.3936, ola: 'no' },
+      { park: 'Martha Washington Park',    count: 103, lat: 47.5347, lng: -122.2567, ola: 'no' },
+      { park: 'Green Lake Park',           count:  96, lat: 47.6805, lng: -122.3290, ola: 'no' },
+      { park: 'Wallingford Playfield',     count:  89, lat: 47.6578, lng: -122.3337, ola: 'no' },
+      { park: 'Seward Park',               count:  88, lat: 47.5526, lng: -122.2558, ola: 'no' },
+      { park: 'Westcrest Park',            count:  86, lat: 47.5258, lng: -122.3417, ola: 'has' },
+      { park: 'West Queen Anne Playfield', count:  77, lat: 47.6359, lng: -122.3656, ola: 'no' },
+      { park: 'Maple Leaf Reservoir Park', count:  73, lat: 47.6912, lng: -122.3198, ola: 'no' },
+      { park: 'Rogers Playground',         count:  66, lat: 47.6431, lng: -122.3240, ola: 'no' },
+      { park: 'Soundview Playfield',       count:  56, lat: 47.6869, lng: -122.3715, ola: 'no' },
+      { park: 'Alki Beach Park',           count:  55, lat: 47.5762, lng: -122.4047, ola: 'no' },
+      { park: 'Ravenna Park',              count:  54, lat: 47.6697, lng: -122.3102, ola: 'planned' },
+      { park: 'Meridian Playground',       count:  45, lat: 47.6571, lng: -122.3342, ola: 'no' },
+    ];
+    HOTSPOTS.forEach(h => {
+      const radius = Math.sqrt(h.count) * 1.8;
+      const hasOla = h.ola === 'has';
+      const fillColor = hasOla ? '#A68A2E' : SEATTLE;
+      const m = L.circleMarker([h.lat, h.lng], {
+        radius, fillColor, color: '#fff', weight: 1.5, fillOpacity: 0.6
+      }).addTo(mergedMap);
+      m.bindPopup(`<strong>${h.park}</strong><br>${h.count} citations (2014&ndash;2019)${hasOla ? '<br><em>Park hosts an OLA — citations here are on non-OLA portions</em>' : ''}`);
+      m.on('mouseover', function(){ this.openPopup(); });
+      m.on('mouseout',  function(){ this.closePopup(); });
+    });
+
+    // 3) Small OLA-location dots on top for reference
+    existingOlas.forEach(o => {
+      L.circleMarker(o.coords, { radius: 4, fillColor: SEATTLE, color: '#fff', weight: 1, fillOpacity: 1 }).addTo(mergedMap);
+    });
+    L.circleMarker(kinnearOla.coords, { radius: 4, fillColor: DANGER, color: '#fff', weight: 1, fillOpacity: 1 }).addTo(mergedMap);
+
+    setTimeout(() => { mergedMap.invalidateSize(); }, 500);
+  }
 </script>
 
 </body>
