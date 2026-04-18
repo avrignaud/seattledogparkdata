@@ -1,0 +1,73 @@
+name: Lint data + HTML
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+    paths:
+      - 'data/**/*.csv'
+      - 'docs/**/*.html'
+      - 'scripts/**'
+      - '.github/workflows/lint.yml'
+
+jobs:
+  csv:
+    name: Validate CSVs parse and have stable columns
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check every CSV parses and each row matches its header column count
+        run: |
+          python3 - <<'PY'
+          import csv, glob, sys
+          bad = []
+          for path in sorted(glob.glob('data/**/*.csv', recursive=True)):
+            with open(path, newline='', encoding='utf-8') as f:
+              rows = list(csv.reader(f))
+            if not rows:
+              bad.append(f"{path}: empty")
+              continue
+            n = len(rows[0])
+            for i, r in enumerate(rows[1:], start=2):
+              if len(r) != n and r != []:
+                bad.append(f"{path}:{i}: {len(r)} cols (header has {n})")
+                break
+          if bad:
+            print("CSV lint failures:")
+            for b in bad: print("  " + b)
+            sys.exit(1)
+          print("All CSVs parse and have consistent column counts.")
+          PY
+
+  html:
+    name: Validate HTML is well-formed
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install html5lib
+        run: pip install html5lib
+      - name: Parse each docs/*.html
+        run: |
+          python3 - <<'PY'
+          import html5lib, glob, sys
+          bad = []
+          for path in sorted(glob.glob('docs/*.html')):
+            with open(path, encoding='utf-8') as f:
+              src = f.read()
+            try:
+              html5lib.parse(src, namespaceHTMLElements=False)
+            except Exception as e:
+              bad.append(f"{path}: {e}")
+          if bad:
+            print("HTML parse failures:")
+            for b in bad: print("  " + b)
+            sys.exit(1)
+          print(f"All HTML files parse cleanly.")
+          PY
