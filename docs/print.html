@@ -290,8 +290,9 @@
     <li><span class="title">The Gap — counts, ratios, peer-city comparison, acreage</span><span class="page-num">Part I</span></li>
     <li><span class="title">Access — network walksheds, amenities, the asymmetry</span><span class="page-num">Part II</span></li>
     <li><span class="title">Enforcement — 4,803 citations, hotspots, revenue vs cost</span><span class="page-num">Part III</span></li>
-    <li><span class="title">Budget — SPR total vs OLA spend, peer-city funding models</span><span class="page-num">Part IV</span></li>
-    <li><span class="title">Opinion — six principles, three opinions, one recommendation</span><span class="page-num">Part V</span></li>
+    <li><span class="title">Budget — SPR total vs OLA spend, Cycle 1 vs Cycle 2, CIP context, peer-city funding</span><span class="page-num">Part IV</span></li>
+    <li><span class="title">Peer City Detail — Portland, SF, Vancouver BC, DC, Minneapolis, NYC</span><span class="page-num">Part V</span></li>
+    <li><span class="title">Opinion — six principles, three opinions, one recommendation</span><span class="page-num">Part VI</span></li>
     <li><span class="title">Methodology, sources, and limitations</span><span class="page-num">Appendix</span></li>
   </ol>
 </section>
@@ -460,7 +461,24 @@
     </tbody>
   </table>
 
-  <h2>04 · Peer-city acreage and methodology</h2>
+  <h2>04 · Illegal-use indicators</h2>
+  <p>SPR's own 2016 owner survey and available enforcement and civic-complaint data describe the compliance picture that the current framework produces.</p>
+  <table>
+    <thead><tr><th>Indicator</th><th class="num">Value</th><th>Year</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr><td>Dog owners admitting weekly-to-monthly illegal off-leash in parks</td><td class="num">39%</td><td>2016</td><td>SPR <em>People, Dogs and Parks</em> owner survey</td></tr>
+      <tr><td>Dog owners admitting weekly-to-monthly illegal off-leash on trails</td><td class="num">38%</td><td>2016</td><td>Same SPR survey, separate question</td></tr>
+      <tr><td>Find-It-Fix-It nuisance-dog complaints via app</td><td class="num">~1,100</td><td>2024</td><td>Seattle FIFI approximate; PRR #2 queued for authoritative count</td></tr>
+      <tr><td>Off-leash tickets issued by SAC, Mar&ndash;Aug 2016 (6-month window)</td><td class="num">435</td><td>2016</td><td>Seattle Animal Control disclosure</td></tr>
+      <tr><td>OLA Expansion Study survey respondents</td><td class="num">4,700</td><td>2023</td><td>SPR Parkways Feb 2024 announcement</td></tr>
+    </tbody>
+  </table>
+  <div class="callout nobreak">
+    <strong class="label">What these indicate</strong>
+    Self-reported illegal use is not a rounding error &mdash; roughly 40% of owners admitting monthly-plus violations to SPR's own surveyors is structural, not a fringe. And 4,700 respondents to SPR's 2023 Expansion Study survey is a constituency, not a lobby. The framework the current OLA policy assumes (most owners comply; a few scofflaws get ticketed) does not match the data SPR itself has collected.
+  </div>
+
+  <h2>05 · Peer-city acreage and methodology</h2>
   <p>Comparing total OLA acreage across cities is harder than comparing counts because cities define "off-leash" differently. Portland has 30+ DOLAs but most are <em>unfenced</em> voice-control areas; Seattle counts only fully-fenced dedicated OLAs. The adjusted methodology below controls for definition.</p>
   <table>
     <thead><tr><th>City</th><th class="num">OLAs</th><th class="num">Est. total acres</th><th class="num">Acres per 10K</th><th>Counting methodology</th></tr></thead>
@@ -486,7 +504,23 @@
   <div class="map-wrap" id="mapHotspot"></div>
   <p class="map-caption"><strong>Where citations concentrated, 2014&ndash;2019.</strong> Circle size is citation count at that park; orange fill marks hotspots without an OLA, sage-green outline marks the 14 existing OLA locations. The empirical pattern: citations cluster <em>away</em> from OLAs, at parks where no legal off-leash option exists. Interactive version at <strong>seattledogparkdata.com/enforcement.html</strong>.</p>
 
-  <h2>02 · Offense mix</h2>
+  <h2>02 · Citations per year, 2014&ndash;2019</h2>
+  <p>Citations rose sharply through 2018, more than doubling in four years. The 2019 number covers only January through October 15 (the PRR cutoff); pro-rated, 2019 would likely have exceeded 2018.</p>
+  <div class="chart-wrap short"><canvas id="chartYearTrend"></canvas></div>
+  <table>
+    <thead><tr><th>Year</th><th class="num">Citations</th><th>Period</th></tr></thead>
+    <tbody>
+      <tr><td>2014</td><td class="num">321</td><td>full year</td></tr>
+      <tr><td>2015</td><td class="num">385</td><td>full year</td></tr>
+      <tr><td>2016</td><td class="num">956</td><td>full year</td></tr>
+      <tr><td>2017</td><td class="num">848</td><td>full year</td></tr>
+      <tr><td>2018</td><td class="num">1,260</td><td>full year</td></tr>
+      <tr><td>2019</td><td class="num">1,033</td><td>Jan 1 &ndash; Oct 15 (PRR cutoff)</td></tr>
+      <tr><td><strong>Total</strong></td><td class="num"><strong>4,803</strong></td><td>69.5 months</td></tr>
+    </tbody>
+  </table>
+
+  <h2>03 · Offense mix</h2>
   <div class="chart-wrap short"><canvas id="chartOffenseMix"></canvas></div>
   <table>
     <thead><tr><th>Level</th><th class="num">Count</th><th class="num">Share</th><th class="num">Fee</th><th class="num">Fee subtotal</th></tr></thead>
@@ -499,7 +533,7 @@
     </tbody>
   </table>
 
-  <h2>03 · Top cited parks (2014–2019)</h2>
+  <h2>04 · Top cited parks (2014–2019)</h2>
   <table>
     <thead><tr><th>Park</th><th class="num">Citations</th><th>Has OLA?</th></tr></thead>
     <tbody>
@@ -517,7 +551,7 @@
   </table>
   <p class="caption">Citations cluster at parks <em>without</em> OLAs, or where the nearest OLA is functionally too far. The empirical pattern: people run dogs off-leash where they live, and they live where the OLAs aren't.</p>
 
-  <h2>04 · Revenue vs. program cost</h2>
+  <h2>05 · Revenue vs. program cost</h2>
   <p>The 2021 MOA between SPR and FAS disclosed that one Animal Control Officer II position costs $152,399/year fully loaded (salary + benefits + overhead). Over the 6-year PRR window, that's $914,394. Adding the paired SPR-side Facilities Maintenance Worker (the 2021 MOA treats ACO + FMW as a team) approximately doubles the cost to ~$1.8M.</p>
   <table>
     <thead><tr><th>Item</th><th class="num">6-year total</th></tr></thead>
@@ -569,7 +603,39 @@
     <li><strong>Cycle 2 capital ($3.46M one-time) spread across the 6-year cycle:</strong> ~$3.84 per dog per year additional.</li>
   </ul>
 
-  <h2>03 · Peer-city funding models</h2>
+  <h2>03 · Cycle 1 vs Cycle 2 cumulative OLA investment</h2>
+  <p>The Seattle Park District runs in six-year cycles. Cycle 1 (2015&ndash;2020) had publicly-stated $100,000/year OLA-only operating spend &mdash; ~$600K total, zero capital. Cycle 2 (2023&ndash;2028) includes a one-time $3.46M capital appropriation for West Seattle Stadium + Othello construction plus design funds for Ravenna, plus roughly $129K/year operating (the 2024 disclosed figure, assumed flat). Cumulative through the full cycle:</p>
+  <div class="chart-wrap short"><canvas id="chartCycleCumulative"></canvas></div>
+  <table>
+    <thead><tr><th>Item</th><th class="num">Cycle 1 (2015&ndash;2020)</th><th class="num">Cycle 2 (2023&ndash;2028)</th></tr></thead>
+    <tbody>
+      <tr><td>OLA-only operating, cumulative</td><td class="num">~$600K</td><td class="num">~$780K (est.)</td></tr>
+      <tr><td>One-time capital for new OLAs</td><td class="num">$0</td><td class="num">$3.46M</td></tr>
+      <tr><td><strong>Total OLA-specific 6-year spend</strong></td><td class="num"><strong>~$600K</strong></td><td class="num"><strong>~$4.24M</strong></td></tr>
+      <tr><td>New OLAs built</td><td class="num">0</td><td class="num">2 (+ Ravenna design only)</td></tr>
+      <tr><td>Per-new-OLA cost (where applicable)</td><td class="num">&mdash;</td><td class="num">~$1.73M / OLA</td></tr>
+    </tbody>
+  </table>
+  <div class="callout">
+    <strong class="label">The 7&times; increase</strong>
+    Cycle 2 OLA-specific spending is roughly 7&times; Cycle 1, driven entirely by the one-time capital line. The operating line barely moved &mdash; $100K/yr Cycle 1 to $129K/yr Cycle 2 &mdash; which is why ongoing maintenance quality at existing OLAs has not visibly changed.
+  </div>
+
+  <h2>04 · $3.46M in CIP context</h2>
+  <p>The Cycle 2 OLA capital is meaningful against Cycle 1's zero. In the context of Seattle's larger Capital Improvement Program, it's a rounding error.</p>
+  <table>
+    <thead><tr><th>Capital line</th><th class="num">$ (millions)</th></tr></thead>
+    <tbody>
+      <tr><td>Magnuson Park improvements (single-site, one cycle)</td><td class="num">$18</td></tr>
+      <tr><td>Gas Works Park remediation (single-project)</td><td class="num">$10</td></tr>
+      <tr><td>Green Lake shoreline (single-project)</td><td class="num">$7.5</td></tr>
+      <tr><td>SPR 2026 CIP total (all capital projects)</td><td class="num">$87.7</td></tr>
+      <tr><td><strong>Cycle 2 OLA capital (W. Seattle Stadium + Othello + Ravenna design)</strong></td><td class="num"><strong>$3.46</strong></td></tr>
+    </tbody>
+  </table>
+  <p class="caption"><strong>Reading:</strong> Seattle's 2026 CIP allocates roughly 25&times; more capital to non-OLA park projects than to OLAs. This is not an argument that CIP projects don't matter &mdash; Gas Works and Green Lake need the investment. It's an argument that the OLA capital, presented as a breakthrough, remains a rounding error in SPR's CIP.</p>
+
+  <h2>05 · Peer-city funding models</h2>
   <table>
     <thead><tr><th>City</th><th>Operating source</th><th>Capital vehicle</th><th>Dedicated dog-park revenue?</th></tr></thead>
     <tbody>
@@ -587,9 +653,80 @@
   </div>
 </section>
 
-<!-- ==================================================================== PART V ==================================================================== -->
+<!-- ==================================================================== PART V (peer) ==================================================================== -->
 <section class="chapter">
-  <div class="chapter-kicker">Part V — Opinion</div>
+  <div class="chapter-kicker">Part V — Peer City Detail</div>
+  <h1 class="chapter-title">How other cities do this.</h1>
+  <p class="chapter-deck">Six peer cities with OLA systems worth studying, each with at least one design choice Seattle has not tried. The aggregate comparison is in Part I; this section carries the per-city detail.</p>
+
+  <h2>Portland, OR &mdash; voice-control model</h2>
+  <table class="kv" style="max-width:none;width:100%">
+    <tr><th>Designated OLAs</th><td>30+ (mix of fenced + unfenced voice-control)</td></tr>
+    <tr><th>Per 100K residents</th><td>5.74 (TPL 2025 ParkScore rank #9)</td></tr>
+    <tr><th>Funding</th><td>PP&amp;R general fund + 2020 Parks Levy (~$47M/yr). Dog license revenue goes to Multnomah County Animal Services, not PP&amp;R</td></tr>
+    <tr><th>Governance</th><td>City-run; informal volunteer advocacy via DOG PAC; no formal co-management MOUs</td></tr>
+    <tr><th>Notable</th><td>Voice-control model: ~28 of the 30+ DOLAs are unfenced areas inside shared-use parks with designated boundaries. A Portland owner has far more legal options inside a 10-min walkshed than a Seattle owner does</td></tr>
+  </table>
+
+  <h2>San Francisco, CA &mdash; 36 DPAs under federal-lands pressure</h2>
+  <table class="kv" style="max-width:none;width:100%">
+    <tr><th>Designated DPAs</th><td>36 (mix fenced + voice-control; U.N. Plaza is the only fully-fenced site in Civic Center)</td></tr>
+    <tr><th>Per 100K residents</th><td>5.03 (TPL 2025 ParkScore rank #6)</td></tr>
+    <tr><th>Funding</th><td>Rec &amp; Park general fund + Prop C Open Space Fund; capital via GO park bonds (Prop B 2020 = $487M). SF has no mandatory dog license</td></tr>
+    <tr><th>Governance</th><td>City-run; SFDOG is the long-standing volunteer advocacy org and sits on the Dog Advisory Committee</td></tr>
+    <tr><th>Notable</th><td>The most <em>litigated</em> OLA history of any peer: the decades-long GGNRA (federal) vs. city dispute over Fort Funston, Ocean Beach, Crissy Field off-leash access. Seattle has no equivalent federal-lands complication</td></tr>
+  </table>
+
+  <h2>Vancouver, BC &mdash; elected Park Board</h2>
+  <table class="kv" style="max-width:none;width:100%">
+    <tr><th>Off-leash areas</th><td>36+ (fenced + time-restricted + seasonal beach access)</td></tr>
+    <tr><th>Per 100K residents</th><td>5.44 (not covered by TPL ParkScore &mdash; Canada)</td></tr>
+    <tr><th>Funding</th><td>Park Board operating budget (property tax) + 2023&ndash;2026 Capital Plan (~$2.1M DOLA program; $1.3M spent in 2024)</td></tr>
+    <tr><th>Governance</th><td>Independently elected Park Board &mdash; 7 commissioners elected by Vancouver voters, running parks independently of City Council. Unique in Canada</td></tr>
+    <tr><th>Notable</th><td>Seasonal time-restricted beach access (Spanish Banks, Sunset Beach) &mdash; dogs off-leash outside summer peak hours. Time-zoning model Seattle has never used. Heather Park OLA opened May 2025</td></tr>
+  </table>
+
+  <h2>Washington, DC &mdash; the OLA-specific statute</h2>
+  <table class="kv" style="max-width:none;width:100%">
+    <tr><th>Designated dog parks</th><td>16 (all fully fenced, one in each of 8 wards)</td></tr>
+    <tr><th>Per 100K residents</th><td>2.29 (TPL 2025 ParkScore rank #1)</td></tr>
+    <tr><th>Funding</th><td>DPR general-fund operating; District CIP for new builds (~$1M each). Dog licenses fund spay/neuter, not OLAs</td></tr>
+    <tr><th>Governance</th><td>Each DPA must have a <strong>Friends of</strong> group that signs an MOU with DPR for day-to-day stewardship</td></tr>
+    <tr><th>Notable</th><td>Only peer with OLA-specific enabling legislation: the 2005 Dog Park Establishment Act (DC Law 16-175) requires fencing, a Friends group, and DOEE environmental sign-off per site. Seattle's OLAs exist under a 1997 Parks ordinance with no statutory-level definition</td></tr>
+  </table>
+
+  <h2>Minneapolis, MN &mdash; permit-fee model</h2>
+  <table class="kv" style="max-width:none;width:100%">
+    <tr><th>Off-leash dog parks</th><td>9 (Dinky, Franklin Terrace, Gateway, Lake of the Isles, Loring, Lyndale Farmstead, Minnehaha, St. Anthony Parkway, Victory Prairie)</td></tr>
+    <tr><th>Per 100K residents</th><td>2.07 (TPL 2025 ParkScore rank #3)</td></tr>
+    <tr><th>Funding</th><td><strong>User-pays:</strong> $38 resident / $66 non-resident annual; $27/$33 each additional dog; $5 daily. Off-Leash Dog Park Enterprise Fund is the ring-fenced line</td></tr>
+    <tr><th>Governance</th><td>Independently elected Minneapolis Park &amp; Recreation Board (MPRB) &mdash; separate taxing district, like Vancouver</td></tr>
+    <tr><th>Notable</th><td>The <em>only</em> US peer that treats OLAs as a user-pays service. Permit revenue covers ongoing ops + maintenance. Closest live precedent for a dedicated OLA revenue model</td></tr>
+  </table>
+
+  <h2>New York City &mdash; shared-use hours model</h2>
+  <table class="kv" style="max-width:none;width:100%">
+    <tr><th>Policy</th><td>Off-Leash Hours formally codified May 10, 2007; informal since ~1986 (19 years of formal operation)</td></tr>
+    <tr><th>Hours</th><td>Park-opening to 9 AM and 9 PM to park-close, in designated areas. Central Park: 6&ndash;9 AM and 9 PM&ndash;1 AM. Prospect Park: 5&ndash;9 AM and 9 PM&ndash;1 AM</td></tr>
+    <tr><th>Scale</th><td>Designated areas across all five boroughs (Central Park has 23 dog-friendly areas alone). Footprint dwarfs Seattle's 14 fenced OLAs</td></tr>
+    <tr><th>Governance</th><td>NYC Parks department, enforced jointly with NYPD, NYC Parks Enforcement Patrol, NYC Department of Health, NYC Sanitation</td></tr>
+    <tr><th>Notable</th><td>The mature US shared-use-hours model. NRPA's Nov 2018 <em>Parks &amp; Recreation</em> law review treats it as the reference case. NYC does <em>not</em> publish a longitudinal evaluation; the proxy is 19 years of formal operation renewed through multiple administrations with no reversal</td></tr>
+  </table>
+
+  <div class="callout">
+    <strong class="label">Cross-cutting takeaways</strong>
+    <ol style="margin-top: 4px;">
+      <li>No peer city publishes a dog-park-specific walkshed standard. All use the general 10-min / 0.5-mi park standard. SPR's 2.5-mi OLA standard is 5&times; more permissive than any benchmark any peer publishes.</li>
+      <li>Two cities have elected park bodies (Vancouver, Minneapolis). Both have the most ambitious OLA programs of the six peers; Minneapolis has the only dedicated OLA revenue model.</li>
+      <li>DC is the only peer with OLA-specific enabling legislation.</li>
+      <li>Shared-use models (Portland voice-control, Vancouver time-zoned beaches, NYC off-leash hours) are widely precedented. The opinion recommendation is not radical.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ==================================================================== PART VI — OPINION ==================================================================== -->
+<section class="chapter">
+  <div class="chapter-kicker">Part VI — Opinion</div>
   <h1 class="chapter-title">What Seattle should actually do.</h1>
   <p class="chapter-deck">This section is explicitly opinion. The principles, opinions, and recommendation below are the author's. The data claims underneath them link back to the factual pages. Every opinion sentence is separable from the underlying facts.</p>
 
@@ -808,6 +945,28 @@
     }
   });
 
+  // Chart 6a: Citations per year
+  new Chart(document.getElementById('chartYearTrend'), {
+    type: 'bar',
+    data: {
+      labels: ['2014','2015','2016','2017','2018','2019*'],
+      datasets: [{
+        data: [321, 385, 956, 848, 1260, 1033],
+        backgroundColor: ['#C04A1E','#C04A1E','#C04A1E','#C04A1E','#C04A1E','rgba(192,74,30,0.55)'],
+        borderWidth: 0
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        title: { display: true, text: 'Off-leash citations per year · 2019 is Jan 1 – Oct 15 (PRR cutoff)', font: { size: 10, weight: '500' }, color: INK },
+        datalabels: { anchor: 'end', align: 'top', offset: 2, color: INK, font: { weight: '600', size: 9 }, formatter: v => v.toLocaleString() }
+      },
+      scales: { x: axis, y: { ...axis, beginAtZero: true } }
+    }
+  });
+
   // Chart 6: Offense mix (1st/2nd/3rd/4th)
   new Chart(document.getElementById('chartOffenseMix'), {
     type: 'bar',
@@ -827,6 +986,27 @@
       },
       scales: { x: { ...axis, beginAtZero: true, max: 5200, title: { display: true, text: 'Citations', color: INK_SOFT } }, y: axis },
       layout: { padding: { right: 80 } }
+    }
+  });
+
+  // Chart 6b: Cycle 1 vs Cycle 2 cumulative OLA investment
+  new Chart(document.getElementById('chartCycleCumulative'), {
+    type: 'bar',
+    data: {
+      labels: ['Operating (6yr cumulative)', 'One-time capital', 'Total'],
+      datasets: [
+        { label: 'Cycle 1 (2015-2020)', data: [600000, 0, 600000], backgroundColor: PEER, borderWidth: 0 },
+        { label: 'Cycle 2 (2023-2028, est.)', data: [780000, 3460000, 4240000], backgroundColor: SEATTLE, borderWidth: 0 }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'top', align: 'start', labels: { usePointStyle: true, padding: 8, font: { size: 8 } } },
+        title: { display: true, text: 'Cycle 1 vs Cycle 2 OLA-specific spending ($)', font: { size: 10, weight: '500' }, color: INK },
+        datalabels: { anchor: 'end', align: 'top', offset: 2, color: INK, font: { weight: '600', size: 9 }, formatter: v => v > 0 ? '$' + (v/1000).toFixed(0) + 'K' : '' }
+      },
+      scales: { x: axis, y: { ...axis, beginAtZero: true, ticks: { ...axis.ticks, callback: v => '$' + (v/1000).toFixed(0) + 'K' } } }
     }
   });
 
