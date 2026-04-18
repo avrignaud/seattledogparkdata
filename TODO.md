@@ -10,45 +10,55 @@ Concrete next-work ideas, organized by effort and value. Kept up-to-date as work
 ## Ready-to-file, drafted
 
 - [ ] **PRR #2 to SPU** for Find-It-Fix-It "dog in a park" complaint counts by year and park. Draft at `prrs/02-spu-fifi-dog-complaints.md`. Replaces the approximate ~1,100/year figure in Part II.
-- [ ] **PRR #3 to SPR** for OLA-only share of the Maintaining Parks & Facilities BSL (BC-PR-50000), 2023–present. Draft at `prrs/03-spr-ola-budget-split.md`. Separates OLA from P-Patch so Cycle 2 numbers on Part I are honest.
-- [ ] **PRR #4 to SPR** for the methodology behind the 2.5-mile OLA access standard. Draft at `prrs/04-spr-access-methodology.md`. Either exposes a real methodology we can compare to TPL's 0.5-mile network walkshed, or shows there isn't one.
+- [ ] **PRR #3 to SPR** for OLA-only share of the Maintaining Parks & Facilities BSL (BC-PR-50000), 2023–present. Draft at `prrs/03-spr-ola-budget-split.md`. Separates OLA from P-Patch so Cycle 2 numbers are honest.
+- [ ] **PRR #4 to SPR** for the methodology behind the 2.5-mile OLA access standard. Draft at `prrs/04-spr-access-methodology.md`. Either exposes a real methodology we can compare to TPL's 0.5-mi network walkshed, or shows there isn't one.
 - [ ] **PRR #5 to SPR** for per-OLA usage/headcount data. Draft at `prrs/05-spr-ola-usage-counts.md`. Low-probability return; absence of data is itself a finding.
-- [ ] **Outreach to COLA** — asks for usage-count data, corrections, and coordination. (Email handled off-site; not in repo.)
+- [ ] **PRR #6 to SAS** for Seattle Animal Shelter dog-license history + compliance estimate. Draft at `prrs/06-sas-dog-license-history.md`.
+
+## Outreach (handled off-site)
+
+- [ ] Email to COLA (Citizens for Off-Leash Areas) — usage-count data, corrections, coordination.
+- [ ] Email to QACC / Don Harper — specifically on the Queen Anne hilltop OLA priority.
+- [ ] Email to Colin Campbell (SPR, project lead on West Seattle Stadium OLA) — confirmed 2026 opening, final site acreages, updated OLA-only budget.
 
 ## High value, low effort
 
-- [x] **Real TPL-style network walkshed for OLAs.** Implemented via `scripts/compute_walkshed.py` + `scripts/population_coverage.py` (osmnx + Census block groups). Current result: 9.6% of residents within a 0.5-mile network walk, rendered on the Part II map and cited throughout the site.
-- [ ] **Reach out to Colin Campbell** (SPR, project lead on West Seattle Stadium OLA) for confirmed 2026 opening dates, final site acreages, and any updated OLA-only budget data.
+- [x] **Network walkshed (osmnx + Census).** `scripts/compute_walkshed.py` + `scripts/population_coverage.py`. Current: 9.5% of residents within 0.5-mi network walk; 78.3% within SPR's 2.5-mi standard.
+- [x] **Reconcile OLA coordinates to SPR authoritative GIS.** Pulled April 2026 from the Dog Off-Leash Areas ArcGIS FeatureServer. Walkshed rerun with new coords.
+- [x] **Dog-population triangulation.** Three-tier estimate now on site — licensed floor (Seattle Open Data), AVMA-derived (~248K), SPR Expansion Study range.
+- [x] **Peer-city detail pages.** Six cities (Portland, SF, Vancouver BC, DC, Minneapolis, NYC) at `docs/peer-cities.html`, verified via live WebFetch.
+- [x] **Funding-mechanism comparison.** `docs/budget.html` Finding 08 table covering Portland / SF / Vancouver / DC / Minneapolis, with Minneapolis permit-fee outlier callout.
+- [x] **Consolidated print PDF.** Dedicated template at `docs/print.html` with charts, maps, and data tables; regenerated on every `main` push to `docs/seattle-dog-parks-report.pdf`.
+- [x] **CI lint.** `.github/workflows/lint.yml` validates every CSV parses with consistent columns and every HTML file parses cleanly on PR and push.
 
 ## High value, more effort
 
-- [ ] **Real TPL-style "park need" overlay on the Part II map.** TPL publishes block-group-level priority scores for where new parks would most reduce inequity. Overlaying OLA walksheds against TPL's priority layer would produce the "where SPR should be building next" chart.
-- [ ] **Historical OLA timeline map.** Show OLAs by year-opened. Would make the "nothing for 15 years" visual more vivid.
-- [ ] **Per-OLA usage/density estimates.** From MOLG/COLA volunteer counts (pending response) or direct observation. Would convert the Kinnear capacity argument from theoretical to empirical.
-- [ ] **Citation-density backfill pass on Part I and Part II.** Every bare number should link to a primary source, a CSV row, or be marked as derived/approximate. New pages (enforcement, opinion) already follow this rule.
-- [ ] **Expand peer-city list** — add Minneapolis, DC, Boston, Chicago with more detail (beyond the single data-point-per-city currently). Currently these are in `peer-cities.csv` as data but not featured in either report.
-- [ ] **Consolidated `docs/report.html`** that stitches all pages into one long PDF-optimized document for printing as a single multi-page report.
+- [ ] **TPL park-need overlay chart on Part II.** ParkServe shapefile already imported to `data/tpl-parkserve/`; cross-tab CSVs published (`ola-walkshed-by-tpl-rank.csv`, `ola-walkshed-by-tpl-priority-tier.csv`). Next step: render as a chart/map callout showing the bimodal pattern (highest-priority and middle-priority BGs).
+- [ ] **Historical OLA timeline map.** Animated year-opened visualization. Current site has a year-opened bar chart; an actual map over time would make the 1997–2009 build-out + 2010–2025 drought visually concrete.
+- [ ] **Per-OLA usage/density estimates.** From MOLG/COLA volunteer counts or direct observation. Would convert the Kinnear capacity argument from theoretical to empirical.
+- [ ] **Citation-density backfill pass on Part I and Part II.** Every bare number should link to a primary source, a CSV row, or be marked as derived/approximate. New pages (enforcement, opinion, peer-cities, print) already follow this rule.
+- [ ] **Alpha-shape refinement of the walkshed isochrones.** Current implementation uses convex hulls, slightly overstates walkable area at OLA boundaries. Would shift 9.5% down by 1–2 pts.
 
 ## Part III ideas (new report)
 
-- [ ] **"What works"** — profile 2–3 OLAs that are functioning well (Magnuson MOLG, Genesee, Westcrest). Community governance, programming, volunteer infrastructure. Positive counterweight to the Kinnear case.
-- [ ] **The Comp Plan angle.** Seattle's Comprehensive Plan proposes denser residential development. More density without new OLAs = even worse per-capita access. Chart this projection.
-- [ ] **Funding mechanism comparison.** How Portland, SF, Vancouver BC fund their OLA systems. Is there a model Seattle should copy?
-- [ ] **Shared-use policy deep-dive.** The NYC off-leash hours policy (20+ years running), Boston's variants, Chicago's DFAs. Operational details for the recommendation in `docs/opinion.html`.
-- [ ] **Legal off-leash on WSDOT / Seattle City Light / Port of Seattle land.** COLA flagged this in the 2023 Expansion Study — that SPR didn't consider non-SPR public land. Worth exploring.
+- [ ] **"What works"** — profile Magnuson (MOLG 501(c)(3)), Genesee (COLA steward), Westcrest (2021–2022 $505K renovation, HPAC partnership). Positive counterweight to the Kinnear case. Verified research material is queued in earlier session notes.
+- [ ] **Comp Plan angle.** Seattle's 2024 Comprehensive Plan proposes denser residential development. More density without new OLAs = worse per-capita access. Chart the projection.
+- [ ] **Shared-use policy deep-dive.** NYC off-leash hours (19 years formal operation), Boston's variants, Chicago's DFAs. Operational details for the recommendation in `docs/opinion.html`.
+- [ ] **Legal off-leash on WSDOT / Seattle City Light / Port of Seattle land.** COLA flagged this in the 2023 Expansion Study — that SPR didn't consider non-SPR public land.
 
 ## Data quality / maintenance
 
-- [ ] Verify OLA coordinates in `data/seattle-olas.csv` against SPR official GIS layer (if one exists). Current coordinates are approximations from addresses.
-- [ ] Add a `provenance` column to each CSV indicating whether a value is sourced, calculated, or estimated.
-- [ ] Document sheet-level breakdown inside `data/prr-responses/C049204/README.md` (date ranges, column notes — partially done).
-- [ ] Park-name canonicalization in `enforcement-citations.csv` covers the top ~40 named locations. Remaining ~110 rows with street-address-only locations are unassigned — geocode them or flag as "street location."
-- [ ] Update dog-population estimate — currently using 150K floor. Find a defensible current count (AVMA, Seattle Humane, King County licensing) to replace the "153K vs 107K kids" claim from community discussion, which attributes to "2021 Census" but the Census does not count dogs.
+- [x] **OLA coordinates** reconciled to SPR ArcGIS FeatureServer (April 2026 pull).
+- [x] **Provenance column** added to reference CSVs. `DATA-AUDIT.md` records the audit trail.
+- [x] **C049204 README** per-file sheet breakdown published.
+- [x] **location_type column** in `enforcement-citations.csv` classifies each row: 4,020 park_named / 672 street_address / 111 unknown.
+- [x] **Dog-population estimate** triangulated (licensed floor, AVMA-derived, SPR ceiling). 150K floor retained as conservative working value.
+- [ ] **Full geocode** of the 672 street-address enforcement rows. Currently flagged but not mapped.
 
 ## Infrastructure / repo
 
-- [x] Repo moved to `avrignaud/seattledogparkdata` (private).
-- [ ] Enable GitHub Pages (Settings → Pages → Deploy from branch `main`, folder `/docs`). Confirm Pro plan or higher if private-repo Pages is intended.
-- [ ] Configure Cloudflare DNS for `seattledogparkdata.com` to point at GitHub Pages.
-- [ ] Consider a small build script that regenerates shared CSS across the docs pages (currently duplicated per file).
-- [ ] Set up basic CI (GitHub Actions) to lint CSV files and validate HTML on PR.
+- [x] Repo at `avrignaud/seattledogparkdata`.
+- [x] Site deployed via Cloudflare Pages at `seattledogparkdata.com` from `docs/`.
+- [x] CI for CSV/HTML lint on PR + push.
+- [x] PDF build pipeline (puppeteer + `docs/print.html`), commit-on-main.
+- [ ] Shared-CSS extraction across `docs/*.html` (currently duplicated per file, ~300 lines of near-identical style blocks). Deferred due to visual-regression risk.
