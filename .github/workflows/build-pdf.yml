@@ -47,4 +47,17 @@ jobs:
           fi
           git add docs/seattle-dog-parks-report.pdf
           git commit -m "chore(pdf): regenerate report from latest site [skip ci]"
-          git push
+          # Retry up to 5 times to handle the race where a developer pushes
+          # while the Action is committing. Each retry rebases onto the new
+          # tip before re-pushing. PDF-only commits are always fast-forward
+          # safe because nothing else touches this file.
+          for i in 1 2 3 4 5; do
+            if git push; then
+              echo "Push succeeded on attempt $i."
+              exit 0
+            fi
+            echo "Push rejected on attempt $i — rebasing onto latest main."
+            git pull --rebase origin main
+          done
+          echo "Could not push PDF after 5 attempts; giving up cleanly."
+          exit 0

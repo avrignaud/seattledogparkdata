@@ -11,6 +11,7 @@ All primary sources used in the Seattle Off-Leash Areas data analysis, organized
 - [Othello Playground OLA Development](https://www.seattle.gov/parks/about-us/projects/othello-playground-off-leash-area-development)
 - [Georgetown OLA Development](https://www.seattle.gov/parks/about-us/projects/georgetown-off-leash-area-development)
 - Individual OLA pages (Magnuson, Westcrest, Kinnear, etc.) under `/parks/allparks/<name>`
+- [SPR Dog Off-Leash Areas ArcGIS feature service](https://services.arcgis.com/ZOyb2t4B0UYuYNYH/arcgis/rest/services/Dog_Off_Leash_Areas/FeatureServer/0) — authoritative point geometry + attributes for all OLAs. Portal: [Seattle GeoData — Dog Off-Leash Areas](https://data-seattlecitygis.opendata.arcgis.com/datasets/a195df348c00489ca557fced74f1aa62). Source for coordinates in `data/seattle-olas.csv` (pulled 2026-04).
 
 ## Budget Documents
 

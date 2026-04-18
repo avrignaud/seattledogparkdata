@@ -1,15 +1,15 @@
 ola_name,latitude,longitude,acres,neighborhood,year_opened,fenced,small_dog_area,safety_notes
-Magnuson Park,47.6809,-122.2574,9.0,Sand Point,1998,partial,yes,None
-Westcrest,47.5262,-122.3574,8.4,Highland Park,1999,yes,yes,None
-Dr. Jose Rizal,47.5886,-122.3190,4.0,Beacon Hill,2002,yes,no,Adjacent to I-90 greenbelt encampment
-Genesee,47.5599,-122.2688,2.7,Columbia City,2005,yes,yes,None
-Blue Dog Pond,47.5904,-122.2931,1.7,Mt. Baker,2009,yes,no,None direct
-Northacres,47.7208,-122.3247,1.4,Pinehurst,2004,yes,no,None
-Golden Gardens,47.6911,-122.4034,1.0,Ballard,2003,yes,yes,None
-Lower Woodland,47.6706,-122.3358,0.75,Green Lake,2001,yes,no,None
-I-5 Colonnade,47.6486,-122.3228,0.5,Eastlake,2008,partial,no,Under highway sheltered encampment area
-Magnolia Manor,47.6580,-122.3991,0.48,Magnolia,2009,yes,yes,None
-Regrade,47.6154,-122.3416,0.3,Belltown,2000,yes,no,High visibility safety issues in Belltown
-Plymouth Pillars,47.6145,-122.3236,0.2,Capitol Hill,2001,yes,no,Chronic encampment adjacent
-Kinnear,47.6295,-122.3683,0.124,Queen Anne,1997,yes,no,Chronic encampment 20-year history
-Denny Park,47.6186,-122.3369,0.105,South Lake Union,2000,yes,no,Adjacent to SLU public safety issues
+Magnuson Park,47.68270,-122.25710,9.0,Sand Point,1998,partial,yes,None
+Westcrest,47.52578,-122.34172,8.4,Highland Park,1999,yes,yes,None
+Dr. Jose Rizal,47.59386,-122.31809,4.0,Beacon Hill,2002,yes,no,Adjacent to I-90 greenbelt encampment
+Genesee,47.56395,-122.27608,2.7,Columbia City,2005,yes,yes,None
+Blue Dog Pond,47.58889,-122.29863,1.7,Mt. Baker,2009,yes,no,None direct
+Northacres,47.72178,-122.32612,1.4,Pinehurst,2004,yes,no,None
+Golden Gardens,47.69090,-122.40064,1.0,Ballard,2003,yes,yes,None
+Lower Woodland,47.67042,-122.34431,0.75,Green Lake,2001,yes,no,None
+I-5 Colonnade,47.63483,-122.32376,0.5,Eastlake,2008,partial,no,Under highway sheltered encampment area
+Magnolia Manor,47.65155,-122.39198,0.48,Magnolia,2009,yes,yes,None
+Regrade,47.61435,-122.34478,0.3,Belltown,2000,yes,no,High visibility safety issues in Belltown
+Plymouth Pillars,47.61434,-122.32895,0.2,Capitol Hill,2001,yes,no,Chronic encampment adjacent
+Kinnear,47.62696,-122.36766,0.124,Queen Anne,1997,yes,no,Chronic encampment 20-year history
+Denny Park,47.61937,-122.34108,0.105,South Lake Union,2000,yes,no,Adjacent to SLU public safety issues

@@ -641,7 +641,7 @@
   </div>
   <div class="stat alert">
     <div class="label">10-min network walk to an OLA</div>
-    <div class="num">9.6%</div>
+    <div class="num">9.5%</div>
     <div class="note">Seattle residents, osmnx network + 2020 Census block groups</div>
   </div>
   <div class="stat alert">
@@ -693,7 +693,7 @@
   <div class="chart-title">Share of Seattle within a 10-minute walk</div>
   <div class="chart-subtitle">All three bars are <strong>population</strong> coverage — share of Seattle residents within the specified walk of the amenity. TPL's 99% for any park is their published figure. The two OLA bars are computed by this site: an osmnx network walkshed around every OLA (<a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/compute_walkshed.py">compute_walkshed.py</a>) intersected with 2020 Census block-group population (<a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/population_coverage.py">population_coverage.py</a>), area-weighted.</div>
   <div class="chart-wrap short"><canvas id="chartWalkshed"></canvas></div>
-  <div class="chart-takeaway"><strong>What this shows:</strong> Using the same 10-minute-walk metric TPL publishes for any park (<strong>99%</strong> of Seattle residents), the equivalent OLA figure is <strong>9.6%</strong> — roughly 70,800 residents out of a total 737,600 in the 2020 Census. To reach anywhere close to the "any park" coverage requires going out to SPR's <strong>2.5-mile standard</strong>, which covers 79.4% of residents — but 2.5 miles is a ~50-minute walk one way, not 10 minutes. The 10-min standard is the one TPL, SPR itself, and the urbanist literature use for park access. SPR applied it when celebrating Seattle's park system generally; when it comes to OLAs, SPR switched to a standard 5× more permissive. That is the asymmetry. At the honest 10-min standard, more than nine out of every ten Seattle residents have no legal walkable OLA. Many respond by illegally using a local park — <a href="#illegal-use" style="color: var(--accent-3); text-decoration: underline;">the subject of Part Three</a>. Full methodology and outputs in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/walkshed/population_coverage.csv">data/walkshed/population_coverage.csv</a>.</div>
+  <div class="chart-takeaway"><strong>What this shows:</strong> Using the same 10-minute-walk metric TPL publishes for any park (<strong>99%</strong> of Seattle residents), the equivalent OLA figure is <strong>9.5%</strong> — roughly 69,900 residents out of a total 737,600 in the 2020 Census. To reach anywhere close to the "any park" coverage requires going out to SPR's <strong>2.5-mile standard</strong>, which covers 78.3% of residents — but 2.5 miles is a ~50-minute walk one way, not 10 minutes. The 10-min standard is the one TPL, SPR itself, and the urbanist literature use for park access. SPR applied it when celebrating Seattle's park system generally; when it comes to OLAs, SPR switched to a standard 5× more permissive. That is the asymmetry. At the honest 10-min standard, more than nine out of every ten Seattle residents have no legal walkable OLA. Many respond by illegally using a local park — <a href="#illegal-use" style="color: var(--accent-3); text-decoration: underline;">the subject of Part Three</a>. Full methodology and outputs in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/walkshed/population_coverage.csv">data/walkshed/population_coverage.csv</a>.</div>
   <div class="chart-source">Source: <a href="https://www.tpl.org/city/seattle-washington">TPL 2025 ParkScore Seattle</a> (all-parks access, 99%) · OLA network walksheds computed via <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/compute_walkshed.py">scripts/compute_walkshed.py</a> (<a href="https://github.com/gboeing/osmnx">osmnx</a> + Seattle OpenStreetMap walk network, 110,383 nodes · 305,582 edges, projected to UTM 10N) · population overlay via <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/population_coverage.py">scripts/population_coverage.py</a> against <a href="https://api.census.gov/data/2020/dec/pl">2020 Census Decennial P1</a> block-group population (<a href="https://pygris.readthedocs.io/">pygris</a> for TIGER/Line geometry, area-weighted attribution) · output in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/walkshed/population_coverage.csv">data/walkshed/population_coverage.csv</a> · methodology in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/METHODOLOGY.md">METHODOLOGY.md</a></div>
 </div>
 
@@ -704,7 +704,7 @@
     The <strong style="font-weight: 600; color: #fff;">10-minute walk</strong> is the standard used by <a href="https://www.tpl.org/parkscore/about" style="color: #fff; text-decoration: underline;">Trust for Public Land</a>, the <a href="https://www.nrpa.org/About-National-Recreation-and-Park-Association/press-room/new-grant-funding-supports-10-cities-participating-in-10-minute-walk-campaign/" style="color: #fff; text-decoration: underline;">National Recreation and Park Association</a>, the <a href="https://americas.uli.org/nations-mayors-launch-groundbreaking-10-minute-walk-park-campaign/" style="color: #fff; text-decoration: underline;">Urban Land Institute</a>, the National Park Service, and the CDC. It is the standard Seattle Parks cites when celebrating the city's park access generally. For <em>dog</em> parks specifically, SPR switched to a <strong style="font-weight: 600; color: #fff;">2.5-mile</strong> standard — <strong style="font-weight: 600; color: #fff;">5× more permissive</strong>.
   </p>
   <p style="font-family: 'Fraunces', serif; font-size: 20px; line-height: 1.4; font-weight: 300; color: #F6F2E9; margin: 0 0 4px; max-width: 780px; opacity: 0.92;">
-    Apply TPL's 10-min standard to OLAs: <strong style="font-weight: 600; color: #fff;">9.6% of Seattle residents</strong> covered. Apply SPR's 2.5-mi standard: <strong style="font-weight: 600; color: #fff;">79.4%</strong>. Same city. Same residents. The only thing that changed is the yardstick.
+    Apply TPL's 10-min standard to OLAs: <strong style="font-weight: 600; color: #fff;">9.5% of Seattle residents</strong> covered. Apply SPR's 2.5-mi standard: <strong style="font-weight: 600; color: #fff;">78.3%</strong>. Same city. Same residents. The only thing that changed is the yardstick.
   </p>
   <p style="font-size: 13px; line-height: 1.55; color: #F6F2E9; opacity: 0.75; margin: 18px 0 0; max-width: 780px;">
     2.5 miles is approximately the length of the <a href="https://www.seattle.gov/parks/find/parks/green-lake-park" style="color: #fff; text-decoration: underline;">Green Lake loop</a> — walked <em>one way</em>. Or, framed as a daily commute: 50 minutes each way to reach a dog park.
@@ -1025,7 +1025,7 @@
 <div class="footnotes">
   <h3>New Data Notes for Part II</h3>
 
-  <p><strong>10-minute walkshed methodology.</strong> TPL defines the 10-minute walk as a half-mile service area calculated along the public road network, cut by physical barriers (highways, train tracks, rivers without bridges). TPL publishes the "99% of Seattle residents" figure using this methodology for all parks, but does not publish a dog-park-specific version. The OLA walkshed figures on this page (<strong>9.6%</strong> at 10-min, <strong>79.4%</strong> at 2.5-mi, computed April 2026) come from a repo-derived network analysis: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/compute_walkshed.py">scripts/compute_walkshed.py</a> runs osmnx against Seattle's OpenStreetMap walk network (projected to UTM 10N, physical barriers respected) to compute per-OLA isochrones, and <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/population_coverage.py">scripts/population_coverage.py</a> intersects the union with 2020 Census block-group population clipped to the Seattle city boundary. The isochrone algorithm uses convex hulls of reachable network nodes, which tends to slightly overestimate walkable area at the boundary of each OLA's reach — so the true coverage figure may be a little lower than 9.6%, not higher. Output at <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/walkshed/population_coverage.csv">data/walkshed/population_coverage.csv</a>; full methodology in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/METHODOLOGY.md">METHODOLOGY.md</a>. The older "~33%" straight-line estimate previously on this page has been superseded.</p>
+  <p><strong>10-minute walkshed methodology.</strong> TPL defines the 10-minute walk as a half-mile service area calculated along the public road network, cut by physical barriers (highways, train tracks, rivers without bridges). TPL publishes the "99% of Seattle residents" figure using this methodology for all parks, but does not publish a dog-park-specific version. The OLA walkshed figures on this page (<strong>9.5%</strong> at 10-min, <strong>78.3%</strong> at 2.5-mi, computed April 2026) come from a repo-derived network analysis: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/compute_walkshed.py">scripts/compute_walkshed.py</a> runs osmnx against Seattle's OpenStreetMap walk network (projected to UTM 10N, physical barriers respected) to compute per-OLA isochrones, and <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/population_coverage.py">scripts/population_coverage.py</a> intersects the union with 2020 Census block-group population clipped to the Seattle city boundary. The isochrone algorithm uses convex hulls of reachable network nodes, which tends to slightly overestimate walkable area at the boundary of each OLA's reach — so the true coverage figure may be a little lower than 9.5%, not higher. Output at <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/walkshed/population_coverage.csv">data/walkshed/population_coverage.csv</a>; full methodology in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/METHODOLOGY.md">METHODOLOGY.md</a>. The older "~33%" straight-line estimate previously on this page has been superseded.</p>
 
   <p><strong>Peer-city OLA counts.</strong> The methodological differences between cities are real and material. Portland's 33 "DOLAs" include 20+ unfenced voice-control areas; Seattle counts zero unfenced sites. If Seattle redefined its approach to include unfenced designated off-leash spaces (as several other cities do), the count would be higher — though SPR has publicly stated a preference for fenced sites for liability and environmental-impact reasons. The comparison in this report intentionally uses each city's own count, which is the fairest apples-to-apples approach even with methodology differences.</p>
 
@@ -1074,7 +1074,7 @@
         'OLA, 2.5-mi network walk (SPR standard)'
       ],
       datasets: [{
-        data: [99, 9.6, 79.4],
+        data: [99, 9.5, 78.3],
         backgroundColor: [PEER, SEATTLE, 'rgba(192,74,30,0.5)'],
         borderWidth: 0,
         borderRadius: 2
@@ -1187,21 +1187,23 @@
   const HALF_MILE_METERS = 804.67;
 
   const existingOlas = [
-    { name: 'Magnuson Park', coords: [47.6809, -122.2574], acres: 9.0, neighborhood: 'Sand Point', note: 'Largest OLA in Seattle.' },
-    { name: 'Westcrest', coords: [47.5262, -122.3574], acres: 8.4, neighborhood: 'Highland Park', note: 'Second largest. Panoramic city views.' },
-    { name: 'Dr. Jose Rizal', coords: [47.5886, -122.3190], acres: 4.0, neighborhood: 'Beacon Hill', note: 'Hillside OLA with downtown views.' },
-    { name: 'Genesee', coords: [47.5599, -122.2688], acres: 2.7, neighborhood: 'Columbia City', note: 'Flat and fully fenced. Small-dog area.' },
-    { name: 'Blue Dog Pond', coords: [47.5904, -122.2931], acres: 1.7, neighborhood: 'Mt. Baker', note: 'In Sam Smith Park. Art installation.' },
-    { name: 'Northacres', coords: [47.7208, -122.3247], acres: 1.4, neighborhood: 'Pinehurst', note: 'Wooded setting. Only OLA in deep north.' },
-    { name: 'Golden Gardens', coords: [47.6911, -122.4034], acres: 1.0, neighborhood: 'Ballard', note: 'Upper portion of Golden Gardens Park.' },
-    { name: 'Lower Woodland', coords: [47.6706, -122.3358], acres: 0.75, neighborhood: 'Green Lake', note: 'On a slope. Near Woodland Park Zoo.' },
-    { name: 'I-5 Colonnade', coords: [47.6486, -122.3228], acres: 0.5, neighborhood: 'Eastlake', note: 'Under I-5 overpass.' },
-    { name: 'Magnolia Manor', coords: [47.6580, -122.3991], acres: 0.48, neighborhood: 'Magnolia', note: 'Maintained by fervid volunteer group.' },
-    { name: 'Regrade', coords: [47.6154, -122.3416], acres: 0.3, neighborhood: 'Belltown', note: 'Dense urban setting. Artificial turf.' },
-    { name: 'Plymouth Pillars', coords: [47.6145, -122.3236], acres: 0.2, neighborhood: 'Capitol Hill', note: 'Pocket OLA adjacent to chronic encampment issues.' },
-    { name: 'Denny Park', coords: [47.6186, -122.3369], acres: 0.105, neighborhood: 'South Lake Union', note: 'Tiny graveled OLA (0.105 ac) inside the historic Denny Park.' },
+    // Coordinates pulled 2026-04 from SPR's authoritative Dog Off-Leash Areas
+    // feature service (https://services.arcgis.com/ZOyb2t4B0UYuYNYH/arcgis/rest/services/Dog_Off_Leash_Areas/FeatureServer/0).
+    { name: 'Magnuson Park', coords: [47.68270, -122.25710], acres: 9.0, neighborhood: 'Sand Point', note: 'Largest OLA in Seattle.' },
+    { name: 'Westcrest', coords: [47.52578, -122.34172], acres: 8.4, neighborhood: 'Highland Park', note: 'Second largest. Panoramic city views.' },
+    { name: 'Dr. Jose Rizal', coords: [47.59386, -122.31809], acres: 4.0, neighborhood: 'Beacon Hill', note: 'Hillside OLA with downtown views.' },
+    { name: 'Genesee', coords: [47.56395, -122.27608], acres: 2.7, neighborhood: 'Columbia City', note: 'Flat and fully fenced. Small-dog area.' },
+    { name: 'Blue Dog Pond', coords: [47.58889, -122.29863], acres: 1.7, neighborhood: 'Mt. Baker', note: 'In Sam Smith Park. Art installation.' },
+    { name: 'Northacres', coords: [47.72178, -122.32612], acres: 1.4, neighborhood: 'Pinehurst', note: 'Wooded setting. Only OLA in deep north.' },
+    { name: 'Golden Gardens', coords: [47.69090, -122.40064], acres: 1.0, neighborhood: 'Ballard', note: 'Upper portion of Golden Gardens Park.' },
+    { name: 'Lower Woodland', coords: [47.67042, -122.34431], acres: 0.75, neighborhood: 'Green Lake', note: 'On a slope. Near Woodland Park Zoo.' },
+    { name: 'I-5 Colonnade', coords: [47.63483, -122.32376], acres: 0.5, neighborhood: 'Eastlake', note: 'Under I-5 overpass.' },
+    { name: 'Magnolia Manor', coords: [47.65155, -122.39198], acres: 0.48, neighborhood: 'Magnolia', note: 'Maintained by fervid volunteer group.' },
+    { name: 'Regrade', coords: [47.61435, -122.34478], acres: 0.3, neighborhood: 'Belltown', note: 'Dense urban setting. Artificial turf.' },
+    { name: 'Plymouth Pillars', coords: [47.61434, -122.32895], acres: 0.2, neighborhood: 'Capitol Hill', note: 'Pocket OLA adjacent to chronic encampment issues.' },
+    { name: 'Denny Park', coords: [47.61937, -122.34108], acres: 0.105, neighborhood: 'South Lake Union', note: 'Tiny graveled OLA (0.105 ac) inside the historic Denny Park.' },
   ];
-  const kinnearOla = { name: 'Kinnear', coords: [47.6295, -122.3683], acres: 0.124, neighborhood: 'Queen Anne', note: '0.124-acre OLA. See Part Three case study.' };
+  const kinnearOla = { name: 'Kinnear', coords: [47.62696, -122.36766], acres: 0.124, neighborhood: 'Queen Anne', note: '0.124-acre OLA. See Part Three case study.' };
 
   const plannedOlas = [
     { name: 'West Seattle Stadium OLA', coords: [47.5596, -122.3731], note: 'Under construction. Opens fall 2026.' },
