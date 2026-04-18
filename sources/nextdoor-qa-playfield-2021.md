@@ -81,7 +81,7 @@ Derwin Hostetler: "NO DOGS, But tents and homeless are ok." Mary Cole: Kinnear's
 
 **Don Harper**, QACC Parks Chair, Queen Anne. 20+ years of OLA advocacy with SPR and City Council. Has direct experience with the Smith Cove design reduction, the MacLean attempt, the David Rogers attempt, and the original Kinnear siting. Should be on the COLA-equivalent outreach list — likely as a separate email given his specific Queen Anne focus.
 
-See [`prrs/outreach-cola.md`](../prrs/outreach-cola.md) for the outreach template; a similar letter to Don Harper would be valuable.
+Outreach to COLA and QACC is being handled off-site.
 
 ---
 

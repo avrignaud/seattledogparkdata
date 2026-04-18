@@ -12,9 +12,9 @@ Drafted PRRs for the seattledogparkdata.com project. Each file below is a ready-
 | 3 | OLA-only share of Maintaining Parks & Facilities BSL, 2023–2026 | SPR | Draft | `03-spr-ola-budget-split.md` |
 | 4 | Methodology behind SPR's 2.5-mile OLA access standard | SPR | Draft | `04-spr-access-methodology.md` |
 | 5 | Per-OLA usage / headcount data (if any) | SPR | Draft | `05-spr-ola-usage-counts.md` |
+| 6 | Seattle Animal Shelter dog-license history + compliance estimate | SAS | Draft | `06-sas-dog-license-history.md` |
 
-Outreach (non-PRR) drafts are also here:
-- `outreach-cola.md` — email to Citizens for Off-Leash Areas (seattlecola.org) requesting any usage-count or observation data they've collected.
+This directory holds PRR drafts only. Outreach emails (COLA, QACC, etc.) are handled off-site.
 
 ## On the tone
 

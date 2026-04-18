@@ -13,7 +13,7 @@ Concrete next-work ideas, organized by effort and value. Kept up-to-date as work
 - [ ] **PRR #3 to SPR** for OLA-only share of the Maintaining Parks & Facilities BSL (BC-PR-50000), 2023–present. Draft at `prrs/03-spr-ola-budget-split.md`. Separates OLA from P-Patch so Cycle 2 numbers on Part I are honest.
 - [ ] **PRR #4 to SPR** for the methodology behind the 2.5-mile OLA access standard. Draft at `prrs/04-spr-access-methodology.md`. Either exposes a real methodology we can compare to TPL's 0.5-mile network walkshed, or shows there isn't one.
 - [ ] **PRR #5 to SPR** for per-OLA usage/headcount data. Draft at `prrs/05-spr-ola-usage-counts.md`. Low-probability return; absence of data is itself a finding.
-- [ ] **Outreach to COLA** — email draft at `prrs/outreach-cola.md`. Asks for usage-count data, corrections, and coordination.
+- [ ] **Outreach to COLA** — asks for usage-count data, corrections, and coordination. (Email handled off-site; not in repo.)
 
 ## High value, low effort
 

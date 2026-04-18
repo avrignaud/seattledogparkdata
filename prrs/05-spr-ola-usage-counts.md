@@ -37,4 +37,4 @@ seattledogparkdata@ozymandi.as
 
 ## Fallback if no SPR data exists
 
-Contact Citizens for Off-Leash Areas (COLA) and the Magnuson Off-Leash Group (MOLG) directly — both organizations have historically run informal counts. See `prrs/outreach-cola.md`.
+Contact Citizens for Off-Leash Areas (COLA) and the Magnuson Off-Leash Group (MOLG) directly — both organizations have historically run informal counts.
