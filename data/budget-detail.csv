@@ -1,12 +1,12 @@
-year,spr_total_budget_m,spr_total_budget_source,ola_ppatch_combined_k,ola_only_k,ola_only_source,one_time_capital_k,capital_source,cycle,notes
-2016,156,Seattle 2016 adopted budget book,100,100,SPR public statement / Parkways blog,0,,Cycle 1,OLA and maintaining-parks BSL aligned in Cycle 1 — public statement of $100K/yr OLA-only
-2017,163,Seattle 2017 adopted budget book,100,100,SPR public statement,0,,Cycle 1,Operating-only figure for SPR total
-2018,168,Seattle 2018 adopted budget book,100,100,SPR public statement (Cycle 1 OLA improvement),0,,Cycle 1,$168M SPR total widely cited for 2018
-2019,247.7,Seattle 2019 actuals (all funds),160.8,,,0,,Cycle 1,Combined OLA+P-Patch Maintaining Parks BSL begins to be reported jointly
-2020,261.9,Seattle 2020 adopted budget,338.0,,,0,,Cycle 1,Combined only — OLA/P-Patch split not broken out
-2021,228.1,Seattle 2021 proposed budget,346.7,,,0,,Cycle 1,COVID-reduced SPR budget
-2022,,,,,,0,,Cycle 1,Budget book not consistently available
-2023,328.2,Seattle 2023-24 proposed budget,475.1,126,Parkways blog / Seattle Times 2023-24 coverage,0,,Cycle 2,OLA-only portion reported as $126K for Cycle 2 year 1
-2024,320.7,Seattle 2023-24 proposed budget,614.3,129,Parkways blog / Seattle coverage,1730,Seattle Park District Cycle 2 — W Seattle Stadium + Othello design,Cycle 2,Cycle 2 one-time capital begins (total $3.46M across 2024-2026 for 2 new OLAs + design of third)
-2025,339.4,Seattle 2025-26 proposed budget,1829.7,,,1730,Seattle Park District Cycle 2 — W Seattle Stadium + Othello construction,Cycle 2,OLA/P-Patch combined BSL jumps to $1.83M — OLA-only portion not broken out post-2024
-2026,506.9,Seattle 2025-26 proposed budget + 2026-2031 CIP,1845.7,,,0,,Cycle 2,SPR $125M GF + $87.7M CIP + $294M Park District
+year,spr_total_budget_m,spr_total_budget_source,ola_ppatch_combined_k,ola_only_k,ola_only_source,one_time_capital_k,capital_source,cycle,notes,provenance
+2016,156,Seattle 2016 adopted budget book,100,100,SPR public statement / Parkways blog,0,,Cycle 1,OLA and maintaining-parks BSL aligned in Cycle 1 — public statement of $100K/yr OLA-only,sourced: OLA-only from SPR public statement or Parkways coverage; SPR total from budget book
+2017,163,Seattle 2017 adopted budget book,100,100,SPR public statement,0,,Cycle 1,Operating-only figure for SPR total,sourced: OLA-only from SPR public statement or Parkways coverage; SPR total from budget book
+2018,168,Seattle 2018 adopted budget book,100,100,SPR public statement (Cycle 1 OLA improvement),0,,Cycle 1,$168M SPR total widely cited for 2018,sourced: OLA-only from SPR public statement or Parkways coverage; SPR total from budget book
+2019,247.7,Seattle 2019 actuals (all funds),160.8,,,0,,Cycle 1,Combined OLA+P-Patch Maintaining Parks BSL begins to be reported jointly,sourced: SPR total from budget book; OLA+P-Patch combined from Maintaining Parks & Facilities BSL; OLA-only split not published post-2018
+2020,261.9,Seattle 2020 adopted budget,338.0,,,0,,Cycle 1,Combined only — OLA/P-Patch split not broken out,sourced: SPR total from budget book; OLA+P-Patch combined from Maintaining Parks & Facilities BSL; OLA-only split not published post-2018
+2021,228.1,Seattle 2021 proposed budget,346.7,,,0,,Cycle 1,COVID-reduced SPR budget,sourced: SPR total from budget book; OLA+P-Patch combined from Maintaining Parks & Facilities BSL; OLA-only split not published post-2018
+2022,,,,,,0,,Cycle 1,Budget book not consistently available,missing: no SPR budget book consistently available
+2023,328.2,Seattle 2023-24 proposed budget,475.1,126,Parkways blog / Seattle Times 2023-24 coverage,0,,Cycle 2,OLA-only portion reported as $126K for Cycle 2 year 1,sourced: OLA-only from SPR public statement or Parkways coverage; SPR total from budget book
+2024,320.7,Seattle 2023-24 proposed budget,614.3,129,Parkways blog / Seattle coverage,1730,Seattle Park District Cycle 2 — W Seattle Stadium + Othello design,Cycle 2,Cycle 2 one-time capital begins (total $3.46M across 2024-2026 for 2 new OLAs + design of third),sourced: OLA-only from SPR public statement or Parkways coverage; SPR total from budget book
+2025,339.4,Seattle 2025-26 proposed budget,1829.7,,,1730,Seattle Park District Cycle 2 — W Seattle Stadium + Othello construction,Cycle 2,OLA/P-Patch combined BSL jumps to $1.83M — OLA-only portion not broken out post-2024,sourced: SPR total from budget book; OLA+P-Patch combined from Maintaining Parks & Facilities BSL; OLA-only split not published post-2018
+2026,506.9,Seattle 2025-26 proposed budget + 2026-2031 CIP,1845.7,,,0,,Cycle 2,SPR $125M GF + $87.7M CIP + $294M Park District,sourced: SPR total from budget book; OLA+P-Patch combined from Maintaining Parks & Facilities BSL; OLA-only split not published post-2018

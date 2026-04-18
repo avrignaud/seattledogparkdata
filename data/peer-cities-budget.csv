@@ -1,11 +1,11 @@
-city,year,parks_total_budget_m,budget_source,dog_park_specific_budget_k,dog_park_budget_source,notes
-Seattle_WA,2025,339.4,Seattle 2025-26 proposed budget,,,OLA-only line not published post-2024; combined OLA+P-Patch BSL is $1.83M
-Seattle_WA,2024,320.7,Seattle 2023-24 proposed budget,129,Parkways blog coverage,Last year with a publicly-reported OLA-only number
-Portland_OR,2024,,,,Portland PP&R does not publish a dog-park-specific budget line,DOLA program described as operating within broader maintenance and natural-areas budgets; bark-chip purchasing is the only line-item reference found publicly
-San_Francisco_CA,2024,,,,SF Rec & Parks does not publish a dog-play-area-specific budget line,31 official dog parks / DPAs managed within broader property-operations budget
-Vancouver_BC,2024,,,,Vancouver Park Board does not publish an OLA-specific budget line,36 OLAs managed through broader park operations
-Austin_TX,2024,,,,Austin P&R does not publish a dog-park-specific budget line,
-Boise_ID,2024,,,,Boise Parks & Rec does not publish a dog-park-specific budget line,Highest per-capita OLA density (7.6 per 100K) but no public budget breakout
-Vancouver_WA,2024,,,,Not studied,
-Washington_DC,2024,,,,DC does not publish a dog-park-specific line,
-Minneapolis_MN,2024,,,,Minneapolis Park Board does not publish a dog-park-specific line,Minneapolis has separate park taxing district; worth separate PRR
+city,year,parks_total_budget_m,budget_source,dog_park_specific_budget_k,dog_park_budget_source,notes,provenance
+Seattle_WA,2025,339.4,Seattle 2025-26 proposed budget,,,OLA-only line not published post-2024; combined OLA+P-Patch BSL is $1.83M,not publicly disclosed: see notes column
+Seattle_WA,2024,320.7,Seattle 2023-24 proposed budget,129,Parkways blog coverage,Last year with a publicly-reported OLA-only number,sourced: per row dog_park_budget_source column
+Portland_OR,2024,,,,Portland PP&R does not publish a dog-park-specific budget line,DOLA program described as operating within broader maintenance and natural-areas budgets; bark-chip purchasing is the only line-item reference found publicly,not publicly disclosed: see notes column
+San_Francisco_CA,2024,,,,SF Rec & Parks does not publish a dog-play-area-specific budget line,31 official dog parks / DPAs managed within broader property-operations budget,not publicly disclosed: see notes column
+Vancouver_BC,2024,,,,Vancouver Park Board does not publish an OLA-specific budget line,36 OLAs managed through broader park operations,not publicly disclosed: see notes column
+Austin_TX,2024,,,,Austin P&R does not publish a dog-park-specific budget line,,not publicly disclosed: see notes column
+Boise_ID,2024,,,,Boise Parks & Rec does not publish a dog-park-specific budget line,Highest per-capita OLA density (7.6 per 100K) but no public budget breakout,not publicly disclosed: see notes column
+Vancouver_WA,2024,,,,Not studied,,not publicly disclosed: see notes column
+Washington_DC,2024,,,,DC does not publish a dog-park-specific line,,not publicly disclosed: see notes column
+Minneapolis_MN,2024,,,,Minneapolis Park Board does not publish a dog-park-specific line,Minneapolis has separate park taxing district; worth separate PRR,not publicly disclosed: see notes column
