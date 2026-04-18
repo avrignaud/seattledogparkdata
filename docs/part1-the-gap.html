@@ -454,6 +454,14 @@
   <div class="chart-source">Source: <a href="https://ofm.wa.gov/washington-data-research/population-demographics/population-estimates/april-1-official-population-estimates">WA OFM April 1 population estimates</a> · <a href="https://www.seattle.gov/parks/recreation/dog-off-leash-areas">SPR OLA inventory</a> · <a href="https://harrell.seattle.gov/wp-content/uploads/sites/23/2022/08/Seattle-Park-District-Fact-sheet.pdf">Seattle Park District Cycle 2 Fact Sheet</a> · data in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-timeseries.csv">data/seattle-timeseries.csv</a></div>
 </div>
 
+<div class="chart-block" style="margin-top: 20px;">
+  <div class="chart-title">When Seattle's 14 OLAs opened, and when the next ones will</div>
+  <div class="chart-subtitle">Count of OLAs that opened in each year, 1997&ndash;2026. The last fenced OLA (Magnolia Manor / Blue Dog Pond) opened in 2009. No new OLAs opened for the next 16 years. West Seattle Stadium and Othello Playground are under construction for fall 2026.</div>
+  <div class="chart-wrap short"><canvas id="chartOlaOpenings"></canvas></div>
+  <div class="chart-takeaway"><strong>What this shows:</strong> the 1997&ndash;2009 build-out added Seattle's 14 existing OLAs. Then nothing &mdash; <strong>sixteen consecutive years with zero new OLAs</strong>, 2010 through 2025, while the city's population grew from ~609,000 to ~817,000 and SPR's own 2023 Expansion Study acknowledged demand "has grown since the pilot program was launched in 1997." The orange bars at 2026 are the two currently under construction. Data in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">data/seattle-olas.csv</a> and <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/planned-olas.csv">data/planned-olas.csv</a>.</div>
+  <div class="chart-source">Source: year-opened from SPR individual OLA pages · planned sites per <a href="https://www.seattle.gov/parks/about-us/projects/west-seattle-stadium-off-leash-area-development">West Seattle Stadium project page</a> and <a href="https://www.seattle.gov/parks/about-us/projects/othello-playground-off-leash-area-development">Othello Playground project page</a></div>
+</div>
+
 <!-- ================================================================= -->
 <h2><span class="num">Finding 02</span>The peer-city comparison</h2>
 <p class="lead"><a href="https://www.tpl.org/parkscore">Trust for Public Land's 2025 ParkScore</a> measures dog parks per 100,000 residents across the 100 largest U.S. cities. Seattle ranks well below every major West Coast peer. <a href="https://www.portland.gov/parks/find-dog-off-leash-area">Portland</a> has <em>more than three times</em> Seattle's dog-park density.</p>
@@ -1073,6 +1081,79 @@
           beginAtZero: true,
           max: 10.5,
           title: { display: true, text: 'Acres of off-leash area', color: INK_SOFT, font: { size: 11, family: "'IBM Plex Mono', monospace" } }
+        }
+      }
+    }
+  });
+
+  // --- Chart 8: OLA openings per year --------------------------------------
+  // Source: data/seattle-olas.csv (year_opened) + data/planned-olas.csv.
+  // Shows the 2010-2025 drought visually.
+  const openingYears = Array.from({length: 2026 - 1997 + 1}, (_, i) => 1997 + i);
+  // Existing 14 OLAs, by year_opened: 1997 Kinnear; 1998 Magnuson; 1999 Westcrest;
+  // 2000 Denny+Regrade; 2001 Lower Woodland+Plymouth Pillars; 2002 Jose Rizal;
+  // 2003 Golden Gardens; 2004 Northacres; 2005 Genesee; 2008 I-5 Colonnade;
+  // 2009 Blue Dog Pond+Magnolia Manor; 2026 West Seattle Stadium+Othello.
+  const openingCountsExisting = openingYears.map(y => ({
+    1997: 1, 1998: 1, 1999: 1, 2000: 2, 2001: 2, 2002: 1, 2003: 1,
+    2004: 1, 2005: 1, 2008: 1, 2009: 2
+  }[y] || 0));
+  const openingCountsPlanned = openingYears.map(y => y === 2026 ? 2 : 0);
+
+  new Chart(document.getElementById('chartOlaOpenings'), {
+    type: 'bar',
+    data: {
+      labels: openingYears,
+      datasets: [
+        {
+          label: 'Existing OLAs (year opened)',
+          data: openingCountsExisting,
+          backgroundColor: PEER,
+          borderWidth: 0,
+          stack: 's1'
+        },
+        {
+          label: 'Planned OLAs (fall 2026)',
+          data: openingCountsPlanned,
+          backgroundColor: SEATTLE,
+          borderWidth: 0,
+          stack: 's1'
+        }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'top', align: 'start', labels: { usePointStyle: true, padding: 12, font: { size: 11 } } },
+        tooltip: { callbacks: { label: ctx => ctx.parsed.y === 0 ? null : `${ctx.dataset.label}: ${ctx.parsed.y}` } },
+        datalabels: {
+          display: ctx => ctx && ctx.parsed && ctx.parsed.y > 0,
+          anchor: 'end', align: 'top', offset: 2,
+          color: INK,
+          font: { family: "'IBM Plex Mono', monospace", size: 10, weight: '600' },
+          formatter: v => v
+        }
+      },
+      scales: {
+        x: {
+          ...baseAxisStyle,
+          ticks: {
+            ...baseAxisStyle.ticks,
+            // Every year is shown on the axis but only print every 2-3 years
+            // to avoid a wall of labels. 1997, 2000, 2005, 2010, 2015, 2020, 2025, 2026 read naturally.
+            callback: function(v, i) {
+              const y = this.getLabelForValue(v);
+              return (y % 5 === 0 || y === 1997 || y === 2026) ? y : '';
+            },
+            font: { size: 11, family: "'IBM Plex Mono', monospace" }
+          }
+        },
+        y: {
+          ...baseAxisStyle,
+          beginAtZero: true,
+          max: 3,
+          ticks: { ...baseAxisStyle.ticks, stepSize: 1, precision: 0 },
+          title: { display: true, text: 'OLAs opened', color: INK_SOFT, font: { size: 11, family: "'IBM Plex Mono', monospace" } }
         }
       }
     }
