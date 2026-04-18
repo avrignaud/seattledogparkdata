@@ -41,11 +41,14 @@ jobs:
         run: |
           git config user.name  'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          if git diff --quiet -- docs/seattle-dog-parks-report.pdf; then
-            echo "No change to PDF."
+          # The build also stamps docs/index.html with a ?v=<size>-<mtime>
+          # cache-bust query. Stage both artifacts so the rebase-on-reject
+          # path below doesn't fail with "unstaged changes".
+          if git diff --quiet -- docs/seattle-dog-parks-report.pdf docs/index.html; then
+            echo "No change to PDF or index link."
             exit 0
           fi
-          git add docs/seattle-dog-parks-report.pdf
+          git add docs/seattle-dog-parks-report.pdf docs/index.html
           git commit -m "chore(pdf): regenerate report from latest site [skip ci]"
           # Retry up to 5 times to handle the race where a developer pushes
           # while the Action is committing. Each retry rebases onto the new
