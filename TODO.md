@@ -17,7 +17,7 @@ Concrete next-work ideas, organized by effort and value. Kept up-to-date as work
 
 ## High value, low effort
 
-- [ ] **Real TPL-style network walkshed for OLAs.** Replace the straight-line 33% estimate with a 0.5-mile network-distance number using open Seattle street data (Python: `osmnx` + `networkx` + Census block-group population). Directly rebuts SPR's 2.5-mile access standard side-by-side with TPL's own metric. Highest single methodological upgrade available.
+- [x] **Real TPL-style network walkshed for OLAs.** Implemented via `scripts/compute_walkshed.py` + `scripts/population_coverage.py` (osmnx + Census block groups). Current result: 9.6% of residents within a 0.5-mile network walk, rendered on the Part II map and cited throughout the site.
 - [ ] **Reach out to Colin Campbell** (SPR, project lead on West Seattle Stadium OLA) for confirmed 2026 opening dates, final site acreages, and any updated OLA-only budget data.
 
 ## High value, more effort
