@@ -173,8 +173,8 @@
     max-width: 6.5in;
     margin: 14px 0;
     font-size: 9.5pt;
-    break-inside: avoid;
   }
+  thead { display: table-header-group; }
   th, td {
     padding: 5px 8px;
     text-align: left;
@@ -238,12 +238,14 @@
   .chart-wrap {
     width: 100%;
     max-width: 6.5in;
-    height: 2.6in;
+    height: 2.4in;
     margin: 10px 0 6px;
     break-inside: avoid;
   }
-  .chart-wrap.tall { height: 3.4in; }
-  .chart-wrap.short { height: 2.0in; }
+  .chart-wrap.tall { height: 2.9in; }
+  .chart-wrap.short { height: 1.9in; }
+  h2 { break-after: avoid; }
+  h2 + p { break-after: avoid; }
   canvas { max-width: 100% !important; }
   .map-wrap {
     width: 100%;
@@ -358,7 +360,7 @@
       <tr><td>Portland, OR</td><td class="num">660,000</td><td class="num">38</td><td class="num">5.74</td><td class="num">9</td></tr>
       <tr><td>San Francisco, CA</td><td class="num">870,000</td><td class="num">42</td><td class="num">5.03</td><td class="num">6</td></tr>
       <tr><td>Vancouver, BC</td><td class="num">662,000</td><td class="num">36</td><td class="num">5.44</td><td class="num">—</td></tr>
-      <tr><td>Washington, DC</td><td class="num">699,000</td><td class="num">20</td><td class="num">2.86</td><td class="num">1</td></tr>
+      <tr><td>Washington, DC</td><td class="num">699,000</td><td class="num">16</td><td class="num">2.29</td><td class="num">1</td></tr>
       <tr><td>Arlington, VA</td><td class="num">236,000</td><td class="num">9</td><td class="num">3.81</td><td class="num">7</td></tr>
       <tr><td>Boise, ID</td><td class="num">240,000</td><td class="num">18</td><td class="num">7.60</td><td class="num">—</td></tr>
       <tr><td>Austin, TX</td><td class="num">1,025,000</td><td class="num">13</td><td class="num">1.28</td><td class="num">54</td></tr>
