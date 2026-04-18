@@ -552,6 +552,23 @@
 
   /* ---------- PRINT ---------- */
   @page { size: Letter; margin: 0.6in 0.55in; }
+  
+  @media (max-width: 480px) {
+    .container, .main { padding: 32px 18px 64px; }
+    h1.hed { font-size: 38px; }
+    h2 { font-size: 24px; }
+    .stat-grid { grid-template-columns: 1fr !important; }
+    .headline-stats { grid-template-columns: 1fr !important; }
+    /* Part II Finding 02b stat card grid */
+    div[style*="grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr !important; }
+    /* Tables: allow horizontal scroll instead of blowing the viewport */
+    table { display: block; overflow-x: auto; white-space: nowrap; font-size: 12px; }
+    .chart-wrap { height: 280px; }
+    .chart-wrap.tall { height: 360px; }
+    .chart-wrap.short { height: 240px; }
+    .map-wrap, #seattle-map, #hotspot-map, #gap-map, #walkshed-citation-map { height: 400px !important; }
+  }
+
   @media print {
     html, body { background: #fff; color: #000; font-size: 10.5pt; line-height: 1.45; }
     .container { padding: 0; max-width: none; }
@@ -693,7 +710,7 @@
 <div class="chart-block">
   <div class="chart-title">Share of Seattle within a 10-minute walk</div>
   <div class="chart-subtitle">All three bars are <strong>population</strong> coverage — share of Seattle residents within the specified walk of the amenity. TPL's 99% for any park is their published figure. The two OLA bars are computed by this site: an osmnx network walkshed around every OLA (<a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/compute_walkshed.py">compute_walkshed.py</a>) intersected with 2020 Census block-group population (<a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/population_coverage.py">population_coverage.py</a>), area-weighted.</div>
-  <div class="chart-wrap short"><canvas id="chartWalkshed"></canvas></div>
+  <div class="chart-wrap short"><canvas id="chartWalkshed" role="img" aria-label="Horizontal bar chart: 99% of Seattle residents live within a 10-minute walk of any park; 11.6% within a 10-minute walk of an OLA; 78.3% within SPR's 2.5-mile OLA standard."></canvas></div>
   <div class="chart-takeaway"><strong>What this shows:</strong> Using the same 10-minute-walk metric TPL publishes for any park (<strong>99%</strong> of Seattle residents), the equivalent OLA figure is <strong>11.6%</strong> — roughly 685,680 residents out of a total 737,600 in the 2020 Census. To reach anywhere close to the "any park" coverage requires going out to SPR's <strong>2.5-mile standard</strong>, which covers 76.6% of residents — but 2.5 miles is a ~50-minute walk one way, not 10 minutes. The 10-min standard is the one TPL, SPR itself, and the urbanist literature use for park access. SPR applied it when celebrating Seattle's park system generally; when it comes to OLAs, SPR switched to a standard 5× more permissive. That is the asymmetry. At the honest 10-min standard, more than nine out of every ten Seattle residents have no legal walkable OLA. Many respond by illegally using a local park — <a href="#illegal-use" style="color: var(--accent-3); text-decoration: underline;">the subject of Part Three</a>. Full methodology and outputs in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/walkshed/population_coverage.csv">data/walkshed/population_coverage.csv</a>.</div>
   <div class="chart-source">Source: <a href="https://www.tpl.org/city/seattle-washington">TPL 2025 ParkScore Seattle</a> (all-parks access, 99%) · OLA network walksheds computed via <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/compute_walkshed.py">scripts/compute_walkshed.py</a> (<a href="https://github.com/gboeing/osmnx">osmnx</a> + Seattle OpenStreetMap walk network, 110,383 nodes · 305,582 edges, projected to UTM 10N) · population overlay via <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/population_coverage.py">scripts/population_coverage.py</a> against <a href="https://api.census.gov/data/2020/dec/pl">2020 Census Decennial P1</a> block-group population (<a href="https://walker-data.com/pygris/">pygris</a> for TIGER/Line geometry, area-weighted attribution) · output in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/walkshed/population_coverage.csv">data/walkshed/population_coverage.csv</a> · methodology in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/METHODOLOGY.md">METHODOLOGY.md</a></div>
 </div>
@@ -702,7 +719,7 @@
 <div style="margin: 48px 0 56px; padding: 44px 48px; background: var(--accent-3); color: #F6F2E9; border-radius: 2px; position: relative;">
   <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; opacity: 0.75; margin-bottom: 20px;">The asymmetry</div>
   <p style="font-family: 'Fraunces', serif; font-size: 30px; line-height: 1.25; font-weight: 400; color: #F6F2E9; margin: 0 0 22px; max-width: 780px;">
-    The <strong style="font-weight: 600; color: #fff;">10-minute walk</strong> is the standard used by <a href="https://www.tpl.org/parkscore/about" style="color: #fff; text-decoration: underline;">Trust for Public Land</a>, the <a href="https://www.nrpa.org/About-National-Recreation-and-Park-Association/press-room/new-grant-funding-supports-10-cities-participating-in-10-minute-walk-campaign/" style="color: #fff; text-decoration: underline;">National Recreation and Park Association</a>, the <a href="https://americas.uli.org/nations-mayors-launch-groundbreaking-10-minute-walk-park-campaign/" style="color: #fff; text-decoration: underline;">Urban Land Institute</a>, the National Park Service, and the CDC. It is the standard Seattle Parks cites when celebrating the city's park access generally. For <em>dog</em> parks specifically, SPR switched to a <strong style="font-weight: 600; color: #fff;">2.5-mile</strong> standard — <strong style="font-weight: 600; color: #fff;">5× more permissive</strong>.
+    The <strong style="font-weight: 600; color: #fff;">10-minute walk</strong> is the standard used by <a href="https://www.tpl.org/parkscore/about" style="color: #fff; text-decoration: underline;">Trust for Public Land</a>, the <a href="https://www.nrpa.org/About-National-Recreation-and-Park-Association/press-room/new-grant-funding-supports-10-cities-participating-in-10-minute-walk-campaign/" style="color: #fff; text-decoration: underline;">National Recreation and Park Association</a>, the <a href="https://10minutewalk.org/" style="color: #fff; text-decoration: underline;">Urban Land Institute</a>, the National Park Service, and the CDC. It is the standard Seattle Parks cites when celebrating the city's park access generally. For <em>dog</em> parks specifically, SPR switched to a <strong style="font-weight: 600; color: #fff;">2.5-mile</strong> standard — <strong style="font-weight: 600; color: #fff;">5× more permissive</strong>.
   </p>
   <p style="font-family: 'Fraunces', serif; font-size: 20px; line-height: 1.4; font-weight: 300; color: #F6F2E9; margin: 0 0 4px; max-width: 780px; opacity: 0.92;">
     Apply TPL's 10-min standard to OLAs: <strong style="font-weight: 600; color: #fff;">11.6% of Seattle residents</strong> covered. Apply SPR's 2.5-mi standard: <strong style="font-weight: 600; color: #fff;">76.6%</strong>. Same city. Same residents. The only thing that changed is the yardstick.
@@ -776,7 +793,7 @@
 <div class="chart-block">
   <div class="chart-title">Share of Seattle block groups with OLA walkshed coverage, by TPL priority tier</div>
   <div class="chart-subtitle">Bars show the fraction of each tier's block groups whose geometry intersects the union of 0.5-mi OLA walksheds. Higher is more OLA coverage per block group. Tier 1-2 = lowest TPL priority; tier 4-5 = highest.</div>
-  <div class="chart-wrap short"><canvas id="chartTplPriority"></canvas></div>
+  <div class="chart-wrap short"><canvas id="chartTplPriority" role="img" aria-label="Horizontal bar chart: share of Seattle block groups with OLA walkshed coverage, by TPL park-priority tier. Tier 4-5 (highest priority) 43.7%, tier 1-2 17.2%, tier 2-3 14.5% (lowest), tier 3-4 24.1%."></canvas></div>
   <div class="note-box"><strong>What this shows:</strong> the distribution is <strong>bimodal</strong>, not a straight line. Highest-priority block groups (TPL tier 4-5) have <strong>43.7%</strong> OLA walkshed coverage — the best-served tier. Magnuson (Sand Point), Westcrest (Highland Park), Dr. Jose Rizal (Beacon Hill), and Blue Dog Pond (Mt. Baker) sit in high-priority equity areas, so those OLAs land where TPL's index says new parks are most needed. But the <strong>middle-priority tier (2-3) has only 14.5% coverage</strong> — the lowest of any tier. Those are the neighborhoods where the supply gap really lives: demonstrated need that isn't at the extreme tail, but no existing OLA within walking distance either.</div>
   <div class="chart-source">Source: <a href="https://www.tpl.org/park-data-downloads">TPL ParkServe 2025</a> priority-area shapefile, filtered to Seattle (PlaceID 5363000, 606 block groups) · cross-tabbed against <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/walkshed/ola_isochrones.geojson">data/walkshed/ola_isochrones.geojson</a> · output in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/tpl-parkserve/ola-walkshed-by-tpl-priority-tier.csv">data/tpl-parkserve/ola-walkshed-by-tpl-priority-tier.csv</a></div>
 </div>
@@ -794,7 +811,7 @@
 <div class="chart-block">
   <div class="chart-title">Seattle OLA acreage, ranked</div>
   <div class="chart-subtitle">Acreage estimates compiled from SPR site pages, the Seattle OLA Expansion Study, and COLA biennial reports. Values vary ±10% between sources; where ranges exist, midpoints are used.</div>
-  <div class="chart-wrap"><canvas id="chartAcreage"></canvas></div>
+  <div class="chart-wrap"><canvas id="chartAcreage" role="img" aria-label="Horizontal bar chart: Seattle OLA acreages ranked, from Magnuson at 9.0 acres down to Denny Park at 0.105 acres. Seven OLAs sit below the AKC 1-acre minimum."></canvas></div>
   <div class="chart-takeaway"><strong>What this shows:</strong> The top four OLAs (Magnuson, Westcrest, Dr. Jose Rizal, Genesee) hold <strong>~79%</strong> of Seattle's ~31 total OLA acres. The bottom seven — Lower Woodland, I-5 Colonnade, Magnolia Manor, Regrade, Plymouth Pillars, Kinnear, and Denny — collectively hold <strong>under 10%</strong>. Small OLAs are not inherently bad — they enable neighborhood access — but when a neighborhood's only option is a tenth of an acre shared by dozens of dogs, "access" is nominal.</div>
   <div class="chart-source">Source: <a href="https://www.seattle.gov/parks/recreation/dog-off-leash-areas">SPR individual OLA pages</a> · <a href="https://www.seattledogspot.com/">Seattle Dog Spot</a> · <a href="https://www.bringfido.com/attraction/parks/city/seattle_wa_us/">BringFido</a> · <a href="https://www.seattle.gov/parks/about-us/plans-and-reports/recreation-plans-and-reports/off-leash-area-study">SPR OLA Expansion Study 2023-24</a> · data in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">data/seattle-olas.csv</a></div>
 </div>
@@ -938,7 +955,7 @@
 <div class="chart-block">
   <div class="chart-title">OLA acres per 10,000 residents — methodology-adjusted</div>
   <div class="chart-subtitle">Excludes outlier off-leash hiking areas (Thousand Acres OR, Red Bud Isle TX). Vancouver BC includes time-restricted beach/field access.</div>
-  <div class="chart-wrap"><canvas id="chartAcreagePeer"></canvas></div>
+  <div class="chart-wrap"><canvas id="chartAcreagePeer" role="img" aria-label="Horizontal bar chart: OLA acres per 10,000 residents — Vancouver BC 2.54, SF 1.38, Portland 1.29, Austin 0.78, Seattle 0.38."></canvas></div>
   <div class="chart-takeaway"><strong>What this shows:</strong> Even with generous methodology that counts Seattle's small fully-fenced OLAs equally against peer cities' mix of fenced and unfenced sites, Seattle sits at the bottom. Vancouver BC has roughly <strong>8× more OLA acreage per capita</strong>. Portland has <strong>4×</strong>. This is the chart that most directly rebuts the "we have great parks" defense — because on dog parks specifically, we very clearly don't.</div>
   <div class="chart-source">Source: <a href="https://www.seattle.gov/parks/recreation/dog-off-leash-areas">SPR OLA inventory</a> · <a href="https://www.portland.gov/parks/find-dog-off-leash-area">Portland Parks &amp; Recreation DOLA list</a> · <a href="https://sfrecpark.org/457/Dog-Play-Areas">SF Rec &amp; Parks DPA list</a> · <a href="https://vancouver.ca/parks-recreation-culture/peoples-parks-and-dogs-strategy.aspx">Vancouver Park Board People, Parks &amp; Dogs Strategy (2017)</a> · <a href="https://www.bringfido.com/">BringFido</a> aggregated data · peer-city numbers in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/peer-cities.csv">data/peer-cities.csv</a></div>
 </div>

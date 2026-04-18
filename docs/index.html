@@ -243,6 +243,23 @@
 
   /* ---------- PRINT ---------- */
   @page { size: Letter; margin: 0.6in 0.55in; }
+  
+  @media (max-width: 480px) {
+    .container, .main { padding: 32px 18px 64px; }
+    h1.hed { font-size: 38px; }
+    h2 { font-size: 24px; }
+    .stat-grid { grid-template-columns: 1fr !important; }
+    .headline-stats { grid-template-columns: 1fr !important; }
+    /* Part II Finding 02b stat card grid */
+    div[style*="grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr !important; }
+    /* Tables: allow horizontal scroll instead of blowing the viewport */
+    table { display: block; overflow-x: auto; white-space: nowrap; font-size: 12px; }
+    .chart-wrap { height: 280px; }
+    .chart-wrap.tall { height: 360px; }
+    .chart-wrap.short { height: 240px; }
+    .map-wrap, #seattle-map, #hotspot-map, #gap-map, #walkshed-citation-map { height: 400px !important; }
+  }
+
   @media print {
     html, body { background: #fff; color: #000; font-size: 10.5pt; line-height: 1.45; }
     .container { padding: 0; max-width: none; }
@@ -293,7 +310,7 @@
 <p class="deck">99% of Seattleites live a 10-minute walk from a park. 11.6% live that close to a dog park. This site is a sourced, reproducible public-data reference on Seattle's off-leash area (OLA) system — and what has gone wrong with it. Every chart links to its source; all underlying data is published openly and available for independent verification. The <a href="opinion.html" style="color: var(--accent);">opinion page</a> is clearly marked; everything else is factual.</p>
 
 <p style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink-soft); margin: -8px 0 28px; max-width: 720px;">
-  Prefer it on paper? <a href="seattle-dog-parks-report.pdf?v=3614056-1776547282" style="color: var(--accent-3);">Download the full report as a single PDF</a> (all five pages, regenerated automatically on every update).
+  Prefer it on paper? <a href="seattle-dog-parks-report.pdf?v=3614056-1776548847" style="color: var(--accent-3);">Download the full report as a single PDF</a> (all five pages, regenerated automatically on every update).
 </p>
 
 <div class="stat-grid">

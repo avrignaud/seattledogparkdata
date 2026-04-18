@@ -308,7 +308,7 @@
 
   <h2>01 · Residents per off-leash area, over time</h2>
   <p>In 2010, one OLA served 43,476 Seattle residents. In 2025, it serves 58,329 — a <strong>34% increase in crowding</strong> with no corresponding increase in OLA supply. Two new OLAs open in fall 2026 (West Seattle Stadium + Othello Playground). Even after they open, residents-per-OLA will remain worse than it was in 2010.</p>
-  <div class="chart-wrap"><canvas id="chartResPerOla"></canvas></div>
+  <div class="chart-wrap"><canvas id="chartResPerOla" role="img" aria-label="Line chart: residents per Seattle OLA rose from 43,476 in 2010 to 58,329 in 2025, then projects down to 52,000 in 2026 when two new OLAs open."></canvas></div>
 
   <table>
     <thead><tr><th>Year</th><th class="num">Population</th><th class="num">OLAs</th><th class="num">Residents per OLA</th></tr></thead>
@@ -331,7 +331,7 @@
 
   <h2>02 · When Seattle's OLAs opened</h2>
   <p>The 1997–2009 build-out added Seattle's 14 existing OLAs. Then nothing — <strong>16 consecutive years with zero new OLAs, 2010 through 2025</strong>, while the city's population grew from ~609,000 to ~817,000.</p>
-  <div class="chart-wrap short"><canvas id="chartOlaOpenings"></canvas></div>
+  <div class="chart-wrap short"><canvas id="chartOlaOpenings" role="img" aria-label="Stacked bar chart: 14 OLAs opened between 1997 and 2009 (sage bars), zero new OLAs opened 2010-2025, and two new OLAs open in fall 2026 (orange bars)."></canvas></div>
   <table>
     <thead><tr><th>Year</th><th>OLAs opened</th></tr></thead>
     <tbody>
@@ -353,7 +353,7 @@
 
   <h2>03 · Peer-city comparison</h2>
   <p>TPL's 2025 ParkScore measures dog parks per 100,000 residents across the 100 largest U.S. cities. Seattle ranks well below every major West Coast peer. Portland has more than three times Seattle's dog-park density. Methodology note: each city counts differently — Portland's total includes ~20 unfenced voice-control areas, SF's DPAs include carved-out sections of larger parks, Vancouver's 36 includes time-restricted beach/field access, Austin's number is inflated by Red Bud Isle (293 acres unfenced).</p>
-  <div class="chart-wrap tall"><canvas id="chartPeer"></canvas></div>
+  <div class="chart-wrap tall"><canvas id="chartPeer" role="img" aria-label="Horizontal bar chart: Seattle has 1.82 dog parks per 100,000 residents — below Boise (7.60), Portland (5.74), Vancouver BC (5.44), SF (5.03), and Arlington VA (3.81); above only Denver, Cincinnati, Austin, Boston, and Chicago."></canvas></div>
   <table>
     <thead><tr><th>City</th><th class="num">Population</th><th class="num">Dog parks</th><th class="num">Per 100K</th><th class="num">ParkScore rank</th></tr></thead>
     <tbody>
@@ -371,7 +371,7 @@
 
   <h2>04 · Acreage, not just count</h2>
   <p>The "14 OLAs" number also flatters Seattle. The four largest parks hold 79% of total OLA acreage. Seven of 14 are under one acre; the two smallest (Denny Park at 0.105 ac and Kinnear at 0.124 ac) are smaller than two tennis courts.</p>
-  <div class="chart-wrap tall"><canvas id="chartAcreage"></canvas></div>
+  <div class="chart-wrap tall"><canvas id="chartAcreage" role="img" aria-label="Horizontal bar chart: Seattle OLA acreages ranked, from Magnuson at 9.0 acres down to Denny Park at 0.105 acres. Seven OLAs sit below the AKC 1-acre minimum."></canvas></div>
   <table>
     <thead><tr><th>OLA</th><th class="num">Acres</th><th>Neighborhood</th><th class="num">Year opened</th></tr></thead>
     <tbody>
@@ -411,7 +411,7 @@
 
   <h2>01 · The walkshed</h2>
   <p>Trust for Public Land's 2025 ParkScore shows 99% of Seattle residents live within a 10-minute walk of a park — an industry-standard 0.5-mile half-mile walkshed. We applied the same methodology to OLAs only, using osmnx against Seattle's full OpenStreetMap walk network (110,383 nodes / 305,582 edges, projected to UTM 10N, physical barriers respected) and 2020 Census block-group population clipped to the Seattle city boundary.</p>
-  <div class="chart-wrap short"><canvas id="chartWalkshed"></canvas></div>
+  <div class="chart-wrap short"><canvas id="chartWalkshed" role="img" aria-label="Horizontal bar chart: 99% of Seattle residents live within a 10-minute walk of any park; 11.6% within a 10-minute walk of an OLA; 78.3% within SPR's 2.5-mile OLA standard."></canvas></div>
 
   <div class="map-wrap" id="mapWalkshed"></div>
   <p class="map-caption"><strong>The walkshed, mapped.</strong> Green polygons are the 0.5-mile (10-minute) network walksheds around each of Seattle's 14 existing OLAs. Orange dots are OLAs. The unshaded area — most of the city — is what "11.6%" means in practice. Interactive version with zoom, hover, and the 1.0-mi and 2.5-mi isochrones at <strong>seattledogparkdata.com/part2-access.html</strong>.</p>
@@ -529,7 +529,7 @@
 
   <h2>02 · Citations per year, 2014&ndash;2019</h2>
   <p>Citations rose sharply through 2018, more than doubling in four years. The 2019 number covers only January through October 15 (the PRR cutoff); pro-rated, 2019 would likely have exceeded 2018.</p>
-  <div class="chart-wrap short"><canvas id="chartYearTrend"></canvas></div>
+  <div class="chart-wrap short"><canvas id="chartYearTrend" role="img" aria-label="Bar chart: off-leash citations per year 2014-2019 — 321, 385, 956, 848, 1,260, 1,033. 2019 is partial Jan 1 to Oct 15."></canvas></div>
   <table>
     <thead><tr><th>Year</th><th class="num">Citations</th><th>Period</th></tr></thead>
     <tbody>
@@ -544,7 +544,7 @@
   </table>
 
   <h2>03 · Offense mix</h2>
-  <div class="chart-wrap short"><canvas id="chartOffenseMix"></canvas></div>
+  <div class="chart-wrap short"><canvas id="chartOffenseMix" role="img" aria-label="Horizontal bar chart: 4,179 first-offense citations (87%), 418 second-offense (9%), 123 third-offense (3%), 83 fourth-offense (2%). 4,803 total citations 2014-2019."></canvas></div>
   <table>
     <thead><tr><th>Level</th><th class="num">Count</th><th class="num">Share</th><th class="num">Fee</th><th class="num">Fee subtotal</th></tr></thead>
     <tbody>
@@ -601,7 +601,7 @@
   <p class="chapter-deck">SPR's total budget grew from $156M in 2016 to $507M projected in 2026 — up 3.2×. The OLA line went from $100K/yr to $129K/yr over the same period. One-time Cycle 2 capital adds $3.46M for two new OLAs + design of a third.</p>
 
   <h2>01 · SPR total vs OLA-only spend</h2>
-  <div class="chart-wrap"><canvas id="chartBudget"></canvas></div>
+  <div class="chart-wrap"><canvas id="chartBudget" role="img" aria-label="Log-scale bar chart: SPR total budget vs OLA spend 2016-2026. SPR total grew from $156M in 2016 to $507M projected 2026; OLA-only operating stayed near $100-130K per year."></canvas></div>
   <table>
     <thead><tr><th>Year</th><th class="num">SPR total ($M, all funds)</th><th class="num">OLA-only operating ($K)</th><th class="num">OLA as % of SPR</th><th>Cycle</th></tr></thead>
     <tbody>
@@ -628,7 +628,7 @@
 
   <h2>03 · Cycle 1 vs Cycle 2 cumulative OLA investment</h2>
   <p>The Seattle Park District runs in six-year cycles. Cycle 1 (2015&ndash;2020) had publicly-stated $100,000/year OLA-only operating spend &mdash; ~$600K total, zero capital. Cycle 2 (2023&ndash;2028) includes a one-time $3.46M capital appropriation for West Seattle Stadium + Othello construction plus design funds for Ravenna, plus roughly $129K/year operating (the 2024 disclosed figure, assumed flat). Cumulative through the full cycle:</p>
-  <div class="chart-wrap short"><canvas id="chartCycleCumulative"></canvas></div>
+  <div class="chart-wrap short"><canvas id="chartCycleCumulative" role="img" aria-label="Bar chart: Cycle 1 vs Cycle 2 cumulative OLA investment. Cycle 1 total ~$600K operating + $0 capital; Cycle 2 ~$780K operating + $3.46M one-time capital."></canvas></div>
   <table>
     <thead><tr><th>Item</th><th class="num">Cycle 1 (2015&ndash;2020)</th><th class="num">Cycle 2 (2023&ndash;2028)</th></tr></thead>
     <tbody>

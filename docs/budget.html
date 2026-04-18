@@ -296,6 +296,23 @@
   }
 
   @page { size: Letter; margin: 0.6in 0.55in; }
+  
+  @media (max-width: 480px) {
+    .container, .main { padding: 32px 18px 64px; }
+    h1.hed { font-size: 38px; }
+    h2 { font-size: 24px; }
+    .stat-grid { grid-template-columns: 1fr !important; }
+    .headline-stats { grid-template-columns: 1fr !important; }
+    /* Part II Finding 02b stat card grid */
+    div[style*="grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr !important; }
+    /* Tables: allow horizontal scroll instead of blowing the viewport */
+    table { display: block; overflow-x: auto; white-space: nowrap; font-size: 12px; }
+    .chart-wrap { height: 280px; }
+    .chart-wrap.tall { height: 360px; }
+    .chart-wrap.short { height: 240px; }
+    .map-wrap, #seattle-map, #hotspot-map, #gap-map, #walkshed-citation-map { height: 400px !important; }
+  }
+
   @media print {
     html, body { background: #fff; color: #000; font-size: 10.5pt; line-height: 1.45; }
     .container { padding: 0; max-width: none; }
@@ -406,7 +423,7 @@
 <div class="chart-block">
   <div class="chart-title">SPR total budget vs. OLA-related budget line, 2016&ndash;2026</div>
   <div class="chart-subtitle">Navy bars = SPR total ($M). <strong>Solid orange diamonds</strong> = OLA-only amount for years SPR publicly disclosed it. <strong>Hollow orange squares, dashed line</strong> = combined OLA + P-Patch community-garden line — the OLA share of this is unknown and smaller. Red dashed = one-time Cycle 2 OLA capital, spread 2024&ndash;2025. All on one log scale.</div>
-  <div class="chart-wrap tall"><canvas id="chartDualAxis"></canvas></div>
+  <div class="chart-wrap tall"><canvas id="chartDualAxis" role="img" aria-label="Dual-axis bar chart: SPR total budget (left) and OLA budget line (right) 2016-2026, illustrating the scale difference."></canvas></div>
   <div class="note-box"><strong>What this shows:</strong> SPR's total budget roughly tripled from 2018 ($168M) to 2026 proposed ($507M all funds). Every OLA-related number on the same chart is <strong>2&ndash;3 orders of magnitude smaller</strong> than the SPR bars above them. The dashed combined line rises because P-Patch community-garden funding has grown, not necessarily because OLAs have. The solid OLA-only markers — the only data points we can be confident about — sit at $0.100M in Cycle 1 and $0.126M/$0.129M in Cycle 2 year 1&ndash;2. In real terms, OLA operating funding has barely moved. The $3.46M one-time Cycle 2 capital is real and meaningful; the operating line is not.</div>
   <div class="chart-source">Source: Seattle 2016&ndash;2026 proposed/adopted budget books · <a href="https://parkways.seattle.gov/">Parkways</a> blog · <a href="https://harrell.seattle.gov/wp-content/uploads/sites/23/2022/08/Seattle-Park-District-Fact-sheet.pdf">Mayor Harrell's Park District Cycle 2 Fact Sheet</a> · data in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/budget-detail.csv">data/budget-detail.csv</a></div>
 </div>
@@ -418,7 +435,7 @@
 <div class="chart-block">
   <div class="chart-title">OLA-related budget as a share of SPR total, 2016&ndash;2026</div>
   <div class="chart-subtitle">Bars plot share in basis points (1 bp = 0.01%). Solid bars are SPR's publicly-disclosed OLA-only operating figure + any Cycle 2 capital. Hollow/dashed bars are the combined OLA + P-Patch "Maintaining Parks &amp; Facilities" BSL (SPR does not publish the OLA-only split for 2019&ndash;2022 or 2025&ndash;2026) — those bars <em>overstate</em> the OLA share. A proportional baseline of 25% (SPR's own 2016 survey finding for the share of Seattle residents using OLAs) is <strong>2,500 basis points</strong> — not shown, because it would render the actual bars as invisible.</div>
-  <div class="chart-wrap"><canvas id="chartPercentage"></canvas></div>
+  <div class="chart-wrap"><canvas id="chartPercentage" role="img" aria-label="Bar chart: OLA budget as a percentage of SPR total, 2016-2026. Never exceeded 0.1%."></canvas></div>
   <div class="note-box"><strong>What this shows:</strong> the tallest <em>disclosed OLA-only</em> bar is 2018 at <strong>6.4 basis points</strong> (0.064% of SPR spending). If OLA spending were proportional to the share of Seattle residents who use OLAs — <a href="https://www.seattle.gov/parks/about-us/policies-and-plans/people-dogs-and-parks-strategic-plan">25% according to SPR's own 2016 survey</a> — the bars would be roughly <strong>390× taller</strong>. The hollow bars for 2025&ndash;2026 reach ~100 bp (~1%) because they include P-Patch community gardens <em>and</em> the one-time Cycle 2 OLA construction capital; the OLA-only slice is smaller and SPR does not publish it.</div>
   <div class="chart-source">Source: Seattle budget books (SPR total) · <a href="https://www.seattle.gov/parks/about-us/policies-and-plans/people-dogs-and-parks-strategic-plan">SPR People, Dogs and Parks Strategic Plan (2017)</a> · raw calculation in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/budget-detail.csv">data/budget-detail.csv</a></div>
 </div>
@@ -430,7 +447,7 @@
 <div class="chart-block">
   <div class="chart-title">OLA-only spending per dog, using 150,000 dog floor</div>
   <div class="chart-subtitle">Orange bars: publicly-disclosed OLA-only operating spend divided by 150,000. Dashed bars: combined OLA + P-Patch line (post-2019), same denominator — this overstates OLA-specific per-dog spending.</div>
-  <div class="chart-wrap"><canvas id="chartPerDog"></canvas></div>
+  <div class="chart-wrap"><canvas id="chartPerDog" role="img" aria-label="Bar chart: OLA-only spending per dog using the 150,000 dog floor. Ranges from $0.67/dog/year in Cycle 1 to $0.85/dog/year in Cycle 2."></canvas></div>
   <div class="note-box"><strong>What this shows:</strong> OLA-only operating spend per Seattle dog peaked in the Cycle 1 years at around <strong>$0.67/dog/year</strong>. If we include the one-time Cycle 2 capital ($3.46M for two new OLAs) divided across 150K dogs, the capital contribution is roughly $23 per dog once — spread over the 6-year Cycle 2 window, that's about <strong>$3.84 per dog per year</strong>. A child playground in a Seattle park averaged 157 &divide; 115,000 kids &asymp; 1 playground per 733 kids; the equivalent OLA per-capita ratio at the 150K floor is 14 &divide; 150,000 &asymp; 1 OLA per 10,714 dogs (<strong>14.6× worse</strong>).</div>
   <div class="chart-source">Source: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/budget-detail.csv">data/budget-detail.csv</a> · 150,000 dog population floor from <a href="https://www.seattlehumane.org/">Seattle Humane</a> and <a href="https://www.cascadepbs.org/">Cascade PBS</a> coverage · playground count from <a href="https://www.tpl.org/city/seattle-washington">TPL 2025 ParkScore Seattle</a></div>
 </div>
@@ -442,7 +459,7 @@
 <div class="chart-block">
   <div class="chart-title">OLA spending, Cycle 1 vs Cycle 2 (6-year totals)</div>
   <div class="chart-subtitle">Stacked bars show operating spend (bottom) and one-time capital (top). Cycle 1 had no new OLA construction; Cycle 2 includes $3.46M for two new OLAs + design funds for a third.</div>
-  <div class="chart-wrap short"><canvas id="chartCycles"></canvas></div>
+  <div class="chart-wrap short"><canvas id="chartCycles" role="img" aria-label="Same comparison as the Cumulative chart — Cycle 1 vs Cycle 2 OLA budget totals."></canvas></div>
   <div class="note-box"><strong>What this shows:</strong> Cycle 2 is a genuine, meaningful increase over Cycle 1 when the capital is included — roughly <strong>7× the total</strong>. Without the one-time capital, the operating line has grown only modestly in nominal terms and may be below Cycle 1 in real terms. SPR has publicly noted that future OLA construction beyond Cycle 2's two sites will require <em>additional</em> funding requests; <a href="https://parkways.seattle.gov/2024/03/29/seattle-parks-and-recreation-announces-the-selection-of-two-new-off-leash-areas/">Ravenna Park has design funds only</a> with construction unfunded.</div>
   <div class="chart-source">Source: Parkways blog · <a href="https://www.seattle.gov/seattle-park-district/park-district-planning">Seattle Park District</a> Cycle 1 and Cycle 2 financial plans · raw data in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/budget-detail.csv">data/budget-detail.csv</a></div>
 </div>
@@ -607,7 +624,7 @@ The Park District Cycle 2 one-time capital of $3.46M is presented by SPR as a si
 <div class="chart-block">
   <div class="chart-title">Seattle SPR and related spending lines, 2026 proposed — on one dollar scale</div>
   <div class="chart-subtitle">Horizontal bars, all in millions of dollars. Log scale (base 10) is used because otherwise the OLA-only bar is literally invisible at any reasonable chart width. Annotations point out which bars represent individual capital projects versus annual operating lines versus the OLA.</div>
-  <div class="chart-wrap tall"><canvas id="chartSingleAxis"></canvas></div>
+  <div class="chart-wrap tall"><canvas id="chartSingleAxis" role="img" aria-label="Single-axis bar chart: SPR total budget vs OLA budget line on a linear scale, showing OLA line is imperceptible at SPR-total scale."></canvas></div>
   <div class="note-box"><strong>What this shows:</strong> the smallest bar on the chart (<strong>$129K, OLA-only operating 2024</strong>) is 3,929× smaller than the largest ($507M, SPR 2026 total proposed). In linear terms they cannot fit on the same chart. In log terms you can finally see them together — and what you see is that the "dog-park budget," as actually reported by SPR, is comparable in scale to the purchase of supplies and equipment for a few dozen city employees, not to any recognizable line of the parks budget.</div>
   <div class="chart-source">Source: <a href="https://www.seattle.gov/documents/departments/financedepartment/2526proposedbudget/spr.pdf">Seattle 2025-26 SPR Proposed Budget</a> · <a href="https://www.seattle.gov/documents/Departments/FinanceDepartment/2631poposedcip/2026-2031%20Proposed%20CIP%20Book.pdf">Seattle 2026-2031 Proposed CIP</a> · <a href="https://parkways.seattle.gov/">Parkways blog</a> · raw data in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/budget-detail.csv">data/budget-detail.csv</a></div>
 </div>

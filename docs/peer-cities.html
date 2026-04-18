@@ -249,6 +249,23 @@
     .headline-stats { grid-template-columns: 1fr; }
     table.kv th { width: 40%; }
   }
+
+  @media (max-width: 480px) {
+    .container, .main { padding: 32px 18px 64px; }
+    h1.hed { font-size: 38px; }
+    h2 { font-size: 24px; }
+    .stat-grid { grid-template-columns: 1fr !important; }
+    .headline-stats { grid-template-columns: 1fr !important; }
+    /* Part II Finding 02b stat card grid */
+    div[style*="grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr !important; }
+    /* Tables: allow horizontal scroll instead of blowing the viewport */
+    table { display: block; overflow-x: auto; white-space: nowrap; font-size: 12px; }
+    .chart-wrap { height: 280px; }
+    .chart-wrap.tall { height: 360px; }
+    .chart-wrap.short { height: 240px; }
+    .map-wrap, #seattle-map, #hotspot-map, #gap-map, #walkshed-citation-map { height: 400px !important; }
+  }
+
 </style>
 </head>
 <body>
@@ -393,7 +410,7 @@
 <div class="city-card">
   <div class="headline-stats">
     <div class="stat"><div class="label">Designated dog parks</div><div class="value">16</div><div class="note">All fenced; one in each of all 8 wards</div></div>
-    <div class="stat"><div class="label">Per 100K residents</div><div class="value">2.29</div><div class="note">Ranked <a href="https://www.tpl.org/city/washington-dc">#1 on TPL 2025 ParkScore</a></div></div>
+    <div class="stat"><div class="label">Per 100K residents</div><div class="value">2.29</div><div class="note">Ranked <a href="https://www.tpl.org/city/washington-district-of-columbia">#1 on TPL 2025 ParkScore</a></div></div>
     <div class="stat"><div class="label">Governance</div><div class="value">Statutory</div><div class="note"><a href="https://code.dccouncil.gov/us/dc/council/laws/16-175">Dog Park Establishment Act of 2005</a></div></div>
   </div>
 

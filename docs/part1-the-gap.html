@@ -341,6 +341,23 @@
 
   /* ---------- PRINT ---------- */
   @page { size: Letter; margin: 0.6in 0.55in; }
+  
+  @media (max-width: 480px) {
+    .container, .main { padding: 32px 18px 64px; }
+    h1.hed { font-size: 38px; }
+    h2 { font-size: 24px; }
+    .stat-grid { grid-template-columns: 1fr !important; }
+    .headline-stats { grid-template-columns: 1fr !important; }
+    /* Part II Finding 02b stat card grid */
+    div[style*="grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr !important; }
+    /* Tables: allow horizontal scroll instead of blowing the viewport */
+    table { display: block; overflow-x: auto; white-space: nowrap; font-size: 12px; }
+    .chart-wrap { height: 280px; }
+    .chart-wrap.tall { height: 360px; }
+    .chart-wrap.short { height: 240px; }
+    .map-wrap, #seattle-map, #hotspot-map, #gap-map, #walkshed-citation-map { height: 400px !important; }
+  }
+
   @media print {
     html, body { background: #fff; color: #000; font-size: 10.5pt; line-height: 1.45; }
     .container { padding: 0; max-width: none; }
@@ -450,7 +467,7 @@
 <div class="chart-block">
   <div class="chart-title">Residents per OLA, 2010&ndash;2026</div>
   <div class="chart-subtitle">Seattle's dog-park-to-population ratio has gotten steadily worse for fifteen years. Two new OLAs open at the end of 2026 (<a href="https://www.seattle.gov/parks/about-us/projects/west-seattle-stadium-off-leash-area-development">West Seattle Stadium</a> and <a href="https://www.seattle.gov/parks/about-us/projects/othello-playground-off-leash-area-development">Othello Playground</a>).</div>
-  <div class="chart-wrap"><canvas id="chartResPerOla"></canvas></div>
+  <div class="chart-wrap"><canvas id="chartResPerOla" role="img" aria-label="Line chart: residents per Seattle OLA rose from 43,476 in 2010 to 58,329 in 2025, then projects down to 52,000 in 2026 when two new OLAs open."></canvas></div>
   <div class="chart-takeaway"><strong>What this shows:</strong> Even with the two new OLAs opening in late 2026, residents-per-OLA will still be worse than it was in 2010. To return to 2010's 43,476 residents/OLA ratio at Seattle's projected 2026 population (~832,000), the city would need <strong>19 OLAs total</strong> — three more than the 16 projected for fall 2026, or five more beyond the current 14. Full calculation in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-timeseries.csv">data/seattle-timeseries.csv</a>.</div>
   <div class="chart-source">Source: <a href="https://ofm.wa.gov/washington-data-research/population-demographics/population-estimates/april-1-official-population-estimates">WA OFM April 1 population estimates</a> · <a href="https://www.seattle.gov/parks/recreation/dog-off-leash-areas">SPR OLA inventory</a> · <a href="https://harrell.seattle.gov/wp-content/uploads/sites/23/2022/08/Seattle-Park-District-Fact-sheet.pdf">Seattle Park District Cycle 2 Fact Sheet</a> · data in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-timeseries.csv">data/seattle-timeseries.csv</a></div>
 </div>
@@ -458,7 +475,7 @@
 <div class="chart-block" style="margin-top: 20px;">
   <div class="chart-title">When Seattle's 14 OLAs opened, and when the next ones will</div>
   <div class="chart-subtitle">Count of OLAs that opened in each year, 1997&ndash;2026. The last fenced OLA (Magnolia Manor / Blue Dog Pond) opened in 2009. No new OLAs opened for the next 16 years. West Seattle Stadium and Othello Playground are under construction for fall 2026.</div>
-  <div class="chart-wrap short"><canvas id="chartOlaOpenings"></canvas></div>
+  <div class="chart-wrap short"><canvas id="chartOlaOpenings" role="img" aria-label="Stacked bar chart: 14 OLAs opened between 1997 and 2009 (sage bars), zero new OLAs opened 2010-2025, and two new OLAs open in fall 2026 (orange bars)."></canvas></div>
   <div class="chart-takeaway"><strong>What this shows:</strong> the 1997&ndash;2009 build-out added Seattle's 14 existing OLAs. Then nothing &mdash; <strong>sixteen consecutive years with zero new OLAs</strong>, 2010 through 2025, while the city's population grew from ~609,000 to ~817,000 and SPR's own 2023 Expansion Study acknowledged demand "has grown since the pilot program was launched in 1997." The orange bars at 2026 are the two currently under construction. Data in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">data/seattle-olas.csv</a> and <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/planned-olas.csv">data/planned-olas.csv</a>.</div>
   <div class="chart-source">Source: year-opened from SPR individual OLA pages · planned sites per <a href="https://www.seattle.gov/parks/about-us/projects/west-seattle-stadium-off-leash-area-development">West Seattle Stadium project page</a> and <a href="https://www.seattle.gov/parks/about-us/projects/othello-playground-off-leash-area-development">Othello Playground project page</a></div>
 </div>
@@ -470,7 +487,7 @@
 <div class="chart-block">
   <div class="chart-title">Dog parks per 100,000 residents, 2025</div>
   <div class="chart-subtitle">Comparable and aspirational cities. Vancouver BC isn't in ParkScore (it's not in the U.S.), so this uses its self-reported count of 36 OLAs from the <a href="https://vancouver.ca/parks-recreation-culture/peoples-parks-and-dogs-strategy.aspx">People, Parks &amp; Dogs Strategy</a> and April 2025 population.</div>
-  <div class="chart-wrap"><canvas id="chartPeer"></canvas></div>
+  <div class="chart-wrap"><canvas id="chartPeer" role="img" aria-label="Horizontal bar chart: Seattle has 1.82 dog parks per 100,000 residents — below Boise (7.60), Portland (5.74), Vancouver BC (5.44), SF (5.03), and Arlington VA (3.81); above only Denver, Cincinnati, Austin, Boston, and Chicago."></canvas></div>
   <div class="chart-takeaway"><strong>What this shows:</strong> This isn't about city size or geography — Seattle's peer cities on the West Coast all cluster around 5 dog parks per 100,000 residents. Seattle is at <a href="https://www.tpl.org/city/seattle-washington">1.82</a>, next to <a href="https://www.tpl.org/city/austin-texas">Austin</a>, which ranked 54th out of 100 on ParkScore overall. <a href="https://www.tpl.org/city/boise-idaho">Boise</a> (7.6) has topped the dog-park category for four straight years. Full per-city data in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/peer-cities.csv">data/peer-cities.csv</a>.</div>
   <div class="chart-source">Source: <a href="https://www.tpl.org/parkscore">Trust for Public Land 2025 ParkScore Index</a> · <a href="https://vancouver.ca/parks-recreation-culture/peoples-parks-and-dogs-strategy.aspx">Vancouver Park Board People, Parks &amp; Dogs Strategy</a> (2017) · data in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/peer-cities.csv">data/peer-cities.csv</a></div>
 </div>
@@ -482,7 +499,7 @@
 <div class="chart-block">
   <div class="chart-title">Park investment per resident vs. dog parks per 100K</div>
   <div class="chart-subtitle">Each city's three-year average park investment (per TPL ParkScore methodology, all agencies), plotted against its dog-park density. Seattle is an outlier: high investment, low dog-park density.</div>
-  <div class="chart-wrap tall"><canvas id="chartScatter"></canvas></div>
+  <div class="chart-wrap tall"><canvas id="chartScatter" role="img" aria-label="Scatter plot: park investment per resident (x-axis) vs dog parks per 100,000 (y-axis) for major US cities. Seattle highlighted."></canvas></div>
   <div class="chart-takeaway"><strong>What this shows:</strong> <a href="https://www.tpl.org/city/san-francisco-california">San Francisco</a> spends even more per resident than Seattle ($561) and has <em>three times</em> the dog-park density. <a href="https://www.tpl.org/city/portland-oregon">Portland</a> spends less ($274) and has <em>three times</em> the density. The data doesn't support a "we just can't afford it" argument. See <a href="budget.html">Budget Deep Dive</a> for Seattle's OLA-specific allocation.</div>
   <div class="chart-source">Source: <a href="https://www.tpl.org/parkscore">TPL 2025 ParkScore</a> (three-year average spending across all park-providing agencies) · data in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/peer-cities.csv">data/peer-cities.csv</a></div>
 </div>
@@ -494,7 +511,7 @@
 <div class="chart-block">
   <div class="chart-title">Seattle Parks budget vs. dedicated OLA improvement funding</div>
   <div class="chart-subtitle">Everything on one vertical axis, all in millions of dollars, log scale (so the OLA line is visible next to the SPR total rather than being a literal invisible sliver). <strong>Solid orange diamonds</strong> are years where SPR publicly disclosed the OLA-only amount. <strong>Hollow orange squares, dashed line</strong> are the combined OLA + P-Patch community-garden line — the OLA share is smaller by an unknown amount because SPR stopped separating them after 2024.</div>
-  <div class="chart-wrap tall"><canvas id="chartBudget"></canvas></div>
+  <div class="chart-wrap tall"><canvas id="chartBudget" role="img" aria-label="Log-scale bar chart: SPR total budget vs OLA spend 2016-2026. SPR total grew from $156M in 2016 to $507M projected 2026; OLA-only operating stayed near $100-130K per year."></canvas></div>
   <div class="chart-takeaway"><strong>What this shows:</strong> SPR's total budget (navy bars) has roughly tripled from $156M in 2016 to $506M proposed in 2026. Every OLA-related number on this chart is still <strong>between 2 and 3 orders of magnitude smaller</strong> than the bars above them. The dashed "combined" line rises because P-Patch community-garden funding has grown, not (necessarily) because OLAs have. The solid OLA-only markers — the only data points we can be confident about — sit at $0.100M in Cycle 1 and $0.126M/$0.129M in Cycle 2 year 1&ndash;2. In real terms, OLA operating funding has barely moved. The $3.46M Cycle 2 one-time capital line (<a href="https://harrell.seattle.gov/wp-content/uploads/sites/23/2022/08/Seattle-Park-District-Fact-sheet.pdf">two new OLAs + Ravenna design</a>) is real and meaningful, and still dwarfed by any given CIP project. A <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/prrs/03-spr-ola-budget-split.md">public records request</a> for the 2025&ndash;2026 OLA-only share is drafted and pending filing.</div>
   <div class="chart-source">Source: <a href="https://www.seattle.gov/city-budget-office/budget-archives">Seattle City Budget Office archives</a> · <a href="https://parkways.seattle.gov/">Parkways (SPR blog)</a> · <a href="https://www.seattle.gov/seattle-park-district/park-district-planning">Seattle Park District Cycle 1 &amp; Cycle 2 financial plans</a> · data in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/budget-detail.csv">data/budget-detail.csv</a></div>
 </div>
@@ -506,7 +523,7 @@
 <div class="chart-block">
   <div class="chart-title">OLA improvement spending, 2016&ndash;2026</div>
   <div class="chart-subtitle">Note: the "Maintaining Parks &amp; Facilities" budget line covers <em>both</em> dog parks and P-Patch community gardens, so the actual OLA-only share is smaller. Still, the directional change in Cycle 2 is real.</div>
-  <div class="chart-wrap"><canvas id="chartOlaSpend"></canvas></div>
+  <div class="chart-wrap"><canvas id="chartOlaSpend" role="img" aria-label="Bar chart: OLA improvement budget line 2016-2026, rising from $100K/yr in Cycle 1 to a combined OLA+P-Patch $1.83M in 2025-26."></canvas></div>
   <div class="chart-takeaway"><strong>What this shows:</strong> Cycle 1 of the Seattle Park District (2015&ndash;2020) allocated a flat $100K/year for OLA improvements. Cycle 2 (2023&ndash;2028) added both operational funding and $3.1M for two new OLA construction projects. This is genuine progress after roughly a decade of stasis — but the one-time capital amount ($3.1M) is less than San Francisco's annual <em>playground</em> budget, and SPR has acknowledged additional OLA construction will require future funding requests.</div>
   <div class="chart-source">Source: Seattle Park District annual budgets · West Seattle Stadium &amp; Othello Playground OLA project pages</div>
 </div>
@@ -518,7 +535,7 @@
 <div class="chart-block">
   <div class="chart-title">Facilities per constituent: playgrounds for kids vs. OLAs for dogs</div>
   <div class="chart-subtitle">Seattle has <a href="https://www.tpl.org/city/seattle-washington">157 playgrounds</a> for its under-18 population, and <a href="https://www.seattle.gov/parks/recreation/dog-off-leash-areas">14 OLAs</a> for its dog population. Both are rough proxies for "dedicated recreational space."</div>
-  <div class="chart-wrap"><canvas id="chartKidsDogs"></canvas></div>
+  <div class="chart-wrap"><canvas id="chartKidsDogs" role="img" aria-label="Comparison bar chart: Seattle has 157 playgrounds for roughly 115,000 children (1 per 733 kids) and 14 OLAs for at least 150,000 dogs (1 per 10,714 dogs, 14.6x worse)."></canvas></div>
   <div class="chart-takeaway"><strong>What this shows:</strong> The ratio of dedicated facilities to constituents is roughly 11× more favorable for kids than dogs. This is not an argument to reduce playgrounds — it's a way to show the allocation gap in a single image. Both groups deserve infrastructure; only one group has it in proportion to its size. See <a href="budget.html">Budget Deep Dive</a> Chart 03 for per-dog spending calculation.</div>
   <div class="chart-source">Source: <a href="https://www.tpl.org/city/seattle-washington">TPL 2025 ParkScore Seattle</a> (157 playgrounds) · <a href="https://ofm.wa.gov/washington-data-research/population-demographics/population-estimates/april-1-official-population-estimates">OFM 2025 population</a> · <a href="https://www.seattlehumane.org/">Seattle Humane</a> / <a href="https://www.cascadepbs.org/">Cascade PBS</a> dog population estimates (150K low bound)</div>
 </div>
@@ -530,7 +547,7 @@
 <div class="chart-block">
   <div class="chart-title">OLA acreage concentration</div>
   <div class="chart-subtitle">Share of Seattle's ~31 total OLA acres by park. Acreages from SPR's individual OLA pages (reconciled April 2026); see <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">data/seattle-olas.csv</a>.</div>
-  <div class="chart-wrap short"><canvas id="chartAcreage"></canvas></div>
+  <div class="chart-wrap short"><canvas id="chartAcreage" role="img" aria-label="Horizontal bar chart: Seattle OLA acreages ranked, from Magnuson at 9.0 acres down to Denny Park at 0.105 acres. Seven OLAs sit below the AKC 1-acre minimum."></canvas></div>
   <div class="chart-takeaway"><strong>What this shows:</strong> <a href="https://www.seattle.gov/parks/find/parks/magnuson-park">Magnuson</a> alone holds nearly a third of the city's total OLA acreage (9.0 of ~30.7 acres). The bottom ten OLAs, combined, hold about a fifth. "Neighborhood-scale" access to a reasonably-sized OLA is available in a handful of neighborhoods and essentially nowhere else. See <a href="part2-access.html#size-standards">Part II: What "too small" means, quantified</a> for the AKC 1-acre minimum and per-dog capacity math.</div>
   <div class="chart-source">Source: <a href="https://seattlecola.org">COLA</a> 2017 biennial report · <a href="https://www.seattle.gov/parks/recreation/dog-off-leash-areas">SPR off-leash area inventory</a> · data in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">data/seattle-olas.csv</a></div>
 </div>

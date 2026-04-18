@@ -83,6 +83,62 @@ CANONICAL_PARKS = [
     (r"^I-5 Colonnade.*|^I5 Colonnade.*", "I-5 Colonnade"),
     (r"^Blue Dog Pond.*", "Blue Dog Pond"),
     (r"^Northacres.*", "Northacres Park"),
+    # Secondary park-name canonicalization — top ~30 small-park variants
+    # from the enforcement data that were previously passing through
+    # unchanged. Keep Playground vs Playfield distinctions only where
+    # they refer to genuinely different sites; fold where a single site
+    # is inconsistently named.
+    (r"^Gilman Play(?:ground|field).*", "Gilman Playground"),
+    (r"^Carkeek.*", "Carkeek Park"),
+    (r"^Laurelhurst Play(?:ground|field).*", "Laurelhurst Playfield"),
+    (r"^David Rodgers.*|^David Rogers.*", "David Rodgers Park"),
+    (r"^Salmon Bay.*", "Salmon Bay Park"),
+    (r"^Myrtle Edwards.*", "Myrtle Edwards Park"),
+    (r"^Smith Cove.*", "Smith Cove Park"),
+    (r"^Interbay Play(?:ground|field).*", "Interbay Playfield"),
+    # "Greenlake Park" (no space) is a common misspelling for Green Lake
+    (r"^Greenlake.*", "Green Lake Park"),
+    (r"^Ross Play(?:ground|field).*", "Ross Playground"),
+    (r"^Alki Play(?:ground|field).*", "Alki Playground"),
+    (r"^Leschi.*", "Leschi Park"),
+    (r"^Schmitz.*", "Schmitz Preserve Park"),
+    (r"^Madison Park.*", "Madison Park"),
+    (r"^Pratt.*", "Pratt Park"),
+    (r"^Hiawatha.*", "Hiawatha Playfield"),
+    (r"^Fairmount.*", "Fairmount Park"),
+    # Meridian Playfield and Meridian Playground are the same site per SPR
+    (r"^Meridian Play(?:ground|field).*", "Meridian Playground"),
+    (r"^Sandel.*", "Sandel Playground"),
+    (r"^Montlake Play(?:ground|field).*", "Montlake Playfield"),
+    (r"^Cascade Play(?:ground|field).*", "Cascade Playground"),
+    (r"^Loyal Heights.*", "Loyal Heights Playfield"),
+    (r"^Meadowbrook.*", "Meadowbrook Playfield"),
+    # Maple Leaf Park and Maple Leaf Reservoir Park are the same site
+    (r"^Maple Leaf.*", "Maple Leaf Reservoir Park"),
+    (r"^TT Minor.*|^T\.?T\.? Minor.*", "TT Minor Playground"),
+    (r"^Ballard Comm(?:unity)? Center.*", "Ballard Community Center"),
+    (r"^Lawton.*", "Lawton Park"),
+    # Fold Wallingford Playground into Wallingford Playfield (same site, inconsistent naming)
+    (r"^Wallingford Play(?:ground|field).*", "Wallingford Playfield"),
+    (r"^Cowen.*", "Cowen Park"),
+    (r"^Powell Barnett.*", "Powell Barnett Park"),
+    (r"^Othello.*", "Othello Playground"),
+    (r"^Beacon Hill Play(?:ground|field).*", "Beacon Hill Playfield"),
+    (r"^Jefferson Park.*", "Jefferson Park"),
+    (r"^Bhy Kracke.*", "Bhy Kracke Park"),
+    (r"^Ella Bailey.*", "Ella Bailey Park"),
+    (r"^Cormorant Cove.*", "Cormorant Cove Park"),
+    (r"^Hamilton Viewpoint.*", "Hamilton Viewpoint Park"),
+    (r"^Lake Union.*", "Lake Union Park"),
+    (r"^Peppi's.*|^Peppis.*", "Peppi's Playground"),
+    (r"^E\.?C\.? Hughes.*", "E.C. Hughes Playground"),
+    (r"^Bitter Lake.*", "Bitter Lake Playground"),
+    (r"^Licton Springs.*", "Licton Springs Park"),
+    (r"^Mount Baker.*|^Mt\.? Baker.*", "Mount Baker Park"),
+    (r"^Seacrest.*", "Seacrest Park"),
+    (r"^Judkins.*", "Judkins Park"),
+    (r"^Rainier Playfield.*", "Rainier Playfield"),
+    (r"^Yesler.*", "Yesler Terrace Park"),
 ]
 
 
@@ -94,6 +150,25 @@ def canonicalize(raw: str | None) -> str:
         if re.match(pattern, s, re.IGNORECASE):
             return canon
     return s
+
+
+def classify_location(raw: str, canon: str) -> str:
+    """Classify each row as park_named, street_address, or unknown.
+
+    - Empty raw/canon → 'unknown'
+    - Canon starts with a digit → 'street_address' (unresolved street)
+    - Otherwise → 'park_named' (either a canonical park match or an
+      as-recorded park name that didn't match the regex list)
+    """
+    raw = (raw or "").strip()
+    canon = (canon or "").strip()
+    if not raw and not canon:
+        return "unknown"
+    if canon and re.match(r"^\s*\d", canon):
+        return "street_address"
+    if canon:
+        return "park_named"
+    return "unknown"
 
 
 def main() -> None:
@@ -120,18 +195,20 @@ def main() -> None:
                 dt = d.get("Issue Date/Time")
                 year = str(dt)[:4] if dt else ""
 
+                canon = canonicalize(addr_raw)
                 rows.append(
                     {
                         "year": year,
                         "offense_level": offense_level,
                         "location_raw": addr_raw,
-                        "location_canon": canonicalize(addr_raw),
+                        "location_canon": canon,
                         "zip": str(d.get("Zip Code") or "").strip(),
                         "issued_at": str(dt) if dt else "",
                         "fee": d.get("Fee") or "",
                         "case_result": str(d.get("Case Result") or "").strip(),
                         "source_file": xlsx_path.name,
                         "source_sheet": sheet_name,
+                        "location_type": classify_location(addr_raw, canon),
                     }
                 )
         wb.close()

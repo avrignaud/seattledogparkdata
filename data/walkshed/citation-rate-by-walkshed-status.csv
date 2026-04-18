@@ -1,5 +1,5 @@
 source,walkshed_status,n_citations,share_of_placed
 park-named only,Inside 0.5-mi OLA walkshed,668,23.8%
 park-named only,Outside 0.5-mi OLA walkshed,2144,76.2%
-park-named + Census-geocoded street addresses,Inside 0.5-mi OLA walkshed,769,22.1%
-park-named + Census-geocoded street addresses,Outside 0.5-mi OLA walkshed,2715,77.9%
+park-named + Census + Nominatim geocodes,Inside 0.5-mi OLA walkshed,770,22.1%
+park-named + Census + Nominatim geocodes,Outside 0.5-mi OLA walkshed,2714,77.9%
