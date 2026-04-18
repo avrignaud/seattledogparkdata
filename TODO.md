@@ -30,6 +30,7 @@ Concrete next-work ideas, organized by effort and value. Kept up-to-date as work
 
 ## High value, more effort
 
+- [ ] **Merged walkshed × citation map.** Single map that overlays the 0.5-mi OLA walkshed polygons (currently on Part II) with the citation-hotspot bubbles (currently on Enforcement). One view that visually proves the finding — citations cluster outside walksheds. Data already exists in `data/walkshed/ola_isochrones.geojson` + `data/enforcement-citations.csv` + `data/park-coordinates.csv`. The computed table is `data/walkshed/citation-rate-by-walkshed-status.csv` (inside-walkshed BGs: 2.93 citations per 1,000 residents over 6yr; outside: 3.90 — 1.3× higher).
 - [ ] **TPL park-need overlay chart on Part II.** ParkServe shapefile already imported to `data/tpl-parkserve/`; cross-tab CSVs published (`ola-walkshed-by-tpl-rank.csv`, `ola-walkshed-by-tpl-priority-tier.csv`). Next step: render as a chart/map callout showing the bimodal pattern (highest-priority and middle-priority BGs).
 - [ ] **Historical OLA timeline map.** Animated year-opened visualization. Current site has a year-opened bar chart; an actual map over time would make the 1997–2009 build-out + 2010–2025 drought visually concrete.
 - [ ] **Per-OLA usage/density estimates.** From MOLG/COLA volunteer counts or direct observation. Would convert the Kinnear capacity argument from theoretical to empirical.
