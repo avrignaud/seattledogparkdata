@@ -773,14 +773,24 @@
           }
         },
         datalabels: {
-          display: true,
+          display: ctx => {
+            // Label the highlighted cities — Seattle (orange) + West-Coast peers
+            // (Portland, San Francisco, Vancouver) + Austin — plus any
+            // outlier cluster points. Unhighlighted mid-pack cities stay
+            // unlabeled to keep the chart readable.
+            const l = ctx && ctx.dataset && ctx.dataset.data && ctx.raw && ctx.raw.label;
+            return ['Seattle', 'Portland', 'San Francisco', 'Vancouver', 'Austin', 'Boise', 'Washington DC'].includes(l);
+          },
           anchor: 'center',
-          align: 'top',
-          offset: 8,
+          align: ctx => (ctx.raw && ctx.raw.label === 'Seattle') ? 'right' : 'top',
+          offset: 10,
           color: ctx => (ctx.raw && ctx.raw.label === 'Seattle') ? SEATTLE : INK,
+          backgroundColor: 'rgba(246, 242, 233, 0.85)',
+          borderRadius: 2,
+          padding: { top: 2, bottom: 2, left: 5, right: 5 },
           font: ctx => ({
-            size: (ctx.raw && (ctx.raw.label === 'Seattle' || ctx.raw.label === 'Portland' || ctx.raw.label === 'San Francisco')) ? 13 : 11,
-            weight: (ctx.raw && ctx.raw.label === 'Seattle') ? '600' : '400',
+            size: (ctx.raw && ctx.raw.label === 'Seattle') ? 14 : 12,
+            weight: (ctx.raw && ctx.raw.label === 'Seattle') ? '600' : '500',
             family: "'IBM Plex Sans', sans-serif"
           }),
           formatter: (v, ctx) => (ctx && ctx.raw) ? ctx.raw.label : ''
