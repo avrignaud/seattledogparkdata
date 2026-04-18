@@ -919,6 +919,67 @@
 
   <div class="chart-takeaway" style="margin-top: 20px;"><strong>What this means at Kinnear:</strong> at 0.1 acre, Kinnear's implied peak capacity is <strong>43 dogs</strong> at the 100 sq ft standard or <strong>58 dogs</strong> at the 75 sq ft floor. The park itself posts signage asking owners to exercise "no more than 1&ndash;2 dogs at a time" because there is not enough room to avoid negative interactions. SPR's own signage is, effectively, acknowledging the capacity problem. Kinnear is one of the smallest OLAs listed in any major U.S. city's dog-park inventory — and it is the only designated OLA within a 10-minute walk of most of Queen Anne.</div>
 
+  <figure class="photo-gallery" style="margin: 28px 0 18px; max-width: 720px;">
+    <figcaption style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px;">On the ground at Kinnear &middot; April 2026</figcaption>
+    <div class="gallery-row" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
+      <a class="gallery-item" href="images/kinnear-three-dogs-sign.jpg" data-caption="SPR's own signage at the Kinnear OLA kiosk: &ldquo;Due to the size of Lower Kinnear Dog Park, if you have more than 3 dogs, please visit one of our other COLA dog parks.&rdquo; Seattle Parks is, in writing, asking owners to go somewhere else." aria-label="Close-up of a laminated sign posted at Kinnear Park asking owners with more than three dogs to use other COLA dog parks">
+        <img src="images/kinnear-three-dogs-sign-thumb.jpg" alt="Sign asking owners with more than three dogs to use another COLA park" loading="lazy" style="width:100%; height:auto; display:block; border:1px solid var(--rule); border-radius:2px;">
+        <span style="display:block; font-size:12px; color:var(--ink-soft); margin-top:6px; line-height:1.35;">Park signage asking 3+-dog owners to leave.</span>
+      </a>
+      <a class="gallery-item" href="images/kinnear-park-entrance.jpg" data-caption="Lower Kinnear Park entrance. The fenced OLA is to the right behind the signboard; the public trail passes directly alongside it. A blue tarp from the adjacent encampment is visible on the far right edge of the frame." aria-label="Kinnear Park entrance showing the fenced off-leash area alongside a public trail with a blue tarp from an adjacent encampment visible in the background">
+        <img src="images/kinnear-park-entrance-thumb.jpg" alt="Kinnear Park entrance and off-leash area gate, with an encampment tent visible in the background" loading="lazy" style="width:100%; height:auto; display:block; border:1px solid var(--rule); border-radius:2px;">
+        <span style="display:block; font-size:12px; color:var(--ink-soft); margin-top:6px; line-height:1.35;">Park entrance &mdash; encampment visible in background.</span>
+      </a>
+      <a class="gallery-item" href="images/kinnear-tent-behind-fence.jpg" data-caption="A large tent pitched against the back fence of the Kinnear OLA, photographed from the dog-park side. The rear of the off-leash area is effectively the front yard of a long-running encampment; this is the 20-year pattern documented in the Kinnear timeline." aria-label="A large tent pitched against the rear fence of the Kinnear off-leash dog area, photographed from inside the fenced area">
+        <img src="images/kinnear-tent-behind-fence-thumb.jpg" alt="A large tent pitched directly against the back fence of Kinnear's off-leash dog area" loading="lazy" style="width:100%; height:auto; display:block; border:1px solid var(--rule); border-radius:2px;">
+        <span style="display:block; font-size:12px; color:var(--ink-soft); margin-top:6px; line-height:1.35;">Tent pitched directly against the OLA's back fence.</span>
+      </a>
+    </div>
+    <figcaption style="font-size:12px; color:var(--ink-soft); margin-top:12px; line-height:1.5; max-width: 720px;">Photos by Andre Vrignaud, April 2026. Click any image to view full size. Kinnear's safety pattern is documented in the <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/kinnear-timeline.csv">20-year timeline CSV</a> (Seattle Weekly 2007, Seattle Times 2008, KOMO 2025).</figcaption>
+  </figure>
+
+  <!-- Lightbox overlay -->
+  <div id="gallery-lightbox" role="dialog" aria-modal="true" aria-hidden="true" style="display:none; position:fixed; inset:0; background:rgba(18,24,32,0.92); z-index:1000; align-items:center; justify-content:center; padding:40px; cursor:zoom-out;">
+    <figure style="margin:0; max-width: 100%; max-height: 100%; display:flex; flex-direction:column; align-items:center;">
+      <img id="lightbox-img" src="" alt="" style="max-width: 100%; max-height: calc(100vh - 140px); box-shadow: 0 20px 60px rgba(0,0,0,0.5); background:#fff;">
+      <figcaption id="lightbox-caption" style="color:#F6F2E9; font-family:'Fraunces',serif; font-style:italic; font-size:14px; line-height:1.45; margin-top:16px; max-width: 640px; text-align:center;"></figcaption>
+      <button id="lightbox-close" aria-label="Close" style="position:absolute; top:20px; right:24px; background:none; border:none; color:#F6F2E9; font-size:32px; cursor:pointer; line-height:1; padding:4px 12px;">&times;</button>
+    </figure>
+  </div>
+  <script>
+  (function(){
+    const lb = document.getElementById('gallery-lightbox');
+    const lbImg = document.getElementById('lightbox-img');
+    const lbCap = document.getElementById('lightbox-caption');
+    function open(src, alt, caption){
+      lbImg.src = src; lbImg.alt = alt || ''; lbCap.textContent = caption || '';
+      lb.style.display = 'flex'; lb.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+    }
+    function close(){
+      lb.style.display = 'none'; lb.setAttribute('aria-hidden','true');
+      lbImg.src = ''; document.body.style.overflow = '';
+    }
+    document.querySelectorAll('.gallery-item').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        const img = a.querySelector('img');
+        open(a.getAttribute('href'), img ? img.getAttribute('alt') : '', a.getAttribute('data-caption') || '');
+      });
+    });
+    lb.addEventListener('click', close);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && lb.style.display === 'flex') close(); });
+  })();
+  </script>
+  <style>
+    .gallery-item { text-decoration: none; color: inherit; display: block; cursor: zoom-in; }
+    .gallery-item img { transition: transform 120ms ease; }
+    .gallery-item:hover img { transform: scale(1.02); }
+    @media (max-width: 640px) {
+      .photo-gallery .gallery-row { grid-template-columns: 1fr !important; }
+    }
+  </style>
+
   <div class="chart-source">Sources: <a href="https://images.akc.org/pdf/GLEG01.pdf">AKC</a> · <a href="https://www.parksandrecbusiness.com/articles/2011/08/01/designing-dog-parks">Parks &amp; Rec Business</a> · <a href="https://www.a2gov.org/media/hvqhrksg/recommendations-and-guidelines-for-dog-park-site-selection-updated-4-10-15.pdf">Ann Arbor Dog Park Guidelines</a> · <a href="https://www.fairfaxcounty.gov/parks/sites/parks/files/assets/documents/plandev/dog%20park%20study/dog%20park%20study%20appendices.pdf">FCPA Dog Park Standards</a> · Seattle OLA acreage from <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">data/seattle-olas.csv</a></div>
 </div>
 
