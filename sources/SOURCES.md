@@ -53,8 +53,8 @@ All primary sources used in the Seattle Off-Leash Areas data analysis, organized
 
 ## Advocacy & Community
 
-- [Citizens for Off-Leash Areas (COLA) Seattle](https://seattlecola.org)
-- [COLA email campaign](https://seattlecola.org/email-campaign/)
+- [Citizens for Off-Leash Areas (COLA) Seattle](https://www.seattlecola.info)
+- [COLA email campaign](https://www.seattlecola.info)
 - [Queen Anne & Magnolia News — OLA expansion coverage (Nov 2023)](https://queenannenews.com/news/2023/nov/01/new-off-leash-areas-planning-raises-concerns/)
 - [Parkways (SPR blog) — Expansion Study recommendations (Feb 2024)](https://parkways.seattle.gov/2024/02/23/announcing-the-recommendations-from-the-off-leash-area-expansion-study/)
 - [Parkways — TPL names Seattle 8th best parks system (2025)](https://parkways.seattle.gov/2025/05/22/trust-for-public-land-names-seattle-8th-best-parks-and-recreation-system-in-the-nation/)

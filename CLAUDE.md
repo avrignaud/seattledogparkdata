@@ -83,7 +83,7 @@ See TODO.md for the full list. The highest-value items:
 2. **PRR to SPR** for the OLA-only share of the Maintaining Parks & Facilities BSL, 2023-2026.  
 3. **PRR to Seattle Animal Control** for annual off-leash ticket counts 2016-2025.  
 4. **PRR to SPU** for Find It Fix It "dog in a park" complaints by year.  
-5. **Contact COLA** (Citizens for Off-Leash Areas, seattlecola.org) — they've been advocating on this for years and may have data I don't.  
+5. **Contact COLA** (Citizens for Off-Leash Areas, seattlecola.info) — they've been advocating on this for years and may have data I don't.  
 6. **Contact Colin Campbell at SPR** — project lead on West Seattle Stadium OLA; can confirm 2026 opening dates and potentially the OLA-only budget split.  
 ## Decisions already made (don't relitigate unless asked)  
 * **License: MIT.** For the code and analysis. Data is public-record and not separately licensed.  
