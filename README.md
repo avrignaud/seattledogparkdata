@@ -13,7 +13,7 @@ This is a civic advocacy research project. Everything here is sourced from publi
 - SPR's own 2016 survey: **39% of dog owners** admit illegally off-leashing in parks monthly or more often. SPR acknowledges this in its own planning documents as a supply problem.
 - Peer-city OLA acreage per 10K residents: Vancouver BC 2.54, Portland 1.29, Seattle **0.32** (~8× and ~4× gaps respectively).
 - It's **not a money problem** — Seattle spends $418/resident on parks (near the top nationally). Portland spends less and has 3× the dog park density. This is an allocation issue, not a funding issue.
-- Park District Cycle 2 (2023–2028) is the first meaningful OLA investment in 15 years: $3.1M capital for two new OLAs plus ~$1.8M/yr operational. Real progress, but still <1% of SPR's total budget, and SPR has said additional OLAs will require future funding requests.
+- Park District Cycle 2 (2023–2028) is the first meaningful OLA investment since 2009 — 17 years — with $3.1M capital for two new OLAs plus ~$1.8M/yr operational. Real progress, but still <1% of SPR's total budget, and SPR has said additional OLAs will require future funding requests.
 
 ## The reports
 
