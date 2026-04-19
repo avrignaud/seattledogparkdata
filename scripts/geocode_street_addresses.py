@@ -1,22 +1,29 @@
 #!/usr/bin/env python3
 """
-Geocode the street-address-only citation rows via the Census Bureau
-geocoder (free, no API key, rate-limited but batchable via CSV upload).
+Geocode the street-address-only citation rows.
+
+Primary pass: Census Bureau batch geocoder (free, no API key,
+batchable via CSV upload). Covers ~93% of the 481 unique addresses.
+
+Fallback pass: Nominatim (OpenStreetMap) one-at-a-time for addresses
+the Census pass couldn't resolve. Rate-limited to 1 request/second
+per Nominatim's usage policy, with a descriptive User-Agent. Typical
+fallback yield is another 5-7% of the total.
 
 Takes every row in data/enforcement-citations.csv where
-location_type == 'street_address' (~672 rows, ~481 unique addresses),
-submits them in batches to the Census Geocoder's addressbatch endpoint,
-and writes results back as a new CSV:
+location_type == 'street_address' and writes results to:
 
     data/walkshed/street-address-geocodes.csv
 
 Columns: location_raw, lat, lng, match_quality, census_geoid.
 
-The main citation file is not mutated — downstream analyses can join
+The main citation file is not mutated — downstream analyses join
 by location_raw when they want to include these rows.
 
 Rate limits: Census batch accepts up to 10,000 addresses per request.
-Typical response time ~30-60 seconds per batch; we submit one batch.
+Typical response time ~30-60 seconds per batch. Nominatim per its
+ToU allows one request per second with proper User-Agent identifying
+the application.
 
 Usage: .venv/bin/python3 scripts/geocode_street_addresses.py
 """
@@ -36,6 +43,13 @@ CITS_PATH = REPO_ROOT / "data/enforcement-citations.csv"
 OUT_PATH = REPO_ROOT / "data/walkshed/street-address-geocodes.csv"
 CENSUS_URL = "https://geocoding.geo.census.gov/geocoder/locations/addressbatch"
 BENCHMARK = "Public_AR_Current"  # Most-recent street centerlines
+
+# Nominatim fallback config.
+NOMINATIM_URL = "https://nominatim.openstreetmap.org/search"
+NOMINATIM_UA = "seattledogparkdata.com citation-geocode script (contact: seattledogparkdata@ozymandi.as)"
+# Seattle city bounding box — clips Nominatim results to city limits.
+# Format: viewbox is west,north,east,south in WGS84.
+SEATTLE_VIEWBOX = "-122.4596,47.7341,-122.2244,47.4810"
 
 
 def unique_street_addresses() -> list[str]:
@@ -101,11 +115,49 @@ def parse_response(text: str) -> dict[int, dict]:
     return results
 
 
+def nominatim_lookup(addr: str) -> dict:
+    """Single-address Nominatim lookup, scoped to Seattle city limits.
+    Returns {lat, lng, quality} or {None, None, 'NoResponse'}.
+    Caller is responsible for the 1-second rate-limit sleep between calls."""
+    params = {
+        "q": f"{addr}, Seattle, WA",
+        "format": "json",
+        "limit": "1",
+        "viewbox": SEATTLE_VIEWBOX,
+        "bounded": "1",
+        "countrycodes": "us",
+    }
+    try:
+        r = requests.get(
+            NOMINATIM_URL,
+            params=params,
+            headers={"User-Agent": NOMINATIM_UA},
+            timeout=30,
+        )
+        r.raise_for_status()
+        data = r.json()
+    except Exception:
+        return {"lat": None, "lng": None, "quality": "NoResponse", "census_geoid": ""}
+    if not data:
+        return {"lat": None, "lng": None, "quality": "Nominatim_NoMatch", "census_geoid": ""}
+    hit = data[0]
+    try:
+        return {
+            "lat": float(hit["lat"]),
+            "lng": float(hit["lon"]),
+            "quality": "Nominatim",
+            "census_geoid": "",
+        }
+    except (KeyError, ValueError):
+        return {"lat": None, "lng": None, "quality": "Nominatim_ParseError", "census_geoid": ""}
+
+
 def main() -> None:
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     addrs = unique_street_addresses()
     print(f"Unique street addresses to geocode: {len(addrs)}")
 
+    # ---- Pass 1: Census batch geocoder ----
     # Chunk into batches of 1,000 to stay well under the 10k limit. We
     # re-key each batch's response by the submitted row ID 0..N-1 and then
     # map back to the original address via `addrs` + offset.
@@ -113,7 +165,7 @@ def main() -> None:
     addr_results: dict[str, dict] = {}
     for i in range(0, len(addrs), CHUNK):
         batch = addrs[i : i + CHUNK]
-        print(f"Submitting batch {i // CHUNK + 1}: {len(batch)} addresses...")
+        print(f"Census batch {i // CHUNK + 1}: {len(batch)} addresses...")
         csv_bytes = build_batch_csv(batch)
         try:
             text = post_batch(csv_bytes)
@@ -125,11 +177,33 @@ def main() -> None:
             if 0 <= rid < len(batch):
                 addr_results[batch[rid]] = rec
         matched = sum(1 for v in batch_by_id.values() if v.get("lat") is not None)
-        print(f"  matched {matched}/{len(batch)}")
+        print(f"  Census matched {matched}/{len(batch)}")
         time.sleep(2)  # be polite
 
-    matched = sum(1 for v in addr_results.values() if v.get("lat") is not None)
-    print(f"\nMatched: {matched}/{len(addrs)} ({matched/len(addrs)*100:.1f}%)")
+    census_matched = sum(1 for v in addr_results.values() if v.get("lat") is not None)
+    print(f"\nCensus pass: {census_matched}/{len(addrs)} ({census_matched/len(addrs)*100:.1f}%)")
+
+    # ---- Pass 2: Nominatim fallback on Census misses ----
+    unresolved = [a for a in addrs if addr_results.get(a, {}).get("lat") is None]
+    if unresolved:
+        print(f"\nNominatim fallback on {len(unresolved)} unresolved addresses...")
+        nom_hits = 0
+        for i, addr in enumerate(unresolved, 1):
+            rec = nominatim_lookup(addr)
+            addr_results[addr] = rec
+            if rec.get("lat") is not None:
+                nom_hits += 1
+            if i % 10 == 0 or i == len(unresolved):
+                print(f"  {i}/{len(unresolved)} requested, {nom_hits} matched")
+            time.sleep(1.1)  # Nominatim ToU: max 1 req/sec
+
+        print(f"Nominatim pass: {nom_hits}/{len(unresolved)} ({nom_hits/len(unresolved)*100:.1f}%)")
+
+    total_matched = sum(1 for v in addr_results.values() if v.get("lat") is not None)
+    print(
+        f"\nTotal: {total_matched}/{len(addrs)} "
+        f"({total_matched/len(addrs)*100:.1f}%) unique addresses geocoded"
+    )
 
     with open(OUT_PATH, "w", newline="") as f:
         w = csv.writer(f)

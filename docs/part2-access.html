@@ -663,14 +663,14 @@
     <div class="note">Seattle residents, osmnx network + 2020 Census block groups</div>
   </div>
   <div class="stat alert">
-    <div class="label">SPR's OLA amenity score</div>
-    <div class="num">65/100</div>
-    <div class="note">TPL 2025 — lowest of Seattle's amenity category</div>
+    <div class="label">Seattle's dog-park density</div>
+    <div class="num">1.82</div>
+    <div class="note">Dog parks per 100K residents &mdash; <a href="https://www.tpl.org/city/seattle-washington">TPL 2025 ParkScore</a>, below every West Coast peer</div>
   </div>
   <div class="stat danger">
     <div class="label">Seattle dog owners who admit illegal off-leash use</div>
     <div class="num">39%</div>
-    <div class="note">SPR's own 2016 survey. Monthly or more frequent.</div>
+    <div class="note">Monthly or more frequent, per <a href="https://www.seattle.gov/parks/about-us/policies-and-plans/people-dogs-and-parks-strategic-plan">SPR's own 2016 survey</a></div>
   </div>
 </div>
 
@@ -678,7 +678,7 @@
 <div class="part-break">
   <div class="part-label">Part One</div>
   <div class="part-title">The walkability paradox.</div>
-  <p class="part-intro">Seattle Parks &amp; Recreation has, accurately, branded itself a national leader on park access. 99% of residents live within a half-mile walk of a park — higher than every U.S. city except Boston and San Francisco. The problem: almost none of those parks allow dogs off-leash. Look closely at the 14 designated OLAs and the story inverts.</p>
+  <p class="part-intro">Seattle Parks &amp; Recreation has, accurately, branded itself a national leader on park access. <a href="https://www.tpl.org/city/seattle-washington">99% of residents</a> live within a half-mile walk of a park — <a href="https://www.tpl.org/parkscore">among the highest of any major U.S. city on TPL's 2025 rankings</a>. The problem: almost none of those parks allow dogs off-leash. Look closely at the 14 designated OLAs and the story inverts.</p>
 </div>
 
 <figure style="text-align:center; margin: 3rem auto 2.5rem; opacity:0.8;" aria-hidden="true">
@@ -754,19 +754,19 @@
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin: 24px 0 32px; max-width: 780px;">
   <div style="border-left: 3px solid var(--accent); padding: 10px 0 10px 18px;">
     <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 4px;">Citations OUTSIDE any OLA 0.5-mi walkshed</div>
-    <div style="font-family: 'Fraunces', serif; font-size: 42px; font-weight: 600; line-height: 1.02; color: var(--accent);">72.1%</div>
-    <div style="font-size: 13px; color: var(--ink-soft); margin-top: 4px;">2,563 of the 3,554 placed citations (park-named + Census-geocoded street addresses)</div>
+    <div style="font-family: 'Fraunces', serif; font-size: 42px; font-weight: 600; line-height: 1.02; color: var(--accent);">72.2%</div>
+    <div style="font-size: 13px; color: var(--ink-soft); margin-top: 4px;">2,577 of the 3,570 placed citations (park-named + geocoded street addresses)</div>
   </div>
   <div style="border-left: 3px solid var(--accent-2); padding: 10px 0 10px 18px;">
     <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 4px;">Citations INSIDE an OLA walkshed</div>
-    <div style="font-family: 'Fraunces', serif; font-size: 42px; font-weight: 600; line-height: 1.02; color: var(--accent-2);">27.9%</div>
-    <div style="font-size: 13px; color: var(--ink-soft); margin-top: 4px;">991 citations &mdash; concentrated at Magnuson (248), Lower Woodland (222), Golden Gardens (174), Genesee (130), Westcrest (86); the rest spread across Cascade Playground, Denny, Kinnear, and Northacres, plus 101 geocoded street-addresses that fall inside an OLA walkshed</div>
+    <div style="font-family: 'Fraunces', serif; font-size: 42px; font-weight: 600; line-height: 1.02; color: var(--accent-2);">27.8%</div>
+    <div style="font-size: 13px; color: var(--ink-soft); margin-top: 4px;">993 citations &mdash; concentrated at Magnuson (248), Lower Woodland (222), Golden Gardens (174), Genesee (130), Westcrest (86); the rest spread across Cascade Playground, Denny, Kinnear, and Northacres, plus 103 geocoded street-addresses that fall inside an OLA walkshed</div>
   </div>
 </div>
 
 <p>Of 35 uniquely identified parks appearing in the citation data, <strong>26 sit outside any OLA's 10-minute walkshed</strong>. Nine sit inside, of which eight are themselves OLA host parks: <strong>Magnuson (248 citations), Lower Woodland (222), Golden Gardens (174), Genesee (130), Westcrest (86), Denny Park (10), Kinnear (5), Northacres (2)</strong>, plus Cascade Playground (13) which sits inside Denny's walkshed. At the larger host parks (Magnuson, Westcrest, Genesee, Golden Gardens) the citations are happening on the non-OLA portions of those parks &mdash; athletic fields, shorelines, wooded sections &mdash; where people bring their dogs because they live nearby and the fenced OLA doesn't serve the use they actually want.</p>
 
-<p style="font-size: 14px; color: var(--ink-soft); max-width: 720px;"><strong>Two passes, same direction.</strong> Park-named only: 69.6% outside (2,035 of 2,925). Combined with 629 street-address citations geocoded via the Census Bureau (449 of 481 unique addresses matched): 72.1% outside (2,563 of 3,554). Adding the street addresses nudges the share up because residential addresses are almost never inside a park polygon. Reproducible end-to-end via <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/citation_walkshed_analysis.py">citation_walkshed_analysis.py</a> + <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/geocode_street_addresses.py">geocode_street_addresses.py</a>.</p>
+<p style="font-size: 14px; color: var(--ink-soft); max-width: 720px;"><strong>Two passes, same direction.</strong> Park-named only: 69.6% outside (2,035 of 2,925). Combined with 645 street-address citations geocoded via the Census Bureau batch geocoder with Nominatim fallback (457 of 481 unique addresses matched, 95.0%): 72.2% outside (2,577 of 3,570). Adding the street addresses nudges the share up because residential addresses are almost never inside a park polygon. Reproducible end-to-end via <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/citation_walkshed_analysis.py">citation_walkshed_analysis.py</a> + <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/geocode_street_addresses.py">geocode_street_addresses.py</a>.</p>
 
 <div class="chart-block" style="margin-top: 24px;">
   <div class="chart-title">Access × enforcement, one map</div>
