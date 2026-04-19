@@ -74,7 +74,7 @@ Seattle Park District's "Maintaining Parks & Facilities" Budget Summary Level (B
 ## 4. Dog population estimates range wildly  
 The "150,000+" number is the conservative floor, cited since ~2013 (Seattle Humane, Cascade PBS). SPR's own 2023 Expansion Study cites estimates up to 400,000. Use 150K for floor calculations. If higher numbers are used anywhere, cite SPR's Expansion Study explicitly.  
 ## 5. Austin's 682-acre figure is misleading  
-Austin shows up in some sources with ~682 acres of "off-leash area" — this is inflated by Red Bud Isle and similar shared-use hiking areas, not fenced dog parks. When citing Austin, the fenced/traditional OLA acreage is closer to 80. The peer-cities.csv has both numbers — use the adjusted one for apples-to-apples.  
+Austin shows up in some sources with ~682 acres of "off-leash area" — this is inflated by Walnut Creek Metropolitan Park (293 ac voice-control) and other natural-area sites, not fenced dog parks. Red Bud Isle is a *different* Austin dog park (~13 ac); earlier drafts of this project confused the two. When citing Austin, the fenced/traditional OLA acreage is closer to 80. The peer-cities.csv has both numbers — use the adjusted one for apples-to-apples.  
 ## 6. OLA coordinates in seattle-olas.csv are approximations  
 They were derived from SPR address data, not from an official GeoJSON layer. Good enough for display on a Leaflet map at city scale; don't use them for legal or engineering purposes. If someone wants canonical geometry, they're on Seattle's ArcGIS Open Data portal somewhere.  
 ## Known-incomplete work (on TODO, don't re-invent)  
