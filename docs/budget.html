@@ -486,6 +486,31 @@
 </div>
 
 <!-- ==================================================================== -->
+<h2><span class="num">Chart 03b</span>How does Seattle's OLA investment compare to other cities?</h2>
+<p class="lead">The honest answer on dollars: we can't fully tell. Almost no major U.S. or Canadian city publishes a dog-park-specific operating-budget line, so dollars-per-dog comparisons aren't possible for Portland, San Francisco, Vancouver BC, or most others. What <em>is</em> published everywhere is OLA acreage and city population &mdash; which lets us compute a close proxy: <strong>dedicated off-leash space per dog</strong>. That tells the same story.</p>
+
+<div class="chart-block">
+  <div class="chart-title">Off-leash space per dog, five West Coast &amp; peer cities</div>
+  <div class="chart-subtitle">Each city's published OLA acreage divided by an estimated dog population (city population &times; 0.30 dogs/person, a nationally conservative AVMA-derived rate). Reported in square feet per dog. Caveat on Portland and SF: their acreage totals include unfenced voice-control sites that Seattle doesn't count &mdash; so the Portland/SF bars slightly <em>over</em>-state what a Seattle-methodology-equivalent comparison would show. The direction and magnitude still hold.</div>
+  <div class="chart-wrap"><canvas id="chartSpacePerDogCities" role="img" aria-label="Horizontal bar chart: Off-leash space per dog in square feet across Seattle (5.5), Austin fenced-only (11.3), Portland (18.7), San Francisco (20.0), and Vancouver BC (36.7). Seattle is dramatically smaller than every peer."></canvas></div>
+  <div class="note-box"><strong>What this shows:</strong> a Seattle dog has <strong>~5.5 sq ft</strong> of legal off-leash space &mdash; the footprint of a doormat. A Portland dog has <strong>~19 sq ft</strong>, a San Francisco dog has <strong>~20 sq ft</strong>, a Vancouver dog has <strong>~37 sq ft</strong>. Even Austin's fenced-only comparable (~11 sq ft) is more than twice Seattle's. This isn't about ownership rate precision &mdash; even if Seattle's dog population were half what we estimate, a Seattle dog would still have less off-leash space per dog than any peer. The city made the <em>space</em> smaller; the <em>spending</em> gap that the site can only partly measure is downstream of that.</div>
+  <div class="chart-source">Math: OLA acreage from <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/peer-cities.csv">data/peer-cities.csv</a> (Seattle 30.7, Austin 80 fenced-comparable, Portland 85, SF 120, Vancouver BC 168). City populations: WA OFM 2025 (Seattle), US Census ACS 2023 (Portland/SF/Austin), Statistics Canada 2021 (Vancouver BC). Dog-ownership rate: AVMA 2025 Pet Ownership &amp; Demographics Sourcebook applied uniformly at 0.30 dogs/resident; actual rates vary ±30% by metro and Seattle is on the high end per the 2023 SPR Expansion Study.</div>
+</div>
+
+<div class="note-box" style="margin-top: 32px; background: rgba(166,138,46,0.08); border-left: 3px solid var(--accent-4);">
+  <strong style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent-4); display: block; margin-bottom: 8px;">What we could actually verify on dollars</strong>
+  <p style="margin: 0 0 12px; max-width: 780px;">Of the nine peer cities the site tracks, only <strong>two</strong> publish an OLA-specific budget line separable from general parks operations:</p>
+  <table class="data" style="margin: 0 0 10px; max-width: 720px;">
+    <thead><tr><th>City</th><th class="num">OLA operating, latest disclosed</th><th>Mechanism</th></tr></thead>
+    <tbody>
+      <tr><td>Seattle</td><td class="num">$129K (2024)</td><td>Budget-book line; not separately reported post-2024</td></tr>
+      <tr><td>Minneapolis</td><td class="num">Enterprise Fund (permit-funded)</td><td>Dedicated ring-fenced OLA fund; annual revenue/expense in <a href="https://www.minneapolisparks.org/about_us/leadership__financials/annual_financial_reports/">MPRB CAFR</a></td></tr>
+    </tbody>
+  </table>
+  <p style="margin: 0; max-width: 780px; font-size: 15px;">Minneapolis's <a href="peer-cities.html#minneapolis">Off-Leash Dog Park Enterprise Fund</a> is the only US precedent for OLA operating costs paid by user fees ($38/year resident permit, first dog). That's not necessarily the right policy for Seattle, but it is the only peer city where a reader can verify &mdash; line-item, in a published CAFR &mdash; what their city spends on OLAs. For everyone else, the OLA share is buried inside parks maintenance totals. <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/prrs/03-spr-ola-budget-split.md">PRR #3</a> asks SPR to restart publishing the Seattle split; equivalent PRRs to peer-city parks departments would be needed to construct a defensible dollars-per-dog comparison.</p>
+</div>
+
+<!-- ==================================================================== -->
 <h2><span class="num">Chart 04</span>Cycle 1 versus Cycle 2 OLA investment, cumulative</h2>
 <p class="lead">The Seattle Park District runs in six-year cycles. Cycle 1 ran 2015&ndash;2020 with publicly-stated $100,000/year OLA-only operating spend (~$600K total over six years). Cycle 2 (2023&ndash;2028) includes a one-time $3.46 million capital appropriation for West Seattle Stadium + Othello construction and Ravenna design, plus roughly $129K/year in OLA-only operating (the 2024 publicly-disclosed figure, assumed flat for illustration).</p>
 
@@ -1039,6 +1064,73 @@ The full year-by-year data is in <a href="https://github.com/avrignaud/seattledo
           ticks: { ...baseAxisStyle.ticks, callback: v => '$' + v.toFixed(2) }
         }
       }
+    }
+  });
+
+  // --- Chart 03b: Off-leash space per dog, five West Coast cities ---
+  // Acreage from peer-cities.csv. Dog population estimated at 0.30 dogs per
+  // resident (AVMA-derived US average, applied uniformly as a reader-friendly
+  // baseline). Sq ft per dog = (acres × 43,560) / (population × 0.30).
+  const peerSpace = [
+    { city: 'Seattle',       pop:  816600, acres: 30.7,  methodology: 'fenced only' },
+    { city: 'Austin (fenced)', pop: 1025000, acres: 80,  methodology: 'fenced comparable; excludes 293-ac Walnut Creek voice-control' },
+    { city: 'Portland',      pop:  660000, acres: 85,   methodology: 'mix; includes unfenced voice-control' },
+    { city: 'San Francisco', pop:  870000, acres: 120,  methodology: 'mix; includes DPAs inside larger parks' },
+    { city: 'Vancouver BC',  pop:  662000, acres: 168,  methodology: 'mix; includes time-restricted shared-use' },
+  ];
+  const DOG_RATE = 0.30;
+  const spaceRows = peerSpace.map(c => {
+    const dogs = c.pop * DOG_RATE;
+    const sqft = (c.acres * 43560) / dogs;
+    return { ...c, dogs, sqft };
+  }).sort((a, b) => a.sqft - b.sqft);
+
+  new Chart(document.getElementById('chartSpacePerDogCities'), {
+    type: 'bar',
+    data: {
+      labels: spaceRows.map(r => r.city),
+      datasets: [{
+        label: 'Sq ft of OLA per dog',
+        data: spaceRows.map(r => r.sqft),
+        backgroundColor: spaceRows.map(r => r.city === 'Seattle' ? ACCENT : ACCENT_3),
+        borderWidth: 0,
+        borderRadius: 2,
+        barPercentage: 0.82
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: {
+          label: ctx => {
+            const r = spaceRows[ctx.dataIndex];
+            return [
+              `${r.sqft.toFixed(1)} sq ft per dog`,
+              `${r.acres} acres OLA, ~${Math.round(r.dogs/1000)}K estimated dogs`,
+              r.methodology
+            ];
+          }
+        }},
+        datalabels: {
+          display: true,
+          anchor: 'end', align: 'end', offset: 4,
+          color: ctx => spaceRows[ctx.dataIndex].city === 'Seattle' ? ACCENT : INK,
+          font: { family: "'IBM Plex Mono', monospace", size: 11, weight: '600' },
+          formatter: v => v.toFixed(1) + ' sq ft'
+        }
+      },
+      scales: {
+        y: { ...baseAxisStyle, ticks: { ...baseAxisStyle.ticks, font: { size: 12, weight: '500' } } },
+        x: {
+          ...baseAxisStyle,
+          beginAtZero: true,
+          title: { display: true, text: 'Sq ft of dedicated off-leash space per estimated dog', color: INK_SOFT, font: { size: 11, family: "'IBM Plex Mono', monospace" } },
+          ticks: { ...baseAxisStyle.ticks, callback: v => v + ' sq ft' }
+        }
+      },
+      layout: { padding: { right: 56 } }
     }
   });
 
