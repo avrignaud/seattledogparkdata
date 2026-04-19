@@ -816,6 +816,48 @@
   <div class="chart-source">Source: <a href="https://www.seattle.gov/parks/recreation/dog-off-leash-areas">SPR individual OLA pages</a> · <a href="https://www.seattledogspot.com/">Seattle Dog Spot</a> · <a href="https://www.bringfido.com/attraction/parks/city/seattle_wa_us/">BringFido</a> · <a href="https://www.seattle.gov/parks/about-us/plans-and-reports/recreation-plans-and-reports/off-leash-area-study">SPR OLA Expansion Study 2023-24</a> · data in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">data/seattle-olas.csv</a></div>
 </div>
 
+<!-- =============================================================== -->
+<h2 id="finding-space-per-user"><span class="num">Finding 03b</span>Space per resident, space per dog</h2>
+<p class="lead">Another way to feel the scale: divide Seattle's total parkland by its human population, and divide Seattle's OLA footprint by its dog population. Draw the results at the same scale.</p>
+
+<div style="border: 1px solid var(--rule); background: #fff; padding: 32px 36px; margin: 28px 0 20px; border-radius: 2px;">
+  <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 24px;">Drawn to scale &middot; 1 px = ~0.4 sq ft</div>
+
+  <div style="display: flex; flex-wrap: wrap; gap: 40px 64px; align-items: flex-end; margin-bottom: 32px;">
+    <!-- Resident's share -->
+    <div style="flex: 0 0 auto; text-align: center;">
+      <div aria-hidden="true" style="width: 300px; height: 300px; background: rgba(44,74,110,0.16); border: 2px solid var(--accent-3); margin: 0 auto 12px; position: relative;">
+        <svg viewBox="0 0 24 24" width="48" height="48" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); fill: var(--accent-3);" aria-hidden="true"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+      </div>
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 6px;">Every Seattle resident's share of parkland</div>
+      <div style="font-family: 'Fraunces', serif; font-size: 36px; font-weight: 600; line-height: 1; color: var(--accent-3);">355 sq ft</div>
+      <div style="font-size: 13px; color: var(--ink-soft); margin-top: 6px;">About the footprint of a small studio apartment</div>
+    </div>
+
+    <!-- Dog's share -->
+    <div style="flex: 0 0 auto; text-align: center;">
+      <div aria-hidden="true" style="width: 37px; height: 37px; background: rgba(192,74,30,0.25); border: 2px solid var(--accent); margin: 0 auto 12px; position: relative;">
+        <svg viewBox="0 0 24 24" width="18" height="18" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); fill: var(--accent);" aria-hidden="true"><path d="M4 8a2 2 0 11-4 0 2 2 0 014 0zm16 0a2 2 0 11-4 0 2 2 0 014 0zM7 4a2 2 0 11-4 0 2 2 0 014 0zm14 0a2 2 0 11-4 0 2 2 0 014 0zm-9 3c-3 0-5 3-5 7 0 2 1 3 3 3 1 0 2-1 2-2 0 1 1 2 2 2s2-1 2-2c0 1 1 2 2 2 2 0 3-1 3-3 0-4-2-7-5-7h-4z"/></svg>
+      </div>
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 6px;">Every Seattle dog's share of OLA</div>
+      <div style="font-family: 'Fraunces', serif; font-size: 36px; font-weight: 600; line-height: 1; color: var(--accent);">5.4 sq ft</div>
+      <div style="font-size: 13px; color: var(--ink-soft); margin-top: 6px;">About the footprint of a doormat</div>
+    </div>
+  </div>
+
+  <p style="font-size: 16px; line-height: 1.55; margin: 0 0 14px; max-width: 760px;">
+    A Seattle resident has roughly <strong style="color: var(--ink);">66&times; more parkland per person</strong> than a Seattle dog has dedicated off-leash space per dog. Even at the conservative 150,000-dog floor (Seattle Humane's lower estimate), the gap only closes to <strong>40&times;</strong>.
+  </p>
+
+  <div class="note-box" style="margin: 18px 0 0;">
+    <strong>The honest asymmetry.</strong> Dogs <em>can</em> be in Seattle parks &mdash; on leash. The comparison here is specifically <em>off-leash</em> space. Seattle has 6,662 acres of parkland where off-leash dogs are either prohibited or actively cited. The 30.7 fenced-OLA acres are the only legal exception. 99.5% of Seattle's parkland is off-limits to off-leash dogs; that's the number the boxes are drawing.
+  </div>
+</div>
+
+<div class="chart-source" style="margin: 4px 0 36px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft);">
+  Math: 6,662 ac total parkland (<a href="https://www.tpl.org/city/seattle-washington">TPL 2025 ParkScore Seattle</a>) &divide; 816,600 residents (WA OFM 2025) = 0.00816 ac/resident = 355 sq ft. 30.7 ac OLA total (<a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">seattle-olas.csv</a>) &divide; 248,858 AVMA-estimated dogs (<a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/illegal-use-indicators.csv">illegal-use-indicators.csv</a>) = 5.37 sq ft/dog. Ratio 355/5.37 = 66.1.
+</div>
+
 <!-- ================================================================= -->
 <div class="size-standards">
   <h3>It's not just size — the amenities are sparse too</h3>
