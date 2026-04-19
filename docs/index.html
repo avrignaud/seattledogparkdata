@@ -389,22 +389,22 @@
   <div class="stat">
     <div class="label">Off-leash space per Seattle dog</div>
     <div class="num">~5.4 sq ft</div>
-    <div class="note">About the footprint of a doormat &mdash; 30.7 fenced OLA acres &divide; ~249K dogs</div>
+    <div class="note">About the footprint of a doormat &mdash; 30.7 fenced OLA acres &divide; ~249K AVMA-estimated dogs. <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv" style="color: var(--accent-3); font-family: 'IBM Plex Mono', monospace; font-size: 11px;">src</a></div>
   </div>
   <div class="stat">
     <div class="label">Years since the last new OLA opened</div>
     <div class="num">17</div>
-    <div class="note">Blue Dog Pond, 2009 &rarr; West Seattle Stadium, fall 2026</div>
+    <div class="note">Blue Dog Pond, 2009 &rarr; West Seattle Stadium, fall 2026. <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv" style="color: var(--accent-3); font-family: 'IBM Plex Mono', monospace; font-size: 11px;">src</a></div>
   </div>
   <div class="stat">
     <div class="label">Fewer dog parks per capita than Portland</div>
     <div class="num">3.2&times;</div>
-    <div class="note">Seattle 1.82 vs Portland 5.74 per 100K residents</div>
+    <div class="note">Seattle 1.82 vs Portland 5.74 per 100K residents. <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/peer-cities.csv" style="color: var(--accent-3); font-family: 'IBM Plex Mono', monospace; font-size: 11px;">src</a></div>
   </div>
   <div class="stat">
     <div class="label">Off-leash citations outside any OLA's 10-min walkshed</div>
     <div class="num">69.6%</div>
-    <div class="note">2,035 of 2,925 park-named citations, 2014&ndash;2019 (PRR)</div>
+    <div class="note">2,035 of 2,925 park-named citations, 2014&ndash;2019 (PRR). <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/walkshed/citation-rate-by-walkshed-status.csv" style="color: var(--accent-3); font-family: 'IBM Plex Mono', monospace; font-size: 11px;">src</a> &middot; <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/citation_walkshed_analysis.py" style="color: var(--accent-3); font-family: 'IBM Plex Mono', monospace; font-size: 11px;">script</a></div>
   </div>
 </div>
 
@@ -506,7 +506,7 @@
 
 <!-- ============================================ -->
 <h2>Methodology &amp; caveats</h2>
-<p>This site favors explicit methodology over headline-friendly numbers. Every derived number on every page links back to its underlying CSV and, where applicable, to the script that produced it. The master reference is <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/METHODOLOGY.md" style="color: var(--accent-3);"><strong>METHODOLOGY.md</strong></a> — the "show your work" index. A few caveats readers should also carry:</p>
+<p>This site favors explicit methodology over headline-friendly numbers. Every finding on the report pages links back to its underlying CSV and, where applicable, to the script that produced it. The master reference is <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/METHODOLOGY.md" style="color: var(--accent-3);"><strong>METHODOLOGY.md</strong></a> — the "show your work" index. A few caveats readers should also carry:</p>
 <ul class="link-list">
   <li><strong>Walkshed (now network-based).</strong> Previously a straight-line estimate of ~33% of residents; replaced April 2026 with a proper network-distance analysis: <strong>11.7% of Seattle residents</strong> live within a 10-minute walking path of an OLA, computed via <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/compute_walkshed.py" style="color: var(--accent-3);"><code>scripts/compute_walkshed.py</code></a> (osmnx against Seattle's full OSM walk network) and <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/population_coverage.py" style="color: var(--accent-3);"><code>scripts/population_coverage.py</code></a> (2020 Census block-group overlay, area-weighted). SPR's published 2.5-mile standard covers 76.6%.</li>
   <li><strong>Peer-city OLA counts differ in definition.</strong> Seattle counts only fully-fenced dedicated OLAs; Portland includes unfenced voice-control areas; Vancouver BC includes time-restricted shared-use areas. Direct comparison requires caveats.</li>
