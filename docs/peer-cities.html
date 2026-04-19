@@ -280,6 +280,7 @@
   <a href="index.html">Overview</a>
   <a href="part1-the-gap.html">Part I — The Gap</a>
   <a href="part2-access.html">Part II — Access</a>
+  <a href="part3.html">Part III — Forward</a>
   <a href="enforcement.html">Enforcement</a>
   <a href="budget.html">Budget</a>
   <a href="peer-cities.html" class="active">Peer Cities</a>
@@ -296,6 +297,8 @@
   <a href="#washington-dc">Washington DC</a>
   <a href="#minneapolis">Minneapolis</a>
   <a href="#new-york">New York City</a>
+  <a href="#austin">Austin</a>
+  <a href="#boise">Boise</a>
 </div>
 
 <!-- ==================================================================== -->
@@ -518,7 +521,57 @@
 </div>
 
 <!-- ==================================================================== -->
-<h2 id="takeaways">Takeaways across the six peers</h2>
+<h2 id="austin"><span class="num">Peer 07</span>Austin, TX &mdash; the acreage-headline trap</h2>
+<p class="lead">Austin is cited in several popular "most dog-friendly cities" rankings for its enormous off-leash acreage (~682 acres). That figure is misleading for apples-to-apples comparison: Austin counts large natural-area parks with voice-control designation, not the fenced dedicated OLAs that Seattle, Portland, and most peer cities count. The fenced-OLA comparable is closer to ~80 acres, one-eighth of the headline.</p>
+
+<div class="city-card">
+  <div class="headline-stats">
+    <div class="stat"><div class="label">Headline acreage</div><div class="value">682 ac</div><div class="note">Includes Red Bud Isle (293 ac) and natural-area voice-control sites</div></div>
+    <div class="stat"><div class="label">Fenced-OLA comparable</div><div class="value">~80 ac</div><div class="note">The number to use when comparing to Seattle, SF, or Portland fenced sites</div></div>
+    <div class="stat"><div class="label">Per 100K residents</div><div class="value">1.28</div><div class="note">Ranked <a href="https://www.tpl.org/city/austin-texas">#54 on TPL 2025 ParkScore</a></div></div>
+  </div>
+  <p><a href="https://www.austintexas.gov/department/leash-free-areas">Austin Parks &amp; Recreation</a> maintains a directory of leash-free areas that explicitly distinguishes fenced dog parks, voice-control dog zones, and natural-area off-leash sites. The cross-city headline ranking works if you include everything on that list; the capital-cost-per-acre comparison to Seattle or Portland fenced sites does not.</p>
+  <p>The <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/peer-cities.csv">peer-cities.csv</a> carries both numbers for Austin and uses the adjusted fenced-only figure (<code>ola_acres_total_est = 80</code>) for per-capita math, with Red Bud Isle called out as an outlier in the provenance column. Any peer-city comparison on this site that cites Austin uses the adjusted figure; readers chasing the Austin headline elsewhere will find the 682 number and should know which number they are reading.</p>
+  <div class="contrast">
+    <strong class="label">Why this matters for Seattle</strong>
+    When advocates or reporters cite Austin as a comparison city, always ask which number. The 682-acre figure is real but incomparable to Seattle's fenced 30.7 acres. The ~80-acre figure is the honest comparator, and on that basis Austin is still ~2.6× Seattle per capita but nothing close to the 22× implied by the headline.
+  </div>
+  <div class="sources">
+    <strong>Sources:</strong>
+    <a href="https://www.austintexas.gov/department/leash-free-areas">Austin PARD &mdash; Leash-Free Areas</a> &middot;
+    <a href="https://www.tpl.org/city/austin-texas">TPL 2025 ParkScore Austin</a> &middot;
+    <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/peer-cities.csv">data/peer-cities.csv</a> (provenance column documents the adjustment)
+  </div>
+</div>
+
+<!-- ==================================================================== -->
+<h2 id="boise"><span class="num">Peer 08</span>Boise, ID &mdash; the best-in-class baseline</h2>
+<p class="lead">Boise is the counter-example that defeats the "Seattle is different because it's a big city" argument. Boise has roughly a third of Seattle's population and more than four times the dog parks per capita. It is the best-in-class city on this metric by a wide margin, and the reason is neither size nor budget.</p>
+
+<div class="city-card">
+  <div class="headline-stats">
+    <div class="stat"><div class="label">Dog parks</div><div class="value">18</div><div class="note">Per <a href="https://www.cityofboise.org/departments/parks-and-recreation/parks/off-leash-areas/">Boise Parks &amp; Recreation</a></div></div>
+    <div class="stat"><div class="label">Per 100K residents</div><div class="value">7.60</div><div class="note">Highest of any peer city in this dataset</div></div>
+    <div class="stat"><div class="label">Population</div><div class="value">240K</div><div class="note">ACS 2023 estimate &mdash; roughly one-third of Seattle</div></div>
+  </div>
+  <p>Boise's off-leash system includes fenced dog parks plus scheduled off-leash hours at specific riverfront sections. Multiple national rankings place Boise at or near the top of US cities for dog-park-per-capita availability; the city's own parks department treats dog access as a standard amenity rather than a specialized asset.</p>
+  <div class="contrast">
+    <strong class="label">Why this matters for Seattle</strong>
+    The most common defense of Seattle's low OLA density is that big dense cities are structurally harder to site dog parks in. Boise is smaller but the per-capita ratio goes the <em>other</em> way: it suggests sizing OLAs is a political-will choice, not a physical-constraint choice. Seattle has ten times Boise's tech-worker income base and one-quarter Boise's per-capita OLA count.
+  </div>
+  <div class="data-gap" style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--accent-4); padding: 10px 14px; background: rgba(166,138,46,0.08); border-left: 2px solid var(--accent-4); margin: 14px 0; line-height: 1.55;">
+    <strong style="color: var(--accent-4); text-transform: uppercase; letter-spacing: 0.12em; font-size: 10px; display: block; margin-bottom: 3px;">Research open</strong>
+    Boise's ParkScore coverage is inconsistent in TPL's top-100 dataset; dog-park count reconciled against the Boise PARD page April 2026 but may drift. The per-capita figure assumes 240K population (ACS 2023) — Boise has grown rapidly and this may be low. Primary-source verification is on the TODO list.
+  </div>
+  <div class="sources">
+    <strong>Sources:</strong>
+    <a href="https://www.cityofboise.org/departments/parks-and-recreation/parks/off-leash-areas/">Boise Parks &amp; Recreation &mdash; Off-Leash Areas</a> &middot;
+    <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/peer-cities.csv">data/peer-cities.csv</a>
+  </div>
+</div>
+
+<!-- ==================================================================== -->
+<h2 id="takeaways">Takeaways across the eight peers</h2>
 <p>Pulling the six detail pages together, four observations emerge:</p>
 <ol>
   <li><strong>Nobody publishes a dog-park-specific walkshed standard.</strong> Every peer uses the same 10-minute / half-mile standard that TPL, NRPA, ULI, NPS, and CDC use for parks generally. SPR's 2.5-mile OLA-specific standard is a peer-city outlier by 5×.</li>
