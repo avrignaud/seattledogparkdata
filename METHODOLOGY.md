@@ -38,9 +38,8 @@ These files are built by scripts. Do not hand-edit them — edit the inputs and 
 
 **Data-quality summary** (output of the verification step of the script):
 - **4,803 total citations** across 2014-01-01 → 2019-10-15.
-- **854 unique raw address strings** collapse to **811 unique canonical names** after regex reconciliation.
-- **2,679 citations (55.8%)** folded into one of the 43 canonical named-park entries (e.g. "Warren G. Magnuson Park" and "Magnuson park" both → "Magnuson Park").
-- **1,341 citations (27.9%)** pass through as named parks that the canonicalizer didn't know about — these are smaller, less-cited parks; they still appear in the aggregate CSV under their as-recorded names.
+- **3,414 citations (71.1%)** folded into one of 66 canonical named-park buckets via the regex map (e.g. "Warren G. Magnuson Park" and "Magnuson park" both → "Magnuson Park"). The committed regex map carries ~80 patterns; not all fire against the 2014-2019 data.
+- **606 citations (12.6%)** pass through as named parks that the canonicalizer didn't recognize — 216 distinct as-recorded names, typically smaller, less-cited parks; they still appear in the aggregate CSV under their as-recorded names.
 - **672 citations (14.0%)** have a street address rather than a park name. These are excluded from per-park counts and the hotspot map. They remain in `enforcement-citations.csv` under `location_raw`.
 - **111 citations (2.3%)** have a blank location field. These are lost for spatial analysis but still count in the year trend and offense-level breakdown.
 - **Combined, 16.3% of citations (783 rows)** are not spatially attributable. The hotspot/heatmap analysis covers the remaining **4,020 citations (83.7%)**.
@@ -54,7 +53,7 @@ These files are built by scripts. Do not hand-edit them — edit the inputs and 
 | Woodland Park | 5 — "Lower Woodland Park ball field", "Woodland Park Off-Leash", "woodland park", etc. This fold is *intentionally lossy*: the raw records don't reliably distinguish citations inside the Lower Woodland OLA (0.75 ac) from citations in the rest of the larger Woodland Park. Classified as "partial" on the map. |
 | West Queen Anne Playfield | 3 — "W. Queen Anne Playfield", "West Queen Anne Playfield", "W Queen Anne Playfield" |
 
-Only 43 of the 811 canonical entries required multi-variant reconciliation; the other 768 came through the raw data with a single spelling.
+The 66 canonical buckets are the ones the regex map recognized in this data; the remaining 216 pass-through names reach the CSV as-recorded.
 
 **Reproduce:**
 ```
@@ -124,11 +123,11 @@ No bare numbers appear without one of the above.
 
 **Completed**
 
-1. **Network walkshed in Python (April 2026).** Implemented at `scripts/compute_walkshed.py` + `scripts/population_coverage.py`. Replaces the earlier straight-line 33% straight-line estimate with population-weighted network-distance figures: 11.6% at 10-min / 0.5-mi, 76.6% at SPR's 2.5-mi, using 2020 Census block-group population. Output at `data/walkshed/population_coverage.csv` + `data/walkshed/ola_isochrones.geojson`.
+1. **Network walkshed in Python (April 2026).** Implemented at `scripts/compute_walkshed.py` + `scripts/population_coverage.py`. Replaces the earlier straight-line 33% straight-line estimate with population-weighted network-distance figures: 11.7% at 10-min / 0.5-mi, 76.6% at SPR's 2.5-mi, using 2020 Census block-group population. Output at `data/walkshed/population_coverage.csv` + `data/walkshed/ola_isochrones.geojson`.
 
 **Planned (priority order)**
 
-1. **Alpha-shape refinement of the walkshed isochrones.** COMPLETED: the walkshed pipeline uses an alpha-shape of reachable-node clouds (alpha=0.003) rather than a convex hull. Alpha-shape hugs walk-network concavities, shrinking each isochrone vs. convex-hull by roughly a percentage point on city-wide coverage. The 11.6% figure is the post-alpha-shape number.
+1. **Alpha-shape refinement of the walkshed isochrones.** COMPLETED: the walkshed pipeline uses an alpha-shape of reachable-node clouds (α=0.003) rather than a convex hull, with a 0.3 km² area floor and a convex-hull fallback for any OLA at the edge of OSM coverage (Westcrest is the one that trips this). Alpha-shape hugs walk-network concavities, shrinking each isochrone vs. convex-hull by roughly a percentage point on city-wide coverage. The 11.7% figure is the post-alpha-shape number.
 2. **Geocoding pass on the 672 street-address rows** in `enforcement-citations.csv`. Use an offline pipeline (US Census Geocoder API or Seattle's address points dataset) + spatial join against Seattle's park-boundary polygon layer. Could recover a meaningful share of the currently-excluded 14% of citations.
 3. **Dog population update.** Replace the 150,000 conservative floor with a defensibly current number from AVMA state estimates or King County license data (PRR if necessary).
 4. **OLA-only budget split** via `prrs/03-spr-ola-budget-split.md`. Separate OLA from P-Patch in the post-2022 "Maintaining Parks & Facilities" BSL.

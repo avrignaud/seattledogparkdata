@@ -407,19 +407,19 @@
 <section class="chapter">
   <div class="chapter-kicker">Part II</div>
   <h1 class="chapter-title">Access.</h1>
-  <p class="chapter-deck">99% of Seattleites live within a 10-minute walk of a park. 11.6% live that close to a dog park. Network walkshed analysis; amenity breakdown; the asymmetry between SPR's 2.5-mile OLA standard and TPL's 0.5-mile general-parks standard.</p>
+  <p class="chapter-deck">99% of Seattleites live within a 10-minute walk of a park. 11.7% live that close to a dog park. Network walkshed analysis; amenity breakdown; the asymmetry between SPR's 2.5-mile OLA standard and TPL's 0.5-mile general-parks standard.</p>
 
   <h2>01 · The walkshed</h2>
   <p>Trust for Public Land's 2025 ParkScore shows 99% of Seattle residents live within a 10-minute walk of a park — an industry-standard 0.5-mile half-mile walkshed. We applied the same methodology to OLAs only, using osmnx against Seattle's full OpenStreetMap walk network (110,383 nodes / 305,582 edges, projected to UTM 10N, physical barriers respected) and 2020 Census block-group population clipped to the Seattle city boundary.</p>
-  <div class="chart-wrap short"><canvas id="chartWalkshed" role="img" aria-label="Horizontal bar chart: 99% of Seattle residents live within a 10-minute walk of any park; 11.6% within a 10-minute walk of an OLA; 78.3% within SPR's 2.5-mile OLA standard."></canvas></div>
+  <div class="chart-wrap short"><canvas id="chartWalkshed" role="img" aria-label="Horizontal bar chart: 99% of Seattle residents live within a 10-minute walk of any park; 11.7% within a 10-minute walk of an OLA; 76.6% within SPR's 2.5-mile OLA standard."></canvas></div>
 
   <div class="map-wrap" id="mapWalkshed"></div>
-  <p class="map-caption"><strong>The walkshed, mapped.</strong> Green polygons are the 0.5-mile (10-minute) network walksheds around each of Seattle's 14 existing OLAs. Orange dots are OLAs. The unshaded area — most of the city — is what "11.6%" means in practice. Interactive version with zoom, hover, and the 1.0-mi and 2.5-mi isochrones at <strong>seattledogparkdata.com/part2-access.html</strong>.</p>
+  <p class="map-caption"><strong>The walkshed, mapped.</strong> Green polygons are the 0.5-mile (10-minute) network walksheds around each of Seattle's 14 existing OLAs. Orange dots are OLAs. The unshaded area — most of the city — is what "11.7%" means in practice. Interactive version with zoom, hover, and the 1.0-mi and 2.5-mi isochrones at <strong>seattledogparkdata.com/part2-access.html</strong>.</p>
   <table>
     <thead><tr><th>Measure</th><th class="num">% of residents</th></tr></thead>
     <tbody>
       <tr><td>Within 10-min walk of any park (TPL 2025)</td><td class="num">99%</td></tr>
-      <tr><td>Within 10-min walk of an OLA (repo-computed)</td><td class="num">11.6%</td></tr>
+      <tr><td>Within 10-min walk of an OLA (repo-computed)</td><td class="num">11.7%</td></tr>
       <tr><td>Within SPR's 2.5-mi OLA access standard</td><td class="num">76.6%</td></tr>
     </tbody>
   </table>
@@ -460,7 +460,7 @@
     <tbody>
       <tr><td>Lighting</td><td class="num">2 of 14</td><td>Westcrest, Denny Park</td></tr>
       <tr><td>Drinking water / hose</td><td class="num">9 of 14</td><td>Westcrest, Genesee, I-5 Colonnade, Blue Dog Pond, Dr. Jose Rizal, Denny, Magnolia Manor, Regrade, Plymouth Pillars</td></tr>
-      <tr><td>Small-dog separate area</td><td class="num">2 of 14</td><td>Westcrest, Genesee</td></tr>
+      <tr><td>Small-dog separate area</td><td class="num">5 of 14</td><td>Magnuson, Westcrest, Genesee, Golden Gardens, Magnolia Manor</td></tr>
     </tbody>
   </table>
 
@@ -499,12 +499,12 @@
   <table>
     <thead><tr><th>Measure</th><th class="num">Value</th></tr></thead>
     <tbody>
-      <tr><td>Citations OUTSIDE any OLA 0.5-mi walkshed (park-named + geocoded street addresses)</td><td class="num"><strong>78.4% (2,800 of 3,570)</strong></td></tr>
-      <tr><td>Citations OUTSIDE (park-named only, prior headline)</td><td class="num">77.2% (2,257 of 2,925)</td></tr>
-      <tr><td>Citations INSIDE an OLA walkshed</td><td class="num">21.6% (770)</td></tr>
-      <tr><td>Unique parks in citation data sitting outside any OLA walkshed</td><td class="num">27 of 35</td></tr>
-      <tr><td>Unique parks inside an OLA walkshed</td><td class="num">8 of 35</td></tr>
-      <tr><td>Street addresses successfully geocoded via Census Bureau batch geocoder</td><td class="num">457 of 481 (95.0%)</td></tr>
+      <tr><td>Citations OUTSIDE any OLA 0.5-mi walkshed (park-named + geocoded street addresses)</td><td class="num"><strong>72.1% (2,563 of 3,554)</strong></td></tr>
+      <tr><td>Citations OUTSIDE (park-named only)</td><td class="num">69.6% (2,035 of 2,925)</td></tr>
+      <tr><td>Citations INSIDE an OLA walkshed (combined)</td><td class="num">27.9% (991)</td></tr>
+      <tr><td>Unique parks in citation data sitting outside any OLA walkshed</td><td class="num">26 of 35</td></tr>
+      <tr><td>Unique parks inside an OLA walkshed</td><td class="num">9 of 35</td></tr>
+      <tr><td>Street addresses successfully geocoded via Census Bureau batch geocoder</td><td class="num">449 of 481 (93.3%)</td></tr>
     </tbody>
   </table>
   <div class="map-wrap" id="mapMerged"></div>
@@ -529,16 +529,16 @@
 
   <h2>02 · Citations per year, 2014&ndash;2019</h2>
   <p>Citations rose sharply through 2018, more than doubling in four years. The 2019 number covers only January through October 15 (the PRR cutoff); pro-rated, 2019 would likely have exceeded 2018.</p>
-  <div class="chart-wrap short"><canvas id="chartYearTrend" role="img" aria-label="Bar chart: off-leash citations per year 2014-2019 — 321, 385, 956, 848, 1,260, 1,033. 2019 is partial Jan 1 to Oct 15."></canvas></div>
+  <div class="chart-wrap short"><canvas id="chartYearTrend" role="img" aria-label="Bar chart: off-leash citations per year 2014-2019 — 183, 519, 952, 844, 1,276, 1,029. 2019 is partial Jan 1 to Oct 15."></canvas></div>
   <table>
     <thead><tr><th>Year</th><th class="num">Citations</th><th>Period</th></tr></thead>
     <tbody>
-      <tr><td>2014</td><td class="num">321</td><td>full year</td></tr>
-      <tr><td>2015</td><td class="num">385</td><td>full year</td></tr>
-      <tr><td>2016</td><td class="num">956</td><td>full year</td></tr>
-      <tr><td>2017</td><td class="num">848</td><td>full year</td></tr>
-      <tr><td>2018</td><td class="num">1,260</td><td>full year</td></tr>
-      <tr><td>2019</td><td class="num">1,033</td><td>Jan 1 &ndash; Oct 15 (PRR cutoff)</td></tr>
+      <tr><td>2014</td><td class="num">183</td><td>full year</td></tr>
+      <tr><td>2015</td><td class="num">519</td><td>full year</td></tr>
+      <tr><td>2016</td><td class="num">952</td><td>full year</td></tr>
+      <tr><td>2017</td><td class="num">844</td><td>full year</td></tr>
+      <tr><td>2018</td><td class="num">1,276</td><td>full year</td></tr>
+      <tr><td>2019</td><td class="num">1,029</td><td>Jan 1 &ndash; Oct 15 (PRR cutoff)</td></tr>
       <tr><td><strong>Total</strong></td><td class="num"><strong>4,803</strong></td><td>69.5 months</td></tr>
     </tbody>
   </table>
@@ -767,7 +767,7 @@
   <ul>
     <li><strong>O1 · Expanding enforcement does not change the structural math.</strong> Going from one ACO to two full-time seven-day positions moves 0.5% citation probability to maybe 0.8%. The behavior does not meaningfully change below ~5% enforcement probability, which Seattle cannot staff.</li>
     <li><strong>O2 · The fine-based model is regressive and structurally mismatched.</strong> $54 is trivial to wealthy owners and meaningful to lower-income ones. Raising fines doesn't close the gap; it widens the regressive one.</li>
-    <li><strong>O3 · Owners break the rule for rational reasons — it's a supply failure producing a compliance failure.</strong> 11.6% live near a legal OLA. Seven of 14 OLAs are below AKC's 1-acre floor. Several OLAs are adjacent to chronic encampment safety issues. Enforcement alone does not address any of these causes.</li>
+    <li><strong>O3 · Owners break the rule for rational reasons — it's a supply failure producing a compliance failure.</strong> 11.7% live near a legal OLA. Seven of 14 OLAs are below AKC's 1-acre floor. Several OLAs are adjacent to chronic encampment safety issues. Enforcement alone does not address any of these causes.</li>
   </ul>
 
   <h2>Does the NYC model actually work?</h2>
@@ -805,7 +805,7 @@
   </table>
 
   <h2>10-minute walkshed</h2>
-  <p>Repo-computed via <code>scripts/compute_walkshed.py</code> (osmnx against Seattle OSM walk network, projected to UTM 10N, multi-seed alpha-shape isochrones at 0.5 / 1.0 / 2.5 miles) and <code>scripts/population_coverage.py</code> (2020 Census decennial P1 block-group population via pygris/TIGER 2020, area-weighted attribution, clipped to Seattle Places boundary). Convex-hull approximation tends to slightly overstate walkable area; true alpha-shape would likely shift the 11.6% figure a percentage point or two down. Output in <code>data/walkshed/population_coverage.csv</code>.</p>
+  <p>Repo-computed via <code>scripts/compute_walkshed.py</code> (osmnx against Seattle OSM walk network, projected to UTM 10N, multi-seed alpha-shape isochrones at 0.5 / 1.0 / 2.5 miles) and <code>scripts/population_coverage.py</code> (2020 Census decennial P1 block-group population via pygris/TIGER 2020, area-weighted attribution, clipped to Seattle Places boundary). Convex-hull approximation tends to slightly overstate walkable area; true alpha-shape would likely shift the 11.7% figure a percentage point or two down. Output in <code>data/walkshed/population_coverage.csv</code>.</p>
 
   <h2>OLA coordinates</h2>
   <p>Authoritative geometry pulled April 2026 from SPR's Dog Off-Leash Areas ArcGIS feature service (<code>services.arcgis.com/ZOyb2t4B0UYuYNYH/arcgis/rest/services/Dog_Off_Leash_Areas/FeatureServer/0</code>). Replaces earlier address-derived approximations. Several points moved 0.3–1.5 km in the process.</p>
@@ -946,13 +946,13 @@
     }
   });
 
-  // Chart 5: Walkshed 99 / 9.5 / 78.3
+  // Chart 5: Walkshed 99 / 11.7 / 76.6
   new Chart(document.getElementById('chartWalkshed'), {
     type: 'bar',
     data: {
       labels: ['Any park — 10-min walk (TPL)', 'OLA — 10-min walk', 'OLA — SPR 2.5-mi standard'],
       datasets: [{
-        data: [99, 9.5, 78.3],
+        data: [99, 11.7, 76.6],
         backgroundColor: [PEER, SEATTLE, 'rgba(192,74,30,0.5)'],
         borderWidth: 0
       }]
@@ -974,7 +974,7 @@
     data: {
       labels: ['2014','2015','2016','2017','2018','2019*'],
       datasets: [{
-        data: [321, 385, 956, 848, 1260, 1033],
+        data: [183, 519, 952, 844, 1276, 1029],
         backgroundColor: ['#C04A1E','#C04A1E','#C04A1E','#C04A1E','#C04A1E','rgba(192,74,30,0.55)'],
         borderWidth: 0
       }]

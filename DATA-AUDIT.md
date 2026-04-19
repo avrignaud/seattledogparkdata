@@ -68,8 +68,8 @@ Matches page prose (~$241K over 2014–2019). Cost-recovery math
 
 ### Walkshed numbers (from `scripts/compute_walkshed.py` + `population_coverage.py`)
 
-- 0.5-mi (10-min walk) pop coverage: **9.47%** → displayed as 9.5%
-- 2.5-mi (SPR standard) pop coverage: **78.32%** → displayed as 78.3%
+- 0.5-mi (10-min walk) pop coverage: **11.69%** → displayed as 11.7%
+- 2.5-mi (SPR standard) pop coverage: **76.64%** → displayed as 76.6%
 - Seattle city pop used: **737,559** (2020 Census decennial via TIGER 2020)
 
 Both figures reproducible from committed scripts against fixed CSV +

@@ -2,7 +2,7 @@ ola,distance,area_sqkm,center_lat,center_lng
 Magnuson Park,0.5mi,0.98,47.6827,-122.2571
 Magnuson Park,1.0mi,2.456,47.6827,-122.2571
 Magnuson Park,2.5mi,13.117,47.6827,-122.2571
-Westcrest,0.5mi,0.26,47.52578,-122.34172
+Westcrest,0.5mi,0.765,47.52578,-122.34172
 Westcrest,1.0mi,1.01,47.52578,-122.34172
 Westcrest,2.5mi,7.814,47.52578,-122.34172
 Dr. Jose Rizal,0.5mi,0.726,47.59386,-122.31809
@@ -41,6 +41,6 @@ Kinnear,2.5mi,19.866,47.62696,-122.36766
 Denny Park,0.5mi,1.74,47.61937,-122.34108
 Denny Park,1.0mi,5.618,47.61937,-122.34108
 Denny Park,2.5mi,26.021,47.61937,-122.34108
-__UNION_ALL_OLAS__,0.5mi,15.606,,
+__UNION_ALL_OLAS__,0.5mi,16.111,,
 __UNION_ALL_OLAS__,1.0mi,47.766,,
 __UNION_ALL_OLAS__,2.5mi,153.813,,

@@ -24,6 +24,8 @@ https://www.tpl.org/park-data-downloads).
 
 ## How this was produced
 
+The Seattle slice of the nationwide TPL shapefile:
+
 ```bash
 .venv/bin/python -c "
 import geopandas as gpd
@@ -32,6 +34,16 @@ seattle = g[g['PlaceID'].astype(str) == '5363000'].to_crs('EPSG:4326')
 seattle.to_file('data/tpl-parkserve/seattle-park-priority-areas.geojson', driver='GeoJSON')
 "
 ```
+
+The two overlay CSVs are regenerated from the slice + walkshed union
+via a committed script:
+
+```bash
+.venv/bin/python3 scripts/build_tpl_overlay.py
+```
+
+Refresh when either input changes: a new ParkServe release from TPL,
+or a change to `data/walkshed/ola_isochrones.geojson`.
 
 ## Intended use
 
@@ -49,18 +61,18 @@ cross each BG's TPL rank against whether it intersects the union of
 
 | ParkRank (1 = lowest priority, 3 = highest) | BGs | With OLA walkshed | % |
 |---:|---:|---:|---:|
-| 1 | 219 | 31 | 14.2% |
-| 2 | 201 | 19 |  9.5% |
-| 3 | 186 | 57 | 30.6% |
+| 1 | 219 | 37 | 16.9% |
+| 2 | 201 | 29 | 14.4% |
+| 3 | 186 | 65 | 34.9% |
 
 Splitting more finely by TPL's continuous `ParkPriori` index (0–5):
 
 | ParkPriori tier | BGs | With OLA walkshed | % |
 |---:|---:|---:|---:|
-| 1–2 | 122 | 18 | 14.8% |
-| 2–3 | 227 | 21 |  9.3% |
-| 3–4 | 170 | 34 | 20.0% |
-| 4–5 |  87 | 34 | 39.1% |
+| 1–2 | 122 | 19 | 15.6% |
+| 2–3 | 227 | 33 | 14.5% |
+| 3–4 | 170 | 41 | 24.1% |
+| 4–5 |  87 | 38 | 43.7% |
 
 **Reading:** Seattle's OLAs land in a bimodal pattern. The highest-
 priority block groups (those TPL ranks most acutely in need of new
@@ -68,5 +80,5 @@ parks on equity/health grounds) actually have *above-average* OLA
 walkshed coverage — Magnuson/Sand Point, Westcrest/Highland Park, and
 Blue Dog Pond/Mt. Baker all sit in high-priority areas. But the
 middle tier — BGs with moderate priority on TPL's composite — has
-*the lowest* OLA access at 9.3%. Those are where the gap lives.
+*the lowest* OLA access at 14.5%. Those are where the gap lives.
 

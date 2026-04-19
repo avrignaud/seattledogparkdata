@@ -1,17 +1,17 @@
 park_name,latitude,longitude,has_ola,neighborhood,notes,provenance
 Discovery Park,47.6564,-122.4063,no,Magnolia,534-acre natural area; no designated OLA,sourced: park centroid approximation from Seattle GIS / manual geocode (pre-2024)
-Magnuson Park,47.6809,-122.2574,yes,Sand Point,9.0-acre OLA (largest in city),sourced: park centroid approximation; OLA-host parks may differ slightly from the SPR ArcGIS OLA point (see seattle-olas.csv)
+Magnuson Park,47.68270,-122.25710,yes,Sand Point,9.0-acre OLA (largest in city),sourced: coord from SPR ArcGIS FeatureServer (2026-04) via data/seattle-olas.csv
 Volunteer Park,47.6302,-122.3157,no,Capitol Hill,No OLA; nearest is Plymouth Pillars (0.15 ac),sourced: park centroid approximation from Seattle GIS / manual geocode (pre-2024)
-Woodland Park,47.6722,-122.3322,partial,Green Lake,Lower Woodland has 0.75-acre OLA in larger park,sourced: manual geocode
-Golden Gardens Park,47.6911,-122.4034,yes,Ballard,1.0-acre OLA in upper portion,sourced: park centroid approximation; OLA-host parks may differ slightly from the SPR ArcGIS OLA point (see seattle-olas.csv)
+Woodland Park,47.67042,-122.34431,partial,Green Lake,Lower Woodland has 0.75-acre OLA in larger park,sourced: coord from SPR ArcGIS FeatureServer (2026-04) via data/seattle-olas.csv
+Golden Gardens Park,47.69090,-122.40064,yes,Ballard,1.0-acre OLA in upper portion,sourced: coord from SPR ArcGIS FeatureServer (2026-04) via data/seattle-olas.csv
 Cal Anderson Park,47.6178,-122.3202,no,Capitol Hill,No OLA,sourced: park centroid approximation from Seattle GIS / manual geocode (pre-2024)
-Genesee Park,47.56395,-122.27608,yes,Columbia City,2.7-acre OLA (Genesee Park and Playfield); coord reconciled to SPR ArcGIS April 2026,sourced: coord from SPR ArcGIS FeatureServer (2026-04)
+Genesee Park,47.56395,-122.27608,yes,Columbia City,2.7-acre OLA (Genesee Park and Playfield); coord reconciled to SPR ArcGIS April 2026,sourced: coord from SPR ArcGIS FeatureServer (2026-04) via data/seattle-olas.csv
 Lincoln Park,47.5300,-122.3936,no,West Seattle,No OLA; West Seattle Stadium OLA opens fall 2026,sourced: park centroid approximation from Seattle GIS / manual geocode (pre-2024)
 Martha Washington Park,47.5347,-122.2567,no,Rainier Beach,No OLA,sourced: park centroid approximation from Seattle GIS / manual geocode (pre-2024)
 Green Lake Park,47.6805,-122.3290,no,Green Lake,No OLA at Green Lake itself,sourced: park centroid approximation from Seattle GIS / manual geocode (pre-2024)
 Wallingford Playfield,47.6578,-122.3337,no,Wallingford,No OLA,sourced: park centroid approximation from Seattle GIS / manual geocode (pre-2024)
 Seward Park,47.5526,-122.2558,no,Seward Park,No OLA; 300-acre peninsular forest,sourced: park centroid approximation from Seattle GIS / manual geocode (pre-2024)
-Westcrest Park,47.52578,-122.34172,yes,Highland Park,8.4-acre OLA (second largest); coord reconciled to SPR ArcGIS April 2026 (prior value was ~1.17 km west — likely data-entry error),sourced: coord from SPR ArcGIS FeatureServer (2026-04)
+Westcrest Park,47.52578,-122.34172,yes,Highland Park,8.4-acre OLA (second largest); coord reconciled to SPR ArcGIS April 2026 (prior value was ~1.17 km west — likely data-entry error),sourced: coord from SPR ArcGIS FeatureServer (2026-04) via data/seattle-olas.csv
 West Queen Anne Playfield,47.6359,-122.3656,no,Queen Anne,No OLA; Kinnear (0.1 ac) is nearest,sourced: park centroid approximation from Seattle GIS / manual geocode (pre-2024)
 Maple Leaf Reservoir Park,47.6912,-122.3198,no,Maple Leaf,No OLA,sourced: park centroid approximation from Seattle GIS / manual geocode (pre-2024)
 Rogers Playground,47.6431,-122.3240,no,Eastlake,No OLA,sourced: park centroid approximation from Seattle GIS / manual geocode (pre-2024)
@@ -24,15 +24,15 @@ Gas Works Park,47.6456,-122.3344,no,Wallingford,No OLA,sourced: park centroid ap
 Matthews Beach Park,47.6986,-122.2684,no,Matthews Beach,No OLA,sourced: park centroid approximation from Seattle GIS / manual geocode (pre-2024)
 Madrona Park,47.6083,-122.2886,no,Madrona,No OLA,sourced: park centroid approximation from Seattle GIS / manual geocode (pre-2024)
 Kerry Park,47.6294,-122.3599,no,Queen Anne,No OLA,sourced: park centroid approximation from Seattle GIS / manual geocode (pre-2024)
-Dr. Jose Rizal Park,47.5886,-122.3190,yes,Beacon Hill,4.0-acre OLA,sourced: park centroid approximation; OLA-host parks may differ slightly from the SPR ArcGIS OLA point (see seattle-olas.csv)
-Kinnear Park,47.6295,-122.3683,yes,Queen Anne,0.124-acre OLA (smallest in city),sourced: park centroid approximation; OLA-host parks may differ slightly from the SPR ArcGIS OLA point (see seattle-olas.csv)
-Denny Park,47.6186,-122.3369,yes,South Lake Union,0.105-acre park with tiny OLA,sourced: park centroid approximation; OLA-host parks may differ slightly from the SPR ArcGIS OLA point (see seattle-olas.csv)
-Plymouth Pillars,47.6145,-122.3236,yes,Capitol Hill,0.2-acre OLA,sourced: park centroid approximation; OLA-host parks may differ slightly from the SPR ArcGIS OLA point (see seattle-olas.csv)
-Regrade,47.6154,-122.3416,yes,Belltown,0.3-acre OLA,sourced: park centroid approximation; OLA-host parks may differ slightly from the SPR ArcGIS OLA point (see seattle-olas.csv)
-Blue Dog Pond,47.5904,-122.2931,yes,Mt. Baker,1.7-acre OLA (within Sam Smith Park),sourced: park centroid approximation; OLA-host parks may differ slightly from the SPR ArcGIS OLA point (see seattle-olas.csv)
-Northacres Park,47.7208,-122.3247,yes,Pinehurst,1.4-acre OLA,sourced: park centroid approximation; OLA-host parks may differ slightly from the SPR ArcGIS OLA point (see seattle-olas.csv)
-I-5 Colonnade,47.6486,-122.3228,yes,Eastlake,0.5-acre OLA under I-5,sourced: park centroid approximation; OLA-host parks may differ slightly from the SPR ArcGIS OLA point (see seattle-olas.csv)
-Magnolia Manor,47.6580,-122.3991,yes,Magnolia,0.48-acre OLA,sourced: park centroid approximation; OLA-host parks may differ slightly from the SPR ArcGIS OLA point (see seattle-olas.csv)
+Dr. Jose Rizal Park,47.59386,-122.31809,yes,Beacon Hill,4.0-acre OLA,sourced: coord from SPR ArcGIS FeatureServer (2026-04) via data/seattle-olas.csv
+Kinnear Park,47.62696,-122.36766,yes,Queen Anne,0.124-acre OLA (smallest in city),sourced: coord from SPR ArcGIS FeatureServer (2026-04) via data/seattle-olas.csv
+Denny Park,47.61937,-122.34108,yes,South Lake Union,0.105-acre park with tiny OLA,sourced: coord from SPR ArcGIS FeatureServer (2026-04) via data/seattle-olas.csv
+Plymouth Pillars,47.61434,-122.32895,yes,Capitol Hill,0.2-acre OLA,sourced: coord from SPR ArcGIS FeatureServer (2026-04) via data/seattle-olas.csv
+Regrade,47.61435,-122.34478,yes,Belltown,0.3-acre OLA,sourced: coord from SPR ArcGIS FeatureServer (2026-04) via data/seattle-olas.csv
+Blue Dog Pond,47.58889,-122.29863,yes,Mt. Baker,1.7-acre OLA (within Sam Smith Park),sourced: coord from SPR ArcGIS FeatureServer (2026-04) via data/seattle-olas.csv
+Northacres Park,47.72178,-122.32612,yes,Pinehurst,1.4-acre OLA,sourced: coord from SPR ArcGIS FeatureServer (2026-04) via data/seattle-olas.csv
+I-5 Colonnade,47.63483,-122.32376,yes,Eastlake,0.5-acre OLA under I-5,sourced: coord from SPR ArcGIS FeatureServer (2026-04) via data/seattle-olas.csv
+Magnolia Manor,47.65155,-122.39198,yes,Magnolia,0.48-acre OLA,sourced: coord from SPR ArcGIS FeatureServer (2026-04) via data/seattle-olas.csv
 Madison Park,47.6361,-122.2797,no,Madison Park,No OLA,sourced: park centroid approximation from Seattle GIS / manual geocode (pre-2024)
 Laurelhurst Playfield,47.6625,-122.2770,no,Laurelhurst,No OLA,sourced: park centroid approximation from Seattle GIS / manual geocode (pre-2024)
 Cowen Park,47.6721,-122.3110,no,Ravenna,No OLA (adjacent to Ravenna Park),sourced: park centroid approximation from Seattle GIS / manual geocode (pre-2024)

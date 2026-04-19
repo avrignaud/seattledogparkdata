@@ -2,30 +2,34 @@
 """
 Cross-tabulate enforcement citations against OLA walksheds.
 
-Reproduces the headline "76.2% of geocoded park-named citations fall outside
-any OLA's 0.5-mi walkshed" statistic on Part II Finding 02b and in the print
-PDF, and writes the supporting CSV.
+Reproduces the two headline statistics cited on Part II Finding 02b and in
+the print PDF, and writes the supporting CSV:
+
+  * Park-named-only: share of park-named citations whose canonical park
+    sits outside the union of 0.5-mi OLA walksheds.
+  * Combined: same, plus street-address citations geocoded point-in-polygon
+    via scripts/geocode_street_addresses.py.
 
 Method (point-in-polygon, explicit classification rule):
   1. Load data/walkshed/ola_isochrones.geojson (output of compute_walkshed.py).
   2. Union all per-OLA 0.5-mile isochrone polygons into a single geometry.
-  3. Aggregate data/enforcement-citations.csv by location_canon, keeping only
-     rows with location_type == 'park_named' (4,020 of 4,803 citations).
-  4. For each uniquely-named park, look up its lat/lng in
-     data/park-coordinates.csv.
-  5. Count the park as "inside walkshed" iff the UNION geometry.contains()
-     that single point. No buffer, no tolerance, no BG centroids.
-  6. Sum citations per category.
-
-The 672 street-address-only rows and 111 unknown-location rows are excluded
-from this classification (they are flagged in enforcement-citations.csv via
-the location_type column); filling those in would likely push the outside-
-walkshed share up, since street addresses are definitionally not inside a
-park polygon.
+  3. Park-named pass: aggregate data/enforcement-citations.csv by
+     location_canon, keeping only rows with location_type == 'park_named'.
+     For each uniquely-named park, look up its lat/lng in
+     data/park-coordinates.csv — OLA host parks use the authoritative SPR
+     ArcGIS OLA point so the lookup aligns with the walkshed seed — and
+     test whether the UNION geometry.contains() that single point.
+  4. Combined pass: also include location_type == 'street_address' rows,
+     using data/walkshed/street-address-geocodes.csv (produced by the
+     companion geocode_street_addresses.py script, 449/481 unique
+     addresses geocoded via the Census Bureau's batch geocoder at last
+     run, or rerun it to refresh).
+  5. Sum citations per category and emit both headlines.
 
 Input:  data/walkshed/ola_isochrones.geojson
         data/enforcement-citations.csv
         data/park-coordinates.csv
+        data/walkshed/street-address-geocodes.csv
 Output: data/walkshed/citation-rate-by-walkshed-status.csv
 
 Usage: .venv/bin/python3 scripts/citation_walkshed_analysis.py
@@ -44,6 +48,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 ISO_PATH = REPO_ROOT / "data/walkshed/ola_isochrones.geojson"
 CITS_PATH = REPO_ROOT / "data/enforcement-citations.csv"
 PARKS_PATH = REPO_ROOT / "data/park-coordinates.csv"
+GEOCODE_PATH = REPO_ROOT / "data/walkshed/street-address-geocodes.csv"
 OUT_PATH = REPO_ROOT / "data/walkshed/citation-rate-by-walkshed-status.csv"
 
 
@@ -105,20 +110,68 @@ def main() -> None:
     for p, c in sorted(inside_parks, key=lambda x: -x[1]):
         print(f"  {c:>4}  {p}")
 
-    # Write the authoritative summary CSV
+    # Combined pass: also include geocoded street-address citations.
+    addr_pt: dict[str, tuple[float, float]] = {}
+    if GEOCODE_PATH.exists():
+        with open(GEOCODE_PATH) as f:
+            for r in csv.DictReader(f):
+                if r.get("lat") and r.get("lng"):
+                    try:
+                        addr_pt[r["location_raw"]] = (float(r["lat"]), float(r["lng"]))
+                    except ValueError:
+                        pass
+
+    st_inside = st_outside = st_nogeo = 0
+    for _, r in cits.iterrows():
+        if r["location_type"] != "street_address":
+            continue
+        canon = (r.get("location_canon") or "").strip()
+        pt_ll = addr_pt.get(canon)
+        if pt_ll is None:
+            st_nogeo += 1
+            continue
+        lat, lng = pt_ll
+        if union05.contains(Point(lng, lat)):
+            st_inside += 1
+        else:
+            st_outside += 1
+
+    combined_in = inside_cits + st_inside
+    combined_out = outside_cits + st_outside
+    combined_tot = combined_in + combined_out
+    print(
+        f"\nCombined (park-named + geocoded street addresses): "
+        f"inside={combined_in}, outside={combined_out}, "
+        f"total={combined_tot}, outside={combined_out/combined_tot*100:.1f}%"
+    )
+    print(f"  Street-address citations with no geocode match: {st_nogeo}")
+
+    # Write the authoritative summary CSV: both passes, one row each.
     with open(OUT_PATH, "w", newline="") as f:
         w = csv.writer(f)
         w.writerow([
-            "walkshed_status", "n_parks", "total_citations_2014_2019",
-            "share_of_placed_citations",
+            "walkshed_status", "pass", "n_parks_or_addrs",
+            "total_citations_2014_2019", "share_of_placed_citations",
         ])
         w.writerow([
-            "Inside 0.5-mi OLA walkshed", len(inside_parks), inside_cits,
+            "Inside 0.5-mi OLA walkshed", "park-named",
+            len(inside_parks), inside_cits,
             f"{inside_cits/total_placed*100:.1f}%",
         ])
         w.writerow([
-            "Outside 0.5-mi OLA walkshed", len(outside_parks), outside_cits,
+            "Outside 0.5-mi OLA walkshed", "park-named",
+            len(outside_parks), outside_cits,
             f"{outside_cits/total_placed*100:.1f}%",
+        ])
+        w.writerow([
+            "Inside 0.5-mi OLA walkshed", "combined",
+            "", combined_in,
+            f"{combined_in/combined_tot*100:.1f}%",
+        ])
+        w.writerow([
+            "Outside 0.5-mi OLA walkshed", "combined",
+            "", combined_out,
+            f"{combined_out/combined_tot*100:.1f}%",
         ])
     print(f"\nWrote {OUT_PATH.relative_to(REPO_ROOT)}")
 

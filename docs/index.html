@@ -307,7 +307,7 @@
 </nav>
 
 <h1 class="hed">Seattle has one of America's best park systems. <em>For dogs, it's one of the worst.</em></h1>
-<p class="deck">99% of Seattleites live a 10-minute walk from a park. 11.6% live that close to a dog park. This site is a sourced, reproducible public-data reference on Seattle's off-leash area (OLA) system — and what has gone wrong with it. Every chart links to its source; all underlying data is published openly and available for independent verification. The <a href="opinion.html" style="color: var(--accent);">opinion page</a> is clearly marked; everything else is factual.</p>
+<p class="deck">99% of Seattleites live a 10-minute walk from a park. 11.7% live that close to a dog park. This site is a sourced, reproducible public-data reference on Seattle's off-leash area (OLA) system — and what has gone wrong with it. Every chart links to its source; all underlying data is published openly and available for independent verification. The <a href="opinion.html" style="color: var(--accent);">opinion page</a> is clearly marked; everything else is factual.</p>
 
 <p style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink-soft); margin: -8px 0 28px; max-width: 720px;">
   Prefer it on paper? <a href="seattle-dog-parks-report.pdf?v=3663796-1776560873" style="color: var(--accent-3);">Download the full report as a single PDF</a> (all five pages, regenerated automatically on every update).
@@ -316,7 +316,7 @@
 <div class="stat-grid">
   <div class="stat">
     <div class="label">Seattleites within a 10-min walk of an OLA</div>
-    <div class="num">11.6%</div>
+    <div class="num">11.7%</div>
     <div class="note">99% live that close to a park of any kind</div>
   </div>
   <div class="stat">
@@ -331,8 +331,8 @@
   </div>
   <div class="stat">
     <div class="label">Off-leash citations outside any OLA's 10-min walkshed</div>
-    <div class="num">77.2%</div>
-    <div class="note">2,257 of 2,925 park-named citations, 2014&ndash;2019 (PRR)</div>
+    <div class="num">69.6%</div>
+    <div class="note">2,035 of 2,925 park-named citations, 2014&ndash;2019 (PRR)</div>
   </div>
 </div>
 
@@ -364,7 +364,7 @@
   </li>
   <li style="padding: 12px 0; border-bottom: 1px solid var(--rule); font-size: 16px; line-height: 1.5;">
     <strong><a href="part2-access.html" style="color: var(--ink); text-decoration: none; border-bottom: 2px solid var(--accent);">Part II — Access.</a></strong>
-    <strong>11.6% of Seattleites</strong> are within a 10-minute walk of an OLA. (<a href="https://www.tpl.org/city/seattle-washington">TPL says 99%</a> are within a 10-minute walk of <em>any</em> park.) Seven of 14 OLAs are below the <a href="https://images.akc.org/pdf/GLEG01.pdf">AKC 1-acre minimum</a>. <a href="part2-access.html#size-standards">2 of 14 have lighting; 2 have small-dog areas</a>; water access varies by site.
+    <strong>11.7% of Seattleites</strong> are within a 10-minute walk of an OLA. (<a href="https://www.tpl.org/city/seattle-washington">TPL says 99%</a> are within a 10-minute walk of <em>any</em> park.) Seven of 14 OLAs are below the <a href="https://images.akc.org/pdf/GLEG01.pdf">AKC 1-acre minimum</a>. <a href="part2-access.html#size-standards">2 of 14 have lighting; 5 have small-dog areas</a>; water access varies by site.
   </li>
   <li style="padding: 12px 0; border-bottom: 1px solid var(--rule); font-size: 16px; line-height: 1.5;">
     <strong><a href="enforcement.html" style="color: var(--ink); text-decoration: none; border-bottom: 2px solid var(--accent);">Enforcement.</a></strong>
@@ -436,7 +436,7 @@
 <h2>Methodology &amp; caveats</h2>
 <p>This site favors explicit methodology over headline-friendly numbers. Every derived number on every page links back to its underlying CSV and, where applicable, to the script that produced it. The master reference is <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/METHODOLOGY.md" style="color: var(--accent-3);"><strong>METHODOLOGY.md</strong></a> — the "show your work" index. A few caveats readers should also carry:</p>
 <ul class="link-list">
-  <li><strong>Walkshed (now network-based).</strong> Previously a straight-line estimate of ~33% of residents; replaced April 2026 with a proper network-distance analysis: <strong>11.6% of Seattle residents</strong> live within a 10-minute walking path of an OLA, computed via <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/compute_walkshed.py" style="color: var(--accent-3);"><code>scripts/compute_walkshed.py</code></a> (osmnx against Seattle's full OSM walk network) and <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/population_coverage.py" style="color: var(--accent-3);"><code>scripts/population_coverage.py</code></a> (2020 Census block-group overlay, area-weighted). SPR's published 2.5-mile standard covers 76.6%.</li>
+  <li><strong>Walkshed (now network-based).</strong> Previously a straight-line estimate of ~33% of residents; replaced April 2026 with a proper network-distance analysis: <strong>11.7% of Seattle residents</strong> live within a 10-minute walking path of an OLA, computed via <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/compute_walkshed.py" style="color: var(--accent-3);"><code>scripts/compute_walkshed.py</code></a> (osmnx against Seattle's full OSM walk network) and <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/population_coverage.py" style="color: var(--accent-3);"><code>scripts/population_coverage.py</code></a> (2020 Census block-group overlay, area-weighted). SPR's published 2.5-mile standard covers 76.6%.</li>
   <li><strong>Peer-city OLA counts differ in definition.</strong> Seattle counts only fully-fenced dedicated OLAs; Portland includes unfenced voice-control areas; Vancouver BC includes time-restricted shared-use areas. Direct comparison requires caveats.</li>
   <li><strong>OLA-specific budget.</strong> SPR's Park District "Maintaining Parks &amp; Facilities" line funds both OLAs and P-Patch community gardens and is not broken out. The $100K/year Cycle 1 figure is OLA-only because SPR stated it publicly; Cycle 2 figures are combined.</li>
   <li><strong>Dog population.</strong> Triangulated from three independent sources: <a href="https://data.seattle.gov/dataset/Active-Pet-Licenses/jguv-t9rb/about_data">~26,700 active dog licenses</a> (Seattle Open Data, hard floor implying ~90&ndash;135K actual), an <a href="https://www.avma.org/resources-tools/reports-statistics/us-pet-ownership-statistics">AVMA-derived demographic estimate</a> of ~248,900 (364,627 Seattle households &times; 45.5% dog-owning &times; 1.5 dogs/household), and the <a href="https://www.seattle.gov/parks/about-us/plans-and-reports/recreation-plans-and-reports/off-leash-area-study">SPR 2023 Expansion Study</a> range of 187K&ndash;400K. The site uses 150,000 as a conservative floor for per-dog math; see <a href="part1-the-gap.html#methodology">Part I methodology</a> for the full triangulation.</li>

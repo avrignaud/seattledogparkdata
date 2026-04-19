@@ -20,7 +20,7 @@ Concrete next-work ideas, organized by effort and value. Kept up-to-date as work
 
 ## High value, low effort
 
-- [x] **Network walkshed (osmnx + Census).** `scripts/compute_walkshed.py` + `scripts/population_coverage.py`. Current: 9.5% of residents within 0.5-mi network walk; 78.3% within SPR's 2.5-mi standard.
+- [x] **Network walkshed (osmnx + Census).** `scripts/compute_walkshed.py` + `scripts/population_coverage.py`. Current: 11.7% of residents within 0.5-mi network walk; 76.6% within SPR's 2.5-mi standard.
 - [x] **Reconcile OLA coordinates to SPR authoritative GIS.** Pulled April 2026 from the Dog Off-Leash Areas ArcGIS FeatureServer. Walkshed rerun with new coords.
 - [x] **Dog-population triangulation.** Three-tier estimate now on site — licensed floor (Seattle Open Data), AVMA-derived (~248K), SPR Expansion Study range.
 - [x] **Peer-city detail pages.** Six cities (Portland, SF, Vancouver BC, DC, Minneapolis, NYC) at `docs/peer-cities.html`, verified via live WebFetch.
@@ -35,9 +35,7 @@ Concrete next-work ideas, organized by effort and value. Kept up-to-date as work
 - [ ] **Historical OLA timeline map.** Animated year-opened visualization. Current site has a year-opened bar chart; an actual map over time would make the 1997–2009 build-out + 2010–2025 drought visually concrete.
 - [ ] **Per-OLA usage/density estimates.** From MOLG/COLA volunteer counts or direct observation. Would convert the Kinnear capacity argument from theoretical to empirical.
 - [ ] **Citation-density backfill pass on Part I and Part II.** Every bare number should link to a primary source, a CSV row, or be marked as derived/approximate. New pages (enforcement, opinion, peer-cities, print) already follow this rule.
-- [ ] **Alpha-shape refinement of the walkshed isochrones.** Current implementation uses convex hulls. Two concrete problems:
-  1. Over-states walkable area at most OLA boundaries — shifts the 9.5% headline down by 1–2 pts.
-  2. **Under-states at Westcrest specifically** — the convex hull clips at the edge of Seattle's OSM walk network and produces a 0.258 km² polygon (vs ~0.9–1.4 km² for peer OLAs). Westcrest's OLA coordinate isn't even inside its own walkshed polygon. This mis-counts Westcrest's 86 citations as "outside walkshed," inflating the 84.6% headline in `docs/part2-access.html` Finding 02b. Combined with the ~400 m offset between Genesee's park centroid (park-coordinates.csv) and its SPR ArcGIS OLA point, the corrected split is closer to **~77% outside / 23% inside**. The site carries a methodology note on Finding 02b flagging this; fix properly via alpha-shape.
+- [x] **Alpha-shape refinement of the walkshed isochrones.** `scripts/compute_walkshed.py` now builds alpha-shapes (α=0.003) with a 0.3 km² area floor that falls back to convex hull for pathological cases (Westcrest's edge-of-OSM-network location). Multi-seed ego-graph traversal (100 m KDTree) + 25 m OLA-point buffer safety net prevents degenerate polygons. Park-coordinates.csv reconciled to SPR ArcGIS for all 14 OLA host parks so Finding 02b's point-in-polygon classifier is stable.
 
 ## Part III ideas (new report)
 
