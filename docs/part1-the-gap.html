@@ -806,27 +806,47 @@ All three estimates cluster between ~90K and ~400K; the AVMA-derived midpoint of
           }
         },
         datalabels: {
-          display: ctx => {
-            // Label the highlighted cities — Seattle (orange) + West-Coast peers
-            // (Portland, San Francisco, Vancouver) + Austin — plus any
-            // outlier cluster points. Unhighlighted mid-pack cities stay
-            // unlabeled to keep the chart readable.
-            const l = ctx && ctx.dataset && ctx.dataset.data && ctx.raw && ctx.raw.label;
-            return ['Seattle', 'Portland', 'San Francisco', 'Vancouver', 'Austin', 'Boise', 'Washington DC'].includes(l);
-          },
+          // Label every point inline so the reader doesn't have to hover
+          // to find Seattle / Portland / SF. The original hover-only
+          // version lost readers on the scatter's main argument.
+          display: true,
           anchor: 'center',
-          align: ctx => (ctx.raw && ctx.raw.label === 'Seattle') ? 'right' : 'top',
-          offset: 10,
-          color: ctx => (ctx.raw && ctx.raw.label === 'Seattle') ? SEATTLE : INK,
-          backgroundColor: 'rgba(246, 242, 233, 0.85)',
+          align: (ctx) => {
+            const d = ctx.dataset.data[ctx.dataIndex];
+            // Nudge a few labels off the obvious collision lines.
+            if (!d) return 'top';
+            if (d.label === 'Seattle') return 'right';
+            if (d.label === 'Denver') return 'bottom';
+            if (d.label === 'Cincinnati') return 'right';
+            if (d.label === 'Arlington, VA') return 'left';
+            if (d.label === 'Boston' || d.label === 'Minneapolis') return 'top';
+            if (d.label === 'Chicago') return 'bottom';
+            return 'top';
+          },
+          offset: 8,
+          color: (ctx) => {
+            const d = ctx.dataset.data[ctx.dataIndex];
+            if (!d) return INK;
+            if (d.label === 'Seattle') return SEATTLE;
+            if (['Portland', 'San Francisco'].includes(d.label)) return PEER;
+            return INK_SOFT;
+          },
+          backgroundColor: 'rgba(246, 242, 233, 0.88)',
           borderRadius: 2,
           padding: { top: 2, bottom: 2, left: 5, right: 5 },
-          font: ctx => ({
-            size: (ctx.raw && ctx.raw.label === 'Seattle') ? 14 : 12,
-            weight: (ctx.raw && ctx.raw.label === 'Seattle') ? '600' : '500',
-            family: "'IBM Plex Sans', sans-serif"
-          }),
-          formatter: (v, ctx) => (ctx && ctx.raw) ? ctx.raw.label : ''
+          font: (ctx) => {
+            const d = ctx.dataset.data[ctx.dataIndex];
+            const isHighlight = d && (d.label === 'Seattle' || d.label === 'Portland' || d.label === 'San Francisco');
+            return {
+              size: d && d.label === 'Seattle' ? 13 : (isHighlight ? 12 : 11),
+              weight: isHighlight ? '600' : '400',
+              family: "'IBM Plex Sans', sans-serif"
+            };
+          },
+          formatter: (value, ctx) => {
+            const d = ctx.dataset.data[ctx.dataIndex];
+            return d ? d.label : '';
+          }
         }
       },
       scales: {
