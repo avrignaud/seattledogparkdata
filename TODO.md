@@ -1,6 +1,6 @@
 # TODO
 
-Concrete next-work ideas, organized by effort and value. Kept up-to-date as work progresses.
+Next-work ideas, organized by effort and value. 1.0 shipped on 2026-04-19; everything below is post-1.0 maintenance and expansion. Items marked `[x]` are done and retained as a completed-work record; `[ ]` items are open.
 
 ## Filed / awaiting response
 
