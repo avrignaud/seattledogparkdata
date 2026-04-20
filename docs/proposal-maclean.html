@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>MacLean Park OLA — Working proposal (DRAFT, not published)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<style>
+  :root {
+    --bg: #F6F2E9; --ink: #121820; --ink-soft: #3C4A5C; --rule: #D8CFBD;
+    --accent: #C04A1E; --accent-2: #4C6B54; --accent-3: #2C4A6E; --accent-4: #A68A2E;
+    --danger: #8B2518;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--ink); font-family: 'IBM Plex Sans', sans-serif; font-weight: 300; font-size: 17px; line-height: 1.65; }
+  .container { max-width: 1120px; margin: 0 auto; padding: 40px 40px 120px; }
+  .draft-banner { background: var(--danger); color: #fff; padding: 16px 24px; margin-bottom: 32px; border-radius: 2px; font-size: 14px; line-height: 1.55; }
+  .draft-banner strong { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; display: block; margin-bottom: 6px; }
+  h1 { font-family: 'Fraunces', serif; font-weight: 800; font-size: 42px; line-height: 1.1; margin-bottom: 12px; letter-spacing: -0.02em; }
+  .subtitle { font-family: 'Fraunces', serif; font-size: 20px; color: var(--ink-soft); margin-bottom: 40px; max-width: 760px; }
+  h2 { font-family: 'Fraunces', serif; font-weight: 600; font-size: 28px; line-height: 1.2; margin: 60px 0 14px; }
+  h2 .kicker { font-family: 'IBM Plex Mono', monospace; font-weight: 400; font-size: 11px; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; display: block; margin-bottom: 8px; }
+  h3 { font-family: 'Fraunces', serif; font-weight: 600; font-size: 22px; margin: 40px 0 10px; }
+  h4 { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); margin: 20px 0 8px; font-weight: 500; }
+  p { margin-bottom: 14px; max-width: 820px; }
+  ul, ol { margin: 0 0 16px 20px; }
+  ul li, ol li { margin-bottom: 8px; max-width: 820px; }
+  code { font-family: 'IBM Plex Mono', monospace; font-size: 14px; background: var(--rule); padding: 1px 6px; border-radius: 2px; }
+  .note-box { background: var(--bg); border-left: 3px solid var(--accent-3); padding: 14px 20px; margin: 18px 0; font-size: 14px; line-height: 1.55; max-width: 860px; }
+  .note-box.accent { border-left-color: var(--accent); background: rgba(192,74,30,0.05); }
+  .note-box.positive { border-left-color: var(--accent-2); background: rgba(76,107,84,0.06); }
+  .note-box.warning { border-left-color: var(--accent-4); background: rgba(166,138,46,0.08); }
+  blockquote { border-left: 3px solid var(--rule); padding-left: 16px; margin: 12px 0 16px; color: var(--ink-soft); font-style: italic; font-family: 'Fraunces', serif; font-size: 16px; line-height: 1.5; max-width: 820px; }
+  blockquote .attr { display: block; margin-top: 8px; font-family: 'IBM Plex Sans', sans-serif; font-style: normal; font-size: 13px; color: var(--ink); }
+
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 22px 0 10px; align-items: start; }
+  @media (max-width: 880px) { .pair { grid-template-columns: 1fr; } }
+  .panel { background: #fff; border: 1px solid var(--rule); padding: 16px; border-radius: 2px; }
+  .panel .label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; font-weight: 500; }
+  /* Legacy schematic SVGs used to live here; those are now Leaflet maps.
+     Scope to direct children only so Leaflet's internal SVG layers aren't affected. */
+  .panel > svg { width: 100%; height: auto; display: block; }
+  .aerial-overlay { position: relative; width: 100%; }
+  .aerial-overlay img { width: 100%; height: auto; display: block; border: 1px solid var(--rule); }
+  .aerial-overlay svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+  .leaflet-map { width: 100%; height: 380px; border: 1px solid var(--rule); border-radius: 2px; }
+  .leaflet-container { font-family: 'IBM Plex Sans', sans-serif !important; background: #F6F2E9; }
+
+  .size-box { background: #fff; border: 1px solid var(--rule); padding: 14px 20px; margin: 14px 0 20px; border-radius: 2px; font-size: 14px; line-height: 1.55; max-width: 820px; }
+  .size-box .size-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 6px; }
+  .size-box .size-number { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 700; color: var(--ink); line-height: 1; margin-right: 12px; }
+  .size-box .size-compare { color: var(--ink-soft); font-size: 13px; }
+
+  .q-block { background: #fff; border: 1px dashed var(--accent-3); padding: 18px 22px; margin: 16px 0; border-radius: 2px; }
+  .q-block strong { color: var(--accent-3); }
+  .legend { display: flex; gap: 24px; flex-wrap: wrap; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); margin: 10px 0 16px; }
+  .legend .swatch { display: inline-block; width: 16px; height: 10px; margin-right: 6px; vertical-align: middle; border: 1px solid rgba(0,0,0,0.2); }
+  .legend .dash-line { display: inline-block; width: 22px; height: 0; margin-right: 6px; vertical-align: middle; border-top: 2.5px dashed var(--accent); }
+  .aerial-single { background: #fff; border: 1px solid var(--rule); padding: 18px 20px; margin: 22px 0 28px; border-radius: 2px; }
+  .aerial-single img { width: 100%; max-width: 900px; height: auto; display: block; margin: 0 auto; border: 1px solid var(--rule); }
+  .aerial-single figcaption { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin-top: 12px; text-align: center; line-height: 1.5; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="draft-banner">
+  <strong>Draft &middot; Private working document &middot; Not published</strong>
+  This page is not linked from any site navigation, is marked <code style="background: rgba(255,255,255,0.15); color: #fff;">noindex, nofollow</code>, and is not in the sitemap. It is a working proposal for my own iteration. Do not share the URL.
+</div>
+
+<h1>MacLean Park Off-Leash Area — working proposal</h1>
+<p class="subtitle">Five configurations for siting an OLA at MacLean Park, each addressing the King County Conservation Futures (CFT) encumbrance on the 1997 acquisition and Seattle Parks' 2020 ECA-based rejection differently. Each shown as schematic + aerial with actual parcel polygons from Seattle's ArcGIS. Plus size estimates, a recommended path, and the competitive context — notably QACC's parallel Feb 2024 push for Little Howe as the near-term Queen Anne OLA site.</p>
+
+<!-- ==================================================================== -->
+<h2><span class="kicker">Background</span>What we know from the FOIA</h2>
+
+<p>MacLean Park (1922 Taylor Ave N, renamed in 2002 from a portion of the NE Queen Anne Greenbelt) is <strong>1.02 acres total</strong> (44,430 sq ft, per Seattle Parks ArcGIS). It sits on the eastern slope of Queen Anne Hill, with Taylor Ave N as the west frontage (pedestrian entry), Newton St to the north, Howe St to the south, and the greenbelt descending east toward Aurora Ave N (SR-99). The park was assembled from two acquisitions under threat of condemnation:</p>
+
+<ul>
+  <li><strong>May 1992 — $2,182,500</strong> from Greens at Queen Anne Corporation. The 1992 deed listed many parcels across multiple blocks, but per Seattle's current ArcGIS parks inventory, only <strong>one parcel (KC PIN 9301301530, 0.255 ac / 11,103 sq ft, ~25% of the park)</strong> remains in MacLean today. This parcel is the <strong>eastern strip</strong> (the greenbelt facing Aurora) plus a small southern wedge. Deed references only utility easements, and this parcel does <em>not</em> reference the 1994 Interlocal with King County. <strong>Non-CFT-encumbered.</strong></li>
+  <li><strong>Aug 1997 — $800,000</strong> from Donald &amp; Maxine Barnard and Ted Palmer. Four KC parcels totaling <strong>0.765 acres / 33,326 sq ft (~75% of the park)</strong> — PINs 1689400955, -0957, -0959, -0961. These four parcels are the <strong>western/central flat area</strong> that contains the mowed meadow and viewpoint. Deed explicitly states the property is subject to the 1994 Interlocal Cooperation Agreement between King County and the City of Seattle (KC Recording #9410148001). Per SPR's own correspondence, funded by the 1989 Open Space Bond (<strong>Seattle Ordinance 114900</strong>) matched with King County natural space funds ("the forerunner of the current Conservation Futures program"). <strong>CFT/precursor-encumbered.</strong></li>
+</ul>
+
+<p><em>Important geographic note:</em> the 1997 CFT parcels are the <strong>majority</strong> of the park and cover the useable flat area. The 1992 non-CFT parcel is the <strong>minority</strong> and sits on the eastern slope (greenbelt descending to Aurora) and southern edge — exactly the areas designated as Environmentally Critical.</p>
+
+<p>In June 2019, QACC Parks Chair Don Harper asked SPR whether part of MacLean could be turned into an OLA. Four SPR staff weighed in. Three were supportive; one veto came from Real Property on CFT grounds alone.</p>
+
+<blockquote>
+  The flat area is surrounded by Steep Slope ECAs, which have a buffer attached, but it might work well as a DOL. There was a house here that we demolished and largish flat area. The community also had a large planting project, I think. If this is coming from Don, there is likely community support. ADA would be difficult but otherwise it could be quite suitable. It's a nice area, I sure it would get a lot of use. <strong>There are a lot of camps in the area, so dogs might help bring some positive use.</strong>
+  <span class="attr">— Pamela Alspaugh, Sr. Landscape Architect, SPR, June 4, 2019</span>
+</blockquote>
+
+<blockquote>
+  I think we are dead in the water on this one. <strong>The property you've circled was purchased in 1997 for $800,000</strong>, using 1989 Open Space Bond funding matched with the King County funds from the forerunner of the current King County Conservation Futures program. Operating an OLA on this site would degrade the lands that are intended to be protected by the Conservation Futures program.
+  <span class="attr">— Lise Ward, Real Property, SPR, June 4, 2019</span>
+</blockquote>
+
+<p>In March 2020, King County CFT program manager Ingrid Lundin clarified that <em>"the standard dog off-leash park that we see within the city would not be an allowable use under CFT"</em> — perimeter-fenced, heavily-graveled, dedicated single-use — but carved out that <em>"general dog use within CFT-funded sites, or a jurisdiction's general dog leash policies, [are] typically issues for site planning and/or local regulation."</em></p>
+
+<p>In <strong>May 2020</strong>, SPR sent QACC its formal written rejection of the MacLean OLA application. Two categorical barriers were cited:</p>
+
+<blockquote>
+  Threshold criteria number 2 states proposed sites must "Not be located in natural areas under active restoration, or in an environmentally-critical area." MacLean Park is identified as having environmentally critical areas (ECA) throughout the site marking it as a potential slide area and having steep slopes. As well there are multiple known slide initiation points downslope from the property.
+  <span class="attr">— Seattle Parks &amp; Recreation, May 2020</span>
+</blockquote>
+
+<blockquote>
+  MacLean Park, a renamed portion of the Northeast Queen Anne Greenbelt was purchased in 1997 for $800,000 with 1989 Open Space Bond funding, authorized in Ordinance 114900, and matched with King County natural space funds (a precursor to Conservation Futures funds). These funds restrict the site from being used for OLAs as they are considered an active use which would not be allowed in green spaces purchased using these funds. <strong>If the site is used for purposes that violate the restrictions on the funds used to purchase it, SPR would be liable to repay the current value of that property. SPR property group estimates that the undeveloped property in question would be valued at $1,250,000 in 2020 dollars.</strong>
+  <span class="attr">— Seattle Parks &amp; Recreation, May 2020</span>
+</blockquote>
+
+<div class="note-box warning"><strong>Two categorical barriers, not one.</strong> SPR's May 2020 rejection means MacLean isn't blocked only by the CFT/funding-source issue. It's <em>also</em> blocked by SPR's own community-OLA application threshold criterion #2 — the ECA categorical exclusion. The 1997 CFT parcels (the flat area) are described as having ECAs "throughout" and being in a slide zone, with documented slide initiation points downslope. Any proposal to site an OLA at MacLean has to clear <em>both</em> the CFT barrier and the ECA threshold barrier — and the ECA barrier applies regardless of which parcel the fence sits on. This is the single biggest change in analysis since my earlier draft: even if the CFT problem were resolved (by reinterpretation, buyout, or land swap), SPR's own threshold criteria still disqualify MacLean.</div>
+
+<div class="note-box"><strong>Competitive context.</strong> In Feb 2024, QACC formally submitted a separate proposal to SPR for <a href="https://www.qacc.net">Little Howe Park</a> as the Queen Anne OLA. Little Howe is already fenced, entirely flat, explicitly <em>not</em> in an ECA, is the largest contiguous area among the Queen Anne candidates, and is contingent on the Big Howe field renovation relocating current youth-sports uses. SPR's 2023–24 <a href="https://www.seattle.gov/parks/about-us/plans-and-reports/recreation-plans-and-reports/off-leash-area-study">Off-Leash Area Expansion Study</a> did not consider MacLean at all (likely because it was closed in 2020) and recommended <strong>East Queen Anne Playfield</strong> as the sole Queen Anne candidate from its 30-site list — ruling out Bhy Kracke, David Rogers, and West Queen Anne Playfield. Little Howe was a QACC-led add outside SPR's candidate pool. <em>This proposal exists alongside those — not as a substitute.</em> MacLean's path is slower, harder, and more expensive than either Little Howe or East Queen Anne. Its unique value is encampment-displacement on an actively-degraded site; its unique cost is clearing two categorical barriers. I'd pitch MacLean as a 3–5-year project for <em>after</em> whichever near-term Queen Anne site (Little Howe or East QA) lands, not as a competitor to it.</div>
+
+<!-- ==================================================================== -->
+<h2><span class="kicker">Considered and ruled out</span>Three directions that don't survive the May 2020 SPR rejection</h2>
+
+<p>Before the paths still potentially viable, a short summary of what was considered and why each is dead. All three depend on siting a fence that touches ECA-designated land; SPR's May 2020 letter cited community-OLA application <strong>threshold criterion #2</strong> (no OLA siting in ECAs) as an independent barrier separate from CFT, and MacLean has ECAs "throughout the site" per SPR's own determination — including documented slide initiation points on the eastern slope. The parcel geometry from ArcGIS confirms: the 1992 non-CFT parcel <em>is</em> the eastern slope, and the southern wedge is the other piece. No version of "fence the non-CFT land" or "expand into the greenbelt" works at this site.</p>
+
+<div style="background: #fff; border: 1px solid var(--rule); border-radius: 2px; overflow: hidden; margin: 18px 0 28px;">
+  <div style="background: rgba(139,37,24,0.06); padding: 14px 22px; border-bottom: 1px solid var(--rule);">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--danger); font-weight: 600;">Direction 1 &middot; Dead</div>
+    <div style="font-family: 'Fraunces', serif; font-size: 17px; font-weight: 600; margin-top: 4px;">Fence only the 1992 (non-CFT) portion</div>
+  </div>
+  <div style="padding: 14px 22px; font-size: 14px; line-height: 1.55;">
+    <strong>What it was:</strong> Put the fence entirely on 1992 non-CFT land so the 1994 Interlocal doesn't apply &mdash; no CFT fight needed. <br>
+    <strong>Why dead:</strong> The 1992 parcel is the eastern greenbelt strip + a small southern wedge (0.255 ac total, non-contiguous), entirely on the ECA-designated slope with documented slide initiation points. SPR threshold criterion #2 categorically excludes siting in ECAs. Even if the ECA barrier didn't exist, the 1992 parcel is too small and split into two pieces to host a useable fenced OLA.
+  </div>
+</div>
+
+<div style="background: #fff; border: 1px solid var(--rule); border-radius: 2px; overflow: hidden; margin: 18px 0 28px;">
+  <div style="background: rgba(139,37,24,0.06); padding: 14px 22px; border-bottom: 1px solid var(--rule);">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--danger); font-weight: 600;">Direction 2 &middot; Dead</div>
+    <div style="font-family: 'Fraunces', serif; font-size: 17px; font-weight: 600; margin-top: 4px;">CFT parcel as preserved access; 1992 non-CFT as fenced OLA</div>
+  </div>
+  <div style="padding: 14px 22px; font-size: 14px; line-height: 1.55;">
+    <strong>What it was:</strong> Same OLA footprint as D1 on the 1992 parcel, with the 1997 CFT parcel kept in preserved greenbelt character (path, viewpoint, plantings) as the conservation-compliant front door. <br>
+    <strong>Why dead:</strong> Same categorical ECA barrier as D1. A "preserved access" framing doesn't help when there's no OLA footprint to access.
+  </div>
+</div>
+
+<div style="background: #fff; border: 1px solid var(--rule); border-radius: 2px; overflow: hidden; margin: 18px 0 28px;">
+  <div style="background: rgba(139,37,24,0.06); padding: 14px 22px; border-bottom: 1px solid var(--rule);">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--danger); font-weight: 600;">Direction 4 &middot; Dead</div>
+    <div style="font-family: 'Fraunces', serif; font-size: 17px; font-weight: 600; margin-top: 4px;">Full-site activation: flat area + wooded greenbelt</div>
+  </div>
+  <div style="padding: 14px 22px; font-size: 14px; line-height: 1.55;">
+    <strong>What it was:</strong> Expand the fence east and south from the flat area into the wooded greenbelt slope, trees retained, naturalistic paths. The size argument (~0.7–1.0 ac) matched Queen Anne's actual OLA need; the encampment argument reached the greenbelt where encampments actually sit. <br>
+    <strong>Why dead:</strong> Compounds the ECA disqualifier rather than routing around it. The greenbelt slope is <em>precisely</em> the ECA with documented slide initiation points. Extending the fenced footprint onto it adds liability risk (dogs on a slide-prone slope above SR-99) and makes the threshold-criterion violation more obvious, not less. The forest-OLA design language also isn't one SPR has worked in.
+  </div>
+</div>
+
+<p><strong>What remains:</strong> two paths, both centered on the 1997 CFT flat area. Direction 3 tries to reinterpret the CFT restriction so the flat area can be used; Direction 5 pays King County to extinguish the restriction outright. Both then still have to clear SPR's ECA threshold criterion #2, which is a SPR administrative determination that could be revisited with parcel-level ECA mapping.</p>
+
+<!-- ==================================================================== -->
+<h2><span class="kicker">Paths still potentially viable</span>Direction 3 and Direction 5</h2>
+
+<p>Each configuration is shown as a pair of Leaflet maps at identical zoom and bounds, both with actual parcel polygons pulled from <a href="https://data-seattlecitygis.opendata.arcgis.com/datasets/SeattleCityGIS::park-boundary-details">Seattle Parks ArcGIS</a> — the <strong>amber</strong> polygons are the four 1997 CFT-encumbered parcels (0.765 ac / 75% of park); the <strong>green</strong> polygons are the one 1992 non-CFT parcel (0.255 ac / 25%). The <strong>dashed orange</strong> polygon is the proposed fence. Left panel uses CARTO light tiles for a schematic read; right panel uses Esri World Imagery for ground truth.</p>
+
+<h4>Shared legend</h4>
+<div class="legend">
+  <span><span class="swatch" style="background: rgba(76,107,84,0.55); border-color: #3A5A40;"></span>1992 parcel (non-CFT, 0.255 ac)</span>
+  <span><span class="swatch" style="background: rgba(166,138,46,0.55); border-color: #8A6500;"></span>1997 parcels (CFT-encumbered, 0.765 ac)</span>
+  <span><span class="dash-line"></span>Proposed fence</span>
+</div>
+
+<!-- ===== DIRECTION 3 ===== -->
+<h3>Direction 3 — Shared-use OLA on the 1997 flat area; argue turf-retention exempts from CFT's dedicated-facility rule</h3>
+<p>Original framing: "likely the only way to get a usable OLA at MacLean." <strong>Still the least-dead direction, but now has to clear two categorical barriers, not one.</strong></p>
+
+<p>The core argument: a <strong>turf-retained, time-zoned, community-stewarded, shared-use</strong> park — safety-fenced because of SR-99 proximity, not enclosed for exclusive OLA use — is <em>not</em> the "dedicated single-use, perimeter-fenced, heavily-graveled" configuration King County CFT's 2020 guidance flagged. But per SPR's May 2020 rejection, the design also has to clear <strong>threshold criterion #2</strong> — SPR's own determination that MacLean has ECAs "throughout the site." That's an administrative finding by SPR, not an independent fact; it could be revisited with updated SDCI ECA mapping of the flat area specifically (vs. the slope). Until that's tested, Direction 3 remains formally blocked even if CFT is worked around.</p>
+
+<div class="pair">
+  <div class="panel">
+    <div class="label">Schematic &middot; Direction 3</div>
+    <div id="map-d3-schem" class="leaflet-map"></div>
+  </div>
+  <div class="panel">
+    <div class="label">Aerial &middot; Direction 3</div>
+    <div id="map-d3-aerial" class="leaflet-map"></div>
+  </div>
+</div>
+
+<div class="size-box">
+  <div class="size-label">Estimated OLA size &middot; Direction 3</div>
+  <span class="size-number">0.765 ac</span>
+  <span class="size-compare">Union of the four 1997 CFT parcels (actual ArcGIS geometry) &middot; comparable to <strong>Lower Woodland</strong> (0.75 ac) &middot; ~6× Kinnear &middot; still below Queen Anne's fair-share need of ~1+ ac</span>
+</div>
+
+<h4>Arguments for</h4>
+<ul>
+  <li><strong>CFT's own carve-out permits this.</strong> Lundin's 2020 email distinguishes "dedicated single-use facilities" (blocked) from "general dog use / leash policy" (deferred to local regulation). A time-zoned shared-use park with off-leash hours on a turf-retained surface is a general dog-use policy, not a dedicated facility.</li>
+  <li><strong>Surface-preservation design addresses CFT's specific concern.</strong> The 2020 guidance flagged "heavily graveled and non-vegetated surfaces." Magnuson and Westcrest are both turf OLAs — no gravel, natural substrate retained. A design commitment to turf retention, with rotational closures for recovery, takes the stated CFT concern off the table.</li>
+  <li><strong>Conservation-via-activation.</strong> The parcel is currently being degraded by encampment activity — 50,000+ lbs of debris removed in the 2021 We Heart Seattle cleanup alone. A managed shared-use area damages less than the status quo. Preservation in an urban context requires active accountable use, not absence.</li>
+  <li><strong>Fencing for highway safety isn't "dedicated single-use."</strong> The fence exists because the park adjoins SR-99 and all park users need protection from the slope descent. Framed as park-safety infrastructure, it doesn't map onto CFT's prohibited configuration.</li>
+  <li><strong>We don't actually have the 1994 Interlocal text.</strong> Lundin's 2020 email is a staff interpretation, not the binding instrument. The Interlocal may or may not prohibit this configuration — we don't know until we have it.</li>
+</ul>
+
+<h4>Arguments against</h4>
+<ul>
+  <li><strong>Two categorical barriers, not one.</strong> Clears CFT but still blocked by SPR's ECA threshold criterion #2 until SDCI's ECA mapping of the flat area is tested.</li>
+  <li>Requires King County Conservation Futures Citizens Committee to accept the interpretation. Political cost and timeline (months to a year).</li>
+  <li>Challenges both SPR Real Property's (Ward, 2019) and King County CFT staff's (Lundin, 2020) stated positions, plus SPR's formal May 2020 written rejection.</li>
+  <li>Sets precedent; KC may resist. Counter: establishing a clear compliance framework (turf retention, time-zoning, stewardship partnership, no surface conversion) is <em>good</em> precedent.</li>
+  <li>MacLean is not on SPR's 2023–24 Expansion Study candidate list. Re-opening it requires an explicit Council-level ask that runs parallel to the already-adopted Expansion Study recommendations.</li>
+</ul>
+
+<div class="note-box"><strong>On the encampment question.</strong> Direction 4 (fence the greenbelt too) was worth exploring because the encampment-displacement argument at MacLean is specifically about the greenbelt, not the flat area. But it doesn't survive the ECA + slide-liability stack. If the encampment problem is the thing you care most about, the honest answer is that solving it probably requires something other than an OLA — continued stewardship (Friends of MacLean, We Heart Seattle), Find-It-Fix-It response, Unified Care Team sweeps on a reliable cadence — with a Direction-3 OLA on the flat area providing the adjacent active-use population that keeps eyes on the slope. The slope itself doesn't get fenced; it gets walked through by dog owners coming and going from the adjacent flat-area OLA.</div>
+
+<!-- ===== DIRECTION 5 ===== -->
+<h3>Direction 5 — Seattle pays King County the $1.25M buyout to extinguish the CFT restriction</h3>
+<p>Not a site-design direction — a legal/financial path. Per SPR's May 2020 letter, if MacLean is used in violation of the 1989 Open Space Bond + King County precursor-CFT restrictions, "SPR would be liable to repay the current value of that property," estimated at <strong>$1,250,000 in 2020 dollars</strong> (probably $1.5M+ in 2026 dollars accounting for inflation and Seattle land values). Direction 5 simply treats that number as the price of removing the CFT/funds barrier.</p>
+
+<p>Buying out the restriction <em>doesn't</em> resolve the ECA threshold criterion #2 barrier — that's independent. But it does simplify the proposal significantly: instead of a CFT reinterpretation fight with King County's Citizens Committee <em>and</em> an ECA-finding reconsideration with SPR, Direction 5 reduces the remaining fight to just the ECA question. Council authorizes the appropriation; SPR receives clean-title 1997 parcels; the conversation becomes "is this site's flat area actually in a designated ECA, or is it adjacent to ECAs on the slope?"</p>
+
+<div class="size-box">
+  <div class="size-label">Direct cost &middot; Direction 5</div>
+  <span class="size-number">~$1.5M</span>
+  <span class="size-compare">SPR estimate in 2020 dollars, inflated to 2026 &middot; roughly 1.5–2 years of Seattle's current OLA enforcement program budget &middot; one-time appropriation, permanent restriction removal</span>
+</div>
+
+<h4>Arguments for</h4>
+<ul>
+  <li><strong>Cleanest legal path.</strong> Money solves the CFT/funds problem definitively. No reinterpretation, no Citizens Committee, no precedent concerns for other CFT sites.</li>
+  <li><strong>Small relative to OLA program spend.</strong> Seattle's current OLA enforcement program lands roughly $700K–$1M/year (per the site's enforcement chapter). $1.5M one-time is 1.5–2 years of that budget for a permanent site acquisition.</li>
+  <li><strong>Removes half the argument.</strong> The remaining fight is "is the flat area actually ECA-designated, or just ECA-buffered." That's a factual question with an answer, not a policy fight.</li>
+  <li><strong>Creates a council-level decision point.</strong> An appropriation request makes it the Council's call, not SPR's. If the Council wants MacLean, this is how they get it.</li>
+</ul>
+
+<h4>Arguments against</h4>
+<ul>
+  <li><strong>$1.5M is a lot of money.</strong> Seattle has budget shortfalls and this is a non-trivial ask for a single neighborhood OLA.</li>
+  <li><strong>Doesn't resolve the ECA barrier.</strong> Half the problem remains unsolved even after writing the check.</li>
+  <li><strong>Better money-for-OLA deals exist.</strong> Little Howe, if QACC's Feb 2024 proposal is accepted, delivers a larger, already-fenced, no-ECA, no-funds-restricted OLA at a fraction of this cost. Spending $1.5M on MacLean while Little Howe is on the table is hard to defend.</li>
+  <li><strong>Precursor-fund restrictions may not fully extinguish.</strong> The 1989 Open Space Bond (Ordinance 114900) and the King County "natural space funds" may each carry their own terms; the $1.25M estimate assumed full repayment to King County, but the Seattle bond side may have separate unwritten expectations that don't wholly release even after the KC check clears. Needs legal analysis before counting on it.</li>
+  <li><strong>Doesn't have a natural political champion.</strong> QACC is currently pushing Little Howe, not MacLean. Without a community advocate publicly requesting this, the Council has no reason to appropriate the money.</li>
+</ul>
+
+<!-- ==================================================================== -->
+<h2><span class="kicker">Recommendation</span>Support Little Howe or East QA near-term; pursue MacLean as a 3–5-year Direction-3+5 combination, not a near-term ask</h2>
+
+<div class="note-box positive"><strong>Near-term priority: don't make MacLean the primary Queen Anne ask.</strong> QACC's Feb 2024 Little Howe proposal is a better candidate by every measurable dimension — larger (Little Howe is the largest contiguous OLA candidate in Queen Anne), already fenced, flat, explicitly not in an ECA, no funding-source restriction, well-located, and has community infrastructure (COLA committed to cleanup). SPR's 2023–24 Expansion Study recommended East Queen Anne Playfield separately. Whichever of those two lands first is the right near-term Queen Anne OLA. MacLean is a harder, more expensive, longer-timeline project that shouldn't compete for the same attention window.</div>
+
+<div class="note-box"><strong>Medium-term path (3–5 years): Direction 3 + Direction 5 combined.</strong> After a near-term Queen Anne OLA is settled, MacLean's unique value — encampment-displacement on an actively-degraded neighborhood greenbelt — becomes the argument for a second Queen Anne site. The cleanest way to unlock it is the combination of:
+  <ol style="margin: 8px 0 0 20px;">
+    <li><strong>Direction 5</strong> (Council authorizes the ~$1.5M buyout to extinguish the 1989/CFT-precursor restriction on the 1997 parcels), followed by</li>
+    <li><strong>Direction 3</strong> (shared-use turf-retained design on the 1997 flat area, framed to clear SPR's ECA threshold criterion #2 by distinguishing the flat area from the slope ECA).</li>
+  </ol>
+  This is a two-action sequence, not a one-shot ask, and each step has a clear decision-maker (Council on #1, SPR administrative on #2).
+</div>
+
+<div class="note-box warning"><strong>Directions 1, 2, and 4 are dead.</strong> Kept in the proposal for documentation and to show why the obvious workarounds don't work at MacLean: the non-CFT land is the ECA-designated slope, not the flat area. Any path that relies on building on the 1992 parcel fails SPR's own threshold criteria.</div>
+
+<p><strong>Framing on size.</strong> Direction 3 delivers ~0.765 ac — roughly Lower Woodland's size, 6× Kinnear. That's meaningful but still below Queen Anne's fair-share need of 1+ acres. MacLean doesn't solve Queen Anne's OLA deficit on its own. Its unique contribution is the encampment-adjacent location and the stewardship narrative (Friends of MacLean, QACC, ongoing cleanup history). <em>Both Little Howe and East QA are better-sized candidates for the "first new Queen Anne OLA" job.</em></p>
+
+<p><strong>What to do if you want MacLean moving now.</strong> Write to Councilmember Kettle (Queen Anne rep) asking for (a) a public-records request to SPR for the 1994 Interlocal + the Ordinance 114900 restrictive covenants, and (b) a preliminary appropriation analysis of the $1.5M buyout cost. Copy Director Diaz. Frame it explicitly as a Medium-term companion to whichever near-term site (Little Howe or East QA) lands, not as a substitute. The Council won't act on MacLean alone; but the Council might act on MacLean once a near-term Queen Anne win is secured and the community asks for "the encampment-revitalization site" as a second act.</p>
+
+<!-- ==================================================================== -->
+<h2><span class="kicker">PRR asks</span>What public records would unlock the remaining paths</h2>
+
+<p>Parcel geometry and total acreage are no longer open questions — both are now confirmed from the <a href="https://data-seattlecitygis.opendata.arcgis.com/datasets/SeattleCityGIS::park-boundary-details">Seattle ArcGIS parks inventory</a> (1.02 ac total; 0.765 ac 1997 CFT; 0.255 ac 1992 non-CFT). The May 2020 SPR rejection letter adds the Ordinance 114900 reference and the $1.25M buyout estimate. The remaining documents that would unlock Directions 3 and 5 are:</p>
+
+<h4>For Direction 3 (CFT reinterpretation path)</h4>
+<ol>
+  <li><strong>The 1994 Interlocal Cooperation Agreement</strong> (KC Recording #9410148001), full text with all exhibits — the binding instrument. Lundin's 2020 email is staff interpretation; the Interlocal is the contract.</li>
+  <li><strong>King County CFT Citizens Committee variance/reinterpretation procedure</strong> — composition, submission requirements, decision timeline, prior determinations.</li>
+  <li><strong>Written King County CFT response</strong> on:
+    <ul>
+      <li>Whether turf-retained, time-zoned shared-use with safety-justified fencing (not exclusive-use enclosure) triggers the CFT dedicated-facility exclusion.</li>
+      <li>What park-compatible improvements on CFT parcels (soft trails, benches, plantings, signage) are allowed.</li>
+      <li>Inventory of any Seattle CFT-encumbered parcel that currently hosts fenced facilities of any kind (precedent).</li>
+    </ul>
+  </li>
+  <li><strong>SDCI's ECA designation for MacLean Park at parcel-level resolution</strong> — is the flat area itself within a designated ECA, or only the surrounding slope? SPR's 2020 letter said "ECAs throughout the site"; the map at that resolution would confirm or complicate that claim.</li>
+</ol>
+
+<h4>For Direction 5 (buyout path)</h4>
+<ol>
+  <li><strong>Seattle Ordinance 114900</strong> (1989 Open Space and Trails Bond), full text — what restrictions did it impose independently of the King County match? The May 2020 letter implies a combined restriction; if the Bond side imposes its own separate obligation, a KC-only buyout wouldn't fully extinguish the encumbrance.</li>
+  <li><strong>The pre-CFT "forerunner" King County program</strong> — Ward referenced it in 2019 but didn't name it. Identify the program, its specific terms, and whether a payment to KC fully releases the land.</li>
+  <li><strong>City Attorney's opinion or Real Property analysis</strong> on the buyout mechanism: has any Seattle park parcel ever had a CFT/Bond encumbrance extinguished by repayment, and what was the process?</li>
+  <li><strong>SPR Real Property's $1.25M estimate (2020) in current-dollar terms</strong>, with methodology — comparable sales, assessor value, or appraisal-based.</li>
+</ol>
+
+<h4>For the SPR-threshold-criteria conversation (applies to both D3 and D5)</h4>
+<ol>
+  <li><strong>The May 2020 SPR response letter</strong> in full (we have it in partial form via Don Harper's email; the official copy should include any attached staff reports, the Planning and Development Division input referenced, and the community-OLA application form with criteria.</li>
+  <li><strong>SPR's community-OLA application threshold criteria #1-4</strong> in their current form, with any revision history — has SPR revised the ECA categorical exclusion since 2020?</li>
+  <li><strong>Any 2019–present SPR internal analysis</strong> of shared-use / time-zoned framing at MacLean specifically, including anything Councilmember Lewis's office may have exchanged with SPR 2019–2023.</li>
+  <li><strong>SDCI environmental review threshold</strong> for a fenced OLA at MacLean — SEPA, ECA, grading, drainage, stormwater triggers at what design threshold.</li>
+</ol>
+
+<!-- ==================================================================== -->
+<h2><span class="kicker">For my own review</span>Open questions</h2>
+
+<div class="q-block">
+  <strong>Q1 — Does SDCI's ECA map actually extend into the flat area, or only the surrounding slope?</strong>
+  <p>SPR's May 2020 letter said "ECAs throughout the site," but that's a site-level characterization. At parcel-level resolution, SDCI's GIS may show the ECA envelope stopping at the slope break. If the flat area itself is <em>ECA-adjacent</em> rather than <em>ECA-located</em>, SPR's threshold criterion #2 determination is revisitable. This is the single highest-leverage question for both Direction 3 and Direction 5.</p>
+</div>
+
+<div class="q-block">
+  <strong>Q2 — Does Ordinance 114900 (1989 Open Space Bond) carry restrictions that persist after the King County buyout?</strong>
+  <p>SPR's $1.25M estimate is the repayment value to King County. But if the 1989 Bond side imposes its own independent conservation obligation on MacLean, a KC-only buyout doesn't fully free the land. Direction 5's viability depends on the answer. City Attorney opinion needed.</p>
+</div>
+
+<div class="q-block">
+  <strong>Q3 — Has any Seattle CFT-encumbered parcel ever hosted a fenced facility, or had its CFT restriction extinguished by repayment?</strong>
+  <p>Precedent matters for both D3 (fenced facility on CFT land) and D5 (buyout mechanism). A precedent inventory would strengthen whichever argument it happens to support and identify the process for whichever path Seattle chose in the past.</p>
+</div>
+
+<div class="q-block">
+  <strong>Q4 — Does Little Howe or East Queen Anne Playfield actually land first?</strong>
+  <p>This proposal is explicitly not competing with those. If one of them gets built 2026–2028, that's a Queen Anne OLA win and MacLean moves to "possible second act." If neither lands, the case for MacLean as the Queen Anne OLA strengthens, but the ECA and CFT barriers don't get any lower. Near-term Queen Anne OLA outcomes should drive MacLean's timeline.</p>
+</div>
+
+<div class="q-block">
+  <strong>Q5 — Would Friends of MacLean Park and We Heart Seattle publicly endorse an OLA proposal?</strong>
+  <p>The conservation-via-activation argument in Direction 3 depends on being able to credibly claim that active park use (dog owners) is better for the land than the status quo (encampment degradation). Endorsement from the two community groups doing current stewardship would make that argument much stronger and would reduce the "gentrification / displacement" optics concerns that typically attach to OLA proposals near active encampments.</p>
+</div>
+
+<div class="q-block">
+  <strong>Q6 — Is Councilmember Kettle (District 7, 2024–) interested?</strong>
+  <p>Queen Anne's current council rep is the natural political champion for a MacLean direction-5 appropriation. His public positions on parks, homelessness response, and Queen Anne specifically would signal whether the $1.5M ask has any political legs. Cc'd on QACC's Feb 2024 Little Howe letter — already in the loop on Queen Anne OLA.</p>
+</div>
+
+<div class="q-block">
+  <strong>Q7 — Is a shared-use / time-zoned framework something the Queen Anne community would support, or do they want a dedicated Kinnear-style OLA?</strong>
+  <p>Direction 3's framing assumes the site-wide shared-use argument from the opinion page. QACC's Feb 2024 Little Howe proposal reads as dedicated-fenced OLA (standard model), not shared-use. If Queen Anne's community preference is strongly dedicated-fenced, Direction 3's "turf retention + time-zoning" pitch may not have a natural base of support, which would shift the recommendation toward Direction 5 alone (buy out, then build a standard OLA on the flat area).</p>
+</div>
+
+<div class="q-block">
+  <strong>Q8 — Who to share this with, and when?</strong>
+  <p>Candidates when ready: QACC Parks Committee (Don Harper), COLA leadership, MOLG, Councilmember Kettle's office, specific SPR contacts (Lotfi, Alspaugh if still in role). For now, this stays private.</p>
+</div>
+
+<!-- ==================================================================== -->
+<h2><span class="kicker">Next steps</span>After self-review</h2>
+
+<ol>
+  <li>File the consolidated PRR.</li>
+  <li>When the 1994 Interlocal arrives, read carefully for exact scope of the restriction.</li>
+  <li>When the parcel map arrives, confirm whether Direction 1/2 is feasible as a contingency path.</li>
+  <li>If Direction 3 is the required path: draft the formal reinterpretation request to King County CFT Citizens Committee, with Seattle Parks and Councilmember co-signatures.</li>
+  <li>Decide on sharing with QACC / COLA / Council.</li>
+</ol>
+
+</div>
+<script>
+(async function() {
+  const INK = '#121820', ACCENT = '#C04A1E', ACCENT_2 = '#4C6B54', ACCENT_4 = '#A68A2E';
+  const PARK_CENTER = [47.636126, -122.345320];
+  const PARK_ZOOM = 18;
+
+  // Only surviving direction (D3 + D5 share the same fence footprint — D5 changes
+  // the legal path, not the site design). The fence covers the 1997 CFT flat area.
+  const fences = {
+    d3: [[47.636470, -122.345791], [47.636470, -122.344850], [47.636262, -122.344848], [47.636057, -122.345391], [47.636057, -122.345791]],
+  };
+  const fenceLabelPositions = {
+    d3: [47.636260, -122.345300],
+  };
+  const fenceLabelText = {
+    d3: 'PROPOSED OLA FENCE',
+  };
+
+  // Direction-2 access path through the CFT parcel from Taylor entry to OLA on east strip
+  const d2Path = [[47.636130, -122.345770], [47.636150, -122.345400], [47.636130, -122.345000]];
+
+  let parcelsGeo, outlineGeo;
+  try {
+    [parcelsGeo, outlineGeo] = await Promise.all([
+      fetch('data/maclean/maclean-parcels.geojson').then(r => r.json()),
+      fetch('data/maclean/maclean-park-outline.geojson').then(r => r.json()),
+    ]);
+  } catch (err) {
+    console.error('MacLean GeoJSON fetch failed:', err);
+    document.querySelectorAll('.leaflet-map').forEach(el => {
+      el.innerHTML = '<div style="padding:20px;color:#8B2518;font-family:monospace;">Map data load failed: ' + err.message + '</div>';
+    });
+    return;
+  }
+
+  function parcelStyle(feature) {
+    const acq = feature.properties.ACQ_DATE;
+    const is1997 = acq === 871257600000;
+    return is1997
+      ? { fillColor: ACCENT_4, fillOpacity: 0.55, color: '#8A6500', weight: 1.2 }
+      : { fillColor: ACCENT_2, fillOpacity: 0.55, color: '#3A5A40', weight: 1.2 };
+  }
+  function parcelStyleAerial(feature) {
+    const s = parcelStyle(feature);
+    return { ...s, fillOpacity: 0.32 };
+  }
+
+  function initMap(id, mode, directionKey) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const map = L.map(id, { zoomControl: false, scrollWheelZoom: false, dragging: false, doubleClickZoom: false, boxZoom: false, keyboard: false, attributionControl: false });
+    // Set initial view BEFORE adding any overlay layers, otherwise Leaflet's
+    // vector renderer throws "Cannot read properties of undefined (reading 'min')"
+    map.fitBounds([[47.635782, -122.345793], [47.636470, -122.344848]], { padding: [18, 18] });
+    if (mode === 'aerial') {
+      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        maxZoom: 19, attribution: '&copy; Esri World Imagery',
+      }).addTo(map);
+    } else {
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        subdomains: 'abcd', maxZoom: 19, attribution: '&copy; CARTO',
+      }).addTo(map);
+    }
+    // Parcel polygons
+    L.geoJSON(parcelsGeo, {
+      style: mode === 'aerial' ? parcelStyleAerial : parcelStyle,
+      onEachFeature: (f, layer) => {
+        const acq = f.properties.ACQ_DATE;
+        const yr = acq === 871257600000 ? '1997 CFT' : '1992 non-CFT';
+        layer.bindTooltip(`${yr} · PIN ${f.properties.PIN}`);
+      },
+    }).addTo(map);
+    // Park outline
+    L.geoJSON(outlineGeo, { style: { color: INK, weight: 2, fill: false, opacity: 0.8 } }).addTo(map);
+    // Fence polygon for this direction
+    if (directionKey && fences[directionKey]) {
+      L.polygon(fences[directionKey], {
+        color: ACCENT, weight: 3, dashArray: '8 5',
+        fill: true, fillColor: ACCENT, fillOpacity: 0.15,
+      }).addTo(map);
+    }
+    // Direction 2 access path
+    if (directionKey === 'd2') {
+      L.polyline(d2Path, { color: '#2C4A6E', weight: 3, dashArray: '5 4' }).addTo(map);
+    }
+    // Year labels at parcel centroids (one per year, not per parcel)
+    const label1997 = L.divIcon({
+      html: '<span style="font-family: \'IBM Plex Mono\', monospace; font-size: 11px; font-weight: 700; color: #5a4400; background: rgba(255,255,255,0.85); padding: 2px 6px; border-radius: 2px; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap;">1997 (CFT)</span>',
+      className: 'parcel-year-label', iconSize: [110, 20], iconAnchor: [55, 10],
+    });
+    const label1992 = L.divIcon({
+      html: '<span style="font-family: \'IBM Plex Mono\', monospace; font-size: 11px; font-weight: 700; color: #2a4030; background: rgba(255,255,255,0.85); padding: 2px 6px; border-radius: 2px; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap;">1992 (non-CFT)</span>',
+      className: 'parcel-year-label', iconSize: [110, 20], iconAnchor: [55, 10],
+    });
+    L.marker([47.636320, -122.345450], { icon: label1997, interactive: false }).addTo(map);
+    L.marker([47.635880, -122.344920], { icon: label1992, interactive: false }).addTo(map);
+    // Fence label
+    if (directionKey && fenceLabelPositions[directionKey]) {
+      const fenceLabel = L.divIcon({
+        html: `<span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; color: ${ACCENT}; background: rgba(255,255,255,0.92); padding: 2px 6px; border: 1.5px dashed ${ACCENT}; border-radius: 2px; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap;">${fenceLabelText[directionKey]}</span>`,
+        className: 'fence-label', iconSize: [180, 22], iconAnchor: [90, 11],
+      });
+      L.marker(fenceLabelPositions[directionKey], { icon: fenceLabel, interactive: false }).addTo(map);
+    }
+    // Park boundary label (top-left corner)
+    const outlineLabel = L.divIcon({
+      html: '<span style="font-family: \'IBM Plex Mono\', monospace; font-size: 9px; font-weight: 600; color: #121820; background: rgba(255,255,255,0.85); padding: 1px 5px; border-radius: 2px; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap;">park boundary</span>',
+      className: 'park-outline-label', iconSize: [100, 16], iconAnchor: [0, 8],
+    });
+    L.marker([47.636460, -122.345780], { icon: outlineLabel, interactive: false }).addTo(map);
+    return map;
+  }
+
+  // Init the two D3 maps (only surviving site-design direction)
+  for (const d of ['d3']) {
+    try { initMap(`map-${d}-schem`, 'schematic', d); }
+    catch (e) { console.error(`map-${d}-schem failed:`, e); }
+    try { initMap(`map-${d}-aerial`, 'aerial', d); }
+    catch (e) { console.error(`map-${d}-aerial failed:`, e); }
+  }
+})();
+</script>
+
+</body>
+</html>
