@@ -81,7 +81,7 @@ Three independent estimates now cited on the site:
 
 | Estimate | Value | Provenance |
 |---|---:|---|
-| Licensed floor | ~26,700 active | sourced: [Seattle Open Data dataset `jguv-t9rb`](https://data.seattle.gov/dataset/Active-Pet-Licenses/jguv-t9rb/about_data) |
+| Licensed floor | 26,652 active | sourced: [Seattle Open Data `jguv-t9rb`](https://data.seattle.gov/City-Administration/Seattle-Pet-Licenses/jguv-t9rb/about_data), April 1 2026 snapshot committed at `data/seattle-pet-licenses/` |
 | AVMA-derived demographic | ~248,900 | calculated: 364,627 households (ACS 2023) × 45.5% × 1.6 dogs/HH — components sourced from [AVMA 2025 Sourcebook](https://www.avma.org/resources-tools/reports-statistics/us-pet-ownership-statistics) + [Census API](https://api.census.gov/data/2023/acs/acs1?get=NAME,B11001_001E&for=place:63000&in=state:53) |
 | SPR Expansion Study range | 187K–400K | sourced: SPR 2023-24 OLA Expansion Study |
 
