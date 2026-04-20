@@ -12,7 +12,7 @@
 
 Under Washington's Public Records Act (RCW 42.56), I am requesting the following records from the Seattle Animal Shelter (SAS):
 
-1. **Annual count of active dog licenses issued by the Seattle Animal Shelter, for calendar years 2014 through the most recent complete year available.** Broken down by year; if possible, by altered/unaltered status. (ZIP-level breakdown for the current snapshot is already public via [data.seattle.gov dataset `jguv-t9rb`](https://data.seattle.gov/City-Administration/Seattle-Pet-Licenses/jguv-t9rb/about_data); historical year-by-year ZIP breakdowns would add value if SAS has them.)
+1. **Annual count of active dog licenses issued by the Seattle Animal Shelter, for calendar years 2014 through the most recent complete year available.** Broken down by year; if possible, by ZIP code and by altered/unaltered status.
 
 2. **Annual count of new dog licenses issued** (as distinct from total active licenses) for the same period, so I can distinguish renewal rates from new enrollments.
 
