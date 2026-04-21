@@ -663,6 +663,13 @@
   <p class="chapter-deck">SPR's total budget grew from $156M in 2016 to $507M projected in 2026 — up 3.2×. The OLA line went from $100K/yr to $129K/yr over the same period. One-time Cycle 2 capital adds $3.46M for two new OLAs + design of a third.</p>
 
   <h2>01 · SPR total vs OLA-only spend</h2>
+  <p>Two views of the same numbers. The first is on a linear dollar axis — the axis the city budget itself is built on — so the gap is allowed to look the size it actually is. The second, further down, is the log-scale version, which lets the OLA line breathe enough to read the year-over-year trend.</p>
+  <div class="chart-wrap"><canvas id="chartBudgetLinear" role="img" aria-label="Linear-scale bar chart: SPR total budget vs OLA spend 2016-2026, same data as the log chart but on a linear dollar axis. The SPR bars range from $156M to $507M; the OLA-related bars collapse to a near-invisible sliver above the x-axis."></canvas></div>
+  <div class="callout">
+    <strong class="label">Look closely</strong>
+    Above each year, just above the axis line, there is an orange sliver roughly one pixel tall. That is the OLA-related budget, drawn to scale against the SPR total. In 2018 — the peak year as a share of SPR — it was <strong>0.064% of SPR's total</strong>. This is the chart the log-scale version below is hiding: the orange bars are there, and you essentially cannot see them. That is the point.
+  </div>
+  <p>Same data, log scale — so the OLA trend is actually readable:</p>
   <div class="chart-wrap"><canvas id="chartBudget" role="img" aria-label="Log-scale bar chart: SPR total budget vs OLA spend 2016-2026. SPR total grew from $156M in 2016 to $507M projected 2026; OLA-only operating stayed near $100-130K per year."></canvas></div>
   <table>
     <thead><tr><th>Year</th><th class="num">SPR total ($M, all funds)</th><th class="num">OLA-only operating ($K)</th><th class="num">OLA as % of SPR</th><th>Cycle</th></tr></thead>
@@ -1103,16 +1110,25 @@
   // Convert to consistent M units
   const combinedM = combinedK.map(v => v/1000);
   const olaOnlyM = olaOnlyK.map(v => v == null ? null : v/1000);
+  const budgetDatasets = [
+    { label: 'SPR total ($M, all funds)', data: sprTotalM, backgroundColor: NAVY, borderWidth: 0, order: 3 },
+    { label: 'OLA + P-Patch combined ($M)', data: combinedM, backgroundColor: 'rgba(192,74,30,0.4)', borderWidth: 0, order: 2 },
+    { label: 'OLA-only disclosed ($M)', data: olaOnlyM, backgroundColor: SEATTLE, borderWidth: 0, order: 1 }
+  ];
+  // Chart 7a: linear-scale view — deliberately lets the OLA bars collapse
+  // to a sub-pixel sliver above the x-axis. Companion to the log chart.
+  new Chart(document.getElementById('chartBudgetLinear'), {
+    type: 'bar',
+    data: { labels: years, datasets: budgetDatasets },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'top', align: 'start', labels: { usePointStyle: true, padding: 8, font: { size: 8 } } }, title: { display: true, text: 'SPR total vs OLA spend, 2016-2026 (linear scale)', font: { size: 10, weight: '500' }, color: INK } },
+      scales: { x: axis, y: { ...axis, beginAtZero: true, title: { display: true, text: '$ Millions (linear scale)', color: INK_SOFT }, ticks: { ...axis.ticks, callback: v => '$' + v + 'M' } } }
+    }
+  });
   new Chart(document.getElementById('chartBudget'), {
     type: 'bar',
-    data: {
-      labels: years,
-      datasets: [
-        { label: 'SPR total ($M, all funds)', data: sprTotalM, backgroundColor: NAVY, borderWidth: 0, order: 3 },
-        { label: 'OLA + P-Patch combined ($M)', data: combinedM, backgroundColor: 'rgba(192,74,30,0.4)', borderWidth: 0, order: 2 },
-        { label: 'OLA-only disclosed ($M)', data: olaOnlyM, backgroundColor: SEATTLE, borderWidth: 0, order: 1 }
-      ]
-    },
+    data: { labels: years, datasets: budgetDatasets },
     options: {
       responsive: true, maintainAspectRatio: false,
       plugins: { legend: { position: 'top', align: 'start', labels: { usePointStyle: true, padding: 8, font: { size: 8 } } }, title: { display: true, text: 'SPR total vs OLA spend, 2016-2026 (log scale)', font: { size: 10, weight: '500' }, color: INK } },
