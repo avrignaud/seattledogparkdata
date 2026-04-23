@@ -69,13 +69,9 @@
     letter-spacing: -0.01em;
   }
   .brand .mark {
-    width: 22px; height: 22px; border-radius: 6px;
-    background: var(--orange);
-    display: inline-flex; align-items: center; justify-content: center;
-    color: #fff;
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 700;
-    font-size: 13px;
+    width: 24px; height: 24px;
+    display: block;
+    filter: brightness(0) invert(1);
   }
   .nav {
     display: flex; gap: 22px; color: rgba(255,255,255,0.7);
@@ -412,7 +408,7 @@
   <!-- Topbar -->
   <div class="topbar">
     <div class="brand">
-      <span class="mark">S</span>
+      <img class="mark" src="favicon.svg" alt="">
       <span>Seattle Dog Park Data</span>
     </div>
     <nav class="nav">

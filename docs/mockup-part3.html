@@ -35,9 +35,7 @@
   .brand { display: flex; align-items: center; gap: 10px;
     font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 16px;
     letter-spacing: -0.01em; text-decoration: none; color: var(--ink); }
-  .brand .mark { width: 22px; height: 22px; border-radius: 6px; background: var(--orange);
-    display: inline-flex; align-items: center; justify-content: center; color: #fff;
-    font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 12px; }
+  .brand .mark { width: 26px; height: 26px; display: block; }
   .nav { display: flex; gap: 22px; font-size: 14px; color: var(--ink-soft); }
   .nav a { text-decoration: none; transition: color .15s; }
   .nav a:hover, .nav a.active { color: var(--ink); }
@@ -249,7 +247,7 @@
 
   <div class="topbar">
     <a class="brand" href="#">
-      <span class="mark">S</span>
+      <img class="mark" src="favicon.svg" alt="">
       <span>Seattle Dog Park Data</span>
     </a>
     <nav class="nav">
