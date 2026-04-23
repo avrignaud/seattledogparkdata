@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mockup · Part II — Access</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<style>
+  :root {
+    --bg: #F5F1E8; --surface: #FFFFFF;
+    --ink: #1A1712; --ink-soft: #4C4A44; --ink-faint: #8A877E;
+    --rule: #E4DFD1; --rule-soft: #ECE8DC;
+    --orange: #D1481A; --orange-soft: #F9E7DB;
+    --navy: #1F3A5F; --navy-soft: #E1EAF5;
+    --sage: #4C6B54; --sage-soft: #E2EAE0;
+    --gold: #B8872B; --gold-soft: #F2E9CE;
+    --danger: #8B2518;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--bg); color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    font-weight: 400; font-size: 16.5px; line-height: 1.65;
+    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  }
+  a { color: var(--orange); }
+  ::selection { background: var(--orange); color: #fff; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 24px 32px 120px; }
+
+  .topbar { display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 0 18px; border-bottom: 1px solid var(--rule); margin-bottom: 56px; }
+  .brand { display: flex; align-items: center; gap: 10px;
+    font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 16px;
+    letter-spacing: -0.01em; text-decoration: none; color: var(--ink); }
+  .brand .mark { width: 22px; height: 22px; border-radius: 6px; background: var(--orange);
+    display: inline-flex; align-items: center; justify-content: center; color: #fff;
+    font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 12px; }
+  .nav { display: flex; gap: 22px; font-size: 14px; color: var(--ink-soft); }
+  .nav a { text-decoration: none; transition: color .15s; }
+  .nav a:hover, .nav a.active { color: var(--ink); }
+  .nav a.active { font-weight: 500; color: var(--orange); }
+
+  .kicker { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); font-weight: 500; }
+  .kicker.orange { color: var(--orange); }
+  .kicker.navy { color: var(--navy); }
+  .kicker.sage { color: var(--sage); }
+  .kicker.danger { color: var(--danger); }
+
+  .masthead { display: flex; justify-content: space-between; align-items: baseline;
+    font-family: 'IBM Plex Mono', monospace; font-size: 11px;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); padding-bottom: 40px; }
+
+  .hero { padding: 24px 0 56px; border-bottom: 1px solid var(--rule); margin-bottom: 72px;
+    display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: center; }
+  .hero .part-label { margin-bottom: 20px; display: block; }
+  .hero .big-number {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: clamp(140px, 22vw, 280px);
+    line-height: 0.86;
+    letter-spacing: -0.05em;
+    color: var(--orange);
+    font-variant-numeric: tabular-nums;
+  }
+  .hero .big-number .pct { font-size: 0.56em; font-weight: 400; letter-spacing: 0; vertical-align: 15%; margin-left: -0.04em; }
+  h1.hed {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: clamp(28px, 3.2vw, 38px);
+    line-height: 1.18;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    max-width: 22ch;
+    margin-bottom: 20px;
+  }
+  h1.hed .italic { font-style: italic; font-weight: 400; color: var(--orange); }
+  .deck { font-size: 17px; line-height: 1.55; color: var(--ink-soft); max-width: 46ch; margin-bottom: 20px; }
+  .byline { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;
+    text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-faint);
+    padding-top: 16px; border-top: 1px solid var(--rule-soft); }
+  .byline strong { color: var(--ink); font-weight: 500; }
+
+  h2.finding {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(30px, 3.6vw, 44px);
+    line-height: 1.08; font-weight: 500; letter-spacing: -0.028em;
+    margin-top: 96px; margin-bottom: 20px; max-width: 26ch;
+  }
+  h2.finding .italic { font-style: italic; font-weight: 400; color: var(--orange); }
+  h2.finding .num {
+    display: block; font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px; font-weight: 500; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--orange); margin-bottom: 16px;
+  }
+  h3 { font-family: 'Space Grotesk', sans-serif; font-size: 24px;
+    font-weight: 500; letter-spacing: -0.02em; line-height: 1.2;
+    margin-top: 32px; margin-bottom: 10px; }
+
+  p { max-width: 62ch; margin-bottom: 18px; color: var(--ink); }
+  p.lead { font-size: 19px; color: var(--ink); }
+
+  .chart-block { background: var(--surface); border: 1px solid var(--rule);
+    border-radius: 16px; padding: 28px 28px 20px; margin: 32px 0 36px; }
+  .chart-wrap { position: relative; height: 360px; margin-bottom: 12px; }
+  .chart-wrap.short { height: 240px; }
+  .chart-title { font-family: 'Space Grotesk', sans-serif; font-size: 18px;
+    font-weight: 500; letter-spacing: -0.015em; margin-bottom: 4px; }
+  .chart-subtitle { font-size: 14px; color: var(--ink-soft); margin-bottom: 18px; }
+  .chart-source { font-family: 'IBM Plex Mono', monospace; font-size: 11px;
+    color: var(--ink-faint); padding-top: 14px; border-top: 1px solid var(--rule-soft); }
+  .chart-source a { color: var(--ink-soft); }
+
+  .map-block { background: var(--surface); border: 1px solid var(--rule);
+    border-radius: 16px; padding: 28px 28px 20px; margin: 32px 0 36px; }
+  #seattle-map { height: 520px; border-radius: 10px; border: 1px solid var(--rule-soft); }
+  .map-legend {
+    display: flex; gap: 20px; font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px; color: var(--ink-soft); margin-top: 14px;
+  }
+  .map-legend .sw {
+    display: inline-block; width: 10px; height: 10px; border-radius: 50%;
+    vertical-align: middle; margin-right: 6px;
+  }
+
+  .takeaway { background: var(--orange-soft); border-radius: 16px;
+    padding: 28px 32px; margin: 40px 0; }
+  .takeaway .kicker { color: var(--orange); margin-bottom: 10px; display: block; }
+  .takeaway p { font-family: 'Space Grotesk', sans-serif; font-size: 22px;
+    line-height: 1.35; font-weight: 500; letter-spacing: -0.015em;
+    color: var(--ink); margin: 0; max-width: none; }
+  .takeaway.neutral { background: var(--sage-soft); }
+  .takeaway.neutral .kicker { color: var(--sage); }
+  .takeaway.caution { background: var(--gold-soft); }
+  .takeaway.caution .kicker { color: var(--gold); }
+
+  /* Case study (Kinnear) */
+  .case-study {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+    border-radius: 20px; overflow: hidden; margin: 48px 0;
+    border: 1px solid var(--rule);
+  }
+  .case-study .meta { background: var(--navy); color: #fff; padding: 36px 36px 32px; }
+  .case-study .meta .kicker { color: rgba(255,255,255,0.7); margin-bottom: 18px; display: block; }
+  .case-study .meta h3 {
+    font-family: 'Space Grotesk', sans-serif; font-size: 32px; font-weight: 500;
+    letter-spacing: -0.025em; line-height: 1.1; margin: 0 0 16px; color: #fff;
+  }
+  .case-study .meta .stats-inline { margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .case-study .meta .stats-inline .s .n {
+    font-family: 'Space Grotesk', sans-serif; font-size: 28px; font-weight: 500;
+    letter-spacing: -0.025em; color: var(--orange);
+  }
+  .case-study .meta .stats-inline .s .l {
+    font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: rgba(255,255,255,0.6); margin-top: 4px;
+  }
+  .case-study .body { background: var(--surface); padding: 36px; }
+  .case-study .body p:last-child { margin-bottom: 0; }
+
+  .paginate { display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    margin-top: 96px; padding-top: 32px; border-top: 1px solid var(--rule); }
+  .paginate a { background: var(--surface); border: 1px solid var(--rule);
+    border-radius: 14px; padding: 22px 24px; text-decoration: none; color: var(--ink);
+    transition: border-color .15s, transform .15s; }
+  .paginate a:hover { border-color: var(--ink); transform: translateY(-2px); }
+  .paginate a.next { text-align: right; }
+  .paginate .kicker { display: block; margin-bottom: 6px; }
+  .paginate .title {
+    font-family: 'Space Grotesk', sans-serif; font-size: 20px;
+    font-weight: 500; letter-spacing: -0.018em;
+  }
+
+  footer { margin-top: 80px; padding-top: 24px; border-top: 1px solid var(--rule);
+    font-size: 13px; color: var(--ink-soft); line-height: 1.6; }
+  footer a { color: var(--ink-soft); }
+
+  .mockup-banner { position: sticky; top: 0; z-index: 20;
+    background: var(--ink); color: #fff; padding: 10px 24px;
+    font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.06em;
+    display: flex; justify-content: space-between; align-items: center; }
+  .mockup-banner a { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+
+  @media (max-width: 900px) {
+    .nav { display: none; }
+    .hero { grid-template-columns: 1fr; gap: 24px; }
+    .hero .big-number { font-size: 160px; }
+    .paginate { grid-template-columns: 1fr; }
+    .paginate a.next { text-align: left; }
+    .case-study { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 520px) {
+    .wrap { padding: 16px 16px 80px; }
+    .chart-block, .map-block { padding: 18px 16px 14px; }
+    #seattle-map { height: 380px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="mockup-banner">
+  <span>MOCKUP · PART II — ACCESS (warm paper + Space Grotesk + Inter)</span>
+  <span><a href="mockup-part1.html">← Part I</a> · <a href="mockup-part3.html">Part III →</a></span>
+</div>
+
+<div class="wrap">
+
+  <div class="topbar">
+    <a class="brand" href="#">
+      <span class="mark">S</span>
+      <span>Seattle Dog Park Data</span>
+    </a>
+    <nav class="nav">
+      <a href="#">Overview</a>
+      <a href="#">The Gap</a>
+      <a href="#" class="active">Access</a>
+      <a href="#">Forward</a>
+      <a href="#">Enforcement</a>
+      <a href="#">Budget</a>
+      <a href="#">Peer Cities</a>
+      <a href="#">Opinion</a>
+    </nav>
+  </div>
+
+  <div class="masthead">
+    <span>Seattle Dog Park Data · seattledogparkdata.com</span>
+    <span>APRIL 2026</span>
+  </div>
+
+  <header class="hero">
+    <div class="big-number" aria-label="11.7 percent">11.7<span class="pct">%</span></div>
+    <div>
+      <span class="kicker orange part-label">Part II · Access</span>
+      <h1 class="hed">Share of Seattleites within a 10-minute walk of a <span class="italic">legal</span> off-leash area.</h1>
+      <p class="deck">
+        99% of Seattleites live that close to <em>any</em> park (TPL). 76.6% live within SPR's published 2.5-mile OLA standard.
+        The gap between "a park" and "a park where dogs are legal" is what this report measures.
+      </p>
+      <div class="byline">
+        <strong>Andre Vrignaud</strong> · Network-distance analysis · Updated April 23, 2026
+      </div>
+    </div>
+  </header>
+
+  <!-- Finding 01 -->
+  <h2 class="finding"><span class="num">Finding 01</span>Any park vs. a <span class="italic">legally usable</span> park.</h2>
+  <p class="lead">
+    The 11.7% number replaces an earlier straight-line estimate (~33%) with a proper network-distance
+    analysis: every Seattle address, routed along the OSM pedestrian network, to the nearest OLA entrance,
+    with a 10-minute cap at a 3 mph walking pace.
+  </p>
+
+  <div class="chart-block">
+    <div class="chart-title">Share of Seattle residents within a 10-minute walk</div>
+    <div class="chart-subtitle">Network-distance, OSM pedestrian graph, 2020 Census block-group overlay (area-weighted).</div>
+    <div class="chart-wrap short"><canvas id="chartWalkshed"></canvas></div>
+    <div class="chart-source">
+      Source: scripts/compute_walkshed.py + population_coverage.py · <a href="#">walkshed/population-coverage.csv</a>
+    </div>
+  </div>
+
+  <div class="takeaway">
+    <span class="kicker">Observation</span>
+    <p>A properly network-routed walkshed produces a smaller number than a straight-line buffer. Seattle's hills, I-5, and the Ship Canal all cut off routes that "look" close on a map. 11.7% is a ceiling, not a floor.</p>
+  </div>
+
+  <!-- Finding 02 -->
+  <h2 class="finding"><span class="num">Finding 02</span>Mapping the OLA gap.</h2>
+  <p class="lead">
+    Fourteen fully-fenced off-leash areas, mapped with their half-mile walkshed. The visible gaps —
+    Queen Anne, central Capitol Hill, the western half of West Seattle, most of the Rainier Valley —
+    are where the 88.3% of Seattleites without legal 10-minute access actually live.
+  </p>
+
+  <div class="map-block">
+    <div class="chart-title">Seattle off-leash areas, with half-mile walksheds</div>
+    <div class="chart-subtitle">Straight-line half-mile buffers shown for visual clarity; reported coverage figures use network routing.</div>
+    <div id="seattle-map"></div>
+    <div class="map-legend">
+      <span><span class="sw" style="background: var(--orange);"></span>Existing OLA (14)</span>
+      <span><span class="sw" style="background: var(--sage);"></span>Opening 2026 (2)</span>
+      <span><span class="sw" style="background: rgba(209,72,26,0.18); border: 1px solid var(--orange);"></span>½-mile walkshed</span>
+    </div>
+    <div class="chart-source" style="margin-top: 14px;">
+      Source: <a href="#">seattle-olas.csv</a> + <a href="#">planned-olas.csv</a>. Map tiles: CARTO.
+    </div>
+  </div>
+
+  <!-- Kinnear case study -->
+  <div class="case-study">
+    <div class="meta">
+      <span class="kicker">Case study · 20 years of documented incidents</span>
+      <h3>Kinnear Park.</h3>
+      <p style="color: rgba(255,255,255,0.78); max-width: none; margin-bottom: 0;">
+        Queen Anne's only nearby OLA is the smallest in Seattle — a fenced pen at the back of a steep
+        wooded park. It has been the site of documented dog–dog, dog–human, and neighborhood enforcement
+        incidents for two decades.
+      </p>
+      <div class="stats-inline">
+        <div class="s">
+          <div class="n">0.11 ac</div>
+          <div class="l">Fenced area</div>
+        </div>
+        <div class="s">
+          <div class="n">20+ yrs</div>
+          <div class="l">Incident history</div>
+        </div>
+      </div>
+    </div>
+    <div class="body">
+      <span class="kicker orange">Why it matters</span>
+      <h3 style="margin-top: 10px;">A case study of what "OLA" means when the OLA is too small to matter.</h3>
+      <p>
+        Kinnear serves a ZIP code with one of the highest dog-owning household rates in Seattle and
+        no other OLA within reasonable walking distance. At 0.1 acres it sits at roughly one-tenth
+        the AKC-recommended minimum fenced area, and roughly 1/80th the per-capita space benchmark
+        from peer cities.
+      </p>
+      <p>
+        The result, visible in Seattle Animal Control's citation data, is predictable: Kinnear's ZIP
+        shows disproportionately high off-leash citation density in parks other than Kinnear. When the
+        legal option is too small to use, the use moves elsewhere.
+      </p>
+      <p><a href="#">Read the full Kinnear chronology →</a></p>
+    </div>
+  </div>
+
+  <!-- Paginate -->
+  <nav class="paginate">
+    <a href="mockup-part1.html" class="prev">
+      <span class="kicker">← Previous</span>
+      <span class="title">Part I — The Gap</span>
+    </a>
+    <a href="mockup-part3.html" class="next">
+      <span class="kicker">Next →</span>
+      <span class="title">Part III — Forward</span>
+    </a>
+  </nav>
+
+  <footer>
+    <p>Source code and all data: <a href="#">github.com/avrignaud/seattledogparkdata</a> · MIT license covers author-written code and analysis.</p>
+  </footer>
+
+</div>
+
+<script>
+  Chart.defaults.font.family = "'Inter', system-ui, sans-serif";
+  Chart.defaults.font.size = 12.5;
+  Chart.defaults.color = '#4C4A44';
+  Chart.defaults.borderColor = 'rgba(26,23,18,0.08)';
+
+  // Walkshed chart
+  new Chart(document.getElementById('chartWalkshed'), {
+    type: 'bar',
+    data: {
+      labels: ['Any park (TPL)', 'SPR 2.5-mile OLA standard', 'OLA · 10-min network walk'],
+      datasets: [{
+        data: [99.0, 76.6, 11.7],
+        backgroundColor: ['#4C6B54', '#B8872B', '#D1481A'],
+        borderRadius: 6,
+        borderSkipped: false,
+        barThickness: 38
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#1A1712',
+          callbacks: { label: ctx => ctx.parsed.x.toFixed(1) + '% of Seattle residents' }
+        }
+      },
+      scales: {
+        x: {
+          max: 100, beginAtZero: true,
+          grid: { color: 'rgba(26,23,18,0.06)' },
+          ticks: { callback: v => v + '%' }
+        },
+        y: { grid: { display: false } }
+      }
+    }
+  });
+
+  // Seattle map (Leaflet) — a few representative OLAs
+  const map = L.map('seattle-map', { zoomControl: true, scrollWheelZoom: false }).setView([47.615, -122.33], 11);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '© OpenStreetMap · © CARTO',
+    subdomains: 'abcd',
+    maxZoom: 19
+  }).addTo(map);
+
+  const olas = [
+    { name: 'Magnuson Park',   lat: 47.6794, lng: -122.2605, size: 9.0, kind: 'existing' },
+    { name: 'Marymoor (county)', lat: 47.6625, lng: -122.1195, size: 40.0, kind: 'existing' },
+    { name: 'Genesee',         lat: 47.5572, lng: -122.2883, size: 2.8,  kind: 'existing' },
+    { name: 'Golden Gardens',  lat: 47.6920, lng: -122.4030, size: 1.8,  kind: 'existing' },
+    { name: 'Blue Dog Pond',   lat: 47.5922, lng: -122.2960, size: 1.5,  kind: 'existing' },
+    { name: 'I-5 Colonnade',   lat: 47.6444, lng: -122.3240, size: 1.1,  kind: 'existing' },
+    { name: 'Woodland',        lat: 47.6680, lng: -122.3360, size: 1.0,  kind: 'existing' },
+    { name: 'Plymouth Pillars', lat: 47.6135, lng: -122.3270, size: 0.3, kind: 'existing' },
+    { name: 'Kinnear',         lat: 47.6270, lng: -122.3630, size: 0.11, kind: 'existing' },
+    { name: 'Denny Park',      lat: 47.6180, lng: -122.3410, size: 0.105, kind: 'existing' },
+    { name: 'W. Seattle Stadium', lat: 47.5770, lng: -122.3690, size: 1.4, kind: 'planned' }
+  ];
+
+  const walkshedRadiusMeters = 804.67; // 0.5 mile
+  olas.forEach(o => {
+    const color = o.kind === 'planned' ? '#4C6B54' : '#D1481A';
+    L.circle([o.lat, o.lng], {
+      radius: walkshedRadiusMeters,
+      color: color,
+      fillColor: color,
+      fillOpacity: 0.10,
+      weight: 1
+    }).addTo(map);
+    L.circleMarker([o.lat, o.lng], {
+      radius: 6, color: '#fff', weight: 2, fillColor: color, fillOpacity: 1
+    })
+    .addTo(map)
+    .bindPopup(
+      `<strong style="font-family:'Space Grotesk',sans-serif;">${o.name}</strong><br>`+
+      `<span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#4C4A44;">`+
+      `${o.size.toFixed(2)} acres · ${o.kind}</span>`
+    );
+  });
+</script>
+
+</body>
+</html>

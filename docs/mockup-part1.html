@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mockup · Part I — The Gap</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+  /* ============================================================
+     SHARED DESIGN SYSTEM (Part I / II / III mockups)
+     Paper warmth + Space Grotesk display + Inter body + IBM Plex Mono kickers
+     ============================================================ */
+  :root {
+    --bg: #F5F1E8;
+    --surface: #FFFFFF;
+    --ink: #1A1712;
+    --ink-soft: #4C4A44;
+    --ink-faint: #8A877E;
+    --rule: #E4DFD1;
+    --rule-soft: #ECE8DC;
+    --orange: #D1481A;
+    --orange-soft: #F9E7DB;
+    --navy: #1F3A5F;
+    --navy-soft: #E1EAF5;
+    --sage: #4C6B54;
+    --sage-soft: #E2EAE0;
+    --gold: #B8872B;
+    --gold-soft: #F2E9CE;
+    --danger: #8B2518;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    font-weight: 400;
+    font-size: 16.5px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  a { color: var(--orange); }
+  ::selection { background: var(--orange); color: #fff; }
+
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 24px 32px 120px; }
+
+  /* ---- Topbar (flat, hairline rule — no dark pill) ---- */
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0 18px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 56px;
+  }
+  .brand {
+    display: flex; align-items: center; gap: 10px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .brand .mark {
+    width: 22px; height: 22px; border-radius: 6px;
+    background: var(--orange);
+    display: inline-flex; align-items: center; justify-content: center;
+    color: #fff;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+  }
+  .nav {
+    display: flex; gap: 22px;
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+  .nav a { text-decoration: none; transition: color .15s; }
+  .nav a:hover, .nav a.active { color: var(--ink); }
+  .nav a.active { font-weight: 500; color: var(--orange); }
+
+  /* ---- Kicker ---- */
+  .kicker {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    font-weight: 500;
+  }
+  .kicker.orange { color: var(--orange); }
+  .kicker.navy { color: var(--navy); }
+  .kicker.sage { color: var(--sage); }
+
+  /* ---- Masthead ---- */
+  .masthead {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    padding-bottom: 40px;
+  }
+  .masthead .dateline { color: var(--ink-soft); }
+
+  /* ---- Hero ---- */
+  .hero { padding: 24px 0 56px; border-bottom: 1px solid var(--rule); margin-bottom: 72px; }
+  .hero .part-label { margin-bottom: 28px; }
+  h1.hed {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: clamp(48px, 7vw, 96px);
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    max-width: 20ch;
+    margin-bottom: 28px;
+  }
+  h1.hed .italic {
+    font-family: 'Space Grotesk', sans-serif;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--orange);
+  }
+  h1.hed .hl { color: var(--orange); font-weight: 600; }
+  .deck {
+    font-size: 22px;
+    line-height: 1.45;
+    color: var(--ink-soft);
+    max-width: 60ch;
+    font-weight: 400;
+    margin-bottom: 32px;
+  }
+  .byline {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-faint);
+    padding-top: 24px;
+    border-top: 1px solid var(--rule-soft);
+  }
+  .byline strong { color: var(--ink); font-weight: 500; }
+
+  /* ---- Section headings ---- */
+  h2.finding {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(30px, 3.6vw, 44px);
+    line-height: 1.08;
+    font-weight: 500;
+    letter-spacing: -0.028em;
+    margin-top: 96px;
+    margin-bottom: 20px;
+    max-width: 26ch;
+  }
+  h2.finding .italic { font-style: italic; font-weight: 400; color: var(--orange); }
+  h2.finding .num {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 16px;
+    letter-spacing: 0.2em;
+  }
+  h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-top: 32px;
+    margin-bottom: 10px;
+  }
+
+  /* ---- Body ---- */
+  p { max-width: 62ch; margin-bottom: 18px; color: var(--ink); }
+  p.lead { font-size: 19px; color: var(--ink); max-width: 62ch; }
+
+  /* ---- Chart block ---- */
+  .chart-block {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 16px;
+    padding: 28px 28px 20px;
+    margin: 32px 0 36px;
+  }
+  .chart-wrap { position: relative; height: 380px; margin-bottom: 12px; }
+  .chart-wrap.short { height: 280px; }
+  .chart-wrap.tall { height: 520px; }
+  .chart-source {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-faint);
+    letter-spacing: 0.04em;
+    padding-top: 14px;
+    border-top: 1px solid var(--rule-soft);
+  }
+  .chart-source a { color: var(--ink-soft); }
+  .chart-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    margin-bottom: 4px;
+  }
+  .chart-subtitle {
+    font-size: 14px;
+    color: var(--ink-soft);
+    margin-bottom: 18px;
+  }
+
+  /* ---- Takeaway box ---- */
+  .takeaway {
+    background: var(--orange-soft);
+    border-radius: 16px;
+    padding: 28px 32px;
+    margin: 40px 0;
+  }
+  .takeaway .kicker { color: var(--orange); margin-bottom: 10px; display: block; }
+  .takeaway p {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 22px;
+    line-height: 1.35;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    margin: 0;
+    max-width: none;
+  }
+  .takeaway.neutral { background: var(--sage-soft); }
+  .takeaway.neutral .kicker { color: var(--sage); }
+  .takeaway.caution { background: var(--gold-soft); }
+  .takeaway.caution .kicker { color: var(--gold); }
+
+  /* ---- Pagination ---- */
+  .paginate {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 96px;
+    padding-top: 32px;
+    border-top: 1px solid var(--rule);
+  }
+  .paginate a {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    padding: 22px 24px;
+    text-decoration: none;
+    color: var(--ink);
+    transition: border-color .15s, transform .15s;
+  }
+  .paginate a:hover { border-color: var(--ink); transform: translateY(-2px); }
+  .paginate a.next { text-align: right; }
+  .paginate .kicker { display: block; margin-bottom: 6px; }
+  .paginate .title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: -0.018em;
+  }
+
+  /* ---- Footer ---- */
+  footer {
+    margin-top: 80px;
+    padding-top: 24px;
+    border-top: 1px solid var(--rule);
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  footer a { color: var(--ink-soft); }
+
+  /* ---- Mockup banner ---- */
+  .mockup-banner {
+    position: sticky; top: 0; z-index: 20;
+    background: var(--ink); color: #fff;
+    padding: 10px 24px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .mockup-banner a { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+
+  @media (max-width: 900px) {
+    .nav { display: none; }
+    .paginate { grid-template-columns: 1fr; }
+    .paginate a.next { text-align: left; }
+  }
+  @media (max-width: 520px) {
+    .wrap { padding: 16px 16px 80px; }
+    .chart-block { padding: 18px 16px 14px; }
+    .chart-wrap { height: 300px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="mockup-banner">
+  <span>MOCKUP · PART I — THE GAP (warm paper + Space Grotesk + Inter)</span>
+  <span><a href="mockups.html">← All mockups</a> · <a href="mockup-part2.html">Part II →</a></span>
+</div>
+
+<div class="wrap">
+
+  <div class="topbar">
+    <a class="brand" href="#">
+      <span class="mark">S</span>
+      <span>Seattle Dog Park Data</span>
+    </a>
+    <nav class="nav">
+      <a href="#">Overview</a>
+      <a href="#" class="active">The Gap</a>
+      <a href="#">Access</a>
+      <a href="#">Forward</a>
+      <a href="#">Enforcement</a>
+      <a href="#">Budget</a>
+      <a href="#">Peer Cities</a>
+      <a href="#">Opinion</a>
+    </nav>
+  </div>
+
+  <div class="masthead">
+    <span class="dateline">Seattle Dog Park Data · seattledogparkdata.com</span>
+    <span>APRIL 2026</span>
+  </div>
+
+  <header class="hero">
+    <div class="kicker orange part-label">Part I · The Gap</div>
+    <h1 class="hed">Seventeen years of <span class="italic">standing still</span>, while the city grew.</h1>
+    <p class="deck">
+      Seattle has added one net off-leash area since 2009 — while its population grew 34% and
+      the rest of the parks system has tripled in budget. The math hasn't been moving in dogs' favor,
+      and the per-capita gap against peer cities has widened.
+    </p>
+    <div class="byline">
+      <strong>Andre Vrignaud</strong> · Seattle Dog Park Data · Updated April 23, 2026
+    </div>
+  </header>
+
+  <!-- Finding 01 -->
+  <h2 class="finding"><span class="num">Finding 01</span>Residents per off-leash area, over time.</h2>
+  <p class="lead">
+    In 2010 Seattle had 14 OLAs serving 609K residents — about 43,500 people per off-leash area.
+    Fifteen years later the OLA count is <em>still 14</em>, and the city has added 207K residents.
+    The ratio has moved 34% in the wrong direction.
+  </p>
+
+  <div class="chart-block">
+    <div class="chart-title">Seattle residents per OLA, 2010–2026</div>
+    <div class="chart-subtitle">One net new OLA opens in fall 2026 (West Seattle Stadium). The ratio drops — but only to where it sat in 2013.</div>
+    <div class="chart-wrap"><canvas id="chartResPerOla"></canvas></div>
+    <div class="chart-source">
+      Source: U.S. Census annual estimates + SPR OLA count. <a href="#">seattle-timeseries.csv</a>
+    </div>
+  </div>
+
+  <div class="takeaway">
+    <span class="kicker">Observation</span>
+    <p>From 2010 to 2025, Seattle added roughly 207,000 residents and zero net off-leash areas. The 2026 opening brings the per-OLA ratio back to 2013 levels — which is to say, a decade behind the population curve.</p>
+  </div>
+
+  <!-- Finding 02 -->
+  <h2 class="finding"><span class="num">Finding 02</span>The <span class="italic">peer-city</span> comparison.</h2>
+  <p class="lead">
+    Against eleven other US and Canadian cities, Seattle sits near the bottom of the per-capita OLA rankings.
+    Portland has 3.2× Seattle's per-capita supply. Boise has 4.2×. Even with the 2026 opening, Seattle's ratio
+    sits below all but five of the comparison cities.
+  </p>
+
+  <div class="chart-block">
+    <div class="chart-title">Fully-fenced OLAs per 100,000 residents</div>
+    <div class="chart-subtitle">Seattle counts only fully-fenced OLAs. Portland, SF, and Vancouver BC figures normalized to the same definition where possible — see methodology.</div>
+    <div class="chart-wrap tall"><canvas id="chartPeer"></canvas></div>
+    <div class="chart-source">
+      Source: city parks departments, 2024–2025. <a href="#">peer-cities.csv</a> · <a href="#">methodology</a>
+    </div>
+  </div>
+
+  <p>
+    The methodology caveats are meaningful here. Portland counts some unfenced voice-control areas that
+    Seattle would exclude; Vancouver BC includes time-restricted shared-use beach and field access.
+    The <a href="#">peer-cities page</a> walks through each city's counting rules individually — normalization
+    narrows the gap but does not close it.
+  </p>
+
+  <div class="takeaway neutral">
+    <span class="kicker">Observation</span>
+    <p>Adjusted for definitional differences, Seattle still sits in the bottom third of peer-city per-capita OLA supply. The gap is not created by counting methodology.</p>
+  </div>
+
+  <!-- Paginate -->
+  <nav class="paginate">
+    <a href="#" class="prev">
+      <span class="kicker">← Previous</span>
+      <span class="title">Overview</span>
+    </a>
+    <a href="mockup-part2.html" class="next">
+      <span class="kicker">Next →</span>
+      <span class="title">Part II — Access</span>
+    </a>
+  </nav>
+
+  <footer>
+    <p>Source code and all data: <a href="#">github.com/avrignaud/seattledogparkdata</a> · MIT license covers author-written code and analysis.</p>
+  </footer>
+
+</div>
+
+<script>
+  // Set Chart.js defaults to match the new type system
+  Chart.defaults.font.family = "'Inter', system-ui, sans-serif";
+  Chart.defaults.font.size = 12.5;
+  Chart.defaults.color = '#4C4A44';
+  Chart.defaults.borderColor = 'rgba(26,23,18,0.08)';
+
+  // Finding 01: residents per OLA, 2010-2026
+  const years = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026];
+  const perOla = [43476, 44857, 46500, 48143, 49786, 51429, 52714, 54000, 55143, 56000, 56857, 57500, 57929, 58143, 58329, 58500, 52000];
+  new Chart(document.getElementById('chartResPerOla'), {
+    type: 'line',
+    data: {
+      labels: years,
+      datasets: [{
+        label: 'Residents per OLA',
+        data: perOla,
+        borderColor: '#D1481A',
+        backgroundColor: 'rgba(209,72,26,0.12)',
+        borderWidth: 2.5,
+        pointRadius: 0,
+        pointHoverRadius: 5,
+        pointBackgroundColor: '#D1481A',
+        fill: true,
+        tension: 0.2
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#1A1712',
+          titleFont: { family: "'Space Grotesk'", size: 13, weight: '500' },
+          bodyFont: { family: "'Inter'", size: 13 },
+          padding: 10
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: false,
+          grid: { color: 'rgba(26,23,18,0.06)' },
+          ticks: { callback: v => (v/1000).toFixed(0) + 'K' }
+        },
+        x: {
+          grid: { display: false },
+          ticks: { maxRotation: 0, autoSkip: true, maxTicksLimit: 9 }
+        }
+      }
+    }
+  });
+
+  // Finding 02: peer cities
+  const peerCities = ['Boise', 'Portland', 'Vancouver BC', 'San Francisco', 'Arlington VA', 'Washington DC', 'Minneapolis', 'Denver', 'Cincinnati', 'Austin', 'Boston', 'Seattle', 'Chicago'];
+  const perCapita = [7.60, 5.74, 5.44, 5.03, 3.81, 3.22, 2.87, 2.55, 2.30, 2.15, 1.95, 1.82, 1.42];
+  new Chart(document.getElementById('chartPeer'), {
+    type: 'bar',
+    data: {
+      labels: peerCities,
+      datasets: [{
+        label: 'Fenced OLAs / 100K',
+        data: perCapita,
+        backgroundColor: peerCities.map(c => c === 'Seattle' ? '#D1481A' : '#4C6B54'),
+        borderRadius: 4,
+        borderSkipped: false,
+        barThickness: 22
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#1A1712',
+          callbacks: { label: ctx => ctx.parsed.x.toFixed(2) + ' per 100K residents' }
+        }
+      },
+      scales: {
+        x: {
+          grid: { color: 'rgba(26,23,18,0.06)' },
+          ticks: { callback: v => v.toFixed(1) }
+        },
+        y: { grid: { display: false } }
+      }
+    }
+  });
+</script>
+
+</body>
+</html>

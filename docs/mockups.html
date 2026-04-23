@@ -128,18 +128,78 @@
 
   <div class="grid">
     <a class="card" href="mockup-a.html">
-      <div class="tag">Option A</div>
+      <div class="tag">Landing · Option A</div>
       <h3>Clean Grotesque</h3>
       <p>Inter everywhere. Near-monochrome. One accent color, used surgically. Sharpest, most neutral direction — closest to codex/OpenAI.</p>
       <div class="arrow">View Mockup A →</div>
     </a>
     <a class="card" href="mockup-b.html">
-      <div class="tag">Option B</div>
+      <div class="tag">Landing · Option B</div>
       <h3>Warm Modern</h3>
       <p>Space Grotesk display + Inter body. Rounded color-block cards. Keeps paper warmth; more personality; closer to Dropbox.</p>
       <div class="arrow">View Mockup B →</div>
     </a>
   </div>
+
+  <h2>Report-page mockups (chosen direction)</h2>
+  <p>
+    Per the decision to keep the warm paper bg and take Space Grotesk's touch of character in display,
+    the three report pages below apply the chosen system consistently. They share the same topbar,
+    masthead, chart/takeaway styling, pagination, and footer — so the system is visible, not just a
+    single-page treatment.
+  </p>
+
+  <div class="grid">
+    <a class="card" href="mockup-part1.html">
+      <div class="tag">Report · Part I</div>
+      <h3>The Gap</h3>
+      <p>Hero, Finding 01 (residents-per-OLA line chart), Finding 02 (peer-city horizontal bar), orange/sage takeaways. Shows how the type system handles charts.</p>
+      <div class="arrow">View Part I →</div>
+    </a>
+    <a class="card" href="mockup-part2.html">
+      <div class="tag">Report · Part II</div>
+      <h3>Access</h3>
+      <p>Giant-number hero (11.7%), walkshed bar chart, live Leaflet map with 14 OLAs + walksheds, Kinnear case-study block. Shows the system with maps.</p>
+      <div class="arrow">View Part II →</div>
+    </a>
+    <a class="card" href="mockup-part3.html">
+      <div class="tag">Report · Part III</div>
+      <h3>Forward</h3>
+      <p>Narrative-heavy layout. TOC with big numerals, three-column feature grids, italic Space Grotesk pull quote, dark "ask" panel at the end. Shows the system without charts.</p>
+      <div class="arrow">View Part III →</div>
+    </a>
+  </div>
+
+  <h2>What the three Part mockups share</h2>
+  <ul>
+    <li><strong>Topbar:</strong> flat, hairline bottom rule (not B's dark pill — per the earlier caveat about fighting the civic-data positioning).</li>
+    <li><strong>Brand lockup:</strong> 22px rounded orange "S" mark + wordmark in Space Grotesk 600. Small and consistent across pages.</li>
+    <li><strong>Mono masthead line:</strong> IBM Plex Mono kicker with dateline + issue month. Carries the editorial authority without serif display.</li>
+    <li><strong>Hero pattern:</strong> kicker ("Part I · The Gap") → headline in Space Grotesk 500 with one italic word in orange → 22px deck → mono byline over hairline rule. Consistent rhythm across all three.</li>
+    <li><strong>Finding headers:</strong> mono "FINDING 01" label above a 44px Space Grotesk head with optional italic-orange emphasis word. This replaces the current Fraunces italic pattern 1:1.</li>
+    <li><strong>Chart block:</strong> white card, 16px radius, 28px padding, title + subtitle above the canvas, mono source line below. Charts render in Inter so the type matches the body.</li>
+    <li><strong>Takeaway box:</strong> colored pastel tile (orange / sage / gold depending on tone), 22px Space Grotesk quote styling. Replaces the current small-type note-box.</li>
+    <li><strong>Pagination block:</strong> previous / next cards at the bottom of every report page. Helps the reports feel like a book, not a random collection of files.</li>
+    <li><strong>Chart.js defaults:</strong> font switched to Inter, tick color to ink-soft, gridlines to 6% ink. Single import line at the top of each script block.</li>
+  </ul>
+
+  <h2>Specific new patterns worth calling out</h2>
+  <ul>
+    <li><strong>Part II giant-number hero</strong> — 11.7% rendered at 280px in Space Grotesk Medium, paired with a smaller right-column headline. Replaces the current hero's 240px Fraunces treatment and reads more confidently at small sizes.</li>
+    <li><strong>Part II case-study block</strong> — two-up tile with a navy meta panel (title, inline stats) and a white body panel (prose, link). A reusable pattern for Kinnear today and for per-OLA deep-dives later.</li>
+    <li><strong>Part III TOC</strong> — big tabular numerals ("01", "02", "03") as oversized Space Grotesk in orange. Gives the text-heavy page a clear entry point without chartwork.</li>
+    <li><strong>Part III "Ask" panel</strong> — dark ink-colored block at the end, with an orange glow in the corner and a numbered list. The one place a dark treatment works, because it marks the close, not the top of the page.</li>
+    <li><strong>Part III pull quote</strong> — Space Grotesk italic at 26px with a 3px orange left rule. Uses Space Grotesk's italic, which has enough character to replace Fraunces italic as the emphasis face.</li>
+  </ul>
+
+  <h2>What still needs decisions before rollout</h2>
+  <ul>
+    <li><strong>Warm cream (<code>#F5F1E8</code>) vs. the existing warmer <code>#F6F2E9</code>.</strong> Almost the same, but the mockups went a hair cooler. Easy to revert.</li>
+    <li><strong>Brand mark.</strong> The "S" square in the topbar is a placeholder. Could be the existing favicon SVG (dog icon) at 22px instead — probably better. Worth designing a proper 22–28px mark.</li>
+    <li><strong>Signal orange.</strong> Mockups use <code>#D1481A</code> (slightly brighter than the site's <code>#C04A1E</code>) to compensate for the thinner Space Grotesk strokes. If you'd rather stay with <code>#C04A1E</code>, the mockups should be tested at that value — the difference is real at headline sizes.</li>
+    <li><strong>Dark panels.</strong> Part III's "Ask" is the only dark block in the whole system. Is that right (used surgically = powerful), or does it create inconsistency? Could easily become a light-gold panel instead.</li>
+    <li><strong>Rollout order.</strong> If you like the direction, suggest doing the Part pages first (more surface area, more payoff) and landing last, to keep the old landing live until the system is proven on the reports.</li>
+  </ul>
 
   <h2>The pivot, in one line</h2>
   <p>
