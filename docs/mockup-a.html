@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mockup A — Clean Grotesque · Seattle Dog Park Data</title>
+<meta name="description" content="Design mockup exploring a minimal, OpenAI/codex-leaning sans-serif direction for seattledogparkdata.com.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!--
+  Inter: chosen as the closest freely-available analog to OpenAI Sans / Söhne.
+  IBM Plex Mono: retained for data/metadata kickers — provides editorial counterpoint.
+-->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Palette A — near-monochrome, one signal color */
+    --bg: #FAFAF7;          /* just-barely-warm off-white */
+    --surface: #FFFFFF;
+    --ink: #0B0E11;         /* near-black, not true black */
+    --ink-soft: #5B6570;
+    --ink-faint: #8B94A0;
+    --rule: #E7E4DB;
+    --rule-soft: #EFEDE6;
+    --accent: #C04A1E;      /* signal orange — kept, used sparingly */
+    --accent-ink: #8A3312;  /* darker orange for text on bg */
+    --focus: #2C4A6E;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: 'ss01', 'cv11';
+  }
+  a { color: inherit; }
+  ::selection { background: var(--accent); color: #fff; }
+
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 32px 32px 120px; }
+
+  /* ---- Top bar: minimal, Nav above fold ---- */
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0 28px;
+    border-bottom: 1px solid var(--rule-soft);
+    margin-bottom: 96px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+  }
+  .brand .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent);
+  }
+  .nav {
+    display: flex; gap: 28px; font-size: 14px; color: var(--ink-soft);
+  }
+  .nav a { text-decoration: none; transition: color .15s; }
+  .nav a:hover, .nav a.active { color: var(--ink); }
+  .nav a.active { font-weight: 500; }
+
+  /* ---- Kicker (mono label) ---- */
+  .kicker {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    font-weight: 500;
+  }
+  .kicker.accent { color: var(--accent-ink); }
+
+  /* ---- Hero: giant headline, single accent word ---- */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 48px;
+    padding: 40px 0 80px;
+    border-bottom: 1px solid var(--rule-soft);
+    margin-bottom: 72px;
+  }
+  .hero .kicker { margin-bottom: 24px; }
+  h1.display {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: clamp(44px, 7.2vw, 104px);
+    line-height: 0.98;
+    letter-spacing: -0.045em;
+    color: var(--ink);
+    max-width: 16ch;
+    margin-bottom: 36px;
+  }
+  h1.display .hl {
+    color: var(--accent);
+    font-weight: 600;
+  }
+  h1.display .pct {
+    font-variant-numeric: tabular-nums;
+  }
+  .deck {
+    font-size: 20px;
+    line-height: 1.45;
+    color: var(--ink-soft);
+    max-width: 60ch;
+    font-weight: 400;
+    margin-bottom: 40px;
+  }
+  .hero-cta {
+    display: flex; gap: 12px; flex-wrap: wrap;
+    align-items: center;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    letter-spacing: -0.005em;
+    transition: transform .12s ease, background .15s ease, color .15s ease, border-color .15s ease;
+  }
+  .btn.primary {
+    background: var(--ink);
+    color: #fff;
+  }
+  .btn.primary:hover { background: #000; transform: translateY(-1px); }
+  .btn.ghost {
+    border: 1px solid var(--rule);
+    color: var(--ink);
+    background: transparent;
+  }
+  .btn.ghost:hover { border-color: var(--ink); }
+  .btn .arrow { transition: transform .15s ease; }
+  .btn:hover .arrow { transform: translateX(2px); }
+
+  /* ---- Stats row: restrained, no heavy borders ---- */
+  section { margin: 96px 0; }
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  h2 {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(28px, 3.2vw, 40px);
+    line-height: 1.1;
+    font-weight: 600;
+    letter-spacing: -0.028em;
+    color: var(--ink);
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+  .stat {
+    padding: 28px 24px 24px 0;
+    border-right: 1px solid var(--rule-soft);
+  }
+  .stat:last-child { border-right: none; padding-right: 0; }
+  .stat .label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 14px;
+    min-height: 28px;
+  }
+  .stat .num {
+    font-family: 'Inter', sans-serif;
+    font-size: 44px;
+    font-weight: 500;
+    letter-spacing: -0.035em;
+    line-height: 1;
+    margin-bottom: 10px;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
+  .stat .num .unit { font-size: 18px; color: var(--ink-soft); font-weight: 400; margin-left: 2px; letter-spacing: 0; }
+  .stat .note {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+  .stat .note a {
+    color: var(--focus);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-decoration: none;
+    border-bottom: 1px dotted var(--focus);
+  }
+
+  /* ---- Report cards: whitespace-driven, no heavy chrome ---- */
+  .reports {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--rule-soft);
+    border-radius: 14px;
+    padding: 28px 28px 24px;
+    text-decoration: none;
+    color: var(--ink);
+    display: flex;
+    flex-direction: column;
+    min-height: 220px;
+    transition: border-color .15s ease, transform .15s ease, box-shadow .15s ease;
+  }
+  .card:hover {
+    border-color: var(--ink);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px -12px rgba(11,14,17,0.15);
+  }
+  .card .kicker { margin-bottom: 16px; }
+  .card h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 26px;
+    line-height: 1.2;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    margin-bottom: 10px;
+  }
+  .card p {
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin: 0 0 20px;
+  }
+  .card .go {
+    margin-top: auto;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .card .go .arrow { transition: transform .15s ease; }
+  .card:hover .go .arrow { transform: translateX(3px); }
+  .card.opinion { border-left: 2px solid var(--focus); }
+  .card.opinion .kicker { color: var(--focus); }
+
+  /* ---- Data list ---- */
+  .data-list { list-style: none; border-top: 1px solid var(--rule-soft); }
+  .data-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--rule-soft);
+    gap: 24px;
+  }
+  .data-list .file {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .data-list .file:hover { color: var(--accent-ink); }
+  .data-list .tag {
+    font-size: 13px;
+    color: var(--ink-soft);
+    text-align: right;
+    max-width: 60%;
+  }
+
+  /* ---- Footer ---- */
+  footer {
+    margin-top: 120px;
+    padding-top: 32px;
+    border-top: 1px solid var(--rule-soft);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  footer a { color: var(--ink-soft); border-bottom: 1px dotted var(--rule); text-decoration: none; }
+  footer a:hover { color: var(--ink); }
+
+  /* ---- Mockup banner ---- */
+  .mockup-banner {
+    position: sticky; top: 0; z-index: 20;
+    background: var(--ink); color: #fff;
+    padding: 10px 24px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .mockup-banner a { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+
+  @media (max-width: 900px) {
+    .nav { display: none; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .stat:nth-child(2) { border-right: none; }
+    .stat:nth-child(1), .stat:nth-child(2) { border-bottom: 1px solid var(--rule-soft); padding-bottom: 22px; margin-bottom: 0; }
+    .reports { grid-template-columns: 1fr; }
+    footer { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 520px) {
+    .wrap { padding: 20px 20px 80px; }
+    .stats { grid-template-columns: 1fr; }
+    .stat { border-right: none; border-bottom: 1px solid var(--rule-soft); padding: 20px 0; }
+    .stat:last-child { border-bottom: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="mockup-banner">
+  <span>MOCKUP A · CLEAN GROTESQUE (Inter / near-monochrome)</span>
+  <span><a href="mockup-b.html">→ See Mockup B</a> · <a href="index.html">Current site</a></span>
+</div>
+
+<div class="wrap">
+
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="brand">
+      <span class="dot"></span>
+      <span>Seattle Dog Park Data</span>
+    </div>
+    <nav class="nav">
+      <a href="#" class="active">Overview</a>
+      <a href="#">The Gap</a>
+      <a href="#">Access</a>
+      <a href="#">Forward</a>
+      <a href="#">Enforcement</a>
+      <a href="#">Budget</a>
+      <a href="#">Peer Cities</a>
+      <a href="#">Opinion</a>
+    </nav>
+  </div>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="kicker">Seattle Dog Park Data · April 2026</div>
+    <h1 class="display">
+      <span class="hl">11.7<span class="pct">%</span></span> of Seattleites live within a 10&#8209;minute walk of a legal off&#8209;leash area.
+    </h1>
+    <p class="deck">
+      Seattle has one of America's best park systems. For dogs, it's one of the worst.
+      A sourced, reproducible public-data reference — every number links back to where it came from.
+    </p>
+    <div class="hero-cta">
+      <a class="btn primary" href="#">Read the reports <span class="arrow">→</span></a>
+      <a class="btn ghost" href="#">Download PDF</a>
+      <a class="btn ghost" href="#">View the data on GitHub</a>
+    </div>
+  </header>
+
+  <!-- Stats -->
+  <section>
+    <div class="section-head">
+      <h2>The numbers, up front.</h2>
+      <span class="kicker">Four findings</span>
+    </div>
+    <div class="stats">
+      <div class="stat">
+        <div class="label">Off-leash space / dog</div>
+        <div class="num">5.4<span class="unit"> sq ft</span></div>
+        <div class="note">Footprint of a doormat. 30.7 fenced acres ÷ ~249K dogs. <a href="#">src</a></div>
+      </div>
+      <div class="stat">
+        <div class="label">Years since the last OLA</div>
+        <div class="num">17</div>
+        <div class="note">Blue Dog Pond, 2009 → West Seattle Stadium, fall 2026. <a href="#">src</a></div>
+      </div>
+      <div class="stat">
+        <div class="label">Fewer parks / capita than Portland</div>
+        <div class="num">3.2<span class="unit">×</span></div>
+        <div class="note">Seattle 1.82 vs Portland 5.74 per 100K. <a href="#">src</a></div>
+      </div>
+      <div class="stat">
+        <div class="label">Citations outside any OLA walkshed</div>
+        <div class="num">69.6<span class="unit">%</span></div>
+        <div class="note">2,035 of 2,925 park-named citations, 2014–2019. <a href="#">src</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reports -->
+  <section>
+    <div class="section-head">
+      <h2>The reports.</h2>
+      <span class="kicker">Eight chapters</span>
+    </div>
+
+    <div class="reports">
+      <a class="card" href="#">
+        <span class="kicker accent">Part I</span>
+        <h3>The Gap</h3>
+        <p>Seattle has added one net OLA since 2009 — while the city grew 34%. Per-capita comparison to Portland, SF, Vancouver BC, and Austin.</p>
+        <span class="go">Read Part I <span class="arrow">→</span></span>
+      </a>
+      <a class="card" href="#">
+        <span class="kicker accent">Part II</span>
+        <h3>Access</h3>
+        <p>Walkshed coverage, peer-city acreage, the Kinnear case study, and an interactive map of every existing, planned, and under-construction OLA.</p>
+        <span class="go">Read Part II <span class="arrow">→</span></span>
+      </a>
+      <a class="card" href="#">
+        <span class="kicker accent">Part III</span>
+        <h3>Forward</h3>
+        <p>Which existing OLAs actually function well, what shared-use looks like elsewhere, and which non-SPR public land could host off-leash space.</p>
+        <span class="go">Read Part III <span class="arrow">→</span></span>
+      </a>
+      <a class="card" href="#">
+        <span class="kicker accent">Enforcement</span>
+        <h3>Citation hotspots</h3>
+        <p>4,803 off-leash citations, 2014–2019. Six of the top-ten cited parks have no designated OLA at all.</p>
+        <span class="go">Read the analysis <span class="arrow">→</span></span>
+      </a>
+      <a class="card" href="#">
+        <span class="kicker accent">Budget</span>
+        <h3>Where the money goes</h3>
+        <p>SPR's total has tripled since 2018 to $507M. The OLA line peaked at 0.064% of that total — and has shrunk in percentage terms since.</p>
+        <span class="go">Read the budget <span class="arrow">→</span></span>
+      </a>
+      <a class="card opinion" href="#">
+        <span class="kicker">Opinion</span>
+        <h3>A shared-use recommendation</h3>
+        <p>One clearly-labeled editorial. Six principles, three opinions that fall out of the data, one policy recommendation. Signed.</p>
+        <span class="go">Read the editorial <span class="arrow">→</span></span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Data -->
+  <section>
+    <div class="section-head">
+      <h2>Primary data.</h2>
+      <span class="kicker">Plain CSV · no build step</span>
+    </div>
+    <p class="deck" style="max-width: 60ch; font-size: 17px; margin-bottom: 24px;">
+      All underlying data lives in the GitHub repo. Download any file, run your own numbers, tell us if we got something wrong.
+    </p>
+    <ul class="data-list">
+      <li><a class="file" href="#">seattle-olas.csv</a><span class="tag">14 existing OLAs with coords + acreage</span></li>
+      <li><a class="file" href="#">seattle-timeseries.csv</a><span class="tag">Population / budget / OLA count, 2010–2026</span></li>
+      <li><a class="file" href="#">peer-cities.csv</a><span class="tag">Portland, SF, Vancouver BC, Austin, …</span></li>
+      <li><a class="file" href="#">enforcement-citations.csv</a><span class="tag">4,803 off-leash citations, SPR PRR C049204</span></li>
+      <li><a class="file" href="#">kinnear-timeline.csv</a><span class="tag">20-year incident chronology</span></li>
+      <li><a class="file" href="#">SOURCES.md</a><span class="tag">Primary sources, cited</span></li>
+    </ul>
+  </section>
+
+  <footer>
+    <div>
+      Source code and all data: <a href="#">github.com/avrignaud/seattledogparkdata</a> · MIT license covers author-written code and analysis. Primary data: SPR public records, Seattle Open Data, U.S. Census — all public record.
+    </div>
+    <div style="text-align: right;">
+      <div class="kicker" style="margin-bottom: 6px;">v0.2.0 · April 2026</div>
+      <a href="#">About</a> · <a href="#">Contact</a>
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>
