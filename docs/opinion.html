@@ -17,225 +17,200 @@
 <link rel="canonical" href="https://seattledogparkdata.com/opinion.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
 <style>
-  .skip-link { position: absolute; top: -40px; left: 0; background: #121820; color: #F6F2E9; padding: 8px 16px; z-index: 100; text-decoration: none; font-family: 'IBM Plex Mono', monospace; font-size: 12px; }
-  .skip-link:focus { top: 0; }
+  /* Opinion-page specifics (minimal) */
+  h1.hed em { color: var(--navy); }
 
-  :root {
-    --bg: #F6F2E9;
-    --bg-editorial: #2C4A6E;     /* navy band for opinion pages */
-    --ink: #121820;
-    --ink-soft: #3C4A5C;
-    --rule: #D8CFBD;
-    --accent: #C04A1E;
-    --accent-2: #4C6B54;
-    --accent-3: #2C4A6E;
-    --accent-4: #A68A2E;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body {
-    background: var(--bg);
-    color: var(--ink);
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-weight: 300;
-    font-size: 17px;
-    line-height: 1.65;
-    -webkit-font-smoothing: antialiased;
-  }
-  .editorial-band {
-    background: var(--bg-editorial);
-    color: #F6F2E9;
-    padding: 14px 0;
-    text-align: center;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-  }
-  .editorial-band a { color: #F6F2E9; text-decoration: underline; }
-  .container { max-width: 900px; margin: 0 auto; padding: 64px 40px 120px; }
-  .masthead {
-    border-top: 6px solid var(--accent-3);
-    border-bottom: 1px solid var(--rule);
-    padding: 28px 0 24px;
-    margin-bottom: 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--ink-soft);
-  }
-  .masthead .dateline { font-weight: 500; color: var(--accent-3); }
-  nav.report-nav {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 12px 0 24px;
-    border-bottom: 1px solid var(--rule);
-    margin-bottom: 40px;
-    display: flex;
-    gap: 28px;
-    flex-wrap: wrap;
-  }
-  nav.report-nav a { color: var(--ink-soft); text-decoration: none; }
-  nav.report-nav a:hover, nav.report-nav a.active { color: var(--accent-3); }
-  nav.report-nav a.active { font-weight: 500; }
-  .kicker {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--accent-3);
-    margin-bottom: 18px;
-  }
-  h1.hed {
-    font-family: 'Fraunces', serif;
-    font-weight: 800;
-    font-size: 64px;
-    line-height: 1;
-    letter-spacing: -0.03em;
-    margin-bottom: 24px;
-    max-width: 840px;
-  }
-  h1.hed em { font-style: italic; font-weight: 400; color: var(--accent-3); }
-  .deck {
-    font-family: 'Fraunces', serif;
-    font-size: 23px;
-    line-height: 1.45;
-    font-weight: 300;
-    color: var(--ink-soft);
-    max-width: 740px;
-    margin-bottom: 36px;
-  }
-  .byline {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--ink-soft);
-    padding-top: 20px;
-    border-top: 1px solid var(--rule);
-    margin-bottom: 48px;
-  }
-  .byline strong { color: var(--ink); }
-  h2 {
-    font-family: 'Fraunces', serif;
-    font-size: 36px;
-    line-height: 1.1;
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    margin-top: 72px;
-    margin-bottom: 18px;
-  }
-  h2 .num {
-    font-family: 'IBM Plex Mono', monospace;
-    font-weight: 400;
-    font-size: 12px;
-    letter-spacing: 0.2em;
-    color: var(--accent-3);
-    display: block;
-    margin-bottom: 12px;
-    text-transform: uppercase;
-  }
-  h3 {
-    font-family: 'Fraunces', serif;
-    font-size: 22px;
-    line-height: 1.25;
-    font-weight: 600;
-    margin: 32px 0 8px;
-  }
-  h3 .num-inline {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 14px;
-    font-weight: 400;
-    color: var(--accent-3);
-    margin-right: 10px;
-  }
-  p { margin-bottom: 18px; max-width: 720px; }
-  p.lead { font-size: 19px; line-height: 1.55; }
-  p a, li a { color: var(--accent-3); text-decoration: underline; text-underline-offset: 2px; }
-  p a:hover, li a:hover { color: var(--accent); }
+  /* Principle / opinion list-item blocks */
   .principle {
-    border-left: 3px solid var(--accent-3);
-    padding: 8px 0 8px 22px;
+    border-left: 3px solid var(--navy);
+    padding: 6px 0 6px 22px;
     margin: 28px 0;
-    max-width: 720px;
+    max-width: 72ch;
   }
-  .principle.opinion { border-left-color: var(--accent); }
+  .principle.opinion { border-left-color: var(--orange); }
   .principle h3 { margin-top: 0; }
   .principle .evidence {
-    font-size: 14px;
+    font-size: 13px;
     color: var(--ink-soft);
-    margin-top: 8px;
-    padding-top: 8px;
+    margin-top: 12px;
+    padding-top: 10px;
     border-top: 1px dashed var(--rule);
+    line-height: 1.55;
   }
   .principle .evidence strong {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 10px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--accent-3);
+    color: var(--navy);
     font-weight: 500;
     display: block;
     margin-bottom: 4px;
   }
-  .principle.opinion .evidence strong { color: var(--accent); }
-  .gap {
-    background: rgba(166,138,46,0.08);
-    border: 1px dashed var(--accent-4);
-    padding: 10px 16px;
-    margin-top: 10px;
-    font-size: 13px;
+  .principle.opinion .evidence strong { color: var(--orange); }
+  .principle .num-inline {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--navy);
+    margin-right: 10px;
+    letter-spacing: 0.06em;
+  }
+  .principle.opinion .num-inline { color: var(--orange); }
+
+  /* Pull quote — navy-accented per instruction */
+  .takeaway.navy p {
+    font-style: italic;
+  }
+
+  /* Author's note (italic callout) */
+  .authors-note {
+    background: var(--gold-soft);
+    border-left: 3px solid var(--gold);
+    border-radius: 6px;
+    padding: 22px 26px;
+    margin: 0 0 44px;
+    max-width: 72ch;
+  }
+  .authors-note .note-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+  .authors-note p {
+    font-family: 'Space Grotesk', sans-serif;
+    font-style: italic;
+    font-size: 16.5px;
+    line-height: 1.55;
     color: var(--ink);
-    line-height: 1.5;
-    border-radius: 2px;
+    margin: 0;
+    max-width: none;
+  }
+
+  figure.lede-photo { margin: 0 0 48px; max-width: 720px; }
+  figure.lede-photo img {
+    width: 100%; display: block;
+    border-radius: 12px;
+    border: 1px solid var(--rule);
+    box-shadow: 0 4px 18px rgba(26,23,18,0.10);
+  }
+  figure.lede-photo figcaption {
+    margin-top: 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  /* Gap / "where this could be wrong" */
+  .gap {
+    background: var(--gold-soft);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 20px 0;
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.55;
+    max-width: 72ch;
   }
   .gap strong {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 10px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--accent-4);
+    color: var(--gold);
     font-weight: 500;
     display: block;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
   }
-  .recommendation {
-    background: #fff;
-    border: 2px solid var(--accent-3);
-    padding: 40px 44px;
-    margin: 60px 0;
+
+  /* "Ask" panel — warm paper tile with orange accents; the closing block
+     for the policy recommendation. Marked without inverting colors. */
+  .ask {
+    background: var(--orange-soft);
+    color: var(--ink);
+    border-radius: 20px;
+    border-left: 4px solid var(--orange);
+    padding: 48px 48px 40px;
+    margin: 80px 0 40px;
     position: relative;
   }
-  .recommendation::before {
-    content: "Recommendation";
-    position: absolute;
-    top: -14px;
-    left: 28px;
-    background: var(--accent-3);
-    color: #F6F2E9;
-    padding: 5px 16px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
+  .ask .kicker { color: var(--orange); margin-bottom: 16px; display: block; }
+  .ask h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(28px, 3.4vw, 40px);
+    font-weight: 500; letter-spacing: -0.025em; line-height: 1.15;
+    color: var(--ink); margin: 0 0 20px; max-width: 28ch;
   }
-  .recommendation h3 { margin-top: 10px; font-size: 28px; }
-  .recommendation ol, .recommendation ul {
-    margin-left: 22px;
-    margin-bottom: 16px;
+  .ask p { color: var(--ink-soft); max-width: 60ch; margin-bottom: 16px; }
+  .ask p strong { color: var(--ink); font-weight: 600; }
+  .ask p a { color: var(--orange); }
+  .ask ol {
+    margin: 28px 0 24px 0; padding-left: 0; list-style: none;
+    max-width: 62ch;
+    counter-reset: ask;
   }
-  .recommendation li { margin-bottom: 10px; font-size: 16px; line-height: 1.55; max-width: 640px; }
+  .ask ol li {
+    counter-increment: ask;
+    padding: 18px 0 18px 56px;
+    border-top: 1px solid rgba(209,72,26,0.22);
+    color: var(--ink);
+    position: relative;
+    max-width: none;
+    font-size: 15.5px;
+    line-height: 1.55;
+  }
+  .ask ol li:last-child { border-bottom: 1px solid rgba(209,72,26,0.22); }
+  .ask ol li::before {
+    content: counter(ask, decimal-leading-zero);
+    position: absolute; left: 0; top: 14px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 22px; font-weight: 500; letter-spacing: -0.02em;
+    color: var(--orange);
+    font-variant-numeric: tabular-nums;
+  }
+  .ask ol li strong { color: var(--ink); font-weight: 600; }
+  .ask ol li a { color: var(--orange); }
+  .ask .footer-note {
+    margin-top: 20px;
+    font-size: 14px;
+    color: var(--ink-soft);
+    max-width: 62ch;
+  }
+
+  /* Council ask — navy-accented but on bg-warm */
+  .council-ask {
+    border-left: 3px solid var(--orange);
+    background: var(--orange-soft);
+    border-radius: 10px;
+    padding: 24px 28px;
+    margin: 28px 0;
+    max-width: 72ch;
+  }
+  .council-ask p {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 18px;
+    line-height: 1.5;
+    color: var(--ink);
+    margin-bottom: 14px;
+    max-width: none;
+  }
+  .council-ask p:last-child { margin-bottom: 0; font-size: 16.5px; }
+
+  /* Signature */
   .signature {
-    font-family: 'Fraunces', serif;
+    font-family: 'Space Grotesk', sans-serif;
     font-style: italic;
-    font-size: 20px;
+    font-size: 22px;
     color: var(--ink);
     margin-top: 60px;
     padding-top: 24px;
@@ -247,503 +222,421 @@
     font-size: 11px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--ink-soft);
+    color: var(--ink-faint);
     font-style: normal;
     margin-top: 10px;
   }
-  .authors-note {
-    background: rgba(18,24,32,0.04);
-    border-left: 3px solid var(--accent-4);
-    padding: 22px 28px;
-    margin: 0 0 44px;
-    max-width: 720px;
-  }
-  .authors-note p {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 16px;
-    line-height: 1.6;
-    color: var(--ink-soft);
-    margin-bottom: 12px;
-    max-width: 100%;
-  }
-  .authors-note p:last-child { margin-bottom: 0; }
-  .authors-note .note-label {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--accent-4);
-    font-style: normal;
-    display: block;
-    margin-bottom: 14px;
-  }
-  figure.lede-photo {
-    margin: 0 0 48px;
-    max-width: 720px;
-  }
-  figure.lede-photo img {
-    width: 100%;
-    display: block;
-    border: 1px solid var(--rule);
-    box-shadow: 0 2px 12px rgba(18,24,32,0.10);
-  }
-  figure.lede-photo figcaption {
-    margin-top: 10px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-  }
-  .corrections {
-    background: var(--bg);
-    border: 1px solid var(--rule);
-    border-left: 3px solid var(--accent-4);
-    padding: 20px 24px;
-    margin: 40px 0;
-    font-size: 14px;
-    line-height: 1.55;
-  }
-  .corrections strong {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--accent-4);
-    display: block;
-    margin-bottom: 6px;
-  }
+
   .footnotes {
     margin-top: 80px;
     padding-top: 24px;
-    border-top: 2px solid var(--accent-3);
-    font-size: 13px;
+    border-top: 2px solid var(--navy);
+    font-size: 13.5px;
     color: var(--ink-soft);
-    line-height: 1.55;
+    line-height: 1.6;
+    max-width: 72ch;
   }
   .footnotes h3 {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 12px;
+    font-size: 11px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     margin: 20px 0 12px;
     color: var(--ink);
     font-weight: 500;
   }
-  .footnotes p { font-size: 12px; margin-bottom: 8px; max-width: 100%; }
+  .footnotes p { font-size: 13px; margin-bottom: 10px; max-width: none; }
 
-  @media (max-width: 820px) {
-    .container { padding: 40px 22px 80px; }
-    h1.hed { font-size: 40px; }
-    h2 { font-size: 28px; }
-    .deck { font-size: 19px; }
-    .recommendation { padding: 28px 24px; }
+  @media (max-width: 900px) {
+    .ask { padding: 36px 28px 32px; border-radius: 18px; }
   }
-
-  /* ---------- PRINT ---------- */
-  @page { size: Letter; margin: 0.6in 0.55in; }
-  
-  @media (max-width: 480px) {
-    .container, .main { padding: 32px 18px 64px; }
-    h1.hed { font-size: 38px; }
-    h2 { font-size: 24px; }
-    .stat-grid { grid-template-columns: 1fr !important; }
-    .headline-stats { grid-template-columns: 1fr !important; }
-    /* Part II Finding 02b stat card grid */
-    div[style*="grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr !important; }
-    /* Tables: allow horizontal scroll instead of blowing the viewport */
-    table { display: block; overflow-x: auto; white-space: nowrap; font-size: 12px; }
-    .chart-wrap { height: 280px; }
-    .chart-wrap.tall { height: 360px; }
-    .chart-wrap.short { height: 240px; }
-    .map-wrap, #seattle-map, #hotspot-map, #gap-map, #walkshed-citation-map { height: 400px !important; }
-  }
-
   @media print {
-    html, body { background: #fff; color: #000; font-size: 10.5pt; line-height: 1.45; }
-    .editorial-band { background: #fff; color: #000; border-top: 2px solid #000; border-bottom: 1px solid #000; padding: 6px 0; font-size: 8pt; letter-spacing: 0.18em; }
-    .container { padding: 0; max-width: none; }
-    .masthead { border-top-width: 3px; margin-bottom: 12px; padding: 8px 0 6px; font-size: 8pt; }
-    nav.report-nav { display: none; }
-    .kicker { font-size: 9pt; margin-bottom: 10px; }
-    h1.hed { font-size: 28pt; line-height: 1.02; margin-bottom: 12px; }
-    .deck { font-size: 12.5pt; margin-bottom: 14px; max-width: 100%; }
-    .byline { font-size: 7.5pt; padding-top: 8px; margin-bottom: 20px; }
-    h2 { font-size: 16pt; margin-top: 26px; margin-bottom: 8px; page-break-after: avoid; break-after: avoid; }
-    h2 .num { font-size: 8pt; margin-bottom: 6px; }
-    h3 { font-size: 12pt; margin: 18px 0 6px; page-break-after: avoid; break-after: avoid; }
-    p, p.lead { font-size: 10pt; max-width: 100%; margin-bottom: 8px; }
-    p.lead { font-size: 11pt; }
-    .principle { margin: 18px 0; padding: 4px 0 4px 14px; page-break-inside: avoid; break-inside: avoid; }
-    .principle .evidence { font-size: 9pt; }
-    .principle .evidence strong { font-size: 8pt; }
-    .gap { font-size: 9pt; padding: 6px 12px; page-break-inside: avoid; break-inside: avoid; }
-    .gap strong { font-size: 8pt; }
-    .recommendation { padding: 20px 22px; margin: 28px 0; page-break-inside: avoid; break-inside: avoid; }
-    .recommendation::before { font-size: 8pt; padding: 3px 10px; top: -11px; }
-    .recommendation h3 { font-size: 16pt; }
-    .recommendation li { font-size: 10pt; }
-    .signature { font-size: 13pt; margin-top: 28px; padding-top: 12px; }
-    .signature .meta { font-size: 8pt; }
-    .corrections { font-size: 9pt; padding: 10px 14px; page-break-inside: avoid; break-inside: avoid; }
-    .footnotes { margin-top: 24px; padding-top: 12px; font-size: 8.5pt; }
-    .footnotes h3 { font-size: 9pt; }
-    .footnotes p { font-size: 8pt; }
-    a { color: #000; text-decoration: underline; }
+    .ask { background: #fff !important; color: #000 !important; border: 1px solid #000; border-radius: 6px; padding: 18px 22px; }
+    .ask h3, .ask p, .ask ol li { color: #000 !important; }
+    .ask ol li { border-color: #999 !important; }
+    .ask::before { display: none; }
   }
 </style>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 
-<div class="editorial-band">This is an opinion page · <a href="index.html">Return to the factual data</a></div>
+<div class="wrap">
 
-<main id="main"><div class="container">
-
-<div class="masthead">
-  <div class="dateline">Opinion · seattledogparkdata.com</div>
-  <div>APRIL 2026</div>
-</div>
-
-<nav class="report-nav" aria-label="Site navigation">
-  <a href="index.html">Overview</a>
-  <a href="part1-the-gap.html">Part I — The Gap</a>
-  <a href="part2-access.html">Part II — Access</a>
-  <a href="part3.html">Part III — Forward</a>
-  <a href="enforcement.html">Enforcement</a>
-  <a href="budget.html">Budget</a>
-  <a href="peer-cities.html">Peer Cities</a>
-  <a href="opinion.html" class="active">Opinion</a>
-</nav>
-
-<div class="kicker">Opinion &amp; Recommendation</div>
-<h1 class="hed">Seattle will not build its way out of this. <em>It needs a policy change.</em></h1>
-<p class="deck">This is my take on what the data on this site shows, and what the city should do differently. This page is my opinion — everything else on the site is intended to be a factual reference.</p>
-
-<div class="byline" id="about">
-  By <strong>Andre Vrignaud</strong>, Queen Anne &middot; 20+ years using Seattle's parks with dogs &middot; Participated in SPR's 2014&ndash;2017 <em>People, Dogs and Parks Strategic Plan</em> live interviews
-</div>
-
-<figure class="lede-photo">
-  <img src="images/dog-park-signs.jpg" alt="Two signs on a chain-link fence: 'DOGS ARE NOT ALLOWED' next to 'PICK UP AFTER YOUR PET'">
-  <figcaption>Seattle dog park policy in a nutshell.</figcaption>
-</figure>
-
-<p class="lead">
-I'll be upfront — I own dogs, I walk them in Seattle's parks, I run them off-leash, and I have a strong opinion about how the city has managed off-leash access. The rest of this site is deliberately neutral. This page isn't. What follows is six principles I think most reasonable Seattle residents can get behind, three opinions that fall out of the data this site has gathered, seven counterarguments I've tried to take seriously, and a recommendation I've been sharing with the city, council candidates, and SPR since 2014.
-</p>
-
-<div class="authors-note">
-  <span class="note-label">Why this site exists</span>
-  <p>I've been collecting data on Seattle's off-leash situation for twenty years. When <a href="https://www.axios.com/local/seattle">Axios Seattle</a> asked for thoughts on the latest round of this debate, I realized I could stop pasting numbers into Nextdoor threads and put them somewhere permanent — so I used Claude to turn my messy notes into this site. The data pages are fact; this page is opinion. If you take one thing away, it's not the specific details of my proposal — it's that the current policy is demonstrably broken, and doing the same thing for another decade won't change anything. We need to try something different.</p>
-</div>
-
-<!-- ==================================================================== -->
-<h2><span class="num">The broader argument</span>This is a hard problem.</h2>
-
-<p>One thing first, because it gets lost in advocacy writing on this topic — this is a hard problem. There's no clean answer that leaves everyone satisfied.</p>
-
-<p>Park space in a dense, land-scarce city is finite, and the people asking for more of it all have legitimate claims — dog owners, soccer leagues, community gardeners, neighbors who want a quiet lawn to read on, kids who want a playground, runners, cyclists, birders. Every one of them can point to data saying they're under-served. Several of them are right at the same time. (Veterinary behaviorists also make a separate case that traditional dog parks aren't ideal for many dogs — but that's a conversation about design and education, not policy.)</p>
-
-<p>I have real empathy for the council members, mayors, and SPR staff who've taken a run at this over the last two decades. They've held listening sessions, commissioned studies, drafted plans, spent years trying to site new dog parks — finally putting two more into construction in 2026 after a seventeen-year gap — absorbed the complaints from everyone who didn't get what they wanted, and moved on to the next file on a desk that's never empty. Sit down with this in good faith and you run into the same walls every time — land, money, competing uses, neighborhood opposition. Anyone who engages with it seriously figures out pretty quickly why the easy answers aren't easy.</p>
-
-<p>Not everyone leaves happy. Any real change here upsets someone. A policy that gives dogs more access feels like a loss to people who'd rather be in parks without them. A policy that protects the status quo leaves 150,000+ dogs and their owners exactly where the rest of this site documents. There's no version of this where nobody's disappointed.</p>
-
-<p>So I'm not writing this to claim I have the perfect answer, or to suggest the people who've tried before were foolish for not finding it. I don't, and they weren't. What I am saying is that after twenty years of running the same playbook — study, listen, plan a park, repeat, with the first new OLAs since 2009 only now breaking ground — the data on this site shows the approach isn't closing the gap. It isn't even keeping pace. At some point, continuing to run a strategy that measurably isn't working becomes its own choice.</p>
-
-<p>That's why this page is here. Not to argue the answer is obvious (it isn't), but to argue that trying something different is overdue. The specific alternative I think is worth a real look is a time-zoned shared-use model, borrowed from cities that have run it for decades. The sections below make the case.</p>
-
-<!-- ==================================================================== -->
-<h2 id="principles"><span class="num">Part One</span>Six principles</h2>
-
-<p>These aren't numbers — they're values plus factual observations. I think most reasonable Seattle residents, dog owners and non-owners alike, can sign on to them.</p>
-
-<div class="principle">
-  <h3><span class="num-inline">P1</span>Seattle will never build its way out of the OLA shortage.</h3>
-  <p>Zero net dog parks added since 2009 — seventeen years and counting — while the population grew 34%. Two more open in fall 2026. Even if SPR eventually builds every site on its current list, the per-capita gap to Portland, San Francisco, and Vancouver BC doesn't close. Seattle is physically constrained: dense, land-scarce, expensive parcels, already-extensive parks to maintain.</p>
-  <div class="evidence">
-    <strong>Supporting data on this site</strong>
-    <a href="part1-the-gap.html#finding-01">Residents per OLA, 2010&ndash;2026</a> &middot;
-    <a href="part1-the-gap.html#finding-02">Peer-city per-capita comparison</a> &middot;
-    <a href="part2-access.html#finding-04">Per-capita OLA acreage</a> &middot;
-    <a href="https://www.tpl.org/parkscore/rankings">TPL 2025 ParkScore</a>
+  <div class="topbar">
+    <a class="brand" href="index.html">
+      <img class="mark" src="favicon.svg" alt="">
+      <span>Seattle Dog Park Data</span>
+    </a>
+    <nav class="nav" aria-label="Site navigation">
+      <a href="index.html">Overview</a>
+      <a href="part1-the-gap.html">The Gap</a>
+      <a href="part2-access.html">Access</a>
+      <a href="part3.html">Forward</a>
+      <a href="enforcement.html">Enforcement</a>
+      <a href="budget.html">Budget</a>
+      <a href="peer-cities.html">Peer Cities</a>
+      <a href="opinion.html" class="active">Opinion</a>
+    </nav>
   </div>
-</div>
 
-<div class="principle">
-  <h3><span class="num-inline">P2</span>The little buildable land Seattle has should not go to dog parks first.</h3>
-  <p>Seattle's in the middle of a long housing-affordability crisis and an ongoing homelessness emergency. When a rare parcel of city land comes loose, the case for housing, shelter, or services is stronger than the case for a new fenced dog park. I own dogs and I still believe this. Any serious plan to improve off-leash access has to start from the assumption that we're <em>not</em> getting more than a handful of small new OLAs over the coming decade — and that even a substantial funding increase <em>would not be enough</em> to close the gap. The land isn't there; no dollar figure conjures it into existence.</p>
-  <div class="evidence">
-    <strong>Reference</strong>
-    <a href="https://www.seattle.gov/housing">City of Seattle housing</a> &middot;
-    <a href="https://kingcounty.gov/en/dept/dchs">King County homelessness</a>
+  <div class="masthead">
+    <span class="dateline">Seattle Dog Park Data · seattledogparkdata.com</span>
+    <span>APRIL 2026</span>
   </div>
-</div>
 
-<div class="principle">
-  <h3><span class="num-inline">P3</span>Seattle has more dogs than children, and the investment gap reflects that poorly.</h3>
-  <p>The obvious part first — <strong>yes, kids should be prioritized over dogs</strong>. Most reasonable people agree. A city with 157 playgrounds and 14 dog parks is making a choice about who its parks are for, and on the first axis — kids first — that choice is right. I'm not arguing for a 1:1 split.</p>
-  <p>What I am arguing is that the <em>magnitude</em> of the gap has gone past any reasonable prioritization. Widely cited estimates put Seattle's dog population at around 150,000 as a floor, and SPR's own 2023 Expansion Study cites figures up to 400,000. Seattle's under-18 population is roughly 115,000. Even at the conservative floor, dogs outnumber kids — and SPR runs 157 playgrounds against 14 fenced OLAs. The dedicated OLA budget line in 2018 was about <strong>$100,000 out of a $168M SPR total</strong>: roughly <strong>0.06%</strong>. On the land side, OLAs occupy about <strong>31 of Seattle's ~53,100 acres</strong> — again roughly <strong>0.06% of the city</strong>, about one-sixteenth of one percent. Prioritizing kids is right. Arriving at 0.06% for a population the size of all dog owners is how we got here. That's what this principle says should be fixed.</p>
-  <div class="evidence">
-    <strong>Supporting data on this site</strong>
-    <a href="part1-the-gap.html#finding-06">Playgrounds for kids vs OLAs for dogs</a> &middot;
-    <a href="part1-the-gap.html#finding-04">SPR budget vs OLA budget</a> &middot;
-    <a href="part2-access.html#finding-03">OLA acreage ranked</a> &middot;
-    <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">data/seattle-olas.csv</a>
+  <div class="note-box" role="note">
+    <strong class="tag">This is the opinion page</strong>
+    Every other page on this site is factual. This one is signed editorial — principles, opinions, counterarguments, and a policy recommendation from the site's author. Data claims link back to the factual pages.
   </div>
-</div>
 
-<div class="principle">
-  <h3><span class="num-inline">P4</span>People who don't want to be around dogs have a right not to be.</h3>
-  <p>Non-negotiable. Every dog owner I respect accepts this. Kids who are afraid of dogs, adults who don't want a strange dog in their face, picnickers, joggers, runners, people using the park for a dozen other reasons — none of them signed up to share space with an unfamiliar off-leash dog. The current setup, where 39% of dog owners self-report monthly-or-more illegal off-leash use, fails these residents directly. Whatever fix comes next has to protect their use of parks at least as well as the current system pretends to.</p>
-  <div class="evidence">
-    <strong>Supporting data on this site</strong>
-    <a href="part2-access.html#illegal-use">SPR's own 2016 survey on illegal off-leash use</a> &middot;
-    <a href="enforcement.html">4,803 citations issued 2014&ndash;2019</a> &middot;
-    <a href="https://www.seattle.gov/parks/about-us/policies-and-plans/people-dogs-and-parks-strategic-plan">SPR People, Dogs and Parks Plan</a>
-  </div>
-</div>
+  <main id="main">
 
-<div class="principle">
-  <h3><span class="num-inline">P5</span>Children have a right to play on clean, safe fields.</h3>
-  <p>A playfield with dog feces on it, or a baseball diamond where someone's loose dog just ran through left field, is a system failure on every axis. This isn't a dog-vs-kid argument — both groups deserve protected recreational space. The current policy doesn't actually deliver clean playfields; enforcement happens at the margins, after the fact, with no cleanup component.</p>
-</div>
+  <header class="hero">
+    <span class="kicker navy">Opinion · Signed editorial · April 2026</span>
+    <h1 class="hed">Seattle will not build its way out of this. <em>It needs a policy change.</em></h1>
+    <p class="deck">This is my take on what the data on this site shows, and what the city should do differently. This page is my opinion — everything else on the site is intended to be a factual reference.</p>
+    <div class="byline" id="about">
+      By <strong>Andre Vrignaud</strong>, Queen Anne &middot; 20+ years using Seattle's parks with dogs &middot; Participated in SPR's 2014&ndash;2017 <em>People, Dogs and Parks Strategic Plan</em> live interviews
+    </div>
+  </header>
 
-<div class="principle">
-  <h3><span class="num-inline">P6</span>Families and non-dog-owners should have park time that's reliably dog-free.</h3>
-  <p>Access goes both ways. Right now, dog owners have a few tiny, often-unsafe OLAs; non-owners have a city full of parks that are technically dog-free but in practice aren't. Both groups lose. A well-designed policy protects time windows for each use.</p>
-</div>
+  <figure class="lede-photo">
+    <img src="images/dog-park-signs.jpg" alt="Two signs on a chain-link fence: 'DOGS ARE NOT ALLOWED' next to 'PICK UP AFTER YOUR PET'">
+    <figcaption>Seattle dog park policy in a nutshell.</figcaption>
+  </figure>
 
-<!-- ==================================================================== -->
-<h2><span class="num">Part Two</span>Three opinions that fall out of the data</h2>
-
-<div class="principle opinion">
-  <h3 id="O1"><span class="num-inline">O1</span>The current rules have failed, and Seattle is doubling down on the part that isn't working.</h3>
-  <p>In 2014 the Seattle City Council asked SPR to rethink off-leash policy. SPR spent over a year running surveys and in-person interviews with dog owners, parents, COLA, and neighborhood groups. The consistent feedback was that the pre-2014 policy was unworkable, enforcement was structurally insufficient, and other cities had already tried shared-use or time-zoned models worth studying. The <a href="https://www.seattle.gov/parks/about-us/policies-and-plans/people-dogs-and-parks-strategic-plan">resulting <em>People, Dogs and Parks Strategic Plan</em></a> kept the same framework, added two full-time animal-control officers, and declined to pilot any shared-use approach. Seattle Magazine <a href="https://www.seattlemag.com/arts-and-culture/new-leash-master-plan-has-dog-owners-snarling">covered it at the time</a>. In the years since, the OLA count hasn't meaningfully moved, and illegal off-leash use has if anything grown with the dog population.</p>
-
-  <p>And yet in April 2026, <a href="https://www.axios.com/local/seattle/2026/04/17/seattle-animal-control-staffing-increase-off-leash-dogs-parks-enforcement">Axios Seattle reported</a> that SPR and the Seattle Animal Shelter are expanding enforcement again — moving from one officer Wednesday through Saturday to <strong>two full-time seven-day positions plus backup</strong>, on top of roughly 26 park rangers patrolling more than 460 parks. SPR's framing: "it's not a crackdown, officials say — but more boots on the ground are coming." That's the same lever, pulled harder. Moving from one officer Wed–Sat (~4 officer-days a week) to two officers seven days plus backup is roughly a <strong>3–4× scale-up</strong> in officer-hours, and if citation volume scales linearly with staffing the <a href="enforcement.html">historical ~0.5% annual contact probability per dog</a> (4,803 citations over six years against at least 150,000 dogs) could rise into the low single digits. That is a real change in cost and ground presence; it is not a meaningful change in behavior. Deterrence is a product of two numbers — the probability of getting cited and the cost of a citation — and the expansion only moves one of them, modestly. The other doesn't move at all: <a href="#O2">as O2 below lays out</a>, about 90% of historical citations were first-offense warnings at $0 or $54, the practical ceiling is $162, and even the SMC maximum of $150 gets absorbed by higher-income owners as a de-facto access fee. Triple the probability and hold the fine structure constant and the expected cost of off-leashing stays well below the value of a usable run — especially in neighborhoods where no legal OLA exists within walking distance. Enforcement at this intensity doesn't shift behavior, and no amount of patrol manufactures a legal place to run a dog where none exists.</p>
-
-  <p>It does, however, cost real money — and now we know roughly how much. The <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/moas/SPR-FAS-ACO2-MOA-2021-AG21-PRF03-032.pdf">2021 signed MOA between SPR and the Seattle Animal Shelter</a> (AG21-PRF03-032) lays it out in Attachment A — one Animal Control Officer II is billed to SPR at <strong>$43.07/hr plus 45% benefits overhead = $62.45/hr × 2,088 hours = $130,399/year in personnel</strong>, plus $3,000 in supplies and $19,000 in divisional overhead, for <strong>$152,399/year</strong>. That's the FAS-side cost only. The SPR-side Facilities Maintenance Worker who patrols with the ACO as a paired team sits on SPR's books separately. They're paired half-time with each other, four days a week — roughly <strong>160 officer-hours per month to cover 485+ parks and 6,414 acres</strong>.</p>
-
-  <p>Scaling those 2021 numbers forward for wage growth and the April 2026 expansion (from 1 ACO II Wed–Sat to 2 ACO II seven-day plus backup), the combined program — ACO + FMW paired teams, vehicles, supplies, overhead — lands plausibly in the <strong>$700K to $1M per year</strong> range. (Step-by-step math in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/sources/aco-moa-2016.md">sources/aco-moa-2016.md</a>.) That's real money aimed at a lever the site's own <a href="enforcement.html">enforcement analysis</a> shows has historically produced a 0.5% annual contact probability per dog and mostly-warning outcomes, and that even at 3–4× staffing stays well short of deterrence. Redirect the same half-million-to-million dollars to a clean-park compliance model — time-zoned shared use plus post-session cleanup staff, per the <a href="#recommendation">recommendation</a> below — and you'd fund a far larger ground presence at the moments parks actually need it. This is what the 2014–2017 process warned against, and the cost just makes the misdirection easier to see.</p>
-
-  <div class="evidence">
-    <strong>Supporting data on this site</strong>
-    <a href="part1-the-gap.html#finding-01">Residents per OLA time series</a> &middot;
-    <a href="enforcement.html#finding-04">Citations issued per year</a> &middot;
-    <a href="part2-access.html">Kinnear case study</a> &middot;
-    Axios Seattle, "More paw patrols," April 2026 (print edition)
-  </div>
-</div>
-
-<div class="principle opinion">
-  <h3 id="O2"><span class="num-inline">O2</span>Fines will never work — not at any amount Seattle could plausibly adopt.</h3>
-  <p>The numbers: 4,803 off-leash citations between January 2014 and October 2019, against a dog population of at least 150,000. At the city-wide average, that's roughly a <strong>0.5% chance per dog per year</strong> of being cited. Treat that as a rough SWAG, not a statistic — it averages over huge variation. Owners who never off-leash have zero exposure. Owners who visit high-citation parks a few times a week face probabilities several times higher. Owners in neighborhoods where rangers don't patrol face close to zero. The city-wide rate is useful as a floor for the argument (even at the most heavily-patrolled parks the per-visit probability is small, and Seattle's enforcement capacity can't close that gap without orders-of-magnitude more staff), but it isn't a per-owner risk calculation. What the data <em>does</em> support: <strong>about 90% of the 4,803 citations were first-offense warnings</strong> at $0 or $54. Second offense is $109, third is $136, fourth-plus is $162. The practical ceiling is about $162, and even the Seattle Municipal Code's $150 maximum gets absorbed by higher-income owners as a de-facto access fee. Raise fines higher and you hit a regressive-enforcement problem — the same $500 fine that's meaningful to a lower-income owner is a rounding error to a wealthy one. The fine-based model is structurally mismatched to the behavior. <a href="https://library.municode.com/wa/seattle/codes/municipal_code?nodeId=TIT18PALA_CH18.12GEPRRE_SUBCHAPTER_IIOFPRPA_18.12.080DORELI">SMC 18.12.080(A)</a> is the cited violation.</p>
-  <div class="evidence">
-    <strong>Supporting data on this site</strong>
-    <a href="enforcement.html">Full enforcement analysis</a> &middot;
-    <a href="enforcement.html#finding-05">Citations by offense level</a> &middot;
-    <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-citations.csv">data/enforcement-citations.csv</a>
-  </div>
-</div>
-
-<div class="principle opinion">
-  <h3><span class="num-inline">O3</span>Dog owners will keep running dogs off-leash under the current rules. For rational reasons.</h3>
-  <p>People break the law here because the legal option is often worse. Many neighborhoods have no legal OLA within a 10-minute walk (<a href="part2-access.html#finding-01">walkshed analysis</a>). Where a legal OLA exists, it's often too small to use safely — <a href="part2-access.html">seven of Seattle's 14 are under one acre</a>, below the <a href="https://images.akc.org/pdf/GLEG01.pdf">AKC's one-acre recommendation</a>, and three are under a quarter-acre; Kinnear (0.124 acre) posts its own signs asking owners to bring no more than 1–2 dogs at a time. Several OLAs sit in or next to <a href="part2-access.html">areas with chronic safety concerns</a> that make them effectively unusable — especially for women, after dark, or alone. And the probability of enforcement is under 1% per year.</p>
-  <p>It's a supply failure producing a compliance failure, exactly what basic economics would predict. No amount of enforcement addresses the underlying cause.</p>
-  <div class="evidence">
-    <strong>Supporting data on this site</strong>
-    <a href="part2-access.html#finding-03">OLA acreage distribution</a> &middot;
-    <a href="part2-access.html#illegal-use">39% admit monthly+ illegal off-leash use (SPR 2016 survey)</a> &middot;
-    <a href="enforcement.html#finding-01">Hotspot map</a>
-  </div>
-</div>
-
-<!-- ==================================================================== -->
-<!-- ==================================================================== -->
-<h2><span class="num">Part Three</span>Counterarguments</h2>
-
-<p class="lead">Before I get to the recommendation, the best arguments against it. These are pulled from a 147-comment <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/sources/nextdoor-qa-playfield-2021.md">April 2021 Nextdoor thread about Queen Anne Playfield</a> where neighbors on both sides engaged substantively. Every argument below was made by a real neighbor, not a strawman. Where the counterargument is correct, I say so.</p>
-
-<div class="principle">
-  <h3><span class="num-inline">C1</span>"Dogs are not allowed on this playfield. The rules are clear. Follow them."</h3>
-  <p><strong>This is correct.</strong> <a href="https://library.municode.com/wa/seattle/codes/municipal_code">SMC 18.12.080</a> is unambiguous, SPR signage is unambiguous, and athletic playfields are dedicated to organized play. When dog owners off-leash on a marked playfield during softball practice, they're breaking the law and interfering with the park's intended use. My argument here isn't that individual rule-breaking is justified — it's that the rule has failed at the <em>system</em> level, and the system needs policy change, not more individual rule-breaking. The recommendation on this page is addressed to the city, not a defense of what people already do.</p>
-</div>
-
-<div class="principle">
-  <h3><span class="num-inline">C2</span>"Having a dog is a privilege, not a right. You chose this. Don't expect public resources to subsidize that choice."</h3>
-  <p><strong>Agreed in the narrow sense — and I think it's the wrong frame for a policy question.</strong> Dog ownership is discretionary. It's also mainstream — <a href="https://www.seattle.gov/parks/about-us/policies-and-plans/people-dogs-and-parks-strategic-plan">SPR's own 2016 survey</a> found roughly 25% of Seattle residents use OLAs, and Seattle's dog population is <a href="https://www.seattlemag.com/article/seattles-dog-obsession">plausibly larger than its under-18 population</a>. When a city allocates <a href="budget.html">0.06% of its parks budget</a> to a constituency that size, the question isn't whether dog ownership is a "right." It's whether the allocation matches the constituency. It doesn't. That's the policy argument, not a rights claim.</p>
-</div>
-
-<div class="principle">
-  <h3><span class="num-inline">C3</span>"Off-leash dogs cause real harm to other park users. I've seen it."</h3>
-  <p><strong>Confirmed — multiple times, by non-advocates, at the same park.</strong> In the thread referenced above, one neighbor documented a small off-leash dog running at an 8-year-old's feet at Big Howe. Another described a flag football game at Queen Anne Playfield being paused several times because a single off-leash dog kept running into play. A softball parent described her daughter's practice where "every practice the girls are stepping in dog poop." These are real, and honestly they strengthen the case for a structured shared-use model rather than weaken it. The current setup produces these incidents <em>despite</em> the law, because <a href="enforcement.html">enforcement is structurally insufficient</a>. A time-zoned model with dedicated cleanup staff (the recommendation below) directly addresses each of these by reserving prime athletic hours for athletic use and pairing the off-leash window with visible compliance staff.</p>
-</div>
-
-<div class="principle">
-  <h3><span class="num-inline">C4</span>"The ratio of dogs to children isn't a reasonable basis for setting the OLA budget."</h3>
-  <p><strong>Correct, and the site doesn't argue otherwise — I want to say that explicitly.</strong> "More dogs than children" is a scale indicator showing dog ownership is mainstream in Seattle. It's not a prescription that dog-park spending should match playground spending per capita. What I'm arguing is narrower: SPR's 0.06% allocation for a population that's 25%+ of residents is an order-of-magnitude mismatch with any reasonable allocation principle. Not that 25% of the parks budget should go to OLAs.</p>
-</div>
-
-<div class="principle">
-  <h3><span class="num-inline">C5</span>"There's no land. And if there were, it should go to housing and shelter before dog parks."</h3>
-  <p><strong>Yes, and yes.</strong> This appears in both the thread and in <a href="#principles">Principle P2</a>. Don Harper, the Queen Anne Community Council Parks Chair, has spent 20+ years on this problem — and described several attempted sites (MacLean Park, David Rogers Park, Smith Cove) that were rejected by SPR, by adjacent neighbors, or by funding-source restrictions. That's exactly why my recommendation isn't "build a lot more OLAs." It's a <a href="#recommendation">time-zoned shared-use policy</a> on parks the city already owns.</p>
-</div>
-
-<div class="principle">
-  <h3><span class="num-inline">C6</span>"Why are you taking it out on the people using the playfield for its intended purpose? Lobby for change. Don't break the law."</h3>
-  <p><strong>The first sentence is completely fair.</strong> A parent watching softball practice at Queen Anne Playfield didn't personally set SPR's OLA allocation. Taking frustration out on them is both wrong and counterproductive. My argument here is only with the city — which is also the body that can change the policy. The second sentence is the interesting one: "Don't break the law, lobby for change." I'd argue they're not mutually exclusive. People have lobbied. COLA has lobbied. The QACC Parks Chair has spent two decades lobbying. The city's answer has been to <a href="#O1">expand enforcement of a failing law</a> rather than reexamine it. At some point "lobby harder" stops being a serious response.</p>
-</div>
-
-<div class="principle">
-  <h3><span class="num-inline">C7</span>"Fine, but don't fantasize that a shared-use pilot will actually be enforced any better than the current rule."</h3>
-  <p><strong>Fair and concrete.</strong> If the city can't enforce "no dogs ever on athletic fields," why would it enforce "no dogs on athletic fields from 9 AM to 9 PM"? Two answers. First, the <em>shape</em> of the rule is different — a time-bounded window is something an owner can plan around, which the current blanket rule isn't. Second, the <a href="#recommendation">recommendation</a> specifically redirects the enforcement budget away from citations and toward on-site compliance monitoring at the transition hours and post-session cleanup. You can't enforce every park every minute of every day. You <em>can</em> enforce a handful of designated parks at two specific transition points per day. That's tractable, and it's what <a href="https://www.nycgovparks.org/facilities/dogareas">New York has done for 20+ years</a>. It's not a new idea. What's new, apparently, is Seattle trying it.</p>
-</div>
-
-<div class="gap" style="margin-top: 28px;">
-  <strong>Where this page could be wrong</strong>
-  The shared-use recommendation hasn't been piloted in Seattle, and its transferability from NYC, Boston, and Chicago isn't proven under Seattle-specific conditions (hills, rainfall, seasonal daylight, homelessness-response pressure). If a pilot ran and failed, the right response is to say so, document why, and try the next thing. My argument is that the current approach has measurably failed, and piloting a well-precedented alternative is a smaller ask than what the city is currently making — expanded enforcement of the approach that's already failing.
-</div>
-
-<!-- ==================================================================== -->
-<h2><span class="num">Part Four</span>SPR's own access standard proves the point</h2>
-
-<p class="lead">
-SPR's 2017 <em>People, Dogs and Parks Strategic Plan</em> defends current OLA coverage with an access claim that, once you look at it, is the clearest evidence of the framework's failure: most Seattle residents live within <strong>2.5 miles</strong> of an OLA. The Green Lake loop is <a href="https://www.seattle.gov/parks/find/parks/green-lake-park">2.8 miles</a>. SPR is effectively arguing that walking the Green Lake loop one-way to reach your dog park — and then walking it back — counts as reasonable access.
-</p>
-
-<p>
-For comparison, <a href="https://www.tpl.org/parkscore/about">Trust for Public Land's industry-standard metric</a> — the same one SPR happily cites when noting that 99% of Seattleites live within a 10-minute walk of a park — is <strong>0.5 miles</strong>. <a href="https://www.nrpa.org/our-work/partnerships/initiatives/park-access/">NRPA</a>, the <a href="https://10minutewalk.org/">Urban Land Institute</a>, the National Park Service, and the CDC all use the same 10-minute walk standard for parks. There's no universal national consensus like that for dog parks specifically. A handful of agencies have tried OLA-specific service radii — Seattle's own <a href="https://www.seattle.gov/documents/departments/parksandrecreation/policiesplanning/seattlerecreationdemandstudy2016.pdf">2016 Recreation Demand Study</a> used 2.5 miles, <a href="https://www.fairfaxcounty.gov/parks/planning-development/dog-park-study">Fairfax County</a> has a published dog-park siting study — but nothing like TPL's 10-min benchmark has caught on for OLAs. When a city needs an access metric for OLAs, the industry default is the same 10-minute walk it uses for any other park. <strong>SPR uses the tighter standard when it's celebrating Seattle's park system in general, and a standard 5&times; more permissive to paper over the OLA-specific failure.</strong> That asymmetry alone is the argument.
-</p>
-
-<!-- ==================================================================== -->
-<h2><span class="num">Part Five</span>What Seattle should actually do</h2>
-
-<p class="lead">
-Given the principles and the evidence, the realistic path forward isn't to keep building small fenced OLAs. It's to change the policy about how dogs and people share the parks Seattle already has.
-</p>
-
-<div class="principle">
-  <h3><span class="num-inline">NYC</span>Does the NYC model actually work? What the record shows.</h3>
-  <p>Before I recommend it, this deserves a direct answer. The New York City Department of Parks &amp; Recreation <a href="https://www.nycgovparks.org/news/press-releases?id=19877">formally codified the Off-Leash Hours policy on April 10, 2007</a>, after running it as an informal "courtesy hours" arrangement since roughly 1986. Nineteen years of formal operation, nearly forty if you include the informal period. The policy is simple — in designated areas of participating parks, licensed and vaccinated dogs may be off-leash <strong>from park-opening until 9:00 AM</strong> and <strong>from 9:00 PM until park-close</strong>. Outside those windows, normal leash rules apply (<a href="https://www.nycgovparks.org/facilities/dogareas">NYC Parks — Dog-Friendly Areas</a>). The policy runs in parallel with NYC's dedicated fenced dog runs, not in place of them.</p>
-  <p><strong>Scale.</strong> Off-leash hours are designated at a large share of NYC's ~1,700 parks. The city doesn't publish a consolidated count, but public advocate and Parks Department inventories list eligible areas across all five boroughs (<a href="https://council.nyc.gov/public-advocate/dog-run-and-off-leash-area-locations/">NYC Council public-advocate directory</a>). Designated areas include sections of Central Park, Prospect Park, Riverside, Van Cortlandt, Forest Park, and dozens of neighborhood parks. By any counting methodology, NYC's off-leash footprint dwarfs Seattle's 14 fenced OLAs.</p>
-  <p><strong>The caveat.</strong> NYC doesn't publish a longitudinal evaluation of the policy's outcomes — no official "is it working?" report with citation counts, complaint trends, or injury rates. The longevity is the proxy. Nineteen years of formal operation, renewed through multiple administrations with different political postures on parks, and no reversal. NRPA covered the model in its November 2018 <em>Parks &amp; Recreation</em> law review ("Courtesy Hours for Off-Leash Dogs in Public Parks") and treats it as the mature US example other cities look to. Boston has similar time-based variations. Chicago runs a parallel DFA (Designated Free Area) system. What's missing from the public record is the kind of quantitative outcomes tracking I'm arguing Seattle should do from day one (Recommendation point 7). If Seattle piloted this, Seattle's evaluation could become the analysis NYC's history doesn't offer.</p>
-  <p><strong>What this doesn't prove.</strong> It doesn't prove the policy transfers cleanly to Seattle. NYC has higher density, different topography, different rainfall, different enforcement institutions, and a very different relationship between parks and homelessness response. What it does prove is that a city of 8 million has run a time-zoned shared-use off-leash policy for nearly twenty years without catastrophic failure or reversal — which is a higher bar than anything Seattle's current OLA framework has cleared.</p>
-</div>
-
-<div class="recommendation" id="recommendation">
-  <h3>A time-zoned shared-use policy for Seattle's parks.</h3>
-  <p style="font-size: 16px; margin-bottom: 18px;">Adopt a shared-use model similar to <a href="https://www.nycgovparks.org/facilities/dogareas">New York City's long-standing off-leash hours policy</a> — early morning and evening windows in designated parks during which dogs may be off-leash under owner control, with the rest of the day reserved for traditional park use. Pair it with a different enforcement posture focused on shared-use compliance, not leash-law violations.</p>
-
-  <ol>
-    <li><strong>Designate shared-use parks by neighborhood.</strong> Not every park participates. Parks with heavy children's programming — active playfields during league season, for instance — stay fully leashed 24/7. Parks that already show up in <a href="enforcement.html">the enforcement data</a> as places people off-leash anyway become eligible candidates.</li>
-    <li><strong>Time-zone the access.</strong> A model like NYC's — off-leash from park-opening to 9:00 AM and from 9:00 PM to park-closing — gives owners practical morning and evening windows and reserves prime daytime hours for general park use. Pilot it. Adjust the hours per park based on observed use.</li>
-    <li><strong>Pivot enforcement from fines to compliance.</strong> Redeploy SPR Animal Control and park rangers to monitor participating parks during off-leash hours — confirming owners are present, dogs are under control, and the park is left clean. That's a different job description from "drive 6,400 acres hoping to catch someone."</li>
-    <li><strong>Add clean-park staffing — call it poop patrol.</strong> A dedicated crew does post-session sweeps of shared-use parks at the transition back to leashed hours. If a participating park is repeatedly found uncleaned, it can lose shared-use designation. That collective threat is the real enforcement mechanism — it gives every responsible owner at the park a stake in cleaning up after the minority who don't. Off-leash culture in practice runs on social pressure: owners who don't pick up get called out by other owners, not because anyone enjoys the confrontation but because the shared benefit depends on it. Tickets and fines still apply to individual violators who get caught, but the enforcement that actually moves behavior is peer pressure plus a credible threat of losing shared-use status at the park level. A $54 ticket handed out hours after the fact by an officer who wasn't there doesn't change anyone's behavior.</li>
-    <li><strong>Fund it with expanded dog-license fees and redirected enforcement spend.</strong> Seattle's dog-licensing revenue is modest. A meaningful increase, dedicated to the <a href="https://www.seattle.gov/animal-shelter">Seattle Animal Shelter</a> <em>and</em> this new clean-park program, is far more politically viable than a fines increase, and it avoids the regressive-enforcement problem.</li>
-    <li><strong>Keep the small dedicated OLAs.</strong> Kinnear, Plymouth Pillars, Magnuson, and the rest don't go away. They stay as all-day off-leash options for people who want them. They just stop being the <em>entire</em> answer to a city-wide demand they were never sized to handle.</li>
-    <li><strong>Measure and publish outcomes.</strong> Track citation counts, Find-It-Fix-It complaints, injury reports, and post-session cleanliness audits by park. If a pilot park is underperforming on non-dog-user experience, pull it. If it's working, expand.</li>
-  </ol>
-
-  <p style="font-size: 15px; color: var(--ink-soft); margin-top: 18px; margin-bottom: 0;">
-    This approach was raised during the 2014–2017 SPR process, was supported by COLA and multiple participating community members, and was set aside as too hard to enforce. The <a href="enforcement.html">data this site has assembled</a> suggests the current approach is <em>also</em> too hard to enforce — 4,803 citations over six years against 150,000+ dogs. If we're going to have a policy that's difficult to enforce either way, we should pick the one that could actually work if we did.
+  <p class="lead">
+  I'll be upfront — I own dogs, I walk them in Seattle's parks, I run them off-leash, and I have a strong opinion about how the city has managed off-leash access. The rest of this site is deliberately neutral. This page isn't. What follows is six principles I think most reasonable Seattle residents can get behind, three opinions that fall out of the data this site has gathered, seven counterarguments I've tried to take seriously, and a recommendation I've been sharing with the city, council candidates, and SPR since 2014.
   </p>
-</div>
 
-<!-- ==================================================================== -->
-<h2><span class="num">Part Six</span>What I'd ask of the City Council and the Mayor</h2>
+  <div class="authors-note">
+    <span class="note-label">Why this site exists</span>
+    <p>I've been collecting data on Seattle's off-leash situation for twenty years. When <a href="https://www.axios.com/local/seattle">Axios Seattle</a> asked for thoughts on the latest round of this debate, I realized I could stop pasting numbers into Nextdoor threads and put them somewhere permanent — so I used Claude to turn my messy notes into this site. The data pages are fact; this page is opinion. If you take one thing away, it's not the specific details of my proposal — it's that the current policy is demonstrably broken, and doing the same thing for another decade won't change anything. We need to try something different.</p>
+  </div>
 
-<p class="lead">
-This argument has been made to the city before. Many times. This is a request for one specific thing the Council, and the Council alone, can deliver.
-</p>
+  <!-- ==================================================================== -->
+  <h2>The broader argument: <em>this is a hard problem.</em></h2>
 
-<p>
-Residents, <a href="https://www.seattlecola.info">COLA</a>, <a href="https://magnusondogpark.org/">MOLG</a>, <a href="https://www.qacc.net/">QACC</a> volunteers, and ordinary dog owners have told SPR and City Council for more than two decades that the "build a few more fenced OLAs, increase enforcement against scofflaws" framework is not closing the off-leash gap. The reasons have been laid out each cycle: Seattle's land and budget constraints put a hard ceiling on how many traditional fenced OLAs are physically possible; that ceiling is well below demand; and enforcement aimed at the 39% of dog owners who self-report illegal off-leash use has no realistic mechanism for changing that behavior at scale.
-</p>
+  <p>One thing first, because it gets lost in advocacy writing on this topic — this is a hard problem. There's no clean answer that leaves everyone satisfied.</p>
 
-<p>
-The most recent city-commissioned effort to rethink this was the 2023&ndash;24 <a href="https://www.seattle.gov/parks/about-us/plans-and-reports/recreation-plans-and-reports/off-leash-area-study">SPR Off-Leash Area Expansion Study</a>, produced at the Council's request explicitly to re-examine the approach. Read its recommendations alongside the 2017 <em>People, Dogs and Parks Strategic Plan</em> and the two documents are the same proposal in different cover pages. Summarized fairly: <em>identify a handful of additional OLA sites where geometry and funding permit</em> (with the acknowledgment, again, that neither fully permits it), and <em>increase enforcement against off-leash violations</em>. That was the pre-2014 plan. It was the 2017 plan. It is the 2024 plan. It has measurably failed to close the gap at every iteration.
-</p>
+  <p>Park space in a dense, land-scarce city is finite, and the people asking for more of it all have legitimate claims — dog owners, soccer leagues, community gardeners, neighbors who want a quiet lawn to read on, kids who want a playground, runners, cyclists, birders. Every one of them can point to data saying they're under-served. Several of them are right at the same time. (Veterinary behaviorists also make a separate case that traditional dog parks aren't ideal for many dogs — but that's a conversation about design and education, not policy.)</p>
 
-<p>
-If the Council or the Mayor's office chooses to revisit off-leash policy &mdash; and I hope they do &mdash; the practical next step will almost certainly be another round of community engagement and another SPR-authored report. Process matters; the delay is disappointing but the diligence isn't wrong. The request I'd make is narrower and specific to the charge:
-</p>
+  <p>I have real empathy for the council members, mayors, and SPR staff who've taken a run at this over the last two decades. They've held listening sessions, commissioned studies, drafted plans, spent years trying to site new dog parks — finally putting two more into construction in 2026 after a seventeen-year gap — absorbed the complaints from everyone who didn't get what they wanted, and moved on to the next file on a desk that's never empty. Sit down with this in good faith and you run into the same walls every time — land, money, competing uses, neighborhood opposition. Anyone who engages with it seriously figures out pretty quickly why the easy answers aren't easy.</p>
 
-<div class="principle opinion">
-  <p style="font-size: 18px; line-height: 1.55; margin-bottom: 12px;">
-    <strong>Before the next study begins, the Council should put on the record that the 2023&ndash;24 Expansion Study returned an almost identical plan to the 2017 strategic plan, that the plan has measurably failed to close the gap at both junctures, and that returning a third time with the same framework is not an acceptable deliverable.</strong>
+  <p>Not everyone leaves happy. Any real change here upsets someone. A policy that gives dogs more access feels like a loss to people who'd rather be in parks without them. A policy that protects the status quo leaves 150,000+ dogs and their owners exactly where the rest of this site documents. There's no version of this where nobody's disappointed.</p>
+
+  <p>So I'm not writing this to claim I have the perfect answer, or to suggest the people who've tried before were foolish for not finding it. I don't, and they weren't. What I am saying is that after twenty years of running the same playbook — study, listen, plan a park, repeat, with the first new OLAs since 2009 only now breaking ground — the data on this site shows the approach isn't closing the gap. It isn't even keeping pace. At some point, continuing to run a strategy that measurably isn't working becomes its own choice.</p>
+
+  <div class="takeaway navy">
+    <span class="kicker">Pull quote</span>
+    <p>At some point, continuing to run a strategy that measurably isn't working becomes its own choice.</p>
+  </div>
+
+  <p>That's why this page is here. Not to argue the answer is obvious (it isn't), but to argue that trying something different is overdue. The specific alternative I think is worth a real look is a time-zoned shared-use model, borrowed from cities that have run it for decades. The sections below make the case.</p>
+
+  <!-- ==================================================================== -->
+  <h2 id="principles">Part One: six principles</h2>
+
+  <p>These aren't numbers — they're values plus factual observations. I think most reasonable Seattle residents, dog owners and non-owners alike, can sign on to them.</p>
+
+  <div class="principle">
+    <h3><span class="num-inline">P1</span>Seattle will never build its way out of the OLA shortage.</h3>
+    <p>Zero net dog parks added since 2009 — seventeen years and counting — while the population grew 34%. Two more open in fall 2026. Even if SPR eventually builds every site on its current list, the per-capita gap to Portland, San Francisco, and Vancouver BC doesn't close. Seattle is physically constrained: dense, land-scarce, expensive parcels, already-extensive parks to maintain.</p>
+    <div class="evidence">
+      <strong>Supporting data on this site</strong>
+      <a href="part1-the-gap.html#finding-01">Residents per OLA, 2010&ndash;2026</a> &middot;
+      <a href="part1-the-gap.html#finding-02">Peer-city per-capita comparison</a> &middot;
+      <a href="part2-access.html#finding-04">Per-capita OLA acreage</a> &middot;
+      <a href="https://www.tpl.org/parkscore/rankings">TPL 2025 ParkScore</a>
+    </div>
+  </div>
+
+  <div class="principle">
+    <h3><span class="num-inline">P2</span>The little buildable land Seattle has should not go to dog parks first.</h3>
+    <p>Seattle's in the middle of a long housing-affordability crisis and an ongoing homelessness emergency. When a rare parcel of city land comes loose, the case for housing, shelter, or services is stronger than the case for a new fenced dog park. I own dogs and I still believe this. Any serious plan to improve off-leash access has to start from the assumption that we're <em>not</em> getting more than a handful of small new OLAs over the coming decade — and that even a substantial funding increase <em>would not be enough</em> to close the gap. The land isn't there; no dollar figure conjures it into existence.</p>
+    <div class="evidence">
+      <strong>Reference</strong>
+      <a href="https://www.seattle.gov/housing">City of Seattle housing</a> &middot;
+      <a href="https://kingcounty.gov/en/dept/dchs">King County homelessness</a>
+    </div>
+  </div>
+
+  <div class="principle">
+    <h3><span class="num-inline">P3</span>Seattle has more dogs than children, and the investment gap reflects that poorly.</h3>
+    <p>The obvious part first — <strong>yes, kids should be prioritized over dogs</strong>. Most reasonable people agree. A city with 157 playgrounds and 14 dog parks is making a choice about who its parks are for, and on the first axis — kids first — that choice is right. I'm not arguing for a 1:1 split.</p>
+    <p>What I am arguing is that the <em>magnitude</em> of the gap has gone past any reasonable prioritization. Widely cited estimates put Seattle's dog population at around 150,000 as a floor, and SPR's own 2023 Expansion Study cites figures up to 400,000. Seattle's under-18 population is roughly 115,000. Even at the conservative floor, dogs outnumber kids — and SPR runs 157 playgrounds against 14 fenced OLAs. The dedicated OLA budget line in 2018 was about <strong>$100,000 out of a $168M SPR total</strong>: roughly <strong>0.06%</strong>. On the land side, OLAs occupy about <strong>31 of Seattle's ~53,100 acres</strong> — again roughly <strong>0.06% of the city</strong>, about one-sixteenth of one percent. Prioritizing kids is right. Arriving at 0.06% for a population the size of all dog owners is how we got here. That's what this principle says should be fixed.</p>
+    <div class="evidence">
+      <strong>Supporting data on this site</strong>
+      <a href="part1-the-gap.html#finding-06">Playgrounds for kids vs OLAs for dogs</a> &middot;
+      <a href="part1-the-gap.html#finding-04">SPR budget vs OLA budget</a> &middot;
+      <a href="part2-access.html#finding-03">OLA acreage ranked</a> &middot;
+      <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">data/seattle-olas.csv</a>
+    </div>
+  </div>
+
+  <div class="principle">
+    <h3><span class="num-inline">P4</span>People who don't want to be around dogs have a right not to be.</h3>
+    <p>Non-negotiable. Every dog owner I respect accepts this. Kids who are afraid of dogs, adults who don't want a strange dog in their face, picnickers, joggers, runners, people using the park for a dozen other reasons — none of them signed up to share space with an unfamiliar off-leash dog. The current setup, where 39% of dog owners self-report monthly-or-more illegal off-leash use, fails these residents directly. Whatever fix comes next has to protect their use of parks at least as well as the current system pretends to.</p>
+    <div class="evidence">
+      <strong>Supporting data on this site</strong>
+      <a href="part2-access.html#illegal-use">SPR's own 2016 survey on illegal off-leash use</a> &middot;
+      <a href="enforcement.html">4,803 citations issued 2014&ndash;2019</a> &middot;
+      <a href="https://www.seattle.gov/parks/about-us/policies-and-plans/people-dogs-and-parks-strategic-plan">SPR People, Dogs and Parks Plan</a>
+    </div>
+  </div>
+
+  <div class="principle">
+    <h3><span class="num-inline">P5</span>Children have a right to play on clean, safe fields.</h3>
+    <p>A playfield with dog feces on it, or a baseball diamond where someone's loose dog just ran through left field, is a system failure on every axis. This isn't a dog-vs-kid argument — both groups deserve protected recreational space. The current policy doesn't actually deliver clean playfields; enforcement happens at the margins, after the fact, with no cleanup component.</p>
+  </div>
+
+  <div class="principle">
+    <h3><span class="num-inline">P6</span>Families and non-dog-owners should have park time that's reliably dog-free.</h3>
+    <p>Access goes both ways. Right now, dog owners have a few tiny, often-unsafe OLAs; non-owners have a city full of parks that are technically dog-free but in practice aren't. Both groups lose. A well-designed policy protects time windows for each use.</p>
+  </div>
+
+  <!-- ==================================================================== -->
+  <h2>Part Two: three opinions that fall out of the data</h2>
+
+  <div class="principle opinion">
+    <h3 id="O1"><span class="num-inline">O1</span>The current rules have failed, and Seattle is doubling down on the part that isn't working.</h3>
+    <p>In 2014 the Seattle City Council asked SPR to rethink off-leash policy. SPR spent over a year running surveys and in-person interviews with dog owners, parents, COLA, and neighborhood groups. The consistent feedback was that the pre-2014 policy was unworkable, enforcement was structurally insufficient, and other cities had already tried shared-use or time-zoned models worth studying. The <a href="https://www.seattle.gov/parks/about-us/policies-and-plans/people-dogs-and-parks-strategic-plan">resulting <em>People, Dogs and Parks Strategic Plan</em></a> kept the same framework, added two full-time animal-control officers, and declined to pilot any shared-use approach. Seattle Magazine <a href="https://www.seattlemag.com/arts-and-culture/new-leash-master-plan-has-dog-owners-snarling">covered it at the time</a>. In the years since, the OLA count hasn't meaningfully moved, and illegal off-leash use has if anything grown with the dog population.</p>
+
+    <p>And yet in April 2026, <a href="https://www.axios.com/local/seattle/2026/04/17/seattle-animal-control-staffing-increase-off-leash-dogs-parks-enforcement">Axios Seattle reported</a> that SPR and the Seattle Animal Shelter are expanding enforcement again — moving from one officer Wednesday through Saturday to <strong>two full-time seven-day positions plus backup</strong>, on top of roughly 26 park rangers patrolling more than 460 parks. SPR's framing: "it's not a crackdown, officials say — but more boots on the ground are coming." That's the same lever, pulled harder. Moving from one officer Wed–Sat (~4 officer-days a week) to two officers seven days plus backup is roughly a <strong>3–4× scale-up</strong> in officer-hours, and if citation volume scales linearly with staffing the <a href="enforcement.html">historical ~0.5% annual contact probability per dog</a> (4,803 citations over six years against at least 150,000 dogs) could rise into the low single digits. That is a real change in cost and ground presence; it is not a meaningful change in behavior. Deterrence is a product of two numbers — the probability of getting cited and the cost of a citation — and the expansion only moves one of them, modestly. The other doesn't move at all: <a href="#O2">as O2 below lays out</a>, about 90% of historical citations were first-offense warnings at $0 or $54, the practical ceiling is $162, and even the SMC maximum of $150 gets absorbed by higher-income owners as a de-facto access fee. Triple the probability and hold the fine structure constant and the expected cost of off-leashing stays well below the value of a usable run — especially in neighborhoods where no legal OLA exists within walking distance. Enforcement at this intensity doesn't shift behavior, and no amount of patrol manufactures a legal place to run a dog where none exists.</p>
+
+    <p>It does, however, cost real money — and now we know roughly how much. The <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/moas/SPR-FAS-ACO2-MOA-2021-AG21-PRF03-032.pdf">2021 signed MOA between SPR and the Seattle Animal Shelter</a> (AG21-PRF03-032) lays it out in Attachment A — one Animal Control Officer II is billed to SPR at <strong>$43.07/hr plus 45% benefits overhead = $62.45/hr × 2,088 hours = $130,399/year in personnel</strong>, plus $3,000 in supplies and $19,000 in divisional overhead, for <strong>$152,399/year</strong>. That's the FAS-side cost only. The SPR-side Facilities Maintenance Worker who patrols with the ACO as a paired team sits on SPR's books separately. They're paired half-time with each other, four days a week — roughly <strong>160 officer-hours per month to cover 485+ parks and 6,414 acres</strong>.</p>
+
+    <p>Scaling those 2021 numbers forward for wage growth and the April 2026 expansion (from 1 ACO II Wed–Sat to 2 ACO II seven-day plus backup), the combined program — ACO + FMW paired teams, vehicles, supplies, overhead — lands plausibly in the <strong>$700K to $1M per year</strong> range. (Step-by-step math in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/sources/aco-moa-2016.md">sources/aco-moa-2016.md</a>.) That's real money aimed at a lever the site's own <a href="enforcement.html">enforcement analysis</a> shows has historically produced a 0.5% annual contact probability per dog and mostly-warning outcomes, and that even at 3–4× staffing stays well short of deterrence. Redirect the same half-million-to-million dollars to a clean-park compliance model — time-zoned shared use plus post-session cleanup staff, per the <a href="#recommendation">recommendation</a> below — and you'd fund a far larger ground presence at the moments parks actually need it. This is what the 2014–2017 process warned against, and the cost just makes the misdirection easier to see.</p>
+
+    <div class="evidence">
+      <strong>Supporting data on this site</strong>
+      <a href="part1-the-gap.html#finding-01">Residents per OLA time series</a> &middot;
+      <a href="enforcement.html#finding-04">Citations issued per year</a> &middot;
+      <a href="part2-access.html">Kinnear case study</a> &middot;
+      Axios Seattle, "More paw patrols," April 2026 (print edition)
+    </div>
+  </div>
+
+  <div class="principle opinion">
+    <h3 id="O2"><span class="num-inline">O2</span>Fines will never work — not at any amount Seattle could plausibly adopt.</h3>
+    <p>The numbers: 4,803 off-leash citations between January 2014 and October 2019, against a dog population of at least 150,000. At the city-wide average, that's roughly a <strong>0.5% chance per dog per year</strong> of being cited. Treat that as a rough SWAG, not a statistic — it averages over huge variation. Owners who never off-leash have zero exposure. Owners who visit high-citation parks a few times a week face probabilities several times higher. Owners in neighborhoods where rangers don't patrol face close to zero. The city-wide rate is useful as a floor for the argument (even at the most heavily-patrolled parks the per-visit probability is small, and Seattle's enforcement capacity can't close that gap without orders-of-magnitude more staff), but it isn't a per-owner risk calculation. What the data <em>does</em> support: <strong>about 90% of the 4,803 citations were first-offense warnings</strong> at $0 or $54. Second offense is $109, third is $136, fourth-plus is $162. The practical ceiling is about $162, and even the Seattle Municipal Code's $150 maximum gets absorbed by higher-income owners as a de-facto access fee. Raise fines higher and you hit a regressive-enforcement problem — the same $500 fine that's meaningful to a lower-income owner is a rounding error to a wealthy one. The fine-based model is structurally mismatched to the behavior. <a href="https://library.municode.com/wa/seattle/codes/municipal_code?nodeId=TIT18PALA_CH18.12GEPRRE_SUBCHAPTER_IIOFPRPA_18.12.080DORELI">SMC 18.12.080(A)</a> is the cited violation.</p>
+    <div class="evidence">
+      <strong>Supporting data on this site</strong>
+      <a href="enforcement.html">Full enforcement analysis</a> &middot;
+      <a href="enforcement.html#finding-05">Citations by offense level</a> &middot;
+      <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-citations.csv">data/enforcement-citations.csv</a>
+    </div>
+  </div>
+
+  <div class="principle opinion">
+    <h3><span class="num-inline">O3</span>Dog owners will keep running dogs off-leash under the current rules. For rational reasons.</h3>
+    <p>People break the law here because the legal option is often worse. Many neighborhoods have no legal OLA within a 10-minute walk (<a href="part2-access.html#finding-01">walkshed analysis</a>). Where a legal OLA exists, it's often too small to use safely — <a href="part2-access.html">seven of Seattle's 14 are under one acre</a>, below the <a href="https://images.akc.org/pdf/GLEG01.pdf">AKC's one-acre recommendation</a>, and three are under a quarter-acre; Kinnear (0.124 acre) posts its own signs asking owners to bring no more than 1–2 dogs at a time. Several OLAs sit in or next to <a href="part2-access.html">areas with chronic safety concerns</a> that make them effectively unusable — especially for women, after dark, or alone. And the probability of enforcement is under 1% per year.</p>
+    <p>It's a supply failure producing a compliance failure, exactly what basic economics would predict. No amount of enforcement addresses the underlying cause.</p>
+    <div class="evidence">
+      <strong>Supporting data on this site</strong>
+      <a href="part2-access.html#finding-03">OLA acreage distribution</a> &middot;
+      <a href="part2-access.html#illegal-use">39% admit monthly+ illegal off-leash use (SPR 2016 survey)</a> &middot;
+      <a href="enforcement.html#finding-01">Hotspot map</a>
+    </div>
+  </div>
+
+  <div class="takeaway navy">
+    <span class="kicker">Pull quote</span>
+    <p>It's a supply failure producing a compliance failure, exactly what basic economics would predict.</p>
+  </div>
+
+  <!-- ==================================================================== -->
+  <h2>Part Three: counterarguments</h2>
+
+  <p class="lead">Before I get to the recommendation, the best arguments against it. These are pulled from a 147-comment <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/sources/nextdoor-qa-playfield-2021.md">April 2021 Nextdoor thread about Queen Anne Playfield</a> where neighbors on both sides engaged substantively. Every argument below was made by a real neighbor, not a strawman. Where the counterargument is correct, I say so.</p>
+
+  <div class="principle">
+    <h3><span class="num-inline">C1</span>"Dogs are not allowed on this playfield. The rules are clear. Follow them."</h3>
+    <p><strong>This is correct.</strong> <a href="https://library.municode.com/wa/seattle/codes/municipal_code">SMC 18.12.080</a> is unambiguous, SPR signage is unambiguous, and athletic playfields are dedicated to organized play. When dog owners off-leash on a marked playfield during softball practice, they're breaking the law and interfering with the park's intended use. My argument here isn't that individual rule-breaking is justified — it's that the rule has failed at the <em>system</em> level, and the system needs policy change, not more individual rule-breaking. The recommendation on this page is addressed to the city, not a defense of what people already do.</p>
+  </div>
+
+  <div class="principle">
+    <h3><span class="num-inline">C2</span>"Having a dog is a privilege, not a right. You chose this. Don't expect public resources to subsidize that choice."</h3>
+    <p><strong>Agreed in the narrow sense — and I think it's the wrong frame for a policy question.</strong> Dog ownership is discretionary. It's also mainstream — <a href="https://www.seattle.gov/parks/about-us/policies-and-plans/people-dogs-and-parks-strategic-plan">SPR's own 2016 survey</a> found roughly 25% of Seattle residents use OLAs, and Seattle's dog population is <a href="https://www.seattlemag.com/article/seattles-dog-obsession">plausibly larger than its under-18 population</a>. When a city allocates <a href="budget.html">0.06% of its parks budget</a> to a constituency that size, the question isn't whether dog ownership is a "right." It's whether the allocation matches the constituency. It doesn't. That's the policy argument, not a rights claim.</p>
+  </div>
+
+  <div class="principle">
+    <h3><span class="num-inline">C3</span>"Off-leash dogs cause real harm to other park users. I've seen it."</h3>
+    <p><strong>Confirmed — multiple times, by non-advocates, at the same park.</strong> In the thread referenced above, one neighbor documented a small off-leash dog running at an 8-year-old's feet at Big Howe. Another described a flag football game at Queen Anne Playfield being paused several times because a single off-leash dog kept running into play. A softball parent described her daughter's practice where "every practice the girls are stepping in dog poop." These are real, and honestly they strengthen the case for a structured shared-use model rather than weaken it. The current setup produces these incidents <em>despite</em> the law, because <a href="enforcement.html">enforcement is structurally insufficient</a>. A time-zoned model with dedicated cleanup staff (the recommendation below) directly addresses each of these by reserving prime athletic hours for athletic use and pairing the off-leash window with visible compliance staff.</p>
+  </div>
+
+  <div class="principle">
+    <h3><span class="num-inline">C4</span>"The ratio of dogs to children isn't a reasonable basis for setting the OLA budget."</h3>
+    <p><strong>Correct, and the site doesn't argue otherwise — I want to say that explicitly.</strong> "More dogs than children" is a scale indicator showing dog ownership is mainstream in Seattle. It's not a prescription that dog-park spending should match playground spending per capita. What I'm arguing is narrower: SPR's 0.06% allocation for a population that's 25%+ of residents is an order-of-magnitude mismatch with any reasonable allocation principle. Not that 25% of the parks budget should go to OLAs.</p>
+  </div>
+
+  <div class="principle">
+    <h3><span class="num-inline">C5</span>"There's no land. And if there were, it should go to housing and shelter before dog parks."</h3>
+    <p><strong>Yes, and yes.</strong> This appears in both the thread and in <a href="#principles">Principle P2</a>. Don Harper, the Queen Anne Community Council Parks Chair, has spent 20+ years on this problem — and described several attempted sites (MacLean Park, David Rogers Park, Smith Cove) that were rejected by SPR, by adjacent neighbors, or by funding-source restrictions. That's exactly why my recommendation isn't "build a lot more OLAs." It's a <a href="#recommendation">time-zoned shared-use policy</a> on parks the city already owns.</p>
+  </div>
+
+  <div class="principle">
+    <h3><span class="num-inline">C6</span>"Why are you taking it out on the people using the playfield for its intended purpose? Lobby for change. Don't break the law."</h3>
+    <p><strong>The first sentence is completely fair.</strong> A parent watching softball practice at Queen Anne Playfield didn't personally set SPR's OLA allocation. Taking frustration out on them is both wrong and counterproductive. My argument here is only with the city — which is also the body that can change the policy. The second sentence is the interesting one: "Don't break the law, lobby for change." I'd argue they're not mutually exclusive. People have lobbied. COLA has lobbied. The QACC Parks Chair has spent two decades lobbying. The city's answer has been to <a href="#O1">expand enforcement of a failing law</a> rather than reexamine it. At some point "lobby harder" stops being a serious response.</p>
+  </div>
+
+  <div class="principle">
+    <h3><span class="num-inline">C7</span>"Fine, but don't fantasize that a shared-use pilot will actually be enforced any better than the current rule."</h3>
+    <p><strong>Fair and concrete.</strong> If the city can't enforce "no dogs ever on athletic fields," why would it enforce "no dogs on athletic fields from 9 AM to 9 PM"? Two answers. First, the <em>shape</em> of the rule is different — a time-bounded window is something an owner can plan around, which the current blanket rule isn't. Second, the <a href="#recommendation">recommendation</a> specifically redirects the enforcement budget away from citations and toward on-site compliance monitoring at the transition hours and post-session cleanup. You can't enforce every park every minute of every day. You <em>can</em> enforce a handful of designated parks at two specific transition points per day. That's tractable, and it's what <a href="https://www.nycgovparks.org/facilities/dogareas">New York has done for 20+ years</a>. It's not a new idea. What's new, apparently, is Seattle trying it.</p>
+  </div>
+
+  <div class="gap">
+    <strong>Where this page could be wrong</strong>
+    The shared-use recommendation hasn't been piloted in Seattle, and its transferability from NYC, Boston, and Chicago isn't proven under Seattle-specific conditions (hills, rainfall, seasonal daylight, homelessness-response pressure). If a pilot ran and failed, the right response is to say so, document why, and try the next thing. My argument is that the current approach has measurably failed, and piloting a well-precedented alternative is a smaller ask than what the city is currently making — expanded enforcement of the approach that's already failing.
+  </div>
+
+  <!-- ==================================================================== -->
+  <h2>Part Four: SPR's own access standard proves the point</h2>
+
+  <p class="lead">
+  SPR's 2017 <em>People, Dogs and Parks Strategic Plan</em> defends current OLA coverage with an access claim that, once you look at it, is the clearest evidence of the framework's failure: most Seattle residents live within <strong>2.5 miles</strong> of an OLA. The Green Lake loop is <a href="https://www.seattle.gov/parks/find/parks/green-lake-park">2.8 miles</a>. SPR is effectively arguing that walking the Green Lake loop one-way to reach your dog park — and then walking it back — counts as reasonable access.
   </p>
-  <p style="font-size: 17px; line-height: 1.55; margin-bottom: 0;">
-    The charge to SPR &mdash; or to whichever body runs the next study &mdash; should explicitly require the production of at least one genuine alternative for Council consideration. A shared-use time-zoned pilot is one such idea, raised on this site and by advocates over the years. It's not the only one. Residents, peer cities, and practitioners outside SPR will have their own proposals if invited to offer them. Which specific alternative lands on the table matters less than that at least one does. A third round built on the same two levers &mdash; <em>build a few more OLAs, fine the off-leash violators</em> &mdash; is not an acceptable deliverable. Either or both might be components of a larger plan (though the citation data in this site's enforcement chapter makes me skeptical fines meaningfully shift behavior at this scale). Neither can be the core of it. The core has to be something we haven't tried.
+
+  <p>
+  For comparison, <a href="https://www.tpl.org/parkscore/about">Trust for Public Land's industry-standard metric</a> — the same one SPR happily cites when noting that 99% of Seattleites live within a 10-minute walk of a park — is <strong>0.5 miles</strong>. <a href="https://www.nrpa.org/our-work/partnerships/initiatives/park-access/">NRPA</a>, the <a href="https://10minutewalk.org/">Urban Land Institute</a>, the National Park Service, and the CDC all use the same 10-minute walk standard for parks. There's no universal national consensus like that for dog parks specifically. A handful of agencies have tried OLA-specific service radii — Seattle's own <a href="https://www.seattle.gov/documents/departments/parksandrecreation/policiesplanning/seattlerecreationdemandstudy2016.pdf">2016 Recreation Demand Study</a> used 2.5 miles, <a href="https://www.fairfaxcounty.gov/parks/planning-development/dog-park-study">Fairfax County</a> has a published dog-park siting study — but nothing like TPL's 10-min benchmark has caught on for OLAs. When a city needs an access metric for OLAs, the industry default is the same 10-minute walk it uses for any other park. <strong>SPR uses the tighter standard when it's celebrating Seattle's park system in general, and a standard 5&times; more permissive to paper over the OLA-specific failure.</strong> That asymmetry alone is the argument.
   </p>
+
+  <!-- ==================================================================== -->
+  <h2 id="recommendation">Part Five: what Seattle should actually do</h2>
+
+  <p class="lead">
+  Given the principles and the evidence, the realistic path forward isn't to keep building small fenced OLAs. It's to change the policy about how dogs and people share the parks Seattle already has.
+  </p>
+
+  <div class="principle">
+    <h3><span class="num-inline">NYC</span>Does the NYC model actually work? What the record shows.</h3>
+    <p>Before I recommend it, this deserves a direct answer. The New York City Department of Parks &amp; Recreation <a href="https://www.nycgovparks.org/news/press-releases?id=19877">formally codified the Off-Leash Hours policy on April 10, 2007</a>, after running it as an informal "courtesy hours" arrangement since roughly 1986. Nineteen years of formal operation, nearly forty if you include the informal period. The policy is simple — in designated areas of participating parks, licensed and vaccinated dogs may be off-leash <strong>from park-opening until 9:00 AM</strong> and <strong>from 9:00 PM until park-close</strong>. Outside those windows, normal leash rules apply (<a href="https://www.nycgovparks.org/facilities/dogareas">NYC Parks — Dog-Friendly Areas</a>). The policy runs in parallel with NYC's dedicated fenced dog runs, not in place of them.</p>
+    <p><strong>Scale.</strong> Off-leash hours are designated at a large share of NYC's ~1,700 parks. The city doesn't publish a consolidated count, but public advocate and Parks Department inventories list eligible areas across all five boroughs (<a href="https://council.nyc.gov/public-advocate/dog-run-and-off-leash-area-locations/">NYC Council public-advocate directory</a>). Designated areas include sections of Central Park, Prospect Park, Riverside, Van Cortlandt, Forest Park, and dozens of neighborhood parks. By any counting methodology, NYC's off-leash footprint dwarfs Seattle's 14 fenced OLAs.</p>
+    <p><strong>The caveat.</strong> NYC doesn't publish a longitudinal evaluation of the policy's outcomes — no official "is it working?" report with citation counts, complaint trends, or injury rates. The longevity is the proxy. Nineteen years of formal operation, renewed through multiple administrations with different political postures on parks, and no reversal. NRPA covered the model in its November 2018 <em>Parks &amp; Recreation</em> law review ("Courtesy Hours for Off-Leash Dogs in Public Parks") and treats it as the mature US example other cities look to. Boston has similar time-based variations. Chicago runs a parallel DFA (Designated Free Area) system. What's missing from the public record is the kind of quantitative outcomes tracking I'm arguing Seattle should do from day one (Recommendation point 7). If Seattle piloted this, Seattle's evaluation could become the analysis NYC's history doesn't offer.</p>
+    <p><strong>What this doesn't prove.</strong> It doesn't prove the policy transfers cleanly to Seattle. NYC has higher density, different topography, different rainfall, different enforcement institutions, and a very different relationship between parks and homelessness response. What it does prove is that a city of 8 million has run a time-zoned shared-use off-leash policy for nearly twenty years without catastrophic failure or reversal — which is a higher bar than anything Seattle's current OLA framework has cleared.</p>
+  </div>
+
+  <!-- Dark "Ask" panel: the policy recommendation -->
+  <div class="ask">
+    <span class="kicker">The recommendation</span>
+    <h3>A time-zoned shared-use policy for Seattle's parks.</h3>
+    <p>Adopt a shared-use model similar to <a href="https://www.nycgovparks.org/facilities/dogareas">New York City's long-standing off-leash hours policy</a> — early morning and evening windows in designated parks during which dogs may be off-leash under owner control, with the rest of the day reserved for traditional park use. Pair it with a different enforcement posture focused on shared-use compliance, not leash-law violations.</p>
+    <ol>
+      <li><strong>Designate shared-use parks by neighborhood.</strong> Not every park participates. Parks with heavy children's programming — active playfields during league season, for instance — stay fully leashed 24/7. Parks that already show up in <a href="enforcement.html">the enforcement data</a> as places people off-leash anyway become eligible candidates.</li>
+      <li><strong>Time-zone the access.</strong> A model like NYC's — off-leash from park-opening to 9:00 AM and from 9:00 PM to park-closing — gives owners practical morning and evening windows and reserves prime daytime hours for general park use. Pilot it. Adjust the hours per park based on observed use.</li>
+      <li><strong>Pivot enforcement from fines to compliance.</strong> Redeploy SPR Animal Control and park rangers to monitor participating parks during off-leash hours — confirming owners are present, dogs are under control, and the park is left clean. That's a different job description from "drive 6,400 acres hoping to catch someone."</li>
+      <li><strong>Add clean-park staffing — call it poop patrol.</strong> A dedicated crew does post-session sweeps of shared-use parks at the transition back to leashed hours. If a participating park is repeatedly found uncleaned, it can lose shared-use designation. That collective threat is the real enforcement mechanism — it gives every responsible owner at the park a stake in cleaning up after the minority who don't. Off-leash culture in practice runs on social pressure: owners who don't pick up get called out by other owners, not because anyone enjoys the confrontation but because the shared benefit depends on it. Tickets and fines still apply to individual violators who get caught, but the enforcement that actually moves behavior is peer pressure plus a credible threat of losing shared-use status at the park level. A $54 ticket handed out hours after the fact by an officer who wasn't there doesn't change anyone's behavior.</li>
+      <li><strong>Fund it with expanded dog-license fees and redirected enforcement spend.</strong> Seattle's dog-licensing revenue is modest. A meaningful increase, dedicated to the <a href="https://www.seattle.gov/animal-shelter">Seattle Animal Shelter</a> <em>and</em> this new clean-park program, is far more politically viable than a fines increase, and it avoids the regressive-enforcement problem.</li>
+      <li><strong>Keep the small dedicated OLAs.</strong> Kinnear, Plymouth Pillars, Magnuson, and the rest don't go away. They stay as all-day off-leash options for people who want them. They just stop being the <em>entire</em> answer to a city-wide demand they were never sized to handle.</li>
+      <li><strong>Measure and publish outcomes.</strong> Track citation counts, Find-It-Fix-It complaints, injury reports, and post-session cleanliness audits by park. If a pilot park is underperforming on non-dog-user experience, pull it. If it's working, expand.</li>
+    </ol>
+    <p class="footer-note">
+      This approach was raised during the 2014–2017 SPR process, was supported by COLA and multiple participating community members, and was set aside as too hard to enforce. The <a href="enforcement.html">data this site has assembled</a> suggests the current approach is <em>also</em> too hard to enforce — 4,803 citations over six years against 150,000+ dogs. If we're going to have a policy that's difficult to enforce either way, we should pick the one that could actually work if we did.
+    </p>
+  </div>
+
+  <!-- ==================================================================== -->
+  <h2>Part Six: what I'd ask of the City Council and the Mayor</h2>
+
+  <p class="lead">
+  This argument has been made to the city before. Many times. This is a request for one specific thing the Council, and the Council alone, can deliver.
+  </p>
+
+  <p>
+  Residents, <a href="https://www.seattlecola.info">COLA</a>, <a href="https://magnusondogpark.org/">MOLG</a>, <a href="https://www.qacc.net/">QACC</a> volunteers, and ordinary dog owners have told SPR and City Council for more than two decades that the "build a few more fenced OLAs, increase enforcement against scofflaws" framework is not closing the off-leash gap. The reasons have been laid out each cycle: Seattle's land and budget constraints put a hard ceiling on how many traditional fenced OLAs are physically possible; that ceiling is well below demand; and enforcement aimed at the 39% of dog owners who self-report illegal off-leash use has no realistic mechanism for changing that behavior at scale.
+  </p>
+
+  <p>
+  The most recent city-commissioned effort to rethink this was the 2023&ndash;24 <a href="https://www.seattle.gov/parks/about-us/plans-and-reports/recreation-plans-and-reports/off-leash-area-study">SPR Off-Leash Area Expansion Study</a>, produced at the Council's request explicitly to re-examine the approach. Read its recommendations alongside the 2017 <em>People, Dogs and Parks Strategic Plan</em> and the two documents are the same proposal in different cover pages. Summarized fairly: <em>identify a handful of additional OLA sites where geometry and funding permit</em> (with the acknowledgment, again, that neither fully permits it), and <em>increase enforcement against off-leash violations</em>. That was the pre-2014 plan. It was the 2017 plan. It is the 2024 plan. It has measurably failed to close the gap at every iteration.
+  </p>
+
+  <p>
+  If the Council or the Mayor's office chooses to revisit off-leash policy &mdash; and I hope they do &mdash; the practical next step will almost certainly be another round of community engagement and another SPR-authored report. Process matters; the delay is disappointing but the diligence isn't wrong. The request I'd make is narrower and specific to the charge:
+  </p>
+
+  <div class="council-ask">
+    <p><strong>Before the next study begins, the Council should put on the record that the 2023&ndash;24 Expansion Study returned an almost identical plan to the 2017 strategic plan, that the plan has measurably failed to close the gap at both junctures, and that returning a third time with the same framework is not an acceptable deliverable.</strong></p>
+    <p>The charge to SPR &mdash; or to whichever body runs the next study &mdash; should explicitly require the production of at least one genuine alternative for Council consideration. A shared-use time-zoned pilot is one such idea, raised on this site and by advocates over the years. It's not the only one. Residents, peer cities, and practitioners outside SPR will have their own proposals if invited to offer them. Which specific alternative lands on the table matters less than that at least one does. A third round built on the same two levers &mdash; <em>build a few more OLAs, fine the off-leash violators</em> &mdash; is not an acceptable deliverable. Either or both might be components of a larger plan (though the citation data in this site's enforcement chapter makes me skeptical fines meaningfully shift behavior at this scale). Neither can be the core of it. The core has to be something we haven't tried.</p>
+  </div>
+
+  <p>
+  The Council has the standing here that individual advocates and SPR itself don't. SPR works with the mandate it's given. If the mandate keeps asking for a version of the same answer, it will keep getting a version of the same answer. Making "same plan, different cover page" an unacceptable outcome is the one thing only the Council can do.
+  </p>
+
+  <!-- ==================================================================== -->
+  <h2>Acknowledgments: the people who have been trying</h2>
+
+  <p class="lead">This page argues that Seattle has failed at the OLA question. It hasn't failed because nobody tried. A lot of people have spent years — some of them decades — working on this, inside and outside city government, and been stymied by constraints no individual advocate can solve on their own. A few of them, by name.</p>
+
+  <div class="principle">
+    <h3><a href="https://www.qacc.net/">Queen Anne Community Council</a> &middot; Parks Committee</h3>
+    <p>Two-plus decades of organized volunteer advocacy on Queen Anne parks, including the hilltop OLA question. <a href="https://web.archive.org/web/20250811022005/https://www.qacc.net/initiatives/parks">QACC's Parks Committee</a> has kept "locate and build an off-leash area on top of Queen Anne" as a standing priority for years, alongside ongoing work on West Queen Anne Playfield, Smith Cove Park, Queen Anne Boulevard, and park cleanup from illegal encampment damage. Board members rotate; the committee doesn't. Current QACC leadership includes <a href="https://web.archive.org/web/20250811022649/https://www.qacc.net/board">chair Beth Bunnell, vice-chairs Nicole Friedman and Laurie Jordan, and board member Don Harper</a>, who chairs the Parks Committee and has been the most visible single voice on the Queen Anne OLA question. QACC secured 2008 Pro Parks &amp; Green Spaces Levy funding that ultimately produced Kinnear and Magnolia Manor OLAs; participated in the Smith Cove design process (originally 55,000 sq ft, reduced by SPR to 25,000 sq ft three months later); and has attempted sites at MacLean Park (blocked by funding-source restrictions) and David Rogers Park (blocked by neighborhood pushback). Still at it. See also the 2021 neighborhood thread summarized in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/sources/nextdoor-qa-playfield-2021.md">sources/nextdoor-qa-playfield-2021.md</a>.</p>
+  </div>
+
+  <div class="principle">
+    <h3><a href="https://www.seattlecola.info">Citizens for Off-Leash Areas (COLA)</a></h3>
+    <p>The 501(c)(3) that has organized volunteer advocates, maintained biennial OLA surveys and inventory data, and participated in every major SPR planning process since well before the 2014 <em>People, Dogs and Parks Strategic Plan</em>. The usability data on <a href="part2-access.html">Part II</a> (lighting, water, small-dog areas, residents' regularly-used sites) is COLA's work. Every advocate who comes to this issue fresh builds on theirs.</p>
+  </div>
+
+  <div class="principle">
+    <h3><a href="https://magnusondogpark.org/">Magnuson Off Leash Group (MOLG)</a></h3>
+    <p>Twenty-plus years of volunteer stewardship that made Magnuson the functional model of what a neighborhood-governed OLA can be: programming, fundraising, infrastructure upkeep, community coordination. Magnuson is the counterexample to "Seattle can't do OLAs well" — it's what happens when a community owns the outcome. The <a href="#recommendation">recommendation</a> on this page borrows explicitly from the MOLG model on the community-governance side.</p>
+  </div>
+
+  <div class="principle">
+    <h3>Seattle Parks and Recreation staff</h3>
+    <p>This page is critical of SPR's policy choices, and it should be read alongside the acknowledgment that SPR has been asked to do a genuinely impossible job. Seattle is one of the densest, most land-constrained major US cities. Park parcels big enough for a real OLA cost tens of millions of dollars, when they can be found at all. SPR has to balance the needs of kids, athletic-league users, non-dog park users, dog owners, wildlife, environmental remediation, and a housing-and-homelessness emergency that puts pressure on every square foot of public land — all at once. The 2014–2017 <em>People, Dogs and Parks</em> process was sincere and the staff who ran it worked hard. My criticism is narrower: the resulting plan repeated the pre-2014 framework rather than piloting a shared-use alternative. And now, a decade later, it's being repeated again with expanded enforcement. That's factual, not accusatory. The same approach has failed twice, and SPR is the right partner to run the pilot that tries something else.</p>
+  </div>
+
+  <div class="principle">
+    <h3>Local elected officials who've engaged substantively</h3>
+    <p>Then-candidate and later Councilmember Andrew Lewis (District 7, 2019&ndash;2023) was the most visible elected voice on this issue during his time in office. Other council members have moved seats since 2019 but multiple offices have received data packets from community advocates. If you're a current council member or staffer, see the <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/prrs/">public records request (PRR) and outreach directory</a> — these are the questions we're asking SPR and what we're asking to see the answers to.</p>
+  </div>
+
+  <div class="principle">
+    <h3>Dog owners who have changed their behavior, and park users who haven't given up</h3>
+    <p>Every dog owner who has driven out of their way to reach a real OLA rather than off-leashing at the neighborhood playfield. Every parent who has kept bringing their kid to that playfield anyway. Every softball coach still running practice on a field that sometimes has dog feces on it. The status quo is a tax everyone pays, and it doesn't have to stay that way.</p>
+  </div>
+
+  <!-- ==================================================================== -->
+  <div class="corrections">
+    <strong>Corrections and contributions welcome</strong>
+    This page, and the site overall, will be updated when better data comes in or when I've gotten something wrong. If you have primary sources, corrections, or additional data — especially on Seattle's land availability, dog population, Find-It-Fix-It complaint counts, or peer-city shared-use outcomes — please get in touch at <a href="mailto:seattledogparkdata@ozymandi.as">seattledogparkdata@ozymandi.as</a> or file an issue on the <a href="https://github.com/avrignaud/seattledogparkdata">repo</a>. If you're one of the people listed in the acknowledgments above and would like a correction, an addition, or a removal, just say so — happy to edit.
+  </div>
+
+  <div class="signature">
+    — Andre Vrignaud
+    <span class="meta">Queen Anne, Seattle &middot; April 2026</span>
+  </div>
+
+  <!-- ==================================================================== -->
+  <div class="footnotes">
+    <h3>Notes on this page</h3>
+    <p><strong>This page is opinion.</strong> The principles, opinions, and recommendation above are mine. The data claims underneath them link back to the factual pages on this site, to public records, or to published primary sources.</p>
+    <p><strong>Relationship to the 2014–2017 SPR process.</strong> I participated in the <em>People, Dogs and Parks Strategic Plan</em> live interviews as a community member. I'm not and have never been an SPR employee, a COLA board member, or an elected official. My views are personal.</p>
+    <p><strong>On the "more dogs than children" figure.</strong> The 150,000-dog floor used throughout this site is conservative. <a href="part1-the-gap.html#methodology">Part I's methodology note</a> walks through three independent estimates — a Seattle Open Data licensed floor (~26,700 active licenses), an AVMA-derived demographic estimate (~248,900), and the SPR 2023 Expansion Study range (187K–400K). All three bracket the same order of magnitude. The 150K floor sits below all of them by design.</p>
+  </div>
+
+  <nav class="paginate" aria-label="Section navigation">
+    <a href="peer-cities.html" class="prev">
+      <span class="kicker">← Previous</span>
+      <span class="title">Peer Cities</span>
+    </a>
+    <a href="index.html" class="next">
+      <span class="kicker">Return to →</span>
+      <span class="title">Overview</span>
+    </a>
+  </nav>
+
+  </main>
+
+  <footer>
+    <p>Data current as of April 2026. Source code and all underlying data: <a href="https://github.com/avrignaud/seattledogparkdata">github.com/avrignaud/seattledogparkdata</a>. MIT license covers author-written code and analysis; primary data (SPR PRRs, Seattle Open Data, U.S. Census) is public record. TPL ParkServe data redistributed under <a href="https://www.tpl.org/park-data-downloads">TPL's terms</a>. Corrections: <a href="https://github.com/avrignaud/seattledogparkdata/issues">issue tracker</a>.</p>
+    <p><a href="seattle-dog-parks-report.pdf">Download full report (PDF)</a></p>
+  </footer>
+
 </div>
 
-<p>
-The Council has the standing here that individual advocates and SPR itself don't. SPR works with the mandate it's given. If the mandate keeps asking for a version of the same answer, it will keep getting a version of the same answer. Making "same plan, different cover page" an unacceptable outcome is the one thing only the Council can do.
-</p>
-
-<!-- ==================================================================== -->
-<h2><span class="num">Acknowledgments</span>The people who have been trying</h2>
-
-<p class="lead">This page argues that Seattle has failed at the OLA question. It hasn't failed because nobody tried. A lot of people have spent years — some of them decades — working on this, inside and outside city government, and been stymied by constraints no individual advocate can solve on their own. A few of them, by name.</p>
-
-<div class="principle" style="border-left-color: var(--accent-3);">
-  <h3 style="margin-top: 0;"><a href="https://www.qacc.net/">Queen Anne Community Council</a> &middot; Parks Committee</h3>
-  <p>Two-plus decades of organized volunteer advocacy on Queen Anne parks, including the hilltop OLA question. <a href="https://web.archive.org/web/20250811022005/https://www.qacc.net/initiatives/parks">QACC's Parks Committee</a> has kept "locate and build an off-leash area on top of Queen Anne" as a standing priority for years, alongside ongoing work on West Queen Anne Playfield, Smith Cove Park, Queen Anne Boulevard, and park cleanup from illegal encampment damage. Board members rotate; the committee doesn't. Current QACC leadership includes <a href="https://web.archive.org/web/20250811022649/https://www.qacc.net/board">chair Beth Bunnell, vice-chairs Nicole Friedman and Laurie Jordan, and board member Don Harper</a>, who chairs the Parks Committee and has been the most visible single voice on the Queen Anne OLA question. QACC secured 2008 Pro Parks &amp; Green Spaces Levy funding that ultimately produced Kinnear and Magnolia Manor OLAs; participated in the Smith Cove design process (originally 55,000 sq ft, reduced by SPR to 25,000 sq ft three months later); and has attempted sites at MacLean Park (blocked by funding-source restrictions) and David Rogers Park (blocked by neighborhood pushback). Still at it. See also the 2021 neighborhood thread summarized in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/sources/nextdoor-qa-playfield-2021.md">sources/nextdoor-qa-playfield-2021.md</a>.</p>
-</div>
-
-<div class="principle" style="border-left-color: var(--accent-3);">
-  <h3 style="margin-top: 0;"><a href="https://www.seattlecola.info">Citizens for Off-Leash Areas (COLA)</a></h3>
-  <p>The 501(c)(3) that has organized volunteer advocates, maintained biennial OLA surveys and inventory data, and participated in every major SPR planning process since well before the 2014 <em>People, Dogs and Parks Strategic Plan</em>. The usability data on <a href="part2-access.html">Part II</a> (lighting, water, small-dog areas, residents' regularly-used sites) is COLA's work. Every advocate who comes to this issue fresh builds on theirs.</p>
-</div>
-
-<div class="principle" style="border-left-color: var(--accent-3);">
-  <h3 style="margin-top: 0;"><a href="https://magnusondogpark.org/">Magnuson Off Leash Group (MOLG)</a></h3>
-  <p>Twenty-plus years of volunteer stewardship that made Magnuson the functional model of what a neighborhood-governed OLA can be: programming, fundraising, infrastructure upkeep, community coordination. Magnuson is the counterexample to "Seattle can't do OLAs well" — it's what happens when a community owns the outcome. The <a href="#recommendation">recommendation</a> on this page borrows explicitly from the MOLG model on the community-governance side.</p>
-</div>
-
-<div class="principle" style="border-left-color: var(--accent-3);">
-  <h3 style="margin-top: 0;">Seattle Parks and Recreation staff</h3>
-  <p>This page is critical of SPR's policy choices, and it should be read alongside the acknowledgment that SPR has been asked to do a genuinely impossible job. Seattle is one of the densest, most land-constrained major US cities. Park parcels big enough for a real OLA cost tens of millions of dollars, when they can be found at all. SPR has to balance the needs of kids, athletic-league users, non-dog park users, dog owners, wildlife, environmental remediation, and a housing-and-homelessness emergency that puts pressure on every square foot of public land — all at once. The 2014–2017 <em>People, Dogs and Parks</em> process was sincere and the staff who ran it worked hard. My criticism is narrower: the resulting plan repeated the pre-2014 framework rather than piloting a shared-use alternative. And now, a decade later, it's being repeated again with expanded enforcement. That's factual, not accusatory. The same approach has failed twice, and SPR is the right partner to run the pilot that tries something else.</p>
-</div>
-
-<div class="principle" style="border-left-color: var(--accent-3);">
-  <h3 style="margin-top: 0;">Local elected officials who've engaged substantively</h3>
-  <p>Then-candidate and later Councilmember Andrew Lewis (District 7, 2019&ndash;2023) was the most visible elected voice on this issue during his time in office. Other council members have moved seats since 2019 but multiple offices have received data packets from community advocates. If you're a current council member or staffer, see the <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/prrs/">public records request (PRR) and outreach directory</a> — these are the questions we're asking SPR and what we're asking to see the answers to.</p>
-</div>
-
-<div class="principle" style="border-left-color: var(--accent-3);">
-  <h3 style="margin-top: 0;">Dog owners who have changed their behavior, and park users who haven't given up</h3>
-  <p>Every dog owner who has driven out of their way to reach a real OLA rather than off-leashing at the neighborhood playfield. Every parent who has kept bringing their kid to that playfield anyway. Every softball coach still running practice on a field that sometimes has dog feces on it. The status quo is a tax everyone pays, and it doesn't have to stay that way.</p>
-</div>
-
-<!-- ==================================================================== -->
-<div class="corrections">
-  <strong>Corrections and contributions welcome</strong>
-  This page, and the site overall, will be updated when better data comes in or when I've gotten something wrong. If you have primary sources, corrections, or additional data — especially on Seattle's land availability, dog population, Find-It-Fix-It complaint counts, or peer-city shared-use outcomes — please get in touch at <a href="mailto:seattledogparkdata@ozymandi.as">seattledogparkdata@ozymandi.as</a> or file an issue on the <a href="https://github.com/avrignaud/seattledogparkdata">repo</a>. If you're one of the people listed in the acknowledgments above and would like a correction, an addition, or a removal, just say so — happy to edit.
-</div>
-
-<div class="signature">
-  — Andre Vrignaud
-  <span class="meta">Queen Anne, Seattle &middot; April 2026</span>
-</div>
-
-<!-- ==================================================================== -->
-<div class="footnotes">
-  <h3>Notes on this page</h3>
-  <p><strong>This page is opinion.</strong> The principles, opinions, and recommendation above are mine. The data claims underneath them link back to the factual pages on this site, to public records, or to published primary sources.</p>
-  <p><strong>Relationship to the 2014–2017 SPR process.</strong> I participated in the <em>People, Dogs and Parks Strategic Plan</em> live interviews as a community member. I'm not and have never been an SPR employee, a COLA board member, or an elected official. My views are personal.</p>
-  <p><strong>On the "more dogs than children" figure.</strong> The 150,000-dog floor used throughout this site is conservative. <a href="part1-the-gap.html#methodology">Part I's methodology note</a> walks through three independent estimates — a Seattle Open Data licensed floor (~26,700 active licenses), an AVMA-derived demographic estimate (~248,900), and the SPR 2023 Expansion Study range (187K–400K). All three bracket the same order of magnitude. The 150K floor sits below all of them by design.</p>
-</div>
-
-</div>
-
-<footer style="margin-top: 72px; padding-top: 24px; border-top: 1px solid var(--rule); font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink-soft); line-height: 1.6;">
-  <p style="max-width: 780px; margin-bottom: 8px;">Data current as of April 2026. Source code and all underlying data: <a href="https://github.com/avrignaud/seattledogparkdata" style="color: var(--accent-3); text-decoration: underline;">github.com/avrignaud/seattledogparkdata</a>. MIT license covers author-written code and analysis; primary data (SPR PRRs, Seattle Open Data, U.S. Census) is public record. TPL ParkServe data redistributed under <a href="https://www.tpl.org/park-data-downloads" style="color: var(--accent-3); text-decoration: underline;">TPL's terms</a>. Corrections: <a href="https://github.com/avrignaud/seattledogparkdata/issues" style="color: var(--accent-3); text-decoration: underline;">issue tracker</a>.</p>
-  <p style="max-width: 780px;"><a href="seattle-dog-parks-report.pdf" style="color: var(--accent-3); text-decoration: underline;">Download full report (PDF)</a> &middot; <a href="print.html" style="color: var(--accent-3); text-decoration: underline;">Single-page print edition</a></p>
-</footer>
-
-</main>
 </body>
 </html>

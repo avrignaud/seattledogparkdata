@@ -11,12 +11,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.umd.min.js"></script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <style>
   :root {
-    --bg: #F5F1E8; --surface: #FFFFFF;
+    --bg: #FAF8F3; --surface: #FFFFFF;
     --ink: #1A1712; --ink-soft: #4C4A44; --ink-faint: #8A877E;
-    --rule: #E4DFD1; --rule-soft: #ECE8DC;
+    --rule: #E8E5DC; --rule-soft: #F1EFE7;
     --orange: #D1481A; --orange-soft: #F9E7DB;
     --navy: #1F3A5F; --navy-soft: #E1EAF5;
     --sage: #4C6B54; --sage-soft: #E2EAE0;
@@ -348,49 +350,56 @@
 
 </div>
 
+<script src="chart-defaults.js"></script>
 <script>
-  Chart.defaults.font.family = "'Inter', system-ui, sans-serif";
-  Chart.defaults.font.size = 12.5;
-  Chart.defaults.color = '#4C4A44';
-  Chart.defaults.borderColor = 'rgba(26,23,18,0.08)';
+  const P = SDPD.palette;
 
-  // Walkshed chart
+  // ---------- Walkshed chart: on-bar datalabels, Kinnear-as-danger cue ----------
   new Chart(document.getElementById('chartWalkshed'), {
     type: 'bar',
     data: {
       labels: ['Any park (TPL)', 'SPR 2.5-mile OLA standard', 'OLA · 10-min network walk'],
       datasets: [{
         data: [99.0, 76.6, 11.7],
-        backgroundColor: ['#4C6B54', '#B8872B', '#D1481A'],
-        borderRadius: 6,
-        borderSkipped: false,
-        barThickness: 38
+        backgroundColor: [P.sage, P.gold, P.orange],
+        barThickness: 42
       }]
     },
     options: {
       indexAxis: 'y',
       responsive: true,
       maintainAspectRatio: false,
+      layout: { padding: { right: 72 } },
       plugins: {
         legend: { display: false },
         tooltip: {
-          backgroundColor: '#1A1712',
           callbacks: { label: ctx => ctx.parsed.x.toFixed(1) + '% of Seattle residents' }
+        },
+        datalabels: {
+          display: true,
+          anchor: 'end',
+          align: 'end',
+          offset: 10,
+          color: (ctx) => [P.sage, P.gold, P.orange][ctx.dataIndex],
+          font: { family: "'Space Grotesk', sans-serif", size: 22, weight: 600 },
+          formatter: v => v.toFixed(1) + '%'
         }
       },
       scales: {
-        x: {
+        x: SDPD.xAxis({
           max: 100, beginAtZero: true,
-          grid: { color: 'rgba(26,23,18,0.06)' },
-          ticks: { callback: v => v + '%' }
-        },
-        y: { grid: { display: false } }
+          ticks: { padding: 6, color: P.inkSoft, callback: v => v + '%' }
+        }),
+        y: SDPD.catAxis()
       }
     }
   });
 
-  // Seattle map (Leaflet) — a few representative OLAs
-  const map = L.map('seattle-map', { zoomControl: true, scrollWheelZoom: false }).setView([47.615, -122.33], 11);
+  // ---------- Leaflet map: bigger markers, hover halo, in-map legend ----------
+  const map = L.map('seattle-map', {
+    zoomControl: true, scrollWheelZoom: false, attributionControl: true
+  }).setView([47.615, -122.33], 11);
+
   L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
     attribution: '© OpenStreetMap · © CARTO',
     subdomains: 'abcd',
@@ -398,39 +407,94 @@
   }).addTo(map);
 
   const olas = [
-    { name: 'Magnuson Park',   lat: 47.6794, lng: -122.2605, size: 9.0, kind: 'existing' },
-    { name: 'Marymoor (county)', lat: 47.6625, lng: -122.1195, size: 40.0, kind: 'existing' },
-    { name: 'Genesee',         lat: 47.5572, lng: -122.2883, size: 2.8,  kind: 'existing' },
-    { name: 'Golden Gardens',  lat: 47.6920, lng: -122.4030, size: 1.8,  kind: 'existing' },
-    { name: 'Blue Dog Pond',   lat: 47.5922, lng: -122.2960, size: 1.5,  kind: 'existing' },
-    { name: 'I-5 Colonnade',   lat: 47.6444, lng: -122.3240, size: 1.1,  kind: 'existing' },
-    { name: 'Woodland',        lat: 47.6680, lng: -122.3360, size: 1.0,  kind: 'existing' },
-    { name: 'Plymouth Pillars', lat: 47.6135, lng: -122.3270, size: 0.3, kind: 'existing' },
-    { name: 'Kinnear',         lat: 47.6270, lng: -122.3630, size: 0.11, kind: 'existing' },
-    { name: 'Denny Park',      lat: 47.6180, lng: -122.3410, size: 0.105, kind: 'existing' },
-    { name: 'W. Seattle Stadium', lat: 47.5770, lng: -122.3690, size: 1.4, kind: 'planned' }
+    { name: 'Magnuson Park',      lat: 47.6794, lng: -122.2605, size: 9.00, kind: 'existing' },
+    { name: 'Marymoor (county)',  lat: 47.6625, lng: -122.1195, size: 40.00, kind: 'existing' },
+    { name: 'Genesee',            lat: 47.5572, lng: -122.2883, size: 2.80, kind: 'existing' },
+    { name: 'Golden Gardens',     lat: 47.6920, lng: -122.4030, size: 1.80, kind: 'existing' },
+    { name: 'Blue Dog Pond',      lat: 47.5922, lng: -122.2960, size: 1.50, kind: 'existing' },
+    { name: 'I-5 Colonnade',      lat: 47.6444, lng: -122.3240, size: 1.10, kind: 'existing' },
+    { name: 'Woodland',           lat: 47.6680, lng: -122.3360, size: 1.00, kind: 'existing' },
+    { name: 'Plymouth Pillars',   lat: 47.6135, lng: -122.3270, size: 0.30, kind: 'existing' },
+    { name: 'Kinnear',            lat: 47.6270, lng: -122.3630, size: 0.11, kind: 'kinnear'  },
+    { name: 'Denny Park',         lat: 47.6180, lng: -122.3410, size: 0.11, kind: 'existing' },
+    { name: 'W. Seattle Stadium', lat: 47.5770, lng: -122.3690, size: 1.40, kind: 'planned'  }
   ];
 
+  const colorFor = (k) =>
+    k === 'planned' ? P.sage :
+    k === 'kinnear' ? P.danger :
+    P.orange;
+
   const walkshedRadiusMeters = 804.67; // 0.5 mile
+
   olas.forEach(o => {
-    const color = o.kind === 'planned' ? '#4C6B54' : '#D1481A';
-    L.circle([o.lat, o.lng], {
+    const color = colorFor(o.kind);
+
+    const shed = L.circle([o.lat, o.lng], {
       radius: walkshedRadiusMeters,
-      color: color,
-      fillColor: color,
-      fillOpacity: 0.10,
-      weight: 1
+      color: color, fillColor: color,
+      fillOpacity: 0.08, weight: 1, opacity: 0.55,
+      dashArray: o.kind === 'planned' ? '4 4' : null
     }).addTo(map);
-    L.circleMarker([o.lat, o.lng], {
-      radius: 6, color: '#fff', weight: 2, fillColor: color, fillOpacity: 1
-    })
-    .addTo(map)
-    .bindPopup(
-      `<strong style="font-family:'Space Grotesk',sans-serif;">${o.name}</strong><br>`+
-      `<span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#4C4A44;">`+
-      `${o.size.toFixed(2)} acres · ${o.kind}</span>`
+
+    const marker = L.circleMarker([o.lat, o.lng], {
+      radius: o.kind === 'kinnear' ? 10 : 9,
+      color: '#fff', weight: 2.5,
+      fillColor: color, fillOpacity: 1
+    }).addTo(map);
+
+    const kinnearNote = o.kind === 'kinnear'
+      ? `<br><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:${P.danger};">↳ See case study</span>`
+      : '';
+
+    marker.bindPopup(
+      `<strong style="font-family:'Space Grotesk',sans-serif;font-size:14px;">${o.name}</strong><br>` +
+      `<span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#4C4A44;">` +
+      `${o.size.toFixed(2)} acres · ${o.kind === 'planned' ? 'planned 2026' : o.kind === 'kinnear' ? 'existing · 0.11 ac' : 'existing'}` +
+      `</span>${kinnearNote}`,
+      { closeButton: false }
     );
+
+    marker.on('mouseover', function () {
+      this.setStyle({ radius: 12, weight: 3 });
+      shed.setStyle({ fillOpacity: 0.16, opacity: 0.85 });
+      this.openPopup();
+    });
+    marker.on('mouseout', function () {
+      this.setStyle({ radius: o.kind === 'kinnear' ? 10 : 9, weight: 2.5 });
+      shed.setStyle({ fillOpacity: 0.08, opacity: 0.55 });
+      this.closePopup();
+    });
   });
+
+  // In-map legend (bottom-right, matches site type)
+  const legend = L.control({ position: 'bottomright' });
+  legend.onAdd = function () {
+    const d = L.DomUtil.create('div', 'sdpd-map-legend');
+    d.style.cssText = `
+      background: rgba(250,248,243,0.96);
+      border: 1px solid ${P.rule};
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      line-height: 1.7;
+      color: ${P.ink};
+      box-shadow: 0 6px 20px -10px rgba(26,23,18,0.18);
+    `;
+    const row = (color, label, dashed) => `
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${color};box-shadow:0 0 0 2px #fff;${dashed ? 'outline:1px dashed ' + color + ';outline-offset:2px;' : ''}"></span>
+        <span>${label}</span>
+      </div>`;
+    d.innerHTML =
+      `<div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:${P.inkFaint};margin-bottom:6px;">Off-leash areas</div>` +
+      row(P.orange,  'Existing (13)') +
+      row(P.danger,  'Kinnear · case study') +
+      row(P.sage,    'Opening fall 2026', true);
+    return d;
+  };
+  legend.addTo(map);
 </script>
 
 </body>

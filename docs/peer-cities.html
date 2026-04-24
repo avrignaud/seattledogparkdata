@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Seattle Dog Park Data — Peer City Detail</title>
+<title>Peer Cities &mdash; Seattle Dog Park Data</title>
 <meta name="description" content="Per-city detail on Portland, San Francisco, Vancouver BC, Washington DC, Minneapolis, New York City, Austin, and Boise off-leash dog area systems, with funding, governance, and access standards.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<meta property="og:title" content="Peer City Detail — Seattle Dog Park Data">
+<meta property="og:title" content="Peer Cities &mdash; Seattle Dog Park Data">
 <meta property="og:description" content="How Portland, San Francisco, Vancouver BC, Washington DC, Minneapolis, New York City, Austin, and Boise run their off-leash dog area systems.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://seattledogparkdata.com/peer-cities.html">
@@ -17,285 +17,223 @@
 <link rel="canonical" href="https://seattledogparkdata.com/peer-cities.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
 <style>
-  .skip-link { position: absolute; top: -40px; left: 0; background: #121820; color: #F6F2E9; padding: 8px 16px; z-index: 100; text-decoration: none; font-family: 'IBM Plex Mono', monospace; font-size: 12px; }
-  .skip-link:focus { top: 0; }
-
-  :root {
-    --bg: #F6F2E9;
-    --ink: #121820;
-    --ink-soft: #3C4A5C;
-    --rule: #D8CFBD;
-    --accent: #C04A1E;
-    --accent-2: #4C6B54;
-    --accent-3: #2C4A6E;
-    --accent-4: #A68A2E;
-    --danger: #8B2518;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body {
-    background: var(--bg);
-    color: var(--ink);
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-weight: 300;
-    font-size: 17px;
-    line-height: 1.65;
-    -webkit-font-smoothing: antialiased;
-  }
-  .container { max-width: 980px; margin: 0 auto; padding: 48px 32px 96px; }
-  .masthead {
-    border-top: 6px solid var(--accent);
-    border-bottom: 1px solid var(--rule);
-    padding: 24px 0 20px;
-    margin-bottom: 28px;
+  /* Peer-cities page: lightweight local styles that fit the new system */
+  .quick-nav {
     display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--ink-soft);
-  }
-  .masthead .dateline { font-weight: 500; color: var(--accent); }
-  nav.report-nav {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 10px 0 20px;
-    border-bottom: 1px solid var(--rule);
-    margin-bottom: 36px;
-    display: flex;
-    gap: 24px;
     flex-wrap: wrap;
+    gap: 8px;
+    margin: 8px 0 48px;
   }
-  nav.report-nav a { color: var(--ink-soft); text-decoration: none; }
-  nav.report-nav a:hover, nav.report-nav a.active { color: var(--accent); }
-  nav.report-nav a.active { font-weight: 500; }
-  h1.hed {
-    font-family: 'Fraunces', serif;
-    font-weight: 800;
-    font-size: 56px;
-    line-height: 1.02;
-    letter-spacing: -0.025em;
-    margin-bottom: 20px;
-    max-width: 820px;
-  }
-  h1.hed em { font-style: italic; font-weight: 400; color: var(--accent-3); }
-  .deck {
-    font-family: 'Fraunces', serif;
-    font-size: 21px;
-    line-height: 1.45;
-    font-weight: 300;
-    color: var(--ink-soft);
-    max-width: 780px;
-    margin-bottom: 40px;
-  }
-  h2 {
-    font-family: 'Fraunces', serif;
-    font-size: 32px;
-    line-height: 1.15;
-    font-weight: 600;
-    letter-spacing: -0.015em;
-    margin-top: 56px;
-    margin-bottom: 6px;
-  }
-  h2 .num {
-    font-family: 'IBM Plex Mono', monospace;
-    font-weight: 400;
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    color: var(--accent);
-    display: block;
-    margin-bottom: 10px;
-    text-transform: uppercase;
-  }
-  h3 {
-    font-family: 'Fraunces', serif;
-    font-size: 20px;
-    line-height: 1.25;
-    font-weight: 600;
-    margin: 22px 0 6px;
-  }
-  p { margin-bottom: 16px; max-width: 720px; }
-  p.lead { font-size: 18px; line-height: 1.55; }
-  p a, li a, td a, th a { color: var(--accent-3); text-decoration: underline; text-underline-offset: 2px; }
-  p a:hover, li a:hover { color: var(--accent); }
-  ul, ol { margin-left: 22px; margin-bottom: 16px; max-width: 720px; }
-  li { margin-bottom: 4px; }
-  .city-card {
+  .quick-nav a {
+    padding: 7px 14px;
     border: 1px solid var(--rule);
-    border-radius: 2px;
-    padding: 28px 32px;
-    margin: 28px 0;
-    background: #fff;
+    border-radius: 999px;
+    color: var(--ink-soft);
+    text-decoration: none;
+    background: var(--surface);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: border-color .15s, color .15s;
+  }
+  .quick-nav a:hover { border-color: var(--ink); color: var(--ink); }
+
+  .city-card {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 16px;
+    padding: 30px 32px 28px;
+    margin: 24px 0 40px;
   }
   .city-card .headline-stats {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
-    margin: 20px 0 24px;
+    margin: 8px 0 28px;
   }
-  .headline-stats .stat {
-    border-left: 3px solid var(--accent-3);
-    padding: 4px 0 4px 12px;
+  .city-card .headline-stats .hstat {
+    border-left: 2px solid var(--navy);
+    padding: 4px 0 4px 14px;
   }
-  .headline-stats .stat .label {
+  .city-card .headline-stats .hstat .label {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px;
+    font-size: 10.5px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--ink-soft);
-    margin-bottom: 4px;
-  }
-  .headline-stats .stat .value {
-    font-family: 'Fraunces', serif;
-    font-size: 26px;
-    font-weight: 600;
-    color: var(--ink);
-    line-height: 1.1;
-  }
-  .headline-stats .stat .note {
-    font-size: 12px;
-    color: var(--ink-soft);
-    margin-top: 2px;
+    margin-bottom: 6px;
     line-height: 1.35;
   }
+  .city-card .headline-stats .hstat .value {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+  .city-card .headline-stats .hstat .note {
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+  .city-card h3 {
+    margin-top: 24px;
+  }
+
+  /* Neutral observation box (replaces orange "contrast" callout) */
+  .observation {
+    background: var(--rule-soft);
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin: 22px 0 6px;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+  .observation strong.label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+
+  /* Key-value table for Minneapolis permit schedule */
   table.kv {
     width: 100%;
-    max-width: 720px;
+    max-width: 680px;
     border-collapse: collapse;
-    margin: 16px 0;
+    margin: 14px 0 18px;
     font-size: 14px;
   }
   table.kv th, table.kv td {
     text-align: left;
-    padding: 8px 10px;
+    padding: 10px 12px;
     border-bottom: 1px solid var(--rule);
     vertical-align: top;
   }
+  table.kv tr:nth-child(even) th,
+  table.kv tr:nth-child(even) td { background: var(--rule-soft); }
   table.kv th {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px;
+    font-size: 10.5px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--ink-soft);
     font-weight: 500;
-    width: 34%;
+    width: 52%;
   }
-  .contrast {
-    background: rgba(192,74,30,0.06);
-    border-left: 3px solid var(--accent);
+  table.kv td {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Per-card sources line */
+  .sources {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    color: var(--ink-faint);
+    padding-top: 14px;
+    border-top: 1px solid var(--rule-soft);
+    margin-top: 20px;
+    line-height: 1.6;
+    word-break: break-word;
+    letter-spacing: 0.02em;
+  }
+  .sources strong {
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+  .sources a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--ink-faint);
+  }
+  .sources a:hover { color: var(--orange); border-bottom-color: var(--orange); }
+
+  /* Data-note block for Boise */
+  .data-note {
+    background: var(--gold-soft);
+    border-left: 3px solid var(--gold);
+    border-radius: 6px;
     padding: 14px 18px;
-    margin: 18px 0;
-    font-size: 15px;
+    margin: 18px 0 6px;
+    font-size: 13.5px;
     line-height: 1.55;
+    color: var(--ink);
   }
-  .contrast strong.label {
+  .data-note strong.tag {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 10px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(--gold);
     display: block;
     margin-bottom: 4px;
     font-weight: 500;
   }
-  .sources {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    color: var(--ink-soft);
-    padding-top: 10px;
-    border-top: 1px dashed var(--rule);
-    margin-top: 18px;
-    line-height: 1.55;
-    word-break: break-word;
-  }
-  .sources strong {
-    font-size: 10px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--accent-3);
-    font-weight: 500;
-  }
-  footer {
-    margin-top: 72px;
-    padding-top: 24px;
-    border-top: 1px solid var(--rule);
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 12px;
-    color: var(--ink-soft);
-    line-height: 1.6;
-  }
-  footer a { color: var(--accent-3); text-decoration: underline; }
-  .quick-nav {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin: 24px 0 36px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-  .quick-nav a {
-    padding: 6px 12px;
-    border: 1px solid var(--rule);
-    border-radius: 2px;
-    color: var(--ink);
-    text-decoration: none;
-    background: #fff;
-  }
-  .quick-nav a:hover { border-color: var(--accent); color: var(--accent); }
-  @media (max-width: 700px) {
-    h1.hed { font-size: 40px; }
-    .city-card { padding: 20px; }
-    .headline-stats { grid-template-columns: 1fr; }
-    table.kv th { width: 40%; }
-  }
 
-  @media (max-width: 480px) {
-    .container, .main { padding: 32px 18px 64px; }
-    h1.hed { font-size: 38px; }
-    h2 { font-size: 24px; }
-    .stat-grid { grid-template-columns: 1fr !important; }
-    .headline-stats { grid-template-columns: 1fr !important; }
-    /* Part II Finding 02b stat card grid */
-    div[style*="grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr !important; }
-    /* Tables: allow horizontal scroll instead of blowing the viewport */
-    table { display: block; overflow-x: auto; white-space: nowrap; font-size: 12px; }
-    .chart-wrap { height: 280px; }
-    .chart-wrap.tall { height: 360px; }
-    .chart-wrap.short { height: 240px; }
-    .map-wrap, #seattle-map, #hotspot-map, #gap-map, #walkshed-citation-map { height: 400px !important; }
+  @media (max-width: 720px) {
+    .city-card { padding: 22px 20px; }
+    .city-card .headline-stats { grid-template-columns: 1fr; }
+    table.kv th { width: 48%; }
   }
-
 </style>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
-<main id="main"><div class="container">
+<main id="main"><div class="wrap">
 
-<header class="masthead">
-  <span>SEATTLE DOG PARK DATA</span>
-  <span class="dateline">APRIL 2026</span>
+<div class="topbar">
+  <a class="brand" href="index.html">
+    <img class="mark" src="favicon.svg" alt="">
+    <span>Seattle Dog Park Data</span>
+  </a>
+  <nav class="nav" aria-label="Site navigation">
+    <a href="index.html">Overview</a>
+    <a href="part1-the-gap.html">The Gap</a>
+    <a href="part2-access.html">Access</a>
+    <a href="part3.html">Forward</a>
+    <a href="enforcement.html">Enforcement</a>
+    <a href="budget.html">Budget</a>
+    <a href="peer-cities.html" class="active">Peer Cities</a>
+    <a href="opinion.html">Opinion</a>
+  </nav>
+</div>
+
+<div class="masthead">
+  <span class="dateline">Peer Cities &middot; Seattle Dog Park Data &middot; seattledogparkdata.com</span>
+  <span>APRIL 2026</span>
+</div>
+
+<header class="hero">
+  <span class="kicker orange part-label">Peer Cities</span>
+  <h1 class="hed">How eight peer cities <em>run</em> their off-leash systems.</h1>
+  <p class="deck">Per-city detail on Portland, San Francisco, Vancouver BC, Washington DC, Minneapolis, New York, Austin, and Boise. Counting methodology, governance model, funding mechanism, operating rules, and at least one design choice per city that Seattle has not used. The aggregate comparison is in <a href="part1-the-gap.html#finding-02">Part I</a> and <a href="budget.html#finding-08">Budget Finding 08</a>; this page carries the per-city detail and primary sources.</p>
+  <div class="byline">
+    Seattle Dog Park Data &middot; Updated April 2026
+  </div>
 </header>
 
-<nav class="report-nav" aria-label="Site navigation">
-  <a href="index.html">Overview</a>
-  <a href="part1-the-gap.html">Part I — The Gap</a>
-  <a href="part2-access.html">Part II — Access</a>
-  <a href="part3.html">Part III — Forward</a>
-  <a href="enforcement.html">Enforcement</a>
-  <a href="budget.html">Budget</a>
-  <a href="peer-cities.html" class="active">Peer Cities</a>
-  <a href="opinion.html">Opinion</a>
-</nav>
-
-<h1 class="hed">How other cities actually <em>do this</em>.</h1>
-<p class="deck">Six peer cities, detail on how each one runs its off-leash dog area system. Counting methodology, governance model, funding mechanism, operating rules, and at least one notable design choice per city that Seattle has not tried. The aggregate comparison is on <a href="part1-the-gap.html#finding-02">Part I</a> and <a href="budget.html#finding-08">Budget Finding 08</a>; this page is where the per-city detail lives with verified primary sources.</p>
+<div class="note-box">
+  <strong class="tag">Methodology caveat</strong>
+  Peer-city OLA counts use different definitions and are not directly comparable without adjustment. Seattle counts only fully-fenced dedicated OLAs; Portland includes unfenced voice-control areas; Vancouver BC includes time-restricted beach and field access; San Francisco mixes fenced and voice-control zones; Austin's headline figure is inflated by large natural-area voice-control sites. Each city section below flags the relevant definition. The underlying data, with both raw and adjusted figures where applicable, is in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/peer-cities.csv">data/peer-cities.csv</a>.
+</div>
 
 <div class="quick-nav">
   <a href="#portland">Portland</a>
@@ -303,34 +241,34 @@
   <a href="#vancouver">Vancouver BC</a>
   <a href="#washington-dc">Washington DC</a>
   <a href="#minneapolis">Minneapolis</a>
-  <a href="#new-york">New York City</a>
+  <a href="#new-york">New York</a>
   <a href="#austin">Austin</a>
   <a href="#boise">Boise</a>
 </div>
 
 <!-- ==================================================================== -->
-<h2 id="portland"><span class="num">Peer 01</span>Portland, OR &mdash; the voice-control model</h2>
+<h2 class="finding" id="portland"><span class="num">Peer 01</span>Portland, OR &mdash; the voice-control model</h2>
 <p class="lead">Portland Parks &amp; Recreation operates a mix of fenced and unfenced off-leash sites, with unfenced voice-control areas making up the majority. The city's own page describes <a href="https://www.portland.gov/parks/find-dog-off-leash-area">"over 30 dog off-leash areas &mdash; both fenced and unfenced,"</a> which is the fundamental methodological difference from Seattle's fenced-only count.</p>
 
 <div class="city-card">
   <div class="headline-stats">
-    <div class="stat"><div class="label">30+ designated off-leash areas</div><div class="value">3.2×</div><div class="note">Portland's per-capita rate is 3.2× Seattle's; same coast, opposite policy choice on fenced-vs-voice-control</div></div>
-    <div class="stat"><div class="label">Most are unfenced</div><div class="value">voice-control</div><div class="note">The majority of Portland's 30+ sites operate on voice-control, not fencing &mdash; the model Seattle has historically rejected</div></div>
-    <div class="stat"><div class="label">Voter-funded</div><div class="value">2020 Levy</div><div class="note">Renewed by voters 2020 at ~$47M/yr citywide; no dedicated OLA line, but parks as a category have durable voter support</div></div>
+    <div class="hstat"><div class="label">30+ designated off-leash areas</div><div class="value">3.2&times;</div><div class="note">Portland's per-capita rate is 3.2&times; Seattle's, using each city's own published count.</div></div>
+    <div class="hstat"><div class="label">Most are unfenced</div><div class="value">voice-control</div><div class="note">The majority of Portland's 30+ sites operate on voice-control rather than fencing.</div></div>
+    <div class="hstat"><div class="label">Voter-funded</div><div class="value">2020 Levy</div><div class="note">Renewed by voters in 2020 at ~$47M/yr citywide; no dedicated OLA line item within the levy.</div></div>
   </div>
 
   <h3>Governance</h3>
-  <p>City-run by Portland Parks &amp; Recreation (PP&amp;R). Informal volunteer advocacy via long-standing groups like DOG PAC (Dog Owners Group Political Action Committee); no formal co-management MOUs at the scale of Seattle's COLA or DC's Friends-of-park system. Day-to-day maintenance is PP&amp;R staff.</p>
+  <p>City-run by Portland Parks &amp; Recreation (PP&amp;R). Volunteer advocacy runs through long-standing groups such as DOG PAC (Dog Owners Group Political Action Committee); there are no formal co-management MOUs at the scale of Seattle's COLA or DC's Friends-of-park system. Day-to-day maintenance is PP&amp;R staff.</p>
 
   <h3>Funding</h3>
-  <p>PP&amp;R general fund plus the voter-approved <a href="https://www.portland.gov/parks/parks-levy">Parks Local Option Levy</a> (renewed November 2020, five-year, ~$47M/yr citywide). Dog-park-specific line item is not broken out. Dog license fees flow to <a href="https://multco.us/departments/animal-services-division">Multnomah County Animal Services</a> &mdash; not to PP&amp;R &mdash; so unlike some cities, license revenue does not fund dog parks.</p>
+  <p>PP&amp;R general fund plus the voter-approved <a href="https://www.portland.gov/parks/parks-levy">Parks Local Option Levy</a> (renewed November 2020, five-year, ~$47M/yr citywide). A dog-park-specific line item is not broken out. Dog license fees flow to <a href="https://multco.us/departments/animal-services-division">Multnomah County Animal Services</a> rather than to PP&amp;R, so license revenue does not fund dog parks.</p>
 
   <h3>Access standard</h3>
-  <p>Portland uses the general <strong>half-mile / 10-minute walk</strong> standard for parks overall. No published OLA-specific walkshed standard, but because the count is larger and many areas are unfenced voice-control, a typical Portland dog owner has multiple legal options within that 10-min radius.</p>
+  <p>Portland uses the general <strong>half-mile / 10-minute walk</strong> standard for parks overall. There is no published OLA-specific walkshed standard. Because the count is larger and many areas are unfenced voice-control, a typical Portland dog owner has multiple legal options within a 10-minute walk.</p>
 
-  <div class="contrast">
-    <strong class="label">Contrast with Seattle</strong>
-    Portland accepts some shared-use friction &mdash; people and dogs co-mingling off-leash under voice control &mdash; that Seattle policy has consistently rejected since the 1997 OLA ordinance. A Portland dog owner has ~30+ legal options for off-leash access; a Seattle owner has 14. The Seattle equivalent would be adopting time-zoned or voice-control access in a designated subset of existing parks, which is exactly what <a href="opinion.html#recommendation">the opinion recommendation</a> proposes.
+  <div class="observation">
+    <strong class="label">Comparison with Seattle</strong>
+    Portland's framework accepts shared-use friction &mdash; people and dogs co-mingling off-leash under voice control &mdash; that Seattle policy has not incorporated since the 1997 OLA ordinance. A Portland dog owner reports ~30+ legal options for off-leash access; Seattle reports 14 fully-fenced OLAs. A Seattle analogue would be adopting time-zoned or voice-control access in a designated subset of existing parks, which is the approach proposed on <a href="opinion.html#recommendation">the opinion page</a>.
   </div>
 
   <div class="sources">
@@ -344,28 +282,28 @@
 </div>
 
 <!-- ==================================================================== -->
-<h2 id="san-francisco"><span class="num">Peer 02</span>San Francisco, CA &mdash; 36 DPAs inside a federal-lands dispute</h2>
-<p class="lead">San Francisco Rec &amp; Park operates <a href="https://sfrecpark.org/457/Dog-Play-Areas">36 designated Dog Play Areas (DPAs)</a>, a mix of fully fenced enclosures and voice-control zones within larger parks. Golden Gate Park alone has four DPAs. The city's dog-park history is also the most <em>litigated</em> of any peer: the GGNRA (federal) vs. city-level dispute over Fort Funston, Ocean Beach, and Crissy Field off-leash access has run for nearly two decades.</p>
+<h2 class="finding" id="san-francisco"><span class="num">Peer 02</span>San Francisco, CA &mdash; 36 DPAs inside a federal-lands dispute</h2>
+<p class="lead">San Francisco Rec &amp; Park operates <a href="https://sfrecpark.org/457/Dog-Play-Areas">36 designated Dog Play Areas (DPAs)</a>, a mix of fully fenced enclosures and voice-control zones within larger parks. Golden Gate Park alone contains four DPAs. SF's dog-park history is also the most heavily litigated of any peer: the GGNRA (federal) versus city-level dispute over Fort Funston, Ocean Beach, and Crissy Field off-leash access has run for nearly two decades.</p>
 
 <div class="city-card">
   <div class="headline-stats">
-    <div class="stat"><div class="label">36 Dog Play Areas across the city</div><div class="value">2.8×</div><div class="note">SF's per-capita rate is 2.8× Seattle's &mdash; built partly because federal GGNRA lands are off-limits for off-leash use</div></div>
-    <div class="stat"><div class="label">Four DPAs in Golden Gate Park alone</div><div class="value">4</div><div class="note">SF accepts carving DPAs out of large flagship parks; Seattle has no OLA inside Green Lake, Volunteer, Discovery, or Lincoln</div></div>
-    <div class="stat"><div class="label">Capital via voter GO bonds</div><div class="value">$487M</div><div class="note">Prop B 2020 Health &amp; Recovery Bond &mdash; park capital funded by voters, not annual operating fights</div></div>
+    <div class="hstat"><div class="label">36 Dog Play Areas across the city</div><div class="value">2.8&times;</div><div class="note">SF's per-capita rate is 2.8&times; Seattle's; federal GGNRA lands are off-limits for off-leash use.</div></div>
+    <div class="hstat"><div class="label">Four DPAs in Golden Gate Park alone</div><div class="value">4</div><div class="note">SF has sited DPAs inside large flagship parks; Seattle has no OLA inside Green Lake, Volunteer, Discovery, or Lincoln.</div></div>
+    <div class="hstat"><div class="label">Capital via voter GO bonds</div><div class="value">$487M</div><div class="note">Prop B 2020 Health &amp; Recovery Bond &mdash; park capital funded by voters rather than annual operating appropriations.</div></div>
   </div>
 
   <h3>Governance</h3>
   <p>City-run (SF Rec &amp; Park). <a href="https://www.sfdog.org/">SFDOG (San Francisco Dog Owners Group)</a> is the long-standing volunteer advocacy org and participates in the Dog Advisory Committee. Rules require picking up waste, keeping dogs under owner control, professional dog-walkers limited to eight dogs per person, and dogs must be licensed and vaccinated.</p>
 
   <h3>Funding</h3>
-  <p>SF has no mandatory dog license, so license revenue does not fund parks. Operating costs ride inside the Rec &amp; Park general fund plus the Prop C Open Space Fund (property-tax set-aside). Capital comes from GO park bonds &mdash; <a href="https://sfrecpark.org/1682/Bonds-and-Initiatives">Prop A 2000</a>, Prop B 2012 ($195M), and <a href="https://sfrecpark.org/1370/2020-Health-Recovery-Bond">Prop B 2020 ($487M)</a>. Additional capital comes through philanthropy via the SF Parks Alliance.</p>
+  <p>SF has no mandatory dog license, so license revenue does not fund parks. Operating costs sit inside the Rec &amp; Park general fund plus the Prop C Open Space Fund (property-tax set-aside). Capital comes from GO park bonds &mdash; <a href="https://sfrecpark.org/1682/Bonds-and-Initiatives">Prop A 2000</a>, Prop B 2012 ($195M), and <a href="https://sfrecpark.org/1370/2020-Health-Recovery-Bond">Prop B 2020 ($487M)</a>. Additional capital comes through philanthropy via the SF Parks Alliance.</p>
 
   <h3>Access standard</h3>
-  <p>SF uses TPL's 10-minute walk standard for parks generally; SF ranks #6 on TPL ParkScore with near-100% of residents within 10-min walk of any park. No OLA-specific walkshed.</p>
+  <p>SF uses TPL's 10-minute walk standard for parks generally; SF ranks #6 on TPL ParkScore with near-100% of residents within 10-minute walk of any park. There is no OLA-specific walkshed.</p>
 
-  <div class="contrast">
-    <strong class="label">Contrast with Seattle</strong>
-    SF's defining complication is the <a href="https://www.nps.gov/goga/planyourvisit/dog-friendly-areas.htm">GGNRA Dog Management Plan</a> &mdash; the federal-lands restriction on off-leash access that Seattle does not have. SF's 36 DPAs exist partly because federal land is off-limits for off-leash use and the city had to build dedicated city-level alternatives. Seattle has no equivalent federal-lands complication, so the supply constraint is entirely self-imposed.
+  <div class="observation">
+    <strong class="label">Comparison with Seattle</strong>
+    SF's defining complication is the <a href="https://www.nps.gov/goga/planyourvisit/dog-friendly-areas.htm">GGNRA Dog Management Plan</a> &mdash; the federal-lands restriction on off-leash access that Seattle does not have. SF's 36 DPAs exist in part because federal land is off-limits for off-leash use and the city built dedicated city-level alternatives. Seattle has no equivalent federal-lands complication.
   </div>
 
   <div class="sources">
@@ -379,28 +317,28 @@
 </div>
 
 <!-- ==================================================================== -->
-<h2 id="vancouver"><span class="num">Peer 03</span>Vancouver, BC &mdash; the elected Park Board</h2>
-<p class="lead">Vancouver's Park Board is the <em>only</em> independently-elected parks body in any major Canadian city &mdash; seven commissioners elected by Vancouver voters, running parks independently of City Council. The Park Board passed the <a href="https://vancouver.ca/parks-recreation-culture/people-parks-dogs-strategy.aspx">People, Parks, and Dogs: A Strategy for Sharing Vancouver's Parks</a> in 2017, the most ambitious OLA planning framework of any peer city.</p>
+<h2 class="finding" id="vancouver"><span class="num">Peer 03</span>Vancouver, BC &mdash; the elected Park Board</h2>
+<p class="lead">Vancouver's Park Board is the only independently-elected parks body in any major Canadian city &mdash; seven commissioners elected by Vancouver voters, running parks independently of City Council. The Park Board passed the <a href="https://vancouver.ca/parks-recreation-culture/people-parks-dogs-strategy.aspx">People, Parks, and Dogs: A Strategy for Sharing Vancouver's Parks</a> in 2017, the most detailed OLA planning framework among the eight peer cities.</p>
 
 <div class="city-card">
   <div class="headline-stats">
-    <div class="stat"><div class="label">36+ off-leash areas, many time-zoned</div><div class="value">3.0×</div><div class="note">Vancouver's per-capita rate is 3.0× Seattle's, and the same beach can be dog-friendly in winter and dog-free in summer</div></div>
-    <div class="stat"><div class="label">Voters elect the Park Board directly</div><div class="value">7 seats</div><div class="note">Only major Canadian city where park commissioners answer to voters, not the mayor &mdash; OLA decisions are on the ballot</div></div>
-    <div class="stat"><div class="label">Dedicated OLA capital plan</div><div class="value">~$2.1M</div><div class="note">2023&ndash;2026 four-year OLA-specific capital cycle; Seattle has no equivalent dedicated OLA capital line</div></div>
+    <div class="hstat"><div class="label">36+ off-leash areas, many time-zoned</div><div class="value">3.0&times;</div><div class="note">Vancouver's per-capita rate is 3.0&times; Seattle's; some sites shift status seasonally.</div></div>
+    <div class="hstat"><div class="label">Voters elect the Park Board directly</div><div class="value">7 seats</div><div class="note">Only major Canadian city where park commissioners answer to voters rather than the mayor.</div></div>
+    <div class="hstat"><div class="label">Dedicated OLA capital plan</div><div class="value">~$2.1M</div><div class="note">2023&ndash;2026 four-year OLA-specific capital cycle.</div></div>
   </div>
 
   <h3>Governance &mdash; the distinguishing feature</h3>
-  <p>Vancouver's <a href="https://vancouver.ca/your-government/vancouver-board-of-parks-and-recreation.aspx">Park Board</a> is elected citywide every four years. Parks decisions &mdash; including OLA site selection, designation changes, and programming &mdash; go through commissioners who are directly accountable at the ballot box, not through a mayoral department. This is the single biggest governance contrast with Seattle, where SPR is a mayoral department and OLA decisions sit below the waterline of political attention most of the time.</p>
+  <p>Vancouver's <a href="https://vancouver.ca/your-government/vancouver-board-of-parks-and-recreation.aspx">Park Board</a> is elected citywide every four years. Parks decisions &mdash; including OLA site selection, designation changes, and programming &mdash; go through commissioners who are directly accountable at the ballot box, rather than through a mayoral department. This is the largest governance contrast with Seattle, where SPR is a mayoral department.</p>
 
   <h3>Recent builds (2023&ndash;2026)</h3>
   <p>Under the Park Board's <a href="https://council.vancouver.ca/20251112/documents/spec1g-AppendicesAandB-2026CapitalBudget.pdf">2023&ndash;2026 Capital Plan</a>, Vancouver has opened or is completing: <a href="https://www.shapeyourcity.ca/heather-park-ola">Heather Park OLA</a> (13,000 sq ft, opened 2025), <a href="https://www.shapeyourcity.ca/granville-park-ola">Granville Park OLA</a>, <a href="https://www.shapeyourcity.ca/emery-barnes-park-ola">Emery Barnes Park OLA</a> renewal and expansion, and a renewed Cooper's Park OLA &mdash; approximately $2.1M in OLA-specific capital across the four-year cycle, with ~$1.3M spent in 2024 alone.</p>
 
   <h3>Notable: time-zoned beach access</h3>
-  <p>Vancouver uses <strong>seasonal time-restricted beach access</strong> (Spanish Banks, Sunset Beach, Kits Beach) where dogs are allowed off-leash only outside summer peak hours. This is a time-zoning model Seattle has never used &mdash; and one of the underpinnings of <a href="opinion.html#recommendation">the opinion recommendation's</a> shared-use-hours framing.</p>
+  <p>Vancouver uses <strong>seasonal time-restricted beach access</strong> (Spanish Banks, Sunset Beach, Kits Beach) where dogs are allowed off-leash only outside summer peak hours. This time-zoning model is one of the reference points for the shared-use-hours framing described on <a href="opinion.html#recommendation">the opinion page</a>.</p>
 
-  <div class="contrast">
-    <strong class="label">Contrast with Seattle</strong>
-    Two deep differences. First, governance: decisions by elected commissioners, not a mayoral department. Second, time-zoning: Vancouver accepts that the same stretch of beach can host dogs off-leash in winter mornings and be dog-free in summer afternoons. Seattle's framework has no equivalent concept of temporal shared-use; parks are either on-leash all the time or OLAs all the time.
+  <div class="observation">
+    <strong class="label">Comparison with Seattle</strong>
+    Two structural differences. First, governance: decisions by elected commissioners rather than a mayoral department. Second, time-zoning: the same stretch of Vancouver beach can host dogs off-leash in winter mornings and be dog-free in summer afternoons. Seattle's framework has no equivalent concept of temporal shared-use; parks are either on-leash at all times or OLAs at all times.
   </div>
 
   <div class="sources">
@@ -414,54 +352,54 @@
 </div>
 
 <!-- ==================================================================== -->
-<h2 id="washington-dc"><span class="num">Peer 04</span>Washington, DC &mdash; the only peer with an OLA-specific statute</h2>
-<p class="lead">DC operates <a href="https://dpr.dc.gov/page/dog-parks-00">16 designated dog parks</a> across all eight wards, all fully fenced. DC is the only peer with an <em>OLA-specific enabling statute</em>: the 2005 Dog Park Establishment Act (DC Law 16-175) defines what a Dog Park Area is, requires fencing, requires a recognized "Friends of" group to sign an MOU for stewardship, and requires environmental sign-off per site from DOEE.</p>
+<h2 class="finding" id="washington-dc"><span class="num">Peer 04</span>Washington, DC &mdash; the only peer with an OLA-specific statute</h2>
+<p class="lead">DC operates <a href="https://dpr.dc.gov/page/dog-parks-00">16 designated dog parks</a> across all eight wards, all fully fenced. DC is the only peer with an OLA-specific enabling statute: the 2005 Dog Park Establishment Act (DC Law 16-175) defines what a Dog Park Area is, requires fencing, requires a recognized "Friends of" group to sign an MOU for stewardship, and requires environmental sign-off per site from DOEE.</p>
 
 <div class="city-card">
   <div class="headline-stats">
-    <div class="stat"><div class="label">A dog park in every ward</div><div class="value">16 of 16</div><div class="note">All 8 wards covered, all fenced &mdash; DC explicitly placed sites for ward-level equity</div></div>
-    <div class="stat"><div class="label">The only peer with an OLA statute</div><div class="value">DC Law 16-175</div><div class="note">Seattle's OLAs exist under a 1997 ordinance; DC's 2005 Act legally defines what a dog park is and what stewardship it needs</div></div>
-    <div class="stat"><div class="label">Friends groups required by law</div><div class="value">1 per park</div><div class="note">Every DPA needs a recognized Friends group with a signed MOU &mdash; structural stewardship Seattle's 1997 ordinance doesn't require</div></div>
+    <div class="hstat"><div class="label">A dog park in every ward</div><div class="value">16 of 16</div><div class="note">All 8 wards covered, all fenced.</div></div>
+    <div class="hstat"><div class="label">The only peer with an OLA statute</div><div class="value">DC Law 16-175</div><div class="note">Seattle's OLAs exist under a 1997 parks ordinance; DC's 2005 Act legally defines what a dog park is and what stewardship it requires.</div></div>
+    <div class="hstat"><div class="label">Friends groups required by law</div><div class="value">1 per park</div><div class="note">Every DPA requires a recognized Friends group with a signed MOU.</div></div>
   </div>
 
   <h3>The statute that defines the system</h3>
-  <p>The <a href="https://code.dccouncil.gov/us/dc/council/laws/16-175">Dog Park Establishment Act of 2005</a> is the clearest example among peer cities of OLAs being <em>legally</em> defined rather than policy-defined. It requires:</p>
+  <p>The <a href="https://code.dccouncil.gov/us/dc/council/laws/16-175">Dog Park Establishment Act of 2005</a> is the clearest example among the eight peer cities of OLAs being legally defined rather than policy-defined. It requires:</p>
   <ul>
     <li>Each Dog Park Area must be fenced.</li>
     <li>Each DPA must have a recognized <strong>Friends of Group</strong> that signs an MOU with DPR for day-to-day stewardship (cleaning, minor maintenance, community rules enforcement).</li>
     <li>DOEE (Department of Energy &amp; Environment) must sign off on each site for environmental impact.</li>
-    <li>$2 of each dog-license fee goes to the <a href="https://code.dccouncil.gov/us/dc/council/code/sections/8-1810.01.html">Animal Education &amp; Outreach Fund</a> &mdash; a spay/neuter fund, not OLAs. So pet licenses do not fund dog parks directly.</li>
+    <li>$2 of each dog-license fee goes to the <a href="https://code.dccouncil.gov/us/dc/council/code/sections/8-1810.01.html">Animal Education &amp; Outreach Fund</a> &mdash; a spay/neuter fund, not OLAs. Pet licenses do not fund dog parks directly.</li>
   </ul>
 
   <h3>Funding</h3>
   <p>DPR general-fund operating for ongoing maintenance. Capital for new DPAs is per-project through the District Capital Improvements Plan (recent builds such as Texas Avenue DPA have come in around $1M each). No user fees or permits.</p>
 
   <h3>Access standard</h3>
-  <p>DC uses the 10-minute walk to a park standard (TPL-aligned). DC has ranked #1 on TPL's ParkScore most years since 2019, in part because of dense park coverage across all eight wards. Dog-park coverage is a deliberate ward-by-ward equity placement.</p>
+  <p>DC uses the 10-minute walk to a park standard (TPL-aligned). DC has ranked #1 on TPL's ParkScore most years since 2019, in part because of dense park coverage across all eight wards. Dog-park coverage is placed ward by ward.</p>
 
-  <div class="contrast">
-    <strong class="label">Contrast with Seattle</strong>
-    Seattle's OLAs exist under a 1997 Parks ordinance but lack statutory-level definition, lack a required stewardship structure, and lack required per-site environmental review. If Seattle's COLA wanted a template for formalizing its relationship with SPR, DC's <a href="https://code.dccouncil.gov/us/dc/council/laws/16-175">2005 Act</a> plus Arlington County's CCA Guidelines are the best existing peer models.
+  <div class="observation">
+    <strong class="label">Comparison with Seattle</strong>
+    Seattle's OLAs exist under a 1997 Parks ordinance without statutory-level definition, without a required stewardship structure, and without required per-site environmental review. Any future effort to formalize the relationship between Seattle's COLA and SPR could draw on DC's <a href="https://code.dccouncil.gov/us/dc/council/laws/16-175">2005 Act</a> and Arlington County's CCA Guidelines as existing peer templates.
   </div>
 
   <div class="sources">
     <strong>Sources:</strong>
     <a href="https://dpr.dc.gov/page/dog-parks-00">DC DPR &mdash; Dog Parks</a> &middot;
     <a href="https://code.dccouncil.gov/us/dc/council/laws/16-175">DC Law 16-175: Dog Park Establishment Act of 2005</a> &middot;
-    <a href="https://code.dccouncil.gov/us/dc/council/code/sections/8-1810.01.html">DC Code §8-1810.01 Animal Education Fund</a> &middot;
+    <a href="https://code.dccouncil.gov/us/dc/council/code/sections/8-1810.01.html">DC Code &sect;8-1810.01 Animal Education Fund</a> &middot;
     <a href="https://doh.dc.gov/service/dog-licenses">DC Health dog licensing</a>
   </div>
 </div>
 
 <!-- ==================================================================== -->
-<h2 id="minneapolis"><span class="num">Peer 05</span>Minneapolis, MN &mdash; the permit-fee model</h2>
-<p class="lead">The <a href="https://www.minneapolisparks.org/parks-destinations/dog-parks/">Minneapolis Park &amp; Recreation Board (MPRB)</a> operates nine off-leash dog parks, and is the <em>only</em> major US peer that treats OLAs as a user-pays service. Every dog using any of the nine OLAs must carry an annual permit; permit revenue is the primary funding source for OLA operations and maintenance through MPRB's dedicated Off-Leash Dog Park Enterprise Fund.</p>
+<h2 class="finding" id="minneapolis"><span class="num">Peer 05</span>Minneapolis, MN &mdash; the permit-fee model</h2>
+<p class="lead">The <a href="https://www.minneapolisparks.org/parks-destinations/dog-parks/">Minneapolis Park &amp; Recreation Board (MPRB)</a> operates nine off-leash dog parks, and is the only major US peer that treats OLAs as a user-pays service. Every dog using any of the nine OLAs must carry an annual permit; permit revenue is the primary funding source for OLA operations and maintenance through MPRB's dedicated Off-Leash Dog Park Enterprise Fund.</p>
 
 <div class="city-card">
   <div class="headline-stats">
-    <div class="stat"><div class="label">Users fund operations directly</div><div class="value">$38 / year</div><div class="note">Minneapolis resident annual permit; the only US peer where OLAs pay for themselves through user fees</div></div>
-    <div class="stat"><div class="label">Permit revenue ring-fenced</div><div class="value">Enterprise Fund</div><div class="note">Revenue goes to the Off-Leash Dog Park Enterprise Fund &mdash; dedicated OLA line item Seattle has never had</div></div>
-    <div class="stat"><div class="label">Independent Park Board</div><div class="value">Own taxing authority</div><div class="note">MPRB is a separate taxing district with its own elected commissioners, outside City Council</div></div>
+    <div class="hstat"><div class="label">Users fund operations directly</div><div class="value">$38 / year</div><div class="note">Minneapolis resident annual permit; the only US peer where OLAs are funded primarily through user fees.</div></div>
+    <div class="hstat"><div class="label">Permit revenue ring-fenced</div><div class="value">Enterprise Fund</div><div class="note">Revenue goes to the Off-Leash Dog Park Enterprise Fund, a dedicated OLA budget line.</div></div>
+    <div class="hstat"><div class="label">Independent Park Board</div><div class="value">Own taxing authority</div><div class="note">MPRB is a separate taxing district with its own elected commissioners, outside City Council.</div></div>
   </div>
 
   <h3>Permit structure</h3>
@@ -481,9 +419,9 @@
   <h3>Funding</h3>
   <p>Operations: the Off-Leash Dog Park Enterprise Fund is a ring-fenced budget line funded almost entirely by permit revenue. MPRB publishes the fund's revenue and expenses in its annual CAFR. Capital for new OLAs comes from MPRB's general capital budget (property-tax-funded), separate from the Enterprise Fund.</p>
 
-  <div class="contrast">
-    <strong class="label">Contrast with Seattle</strong>
-    Minneapolis's permit system is the <em>only</em> live US precedent for OLA permit revenue funding OLA operations. Roughly 180,000 dogs in Minneapolis at any point would &mdash; if every one carried a $38 annual permit &mdash; generate ~$7M/yr, a full order of magnitude above Seattle's current ~$100&ndash;130K/yr disclosed OLA operating line. Whether a permit model is politically viable in Seattle is a separate question; it <em>exists</em> as a live precedent.
+  <div class="observation">
+    <strong class="label">Comparison with Seattle</strong>
+    Minneapolis's permit system is the only live US precedent for OLA permit revenue funding OLA operations. Roughly 180,000 dogs in Minneapolis at any point would &mdash; if every one carried a $38 annual permit &mdash; generate ~$7M/yr, a full order of magnitude above Seattle's ~$100&ndash;130K/yr disclosed OLA operating line for the Cycle 1 window. Whether a permit model is politically viable in Seattle is a separate question; it exists as a live precedent.
   </div>
 
   <div class="sources">
@@ -496,25 +434,25 @@
 </div>
 
 <!-- ==================================================================== -->
-<h2 id="new-york"><span class="num">Peer 06</span>New York City &mdash; the shared-use hours model</h2>
-<p class="lead">NYC operates both dedicated fenced dog runs <em>and</em> a city-wide <a href="https://www.nycgovparks.org/news/press-releases?id=19877">Off-Leash Hours policy</a> formally codified on May 10, 2007 (informally since ~1986). In designated areas of participating parks, licensed and vaccinated dogs may be off-leash from park-opening until 9 AM and from 9 PM until park-close. The designated footprint spans <em>dozens</em> of parks across all five boroughs, dwarfing Seattle's 14 fenced OLAs.</p>
+<h2 class="finding" id="new-york"><span class="num">Peer 06</span>New York City &mdash; the shared-use hours model</h2>
+<p class="lead">NYC operates both dedicated fenced dog runs and a city-wide <a href="https://www.nycgovparks.org/news/press-releases?id=19877">Off-Leash Hours policy</a> formally codified on May 10, 2007 (informally since ~1986). In designated areas of participating parks, licensed and vaccinated dogs may be off-leash from park-opening until 9 AM and from 9 PM until park-close. The designated footprint spans dozens of parks across all five boroughs.</p>
 
 <div class="city-card">
   <div class="headline-stats">
-    <div class="stat"><div class="label">Shared-use has run for two decades</div><div class="value">19 years</div><div class="note">Formally codified 2007 and never rolled back; informal operation since ~1986 &mdash; a durability test Seattle hasn't taken</div></div>
-    <div class="stat"><div class="label">Dogs off-leash outside peak hours</div><div class="value">9 PM &ndash; 9 AM</div><div class="note">Parks stay dog-friendly at low-traffic times and family-friendly when busy &mdash; shared use, not either/or</div></div>
-    <div class="stat"><div class="label">Participating parks in five boroughs</div><div class="value">dozens</div><div class="note">Central Park alone has 23 dog-friendly zones; NYC's off-leash footprint dwarfs Seattle's 14 fenced OLAs</div></div>
+    <div class="hstat"><div class="label">Shared-use has run for two decades</div><div class="value">19 years</div><div class="note">Formally codified 2007; informal operation since ~1986.</div></div>
+    <div class="hstat"><div class="label">Dogs off-leash outside peak hours</div><div class="value">9 PM &ndash; 9 AM</div><div class="note">Parks remain dog-friendly at low-traffic times and leash-only when busy.</div></div>
+    <div class="hstat"><div class="label">Participating parks in five boroughs</div><div class="value">dozens</div><div class="note">Central Park alone has 23 dog-friendly zones.</div></div>
   </div>
 
   <h3>How it works</h3>
   <p>Participating parks designate specific zones where dogs may be off-leash during the two daily windows. Outside those windows, normal leash rules apply and are enforced by NYPD, NYC Parks Enforcement Patrol, Department of Health, and Department of Sanitation. Dogs must be licensed and currently vaccinated for rabies; owners must be present and in control. Central Park has 23 dog-friendly areas (no enclosed dog runs). Prospect Park uses 5&ndash;9 AM and 9 PM&ndash;1 AM. Forest Park, Riverside Park, Van Cortlandt, and dozens of neighborhood parks participate under the citywide framework.</p>
 
-  <h3>Does it work? The honest answer</h3>
-  <p>NYC does not publish a longitudinal evaluation &mdash; no official "is Off-Leash Hours working" report with trend lines for citations, complaints, or injury rates. The proxy is durability: nineteen years of formal operation across multiple administrations with different political postures on parks, no reversal, and no serious move to kill the policy. NRPA's November 2018 <em>Parks &amp; Recreation</em> law-review treats the NYC model as the mature US example; Boston and Chicago run parallel variations.</p>
+  <h3>Outcomes evidence</h3>
+  <p>NYC does not publish a longitudinal evaluation &mdash; no official report with trend lines for citations, complaints, or injury rates. The available proxy is durability: nineteen years of formal operation across multiple administrations, no reversal, and no sustained move to repeal the policy. NRPA's November 2018 <em>Parks &amp; Recreation</em> law-review treats the NYC model as the mature US example; Boston and Chicago run parallel variations.</p>
 
-  <div class="contrast">
-    <strong class="label">Contrast with Seattle</strong>
-    NYC runs shared-use off-leash hours across <em>dozens</em> of parks alongside its dedicated dog runs. Seattle runs 14 fenced OLAs and nothing else &mdash; no shared-use hours, no voice-control areas, no time-zoned access. If Seattle piloted this, a well-instrumented Seattle evaluation (tracking citations, FIFI complaints, injury reports, and post-session cleanliness audits, as <a href="opinion.html#recommendation">the opinion recommendation</a> proposes) could become the quantitative outcomes-tracking analysis NYC's 19-year history doesn't offer.
+  <div class="observation">
+    <strong class="label">Comparison with Seattle</strong>
+    NYC runs shared-use off-leash hours across dozens of parks alongside its dedicated dog runs. Seattle runs 14 fenced OLAs &mdash; no shared-use hours, no voice-control areas, no time-zoned access. A Seattle pilot of this model, instrumented to track citations, Find It Fix It complaints, injury reports, and post-session cleanliness audits (as <a href="opinion.html#recommendation">the opinion page</a> proposes), would produce quantitative outcomes data of a kind NYC's 19-year history does not supply.
   </div>
 
   <div class="sources">
@@ -523,25 +461,25 @@
     <a href="https://www.nycgovparks.org/facilities/dogareas">NYC Parks &mdash; Dog-Friendly Areas directory</a> &middot;
     <a href="https://council.nyc.gov/public-advocate/dog-run-and-off-leash-area-locations/">NYC Council &mdash; Dog Run &amp; Off-Leash Area Locations</a> &middot;
     <a href="https://www.nrpa.org/parks-recreation-magazine/2018/november/courtesy-hours-for-off-leash-dogs-in-public-parks/">NRPA Parks &amp; Recreation &mdash; Courtesy Hours (Nov 2018)</a> &middot;
-    <a href="https://codelibrary.amlegal.com/codes/newyorkcity/latest/NYCrules/0-0-0-47057">NYC Rules §161.03 &mdash; Control of Dogs</a>
+    <a href="https://codelibrary.amlegal.com/codes/newyorkcity/latest/NYCrules/0-0-0-47057">NYC Rules &sect;161.03 &mdash; Control of Dogs</a>
   </div>
 </div>
 
 <!-- ==================================================================== -->
-<h2 id="austin"><span class="num">Peer 07</span>Austin, TX &mdash; the acreage-headline trap</h2>
-<p class="lead">Austin is cited in several popular "most dog-friendly cities" rankings for its enormous off-leash acreage (~682 acres). That figure is misleading for apples-to-apples comparison: Austin counts large natural-area parks with voice-control designation, not the fenced dedicated OLAs that Seattle, Portland, and most peer cities count. The fenced-OLA comparable is closer to ~80 acres, one-eighth of the headline.</p>
+<h2 class="finding" id="austin"><span class="num">Peer 07</span>Austin, TX &mdash; the acreage-headline caveat</h2>
+<p class="lead">Austin is cited in several popular "most dog-friendly cities" rankings for its large off-leash acreage (~682 acres). That figure is not apples-to-apples for peer comparison: Austin counts large natural-area parks with voice-control designation, rather than the fenced dedicated OLAs that Seattle, Portland, and most peer cities count. The fenced-OLA comparable is closer to ~80 acres, one-eighth of the headline.</p>
 
 <div class="city-card">
   <div class="headline-stats">
-    <div class="stat"><div class="label">Apples-to-apples with Seattle</div><div class="value">~80 ac</div><div class="note">Fenced off-leash acreage — the number to use when comparing cities</div></div>
-    <div class="stat"><div class="label">Apples-to-watermelons</div><div class="value">682 ac</div><div class="note">Includes 293-ac Walnut Creek Metro Park and natural-area voice-control sites</div></div>
-    <div class="stat"><div class="label">~2× Seattle per capita</div><div class="value">0.78 ac / 10K</div><div class="note">Fenced OLA acreage per capita vs Seattle's 0.38. On dog-parks-per-100K (TPL), Austin's 1.28 is below Seattle's 1.82.</div></div>
+    <div class="hstat"><div class="label">Apples-to-apples with Seattle</div><div class="value">~80 ac</div><div class="note">Fenced off-leash acreage &mdash; the figure used for cross-city comparison.</div></div>
+    <div class="hstat"><div class="label">Headline total (all definitions)</div><div class="value">682 ac</div><div class="note">Includes 293-ac Walnut Creek Metro Park and natural-area voice-control sites.</div></div>
+    <div class="hstat"><div class="label">~2&times; Seattle per capita</div><div class="value">0.78 ac / 10K</div><div class="note">Fenced OLA acreage per capita vs Seattle's 0.38. On dog-parks-per-100K (TPL), Austin's 1.28 is below Seattle's 1.82.</div></div>
   </div>
-  <p><a href="https://www.austintexas.gov/department/dog-parks">Austin Parks &amp; Recreation</a> maintains a directory of 16 off-leash areas that explicitly distinguishes fenced dog parks, voice-control dog zones, and natural-area off-leash sites. The cross-city headline ranking works if you include everything on that list; the capital-cost-per-acre comparison to Seattle or Portland fenced sites does not.</p>
-  <p>The <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/peer-cities.csv">peer-cities.csv</a> carries both numbers for Austin and uses the fenced-only figure (<code>ola_acres_total_est = 80</code>) for per-capita math, with Walnut Creek Metropolitan Park's 293-acre voice-control footprint called out as the biggest single inflator. Any peer-city comparison on this site that cites Austin uses the adjusted figure; readers chasing the Austin headline elsewhere will find the 682 number and should know which number they are reading.</p>
-  <div class="contrast">
-    <strong class="label">Why this matters for Seattle</strong>
-    When advocates or reporters cite Austin as a comparison city, always ask which number. The 682-acre figure is real but incomparable to Seattle's fenced 30.7 acres. The ~80-acre figure is the honest comparator, and on that basis Austin has roughly 2× Seattle's fenced-OLA acreage per capita (0.78 ac/10K vs 0.38) &mdash; meaningfully more, but nothing close to the 22&times; implied by the headline. On dog-parks-per-100K (TPL's count), Austin actually trails Seattle (1.28 vs 1.82).
+  <p><a href="https://www.austintexas.gov/department/dog-parks">Austin Parks &amp; Recreation</a> maintains a directory of 16 off-leash areas that distinguishes fenced dog parks, voice-control dog zones, and natural-area off-leash sites. Cross-city headline rankings work if everything on that list is included; capital-cost-per-acre comparison to Seattle or Portland fenced sites does not.</p>
+  <p>The <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/peer-cities.csv">peer-cities.csv</a> carries both numbers for Austin and uses the fenced-only figure (<code>ola_acres_total_est = 80</code>) for per-capita math, with Walnut Creek Metropolitan Park's 293-acre voice-control footprint called out as the biggest single inflator. Any peer-city comparison on this site that cites Austin uses the adjusted figure.</p>
+  <div class="observation">
+    <strong class="label">Notes on interpretation</strong>
+    When Austin is cited as a comparison city, which figure is being quoted matters. The 682-acre number is real but not directly comparable to Seattle's fenced 30.7 acres. The ~80-acre figure is the fenced-only comparator, and on that basis Austin has roughly 2&times; Seattle's fenced-OLA acreage per capita (0.78 ac/10K vs 0.38). On dog-parks-per-100K (TPL's count), Austin trails Seattle (1.28 vs 1.82).
   </div>
   <div class="sources">
     <strong>Sources:</strong>
@@ -552,23 +490,23 @@
 </div>
 
 <!-- ==================================================================== -->
-<h2 id="boise"><span class="num">Peer 08</span>Boise, ID &mdash; the best-in-class baseline</h2>
-<p class="lead">Boise is the counter-example that defeats the "Seattle is different because it's a big city" argument. Boise has roughly a third of Seattle's population and more than four times the dog parks per capita. It is the best-in-class city on this metric by a wide margin, and the reason is neither size nor budget.</p>
+<h2 class="finding" id="boise"><span class="num">Peer 08</span>Boise, ID &mdash; layered access in a smaller city</h2>
+<p class="lead">Boise has roughly a third of Seattle's population and more than four times the dog parks per capita, using each city's own published count. This peer is relevant because the supply gap is not explained by city size or density alone.</p>
 
 <div class="city-card">
   <div class="headline-stats">
-    <div class="stat"><div class="label">Fenced permanent</div><div class="value">7</div><div class="note">Apples-to-apples with Seattle's 14 — still 1.6× per capita</div></div>
-    <div class="stat"><div class="label">Seasonal / time-windowed</div><div class="value">11</div><div class="note">Designated-hours off-leash access at existing multi-use parks</div></div>
-    <div class="stat"><div class="label">One-third Seattle's size</div><div class="value">240K</div><div class="note">And runs a working shared-use program Seattle has never tried</div></div>
+    <div class="hstat"><div class="label">Fenced permanent</div><div class="value">7</div><div class="note">Apples-to-apples with Seattle's 14; still ~1.6&times; per capita.</div></div>
+    <div class="hstat"><div class="label">Seasonal / time-windowed</div><div class="value">11</div><div class="note">Designated-hours off-leash access at existing multi-use parks.</div></div>
+    <div class="hstat"><div class="label">Population</div><div class="value">240K</div><div class="note">Roughly one-third of Seattle's 816K.</div></div>
   </div>
-  <p>Boise's off-leash system has two layers Seattle does not: <strong>seven fenced permanent</strong> sites comparable to what Seattle counts, plus <strong>eleven additional parks with designated off-leash hours</strong> in the existing multi-use park network. The seasonal program (Ann Morrison Park, Optimist and Simplot Sports Complexes) lets dogs off-leash during winter months when sports fields are inactive.</p>
-  <div class="contrast">
-    <strong class="label">Why this matters for Seattle</strong>
-    The defense of Seattle's low OLA count is usually "it's too dense to build dog parks." Boise is <em>smaller</em>, not denser, so that's a population-scale argument we can test. Boise runs 7 fenced sites for 240K people; Seattle runs 14 for 816K. That gap closes when you apply apples-to-apples methodology — but then Boise's seasonal program adds 11 more. The layered model, not the raw count, is the thing Seattle hasn't tried.
+  <p>Boise's off-leash system has two layers Seattle does not: <strong>seven fenced permanent</strong> sites comparable to what Seattle counts, plus <strong>eleven additional parks with designated off-leash hours</strong> in the existing multi-use park network. The seasonal program (Ann Morrison Park, Optimist and Simplot Sports Complexes) allows dogs off-leash during winter months when sports fields are inactive.</p>
+  <div class="observation">
+    <strong class="label">Notes on interpretation</strong>
+    A common response to Seattle's OLA count is that the city is too dense to build more dog parks. Boise is smaller rather than denser, so a population-scale argument is testable here. Boise runs 7 fenced sites for 240K people; Seattle runs 14 for 816K. The gap narrows when fenced-only methodology is applied uniformly, but Boise's seasonal program then adds 11 more sites. The two-layer model (permanent fenced plus time-windowed shared-use) is the design choice Seattle has not used.
   </div>
-  <div class="data-gap" style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--accent-4); padding: 10px 14px; background: rgba(166,138,46,0.08); border-left: 2px solid var(--accent-4); margin: 14px 0; line-height: 1.55;">
-    <strong style="color: var(--accent-4); text-transform: uppercase; letter-spacing: 0.12em; font-size: 10px; display: block; margin-bottom: 3px;">Data note</strong>
-    peer-cities.csv carries the combined count (18) for headline per-capita math. For fenced-only comparability to Seattle, use 7. Both figures are in the Boise PARD directory; <code>counting_methodology</code> column flags the mix.
+  <div class="data-note">
+    <strong class="tag">Data note</strong>
+    peer-cities.csv carries the combined count (18) for headline per-capita math. For fenced-only comparability to Seattle, use 7. Both figures are in the Boise PARD directory; the <code>counting_methodology</code> column flags the mix.
   </div>
   <div class="sources">
     <strong>Sources:</strong>
@@ -578,21 +516,36 @@
 </div>
 
 <!-- ==================================================================== -->
-<h2 id="takeaways">Takeaways across the eight peers</h2>
-<p>Pulling the six detail pages together, four observations emerge:</p>
+<h2 id="takeaways">Observations across the eight peers</h2>
+<p>Four observations emerge from the per-city detail above:</p>
 <ol>
-  <li><strong>Nobody publishes a dog-park-specific walkshed standard.</strong> Every peer uses the same 10-minute / half-mile standard that TPL, NRPA, ULI, NPS, and CDC use for parks generally. SPR's 2.5-mile OLA-specific standard is a peer-city outlier by 5×.</li>
-  <li><strong>Two cities have elected park bodies (Vancouver, Minneapolis).</strong> Those are also the two cities with the most ambitious OLA planning and, in Minneapolis's case, the only dedicated OLA revenue model. Governance structure and OLA outcomes appear correlated.</li>
-  <li><strong>DC is the only peer with OLA-specific legislation.</strong> Seattle's OLAs exist under a 1997 Parks ordinance with no statutory definition, no required stewardship structure, and no required environmental review per site. Formalizing this would be structurally new in Seattle.</li>
-  <li><strong>Shared-use models are widely precedented.</strong> Portland (voice-control), Vancouver (time-zoned beaches), and NYC (Off-Leash Hours) each run a flavor of shared-use that Seattle has not tried. The argument in <a href="opinion.html#recommendation">the opinion recommendation</a> is not radical &mdash; it is already the default in multiple peer cities.</li>
+  <li><strong>No peer publishes a dog-park-specific walkshed standard.</strong> Every peer uses the same 10-minute / half-mile standard that TPL, NRPA, ULI, NPS, and CDC use for parks generally. SPR's 2.5-mile OLA-specific standard is 5&times; the distance used by peer cities for parks overall.</li>
+  <li><strong>Two cities have elected park bodies (Vancouver, Minneapolis).</strong> Those are also the two cities with the most detailed OLA planning documents and, in Minneapolis's case, the only dedicated OLA revenue model among the peers.</li>
+  <li><strong>DC is the only peer with OLA-specific legislation.</strong> Seattle's OLAs exist under a 1997 Parks ordinance with no statutory definition, no required stewardship structure, and no required environmental review per site.</li>
+  <li><strong>Shared-use models are widely precedented.</strong> Portland (voice-control), Vancouver (time-zoned beaches), NYC (Off-Leash Hours), and Boise (seasonal time-windowed) each run a form of shared-use that Seattle does not currently use.</li>
 </ol>
 
+<div class="takeaway neutral">
+  <span class="kicker">Cross-peer pattern</span>
+  <p>Seven of the eight peer cities operate at least one form of shared-use, time-zoned, or voice-control access alongside fenced dedicated OLAs. Seattle's all-fenced, single-designation model is the outlier in this set of cities.</p>
+</div>
+
+<nav class="paginate" aria-label="Report navigation">
+  <a href="enforcement.html" class="prev">
+    <span class="kicker">&larr; Previous</span>
+    <span class="title">Enforcement</span>
+  </a>
+  <a href="opinion.html" class="next">
+    <span class="kicker">Next &rarr;</span>
+    <span class="title">Opinion &amp; Recommendation</span>
+  </a>
+</nav>
+
 <footer>
-  <p>Source code and all data: <a href="https://github.com/avrignaud/seattledogparkdata">github.com/avrignaud/seattledogparkdata</a> &middot; MIT license covers author-written code and analysis. Primary data: SPR public records, Seattle Open Data, U.S. Census — all public record. TPL ParkServe data is redistributed under TPL's own <a href="https://www.tpl.org/park-data-downloads">terms of use</a>.</p>
-  <p>Basic Cloudflare Web Analytics for uptime and load time only. No cookies, no personal tracking, no ad networks. &middot; <a href="opinion.html#about">About this project</a></p>
+  <p>Source code and all data: <a href="https://github.com/avrignaud/seattledogparkdata">github.com/avrignaud/seattledogparkdata</a> &middot; MIT license covers author-written code and analysis. Primary data: SPR public records, Seattle Open Data, U.S. Census &mdash; all public record. TPL ParkServe data is redistributed under TPL's own <a href="https://www.tpl.org/park-data-downloads">terms of use</a>.</p>
+  <p><a href="seattle-dog-parks-report.pdf">Download full report (PDF)</a> &middot; Corrections: <a href="https://github.com/avrignaud/seattledogparkdata/issues">issue tracker</a> &middot; <a href="opinion.html#about">About this project</a></p>
 </footer>
 
-</div>
-</main>
+</div></main>
 </body>
 </html>

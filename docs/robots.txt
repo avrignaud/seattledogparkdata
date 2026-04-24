@@ -3,10 +3,11 @@ Allow: /
 Disallow: /mockups.html
 Disallow: /mockup-a.html
 Disallow: /mockup-b.html
+Disallow: /mockup-landing.html
 Disallow: /mockup-part1.html
 Disallow: /mockup-part2.html
 Disallow: /mockup-part3.html
 Disallow: /proposal-maclean.html
-Disallow: /report.html
+Disallow: /print.html
 
 Sitemap: https://seattledogparkdata.com/sitemap.xml

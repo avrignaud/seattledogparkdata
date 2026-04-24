@@ -18,13 +18,11 @@ const ROOT = path.resolve(__dirname, '..');
 const DOCS = path.join(ROOT, 'docs');
 const OUT  = path.join(DOCS, 'seattle-dog-parks-report.pdf');
 
-// As of April 2026, the report is generated from a single dedicated
-// print template (docs/print.html) with print-first CSS. The template
-// condenses the six-page website into one long document with data
-// tables instead of Chart.js charts — Chromium's PDF engine handles
-// this cleanly at Letter size. The earlier multi-page concatenation
-// approach produced 87 visually-noisy pages because each HTML page
-// carried web-first responsive CSS.
+// The report is generated from a single consolidated print template
+// (docs/print.html) with print-first CSS. The template condenses every
+// site page into one long document and handles its own page breaks.
+// Puppeteer emulates SCREEN so Chart.js + Leaflet actually draw, and
+// the pdf() call then applies the template's @media print rules.
 const PAGES = [
   'print.html',
 ];
@@ -80,7 +78,7 @@ async function renderPageToPdf(browser, baseUrl, page) {
   await p.goto(u, { waitUntil: 'networkidle0', timeout: 90_000 });
   // Chart.js, Leaflet tile loads, font-load, and image decode all settle a
   // beat after networkidle. Wait for the walkshed geojson + map tiles to
-  // finish, and extend the fallback timer generously.
+  // finish, then an extra buffer for charts + font paint.
   try {
     await p.waitForFunction('window.__walkshedReady === true', { timeout: 30_000 });
   } catch {}

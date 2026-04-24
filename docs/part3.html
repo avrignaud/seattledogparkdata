@@ -17,140 +17,62 @@
 <link rel="canonical" href="https://seattledogparkdata.com/part3.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
 <style>
-  .skip-link { position: absolute; top: -40px; left: 0; background: #121820; color: #F6F2E9; padding: 8px 16px; z-index: 100; text-decoration: none; font-family: 'IBM Plex Mono', monospace; font-size: 12px; }
-  .skip-link:focus { top: 0; }
-
-  :root {
-    --bg: #F6F2E9;
-    --ink: #121820;
-    --ink-soft: #3C4A5C;
-    --rule: #D8CFBD;
-    --accent: #C04A1E;
-    --accent-2: #4C6B54;
-    --accent-3: #2C4A6E;
-    --accent-4: #A68A2E;
-    --danger: #8B2518;
+  /* Part III-specific: three-card TOC with big numerals */
+  .toc-p3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 40px 0 72px;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body {
-    background: var(--bg);
-    color: var(--ink);
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-weight: 300;
-    font-size: 17px;
-    line-height: 1.65;
-    -webkit-font-smoothing: antialiased;
-  }
-  .container { max-width: 980px; margin: 0 auto; padding: 48px 32px 96px; }
-  .masthead {
-    border-top: 6px solid var(--accent);
-    border-bottom: 1px solid var(--rule);
-    padding: 24px 0 20px;
-    margin-bottom: 28px;
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--ink-soft);
-  }
-  .masthead .dateline { font-weight: 500; color: var(--accent); }
-  nav.report-nav {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 10px 0 20px;
-    border-bottom: 1px solid var(--rule);
-    margin-bottom: 36px;
-    display: flex;
-    gap: 24px;
-    flex-wrap: wrap;
-  }
-  nav.report-nav a { color: var(--ink-soft); text-decoration: none; }
-  nav.report-nav a:hover, nav.report-nav a.active { color: var(--accent); }
-  nav.report-nav a.active { font-weight: 500; }
-  h1.hed {
-    font-family: 'Fraunces', serif;
-    font-weight: 800;
-    font-size: 56px;
-    line-height: 1.02;
-    letter-spacing: -0.025em;
-    margin-bottom: 20px;
-    max-width: 820px;
-  }
-  h1.hed em { font-style: italic; font-weight: 400; color: var(--accent-3); }
-  .deck {
-    font-family: 'Fraunces', serif;
-    font-size: 21px;
-    line-height: 1.45;
-    font-weight: 300;
-    color: var(--ink-soft);
-    max-width: 780px;
-    margin-bottom: 40px;
-  }
-  h2 {
-    font-family: 'Fraunces', serif;
-    font-size: 32px;
-    line-height: 1.15;
-    font-weight: 600;
-    letter-spacing: -0.015em;
-    margin-top: 56px;
-    margin-bottom: 6px;
-  }
-  h2 .num {
-    font-family: 'IBM Plex Mono', monospace;
-    font-weight: 400;
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    color: var(--accent);
-    display: block;
-    margin-bottom: 10px;
-    text-transform: uppercase;
-  }
-  h3 {
-    font-family: 'Fraunces', serif;
-    font-size: 22px;
-    line-height: 1.25;
-    font-weight: 600;
-    margin: 24px 0 8px;
-  }
-  p { margin-bottom: 16px; max-width: 720px; }
-  p.lead { font-size: 18px; line-height: 1.55; }
-  p a, li a, td a { color: var(--accent-3); text-decoration: underline; text-underline-offset: 2px; }
-  p a:hover, li a:hover { color: var(--accent); }
-  ul, ol { margin-left: 22px; margin-bottom: 16px; max-width: 720px; }
-  li { margin-bottom: 6px; }
-  .draft-banner {
-    background: rgba(166,138,46,0.12);
-    border: 1px solid var(--accent-4);
-    border-left: 3px solid var(--accent-4);
-    padding: 14px 18px;
-    margin: 0 0 32px;
-    font-size: 14px;
-    line-height: 1.55;
-    max-width: 820px;
-  }
-  .draft-banner strong {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--accent-4);
-    display: block;
-    margin-bottom: 4px;
-    font-weight: 500;
-  }
-  .profile-card {
+  .toc-p3 a {
+    background: var(--surface);
     border: 1px solid var(--rule);
-    border-radius: 2px;
-    padding: 24px 28px;
-    margin: 24px 0;
-    background: #fff;
+    border-radius: 16px;
+    padding: 24px 24px 22px;
+    text-decoration: none;
+    color: var(--ink);
+    display: flex;
+    flex-direction: column;
+    transition: border-color .15s, transform .15s;
+  }
+  .toc-p3 a:hover { border-color: var(--ink); transform: translateY(-2px); }
+  .toc-p3 .kicker { margin-bottom: 14px; }
+  .toc-p3 .idx {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 40px;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: var(--orange);
+    margin-bottom: 12px;
+    font-variant-numeric: tabular-nums;
+  }
+  .toc-p3 h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: -0.018em;
+    line-height: 1.2;
+    margin: 0 0 6px;
+  }
+  .toc-p3 p {
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    margin: 0;
+    line-height: 1.5;
+    max-width: none;
+  }
+
+  /* Profile card (per-OLA): mirrors .chart-block styling for consistency */
+  .profile-card {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 16px;
+    padding: 28px 28px 24px;
+    margin: 32px 0;
   }
   .profile-card h3 { margin-top: 0; }
   .profile-card .headline-stats {
@@ -159,248 +81,288 @@
     gap: 18px;
     margin: 16px 0 18px;
   }
-  .headline-stats .stat {
-    border-left: 3px solid var(--accent-3);
-    padding: 4px 0 4px 12px;
+  .profile-card .hs-stat {
+    border-left: 3px solid var(--navy);
+    padding: 4px 0 4px 14px;
   }
-  .headline-stats .stat .label {
+  .profile-card .hs-stat .label {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.14em;
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--ink-soft);
     margin-bottom: 4px;
   }
-  .headline-stats .stat .value {
-    font-family: 'Fraunces', serif;
+  .profile-card .hs-stat .value {
+    font-family: 'Space Grotesk', sans-serif;
     font-size: 24px;
-    font-weight: 600;
+    font-weight: 500;
     line-height: 1.1;
+    letter-spacing: -0.02em;
   }
-  .headline-stats .stat .note {
-    font-size: 12px;
+  .profile-card .hs-stat .small-note {
+    font-size: 12.5px;
     color: var(--ink-soft);
-    margin-top: 2px;
-    line-height: 1.35;
+    margin-top: 4px;
+    line-height: 1.4;
   }
-  .data-gap {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 12px;
-    color: var(--accent-4);
-    padding: 10px 14px;
-    background: rgba(166,138,46,0.08);
-    border-left: 2px solid var(--accent-4);
-    margin: 14px 0;
-    line-height: 1.55;
-    max-width: 720px;
-  }
-  .data-gap strong { color: var(--accent-4); text-transform: uppercase; letter-spacing: 0.12em; font-size: 10px; display: block; margin-bottom: 3px; }
-  .note-box {
-    background: #fff;
-    border: 1px solid var(--rule);
-    border-left: 3px solid var(--accent-3);
-    padding: 16px 20px;
-    margin: 22px 0;
-    font-size: 15px;
-    line-height: 1.6;
-    max-width: 820px;
-  }
-  .quick-nav {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin: 24px 0 36px;
+  .profile-card .sources {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-  .quick-nav a {
-    padding: 6px 12px;
-    border: 1px solid var(--rule);
-    border-radius: 2px;
-    color: var(--ink);
-    text-decoration: none;
-    background: #fff;
-  }
-  .quick-nav a:hover { border-color: var(--accent); color: var(--accent); }
-  .sources {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    color: var(--ink-soft);
-    padding-top: 10px;
-    border-top: 1px dashed var(--rule);
-    margin-top: 18px;
+    color: var(--ink-faint);
+    padding-top: 14px;
+    border-top: 1px solid var(--rule-soft);
+    margin-top: 16px;
     line-height: 1.55;
     word-break: break-word;
-    max-width: 820px;
+    letter-spacing: 0.02em;
   }
-  .sources strong {
+  .profile-card .sources strong {
     font-size: 10px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--accent-3);
+    color: var(--ink-soft);
+    font-weight: 500;
+    display: inline;
+  }
+  .profile-card .sources a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px dotted var(--ink-faint); }
+  .profile-card .sources a:hover { color: var(--orange); border-bottom-color: var(--orange); }
+
+  /* Data-gap note: gold border, factual register */
+  .data-gap {
+    font-size: 14px;
+    color: var(--ink);
+    padding: 12px 16px;
+    background: var(--gold-soft);
+    border-left: 3px solid var(--gold);
+    border-radius: 6px;
+    margin: 16px 0;
+    line-height: 1.55;
+    max-width: 68ch;
+  }
+  .data-gap strong {
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 10.5px;
+    display: block;
+    margin-bottom: 4px;
+    font-weight: 500;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* Scoped sources block used outside profile cards */
+  .sources-line {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-faint);
+    padding-top: 14px;
+    border-top: 1px solid var(--rule-soft);
+    margin: 24px 0 0;
+    line-height: 1.6;
+    word-break: break-word;
+    letter-spacing: 0.02em;
+    max-width: none;
+  }
+  .sources-line strong {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
     font-weight: 500;
   }
-  footer {
-    margin-top: 72px;
-    padding-top: 24px;
-    border-top: 1px solid var(--rule);
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 12px;
-    color: var(--ink-soft);
-    line-height: 1.6;
-  }
-  footer a { color: var(--accent-3); text-decoration: underline; }
-  @media (max-width: 700px) {
-    h1.hed { font-size: 40px; }
-    .profile-card { padding: 18px; }
-    .headline-stats { grid-template-columns: 1fr; }
-  }
-  @media (max-width: 480px) {
-    .container { padding: 32px 18px 64px; }
-    h1.hed { font-size: 34px; }
-    h2 { font-size: 24px; }
-    h3 { font-size: 18px; }
+  .sources-line a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px dotted var(--ink-faint); }
+  .sources-line a:hover { color: var(--orange); border-bottom-color: var(--orange); }
+
+  @media (max-width: 900px) {
+    .toc-p3 { grid-template-columns: 1fr; }
+    .profile-card .headline-stats { grid-template-columns: 1fr; }
   }
 </style>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
-<main id="main"><div class="container">
+<main id="main"><div class="wrap">
 
-<header class="masthead">
-  <span>SEATTLE DOG PARK DATA</span>
-  <span class="dateline">APRIL 2026</span>
-</header>
-
-<nav class="report-nav" aria-label="Site navigation">
-  <a href="index.html">Overview</a>
-  <a href="part1-the-gap.html">Part I — The Gap</a>
-  <a href="part2-access.html">Part II — Access</a>
-  <a href="part3.html" class="active">Part III — Forward</a>
-  <a href="enforcement.html">Enforcement</a>
-  <a href="budget.html">Budget</a>
-  <a href="peer-cities.html">Peer Cities</a>
-  <a href="opinion.html">Opinion</a>
-</nav>
-
-<h1 class="hed">What works, and what Seattle <em>hasn't tried</em>.</h1>
-<p class="deck">Parts I and II document the supply gap and the access gap. Part III looks forward: three questions worth pressing on. Which of Seattle's existing OLAs actually function well, and why? What does shared-use look like in cities that have run it for decades? And what public land outside Seattle Parks' portfolio could host off-leash space without a single new Park District dollar?</p>
-
-<div class="draft-banner">
-  <strong>Forward-looking &middot; data gaps flagged inline</strong>
-  Parts I and II document the supply and access failures using data SPR and the Census publish. Part III looks forward, and some of the underlying research involves public-records requests still outstanding, organizational records not publicly indexed, and peer-city operational data that isn't separately published. Each section names what we have, what we don't, and what's still open. If you have on-the-record material on any of these topics — especially COLA records, SPR internal memos, or peer-city operational data — see the contact line at the bottom.
+<div class="topbar">
+  <a class="brand" href="index.html">
+    <img class="mark" src="favicon.svg" alt="">
+    <span>Seattle Dog Park Data</span>
+  </a>
+  <nav class="nav" aria-label="Site navigation">
+    <a href="index.html">Overview</a>
+    <a href="part1-the-gap.html">The Gap</a>
+    <a href="part2-access.html">Access</a>
+    <a href="part3.html" class="active">Forward</a>
+    <a href="enforcement.html">Enforcement</a>
+    <a href="budget.html">Budget</a>
+    <a href="peer-cities.html">Peer Cities</a>
+    <a href="opinion.html">Opinion</a>
+  </nav>
 </div>
 
-<div class="quick-nav">
-  <a href="#what-works">What works</a>
-  <a href="#shared-use">Shared-use models</a>
-  <a href="#non-spr-land">Non-SPR land</a>
+<div class="masthead">
+  <span class="dateline">Part III: Forward &middot; Seattle Dog Park Data &middot; seattledogparkdata.com</span>
+  <span>APRIL 2026</span>
+</div>
+
+<header class="hero">
+  <span class="kicker orange part-label">Part III &middot; Forward</span>
+  <h1 class="hed">What works, and what Seattle <em>hasn't tried</em>.</h1>
+  <p class="deck">Parts I and II document the supply gap and the access gap. Part III looks forward through three questions: which of Seattle's existing OLAs function well and why, what shared-use looks like in cities that have run it for decades, and what public land outside Seattle Parks' portfolio could host off-leash space without a new Park District dollar.</p>
+  <div class="byline">
+    <strong>Andre Vrignaud</strong> &middot; Part III &middot; Updated April 2026
+  </div>
+</header>
+
+<div class="note-box">
+  <strong class="tag">About this page</strong>
+  Parts I and II document supply and access using data SPR and the Census publish. Part III looks forward, and some of the underlying research involves public-records requests still outstanding, organizational records not publicly indexed, and peer-city operational data that is not separately published. Each section names what is available, what is not, and what is still open. Corrections and primary materials on any of these topics &mdash; COLA records, SPR internal memos, or peer-city operational data &mdash; are welcome via <a href="https://github.com/avrignaud/seattledogparkdata/issues">the issue tracker</a>.
+</div>
+
+<div class="toc-p3">
+  <a href="#what-works">
+    <span class="kicker orange">Section 3a</span>
+    <div class="idx">01</div>
+    <h3>What works</h3>
+    <p>Three Seattle OLAs that consistently draw community praise, and the governance and design they share.</p>
+  </a>
+  <a href="#shared-use">
+    <span class="kicker orange">Section 3b</span>
+    <div class="idx">02</div>
+    <h3>Shared-use</h3>
+    <p>The off-leash-hours model. How New York, Boston, and Chicago run time-windowed access in existing parks.</p>
+  </a>
+  <a href="#non-spr-land">
+    <span class="kicker orange">Section 3c</span>
+    <div class="idx">03</div>
+    <h3>Non-SPR land</h3>
+    <p>WSDOT, Seattle City Light, Port of Seattle &mdash; public land SPR does not manage but Seattle hosts.</p>
+  </a>
 </div>
 
 <!-- ==================================================================== -->
-<h2 id="what-works"><span class="num">Finding 03a</span>What works: the three Seattle OLAs people actually love</h2>
-<p class="lead">The enforcement data on <a href="enforcement.html">Enforcement</a> shows where the system is failing. It is equally worth asking where the system is working. Three of Seattle's 14 OLAs consistently turn up in community praise, appear on visitor "best-of" lists, and generate sustained volunteer participation. Each has a different organizational structure behind it.</p>
+<h2 class="finding" id="what-works"><span class="num">Finding 03a</span>What works: three Seattle OLAs that draw sustained community support.</h2>
+<p class="lead">The <a href="enforcement.html">Enforcement</a> data shows where the system is failing. It is equally worth asking where it is working. Three of Seattle's 14 OLAs consistently turn up in community praise, appear on visitor "best-of" lists, and generate sustained volunteer participation. Each has a different organizational structure behind it.</p>
 
 <div class="profile-card">
-  <h3>Magnuson Park &mdash; the volunteer-steward model</h3>
+  <h3>Magnuson &mdash; the volunteer-steward model</h3>
   <div class="headline-stats">
-    <div class="stat"><div class="label">Acres</div><div class="value">9.0</div><div class="note">Largest OLA in Seattle; only one with water access to Lake Washington</div></div>
-    <div class="stat"><div class="label">Opened</div><div class="value">1996 / 1999</div><div class="note">1996 pilot trial &middot; 1999 permanent designation &middot; former NAS Sand Point</div></div>
-    <div class="stat"><div class="label">Steward</div><div class="value">MOLG</div><div class="note">All-volunteer 501(c)(3), founded 1999, EIN 91-2059268</div></div>
+    <div class="hs-stat"><div class="label">Acres</div><div class="value">9.0</div><div class="small-note">Largest OLA in Seattle; only one with water access to Lake Washington</div></div>
+    <div class="hs-stat"><div class="label">Opened</div><div class="value">1996 / 1999</div><div class="small-note">1996 pilot trial &middot; 1999 permanent designation &middot; former NAS Sand Point</div></div>
+    <div class="hs-stat"><div class="label">Steward</div><div class="value">MOLG</div><div class="small-note">All-volunteer 501(c)(3), founded 1999, EIN 91-2059268</div></div>
   </div>
-  <p>Magnuson is a structural outlier on every dimension: land area, physical features (shoreline, gravel paths, woods), and governance. <a href="https://magnusondogpark.org/">Magnuson Off-Leash Group</a> is a 501(c)(3) nonprofit that raises donations, runs volunteer maintenance days, and partners formally with Seattle Parks. It is the closest thing Seattle has to the Portland or San Francisco &ldquo;dog park friends&rdquo; model where a local nonprofit partners with the parks department.</p>
-  <p>The 248 citations logged at Magnuson 2014&ndash;2019 (<a href="enforcement.html">Enforcement top-20</a>) need to be read in context: Magnuson is the biggest park with the biggest footprint, most citations happen on the non-OLA portions (athletic fields, shoreline outside the fenced OLA), and MOLG's presence increases both compliance inside the OLA and reporting of violations outside it. The park draws traffic from across the region, not just the surrounding neighborhoods &mdash; a pattern you'd expect a nine-acre destination OLA to generate.</p>
+  <p>Magnuson is a structural outlier on land area, physical features (shoreline, gravel paths, woods), and governance. <a href="https://magnusondogpark.org/">Magnuson Off-Leash Group</a> is a 501(c)(3) nonprofit that raises donations, runs volunteer maintenance days, and partners formally with Seattle Parks. It is the closest parallel in Seattle to the Portland or San Francisco "dog park friends" model in which a local nonprofit partners with the parks department.</p>
+  <p>The 248 citations logged at Magnuson 2014&ndash;2019 (<a href="enforcement.html">Enforcement top-20</a>) read in context: Magnuson is the biggest park with the biggest footprint, most citations occur on the non-OLA portions (athletic fields, shoreline outside the fenced OLA), and MOLG's presence raises both compliance inside the OLA and reporting of violations outside it. The park draws traffic from across the region, not just the surrounding neighborhoods.</p>
   <div class="data-gap"><strong>Data gap</strong>
   Still open: MOLG's most recent IRS 990 (volunteer hours, donation volume, expense lines); copy of the MOLG&ndash;SPR memorandum; MOLG-captured usage counts if any exist.</div>
-  <div class="sources"><strong>Sources</strong> · <a href="https://www.seattle.gov/parks/parks/magnuson-park/off-leash-area">SPR: Magnuson Off-Leash Area</a> · <a href="https://magnusondogpark.org/">Magnuson Off-Leash Group (MOLG)</a> · <a href="https://www.historylink.org/File/2281">HistoryLink: June 15, 1996 trial opening</a> · <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">data/seattle-olas.csv</a></div>
+  <div class="sources"><strong>Sources</strong> &middot; <a href="https://www.seattle.gov/parks/parks/magnuson-park/off-leash-area">SPR: Magnuson Off-Leash Area</a> &middot; <a href="https://magnusondogpark.org/">Magnuson Off-Leash Group (MOLG)</a> &middot; <a href="https://www.historylink.org/File/2281">HistoryLink: June 15, 1996 trial opening</a> &middot; <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">data/seattle-olas.csv</a></div>
 </div>
 
 <div class="profile-card">
   <h3>Genesee &mdash; the COLA-steward model</h3>
   <div class="headline-stats">
-    <div class="stat"><div class="label">Acres</div><div class="value">2.7</div><div class="note">Third-largest Seattle OLA; small-dog area separated</div></div>
-    <div class="stat"><div class="label">Opened</div><div class="value">2005</div><div class="note">Genesee Park &amp; Playfield, Columbia City / Rainier Valley</div></div>
-    <div class="stat"><div class="label">Steward</div><div class="value">COLA</div><div class="note"><a href="https://www.seattlecola.info">Citizens for Off-Leash Areas</a>, 501(c)(3), system-wide SPR partner since 1996</div></div>
+    <div class="hs-stat"><div class="label">Acres</div><div class="value">2.7</div><div class="small-note">Third-largest Seattle OLA; small-dog area separated</div></div>
+    <div class="hs-stat"><div class="label">Opened</div><div class="value">2005</div><div class="small-note">Genesee Park &amp; Playfield, Columbia City / Rainier Valley</div></div>
+    <div class="hs-stat"><div class="label">Steward</div><div class="value">COLA</div><div class="small-note"><a href="https://www.seattlecola.info">Citizens for Off-Leash Areas</a>, 501(c)(3), system-wide SPR partner since 1996</div></div>
   </div>
-  <p><a href="https://www.seattlecola.info">COLA</a> is the system-wide advocacy and stewardship group for Seattle's OLAs, and Genesee is one of the sites where COLA's volunteer stewardship is most visible. COLA organized the 1996 resolution that created the year-long OLA pilot (<a href="https://www.historylink.org/File/2281">Magnuson opened as the first site on June 15, 1996</a>) and the 1997 City Council vote that made OLAs permanent. The organization has held formal memoranda with Seattle Parks for most of the intervening decades and steward-volunteers continue to show up at Genesee, Westcrest, and other OLAs. Where MOLG is site-specific to Magnuson, COLA works across the whole system.</p>
-  <p>Genesee's physical design choices have held up: small-dog-separated area, multiple gates, drainage that handles Seattle winters, and the 130 citations logged there 2014&ndash;2019 include many from the larger Genesee Park &amp; Playfield (athletic fields) rather than the OLA itself.</p>
+  <p><a href="https://www.seattlecola.info">COLA</a> is the system-wide advocacy and stewardship group for Seattle's OLAs, and Genesee is one of the sites where COLA's volunteer stewardship is most visible. COLA organized the 1996 resolution that created the year-long OLA pilot (<a href="https://www.historylink.org/File/2281">Magnuson opened as the first site on June 15, 1996</a>) and the 1997 City Council vote that made OLAs permanent. The organization has held formal memoranda with Seattle Parks for most of the intervening decades, and steward-volunteers continue to show up at Genesee, Westcrest, and other OLAs. Where MOLG is site-specific to Magnuson, COLA works across the whole system.</p>
+  <p>Genesee's physical design has held up: small-dog-separated area, multiple gates, drainage that handles Seattle winters. The 130 citations logged there 2014&ndash;2019 include many from the larger Genesee Park &amp; Playfield (athletic fields) rather than the OLA itself.</p>
   <div class="data-gap"><strong>Data gap</strong>
-  Still open: COLA organizational documents (current board, current SPR memorandum); verified quote from Genesee users on what works about the site vs. what doesn't.</div>
-  <div class="sources"><strong>Sources</strong> · <a href="https://www.seattlecola.info">Citizens for Off-Leash Areas (seattlecola.info)</a> · <a href="https://www.seattlecola.info">COLA &mdash; Our Story</a> · <a href="https://council.seattle.gov/2011/06/07/for-the-dogs-furry-5k-and-the-great-work-of-citizens-for-off-leash-areas/">Seattle City Council blog (2011) on COLA</a> · <a href="https://www.seattle.gov/parks/recreation/dog-off-leash-areas?id=398">SPR: Genesee OLA</a></div>
+  Still open: COLA organizational documents (current board, current SPR memorandum); verified quotes from Genesee users on what works about the site and what does not.</div>
+  <div class="sources"><strong>Sources</strong> &middot; <a href="https://www.seattlecola.info">Citizens for Off-Leash Areas (seattlecola.info)</a> &middot; <a href="https://www.seattlecola.info">COLA &mdash; Our Story</a> &middot; <a href="https://council.seattle.gov/2011/06/07/for-the-dogs-furry-5k-and-the-great-work-of-citizens-for-off-leash-areas/">Seattle City Council blog (2011) on COLA</a> &middot; <a href="https://www.seattle.gov/parks/recreation/dog-off-leash-areas?id=398">SPR: Genesee OLA</a></div>
 </div>
 
 <div class="profile-card">
   <h3>Westcrest &mdash; the recent-investment model</h3>
   <div class="headline-stats">
-    <div class="stat"><div class="label">Acres</div><div class="value">8.4</div><div class="note">Second-largest OLA; 2021&ndash;2022 renovation</div></div>
-    <div class="stat"><div class="label">Investment</div><div class="value">$505K</div><div class="note">Park District Major Maintenance &amp; Asset Management Fund, 2021&ndash;2022</div></div>
-    <div class="stat"><div class="label">Partners</div><div class="value">HPAC + COLA</div><div class="note">Highland Park Action Committee on-site; COLA credited for ongoing stewardship</div></div>
+    <div class="hs-stat"><div class="label">Acres</div><div class="value">8.4</div><div class="small-note">Second-largest OLA; 2021&ndash;2022 renovation</div></div>
+    <div class="hs-stat"><div class="label">Investment</div><div class="value">$505K</div><div class="small-note">Park District Major Maintenance &amp; Asset Management Fund, 2021&ndash;2022</div></div>
+    <div class="hs-stat"><div class="label">Partners</div><div class="value">HPAC + COLA</div><div class="small-note">Highland Park Action Committee on-site; COLA credited for ongoing stewardship</div></div>
   </div>
-  <p>Westcrest is what happens when Seattle actually funds an OLA renovation. The <a href="https://parkways.seattle.gov/2022/06/13/seattle-parks-and-recreation-opens-renovated-and-improved-westcrest-off-leash-area/">2021&ndash;2022 Park District renovation</a> addressed drainage, erosion control, access/parking, and accessibility improvements after seven months of closure, reopening June 10, 2022. Scope was maintenance-driven, not a full rebuild: rock-lined swales, piping and outfalls, sediment traps, regraded high-use areas, and accessible pathways. Community input came through the Highland Park Action Committee (HPAC), with ongoing stewardship credited to COLA.</p>
-  <p>It is also the demand case for capital investment: Westcrest's 86 enforcement-data citations 2014&ndash;2019 are lower than the four biggest host parks, and the site generates persistent community advocacy rather than persistent enforcement pressure. Per-acre, Westcrest is doing closer to what Magnuson does on nine acres than what Kinnear does on 0.1.</p>
+  <p>Westcrest is an example of a funded OLA renovation. The <a href="https://parkways.seattle.gov/2022/06/13/seattle-parks-and-recreation-opens-renovated-and-improved-westcrest-off-leash-area/">2021&ndash;2022 Park District renovation</a> addressed drainage, erosion control, access/parking, and accessibility after seven months of closure, reopening June 10, 2022. Scope was maintenance-driven, not a full rebuild: rock-lined swales, piping and outfalls, sediment traps, regraded high-use areas, and accessible pathways. Community input came through the Highland Park Action Committee (HPAC); ongoing stewardship is credited to COLA.</p>
+  <p>Westcrest's 86 enforcement-data citations 2014&ndash;2019 are lower than those of the four biggest host parks, and the site generates sustained community advocacy. Per-acre, Westcrest operates closer to Magnuson's scale than to Kinnear's 0.1 acres.</p>
   <div class="data-gap"><strong>Data gap</strong>
-  Still open: post-renovation usage or satisfaction data (MOLG-style volunteer counts exist for Magnuson; Westcrest equivalent is not documented).</div>
-  <div class="sources"><strong>Sources</strong> · <a href="https://parkways.seattle.gov/2022/06/13/seattle-parks-and-recreation-opens-renovated-and-improved-westcrest-off-leash-area/">Parkways blog (June 13, 2022) &mdash; reopening and scope</a> · <a href="https://www.seattle.gov/parks/allparks/westcrest-park">SPR: Westcrest Park</a> · <a href="https://hpaction.org/">Highland Park Action Committee</a></div>
+  Still open: post-renovation usage or satisfaction data (MOLG-style volunteer counts exist for Magnuson; a Westcrest equivalent is not documented).</div>
+  <div class="sources"><strong>Sources</strong> &middot; <a href="https://parkways.seattle.gov/2022/06/13/seattle-parks-and-recreation-opens-renovated-and-improved-westcrest-off-leash-area/">Parkways blog (June 13, 2022) &mdash; reopening and scope</a> &middot; <a href="https://www.seattle.gov/parks/allparks/westcrest-park">SPR: Westcrest Park</a> &middot; <a href="https://hpaction.org/">Highland Park Action Committee</a></div>
 </div>
 
-<div class="note-box"><strong>What the three profiles share.</strong> None of the three have anything to do with enforcement. Each has a named community partner, a specific governance structure, and a site that is physically large enough to absorb demand without breaking. Magnuson at nine acres, Genesee at 2.7, Westcrest at 8.4 &mdash; compare to Kinnear at 0.124. The <em>access</em> story is about distance; the <em>design</em> story is about size plus stewardship.</div>
+<div class="takeaway neutral">
+  <span class="kicker">What the three profiles share</span>
+  <p>Each has a named community partner, a specific governance structure, and enough physical area to absorb demand: Magnuson at 9.0 acres, Westcrest at 8.4, Genesee at 2.7 &mdash; compared to Kinnear at 0.124. The access story in Part II is about distance; the design story here is about size plus stewardship.</p>
+</div>
 
 <!-- ==================================================================== -->
-<h2 id="shared-use"><span class="num">Finding 03b</span>Shared-use: the off-leash-hours model</h2>
-<p class="lead">Several American cities solve the supply problem without building a single new fenced OLA: they designate time-windowed off-leash access in existing parks. The policy has been in formal operation in New York City since 2007, and in functional operation for roughly two decades. If adopted in Seattle, it would expand access dramatically without new capital expenditure.</p>
+<h2 class="finding" id="shared-use"><span class="num">Finding 03b</span>Shared-use: the off-leash-hours model in peer cities.</h2>
+<p class="lead">Several U.S. cities designate time-windowed off-leash access in existing parks rather than building new fenced OLAs. The policy has been in formal operation in New York City since 2007, and in functional operation for roughly two decades. Adoption in Seattle would expand access without new capital expenditure.</p>
 
 <h3>New York City &mdash; formal since 2007, functional longer</h3>
-<p>New York's current Dog Friendly Areas policy designates specific parks (or sub-areas within parks) where dogs may be off-leash between 9pm and 9am. NYC Parks maintains the <a href="https://www.nycgovparks.org/facilities/dogareas">official list</a> of Dog-Friendly Areas and off-leash-hours parks. The formalization happened in 2007 via <a href="https://www.nycgovparks.org/news/press-releases?id=19877">a 2007 NYC Parks rulemaking action</a>; the operational pattern predated formalization by a decade or more.</p>
-<p>As of April 2026, no public post-2018 longitudinal evaluation of the policy's outcomes is searchable &mdash; a finding worth treating as a boundary condition rather than an endorsement. What <em>is</em> in the public record: the policy has not been rolled back, has not produced the feared liability outcomes, and is cited by secondary sources as a working example of shared-use.</p>
+<p>New York's current Dog Friendly Areas policy designates specific parks (or sub-areas within parks) where dogs may be off-leash between 9pm and 9am. NYC Parks maintains the <a href="https://www.nycgovparks.org/facilities/dogareas">official list</a> of Dog-Friendly Areas and off-leash-hours parks. Formalization happened in 2007 via <a href="https://www.nycgovparks.org/news/press-releases?id=19877">a 2007 NYC Parks rulemaking action</a>; the operational pattern predated formalization by a decade or more.</p>
+<p>As of April 2026, no public post-2018 longitudinal evaluation of the policy's outcomes is searchable &mdash; a boundary condition for interpreting the model. What is in the public record: the policy has not been rolled back, has not produced the liability outcomes that were initially feared, and is cited by secondary sources as a working example of shared-use.</p>
 <div class="data-gap"><strong>Data gap</strong>
-Still open: NYC Parks internal operational data on off-leash hours enforcement, injury/complaint statistics 2007&ndash;present, comparison cities that formally evaluated similar policies.</div>
+Still open: NYC Parks internal operational data on off-leash hours enforcement, injury and complaint statistics 2007&ndash;present, and comparison cities that formally evaluated similar policies.</div>
 
 <h3>Boston, Chicago, and variants</h3>
 <p>Boston and Chicago each run variants of shared-use access. Chicago's Dog-Friendly Areas (DFAs) are closer to Seattle's fenced-dedicated model than to NYC's time-windowed shared-use, but Chicago also allows specific park areas to operate on an off-leash basis during defined hours. Boston's approach is less formalized but includes documented time-windowed use at specific parks.</p>
 <div class="data-gap"><strong>Data gap</strong>
-Still open: city-by-city operational documents for Boston and Chicago, clear scope of time-windowed vs. fenced-dedicated at each; a one-page comparison table that makes the policy-space legible.</div>
+Still open: city-by-city operational documents for Boston and Chicago, clear scope of time-windowed vs. fenced-dedicated at each, and a comparison table that makes the policy space legible.</div>
 
-<div class="note-box"><strong>Why this matters for Seattle.</strong> Seattle's existing 14 OLAs cover 11.7% of residents within a 10-minute walk (<a href="part2-access.html#finding-01">Part II Finding 01</a>). Time-windowed access to existing large parks &mdash; Green Lake, Volunteer Park, Lincoln Park, Seward Park, Discovery Park &mdash; would potentially raise coverage dramatically without the multi-year capital timelines of building new dedicated OLAs. The <a href="opinion.html">Opinion page</a> argues for this explicitly.</div>
+<div class="takeaway neutral">
+  <span class="kicker">Relevance to Seattle</span>
+  <p>Seattle's 14 OLAs cover 11.7% of residents within a 10-minute walk (<a href="part2-access.html#finding-01">Part II Finding 01</a>). Time-windowed access to existing large parks &mdash; Green Lake, Volunteer Park, Lincoln Park, Seward Park, Discovery Park &mdash; would change the coverage figure without the multi-year capital timelines of building new dedicated OLAs. The <a href="opinion.html">Opinion page</a> takes a position on this; the mechanism itself is a matter of peer-city record.</p>
+</div>
 
-<div class="sources"><strong>Sources</strong> · <a href="https://www.nycgovparks.org/facilities/dogareas">NYC Parks Dog Friendly Areas</a> · <a href="https://www.nycgovparks.org/news/press-releases?id=19877">NYC Parks 2007 press release</a></div>
+<p class="sources-line"><strong>Sources</strong> &middot; <a href="https://www.nycgovparks.org/facilities/dogareas">NYC Parks Dog Friendly Areas</a> &middot; <a href="https://www.nycgovparks.org/news/press-releases?id=19877">NYC Parks 2007 press release</a></p>
 
 <!-- ==================================================================== -->
-<h2 id="non-spr-land"><span class="num">Finding 03c</span>Non-SPR land: public space SPR doesn't manage</h2>
-<p class="lead">Seattle's OLA supply is bounded by Seattle Parks &amp; Recreation's real-estate portfolio. It does not have to be. Significant acreage of other public land inside Seattle city limits &mdash; WSDOT right-of-way, Seattle City Light transmission corridors, Port of Seattle property &mdash; is, under current rules, unused for off-leash recreation. COLA flagged this in its comments on SPR's 2023 Off-Leash Area Expansion Study: <em>SPR did not consider non-SPR public land.</em></p>
+<h2 class="finding" id="non-spr-land"><span class="num">Finding 03c</span>Non-SPR land: public space SPR does not manage.</h2>
+<p class="lead">Seattle's OLA supply is bounded by Seattle Parks &amp; Recreation's real-estate portfolio. Significant acreage of other public land inside city limits &mdash; WSDOT right-of-way, Seattle City Light transmission corridors, Port of Seattle property &mdash; is, under current rules, unused for off-leash recreation. COLA raised this in its comments on SPR's 2023 Off-Leash Area Expansion Study: the study did not consider non-SPR public land.</p>
 
 <h3>WSDOT &mdash; state highway right-of-way</h3>
-<p>The Washington State Department of Transportation manages land adjacent to every state-numbered road in the city. Some of that land is unusable (active lanes, on-ramps), but a significant amount is landscaped setback, substantially fenced, and physically distant from active traffic. I-5 Colonnade &mdash; an existing Seattle OLA &mdash; is literally <em>under</em> I-5 on WSDOT land, demonstrating the principle.</p>
+<p>The Washington State Department of Transportation manages land adjacent to every state-numbered road in the city. Some of that land is unusable (active lanes, on-ramps), but a portion is landscaped setback, substantially fenced, and physically distant from active traffic. I-5 Colonnade &mdash; an existing Seattle OLA &mdash; sits under I-5 on WSDOT land, a functioning precedent.</p>
 <div class="data-gap"><strong>Data gap</strong>
 Still open: inventory of WSDOT-managed parcels inside Seattle city limits that could host off-leash use without a lane closure; WSDOT's formal policy on recreational use of right-of-way (if any); the I-5 Colonnade agreement as a template.</div>
 
 <h3>Seattle City Light &mdash; transmission corridors and utility property</h3>
-<p>Seattle City Light owns transmission corridors running across the city. Several already host informal recreational use (walking trails, community gardens). These are typically fenced, signed, and maintained on a predictable schedule, which is closer to &ldquo;compatible with off-leash use&rdquo; than almost any other non-Parks category of public land.</p>
+<p>Seattle City Light owns transmission corridors running across the city. Several already host informal recreational use (walking trails, community gardens). These are typically fenced, signed, and maintained on a predictable schedule &mdash; attributes compatible with off-leash use relative to most other non-Parks categories of public land.</p>
 <div class="data-gap"><strong>Data gap</strong>
-Still open: City Light's recreational-use policy for transmission corridors; identified corridors with minimum-1-acre contiguous flat ground; any existing precedent for dog-specific use.</div>
+Still open: City Light's recreational-use policy for transmission corridors; identified corridors with a minimum of one acre of contiguous flat ground; any existing precedent for dog-specific use.</div>
 
 <h3>Port of Seattle &mdash; waterfront and industrial-adjacent</h3>
-<p>The Port of Seattle owns substantial waterfront property. Most is industrial and security-restricted, but there are parcels at the edges &mdash; landscape buffer, parking, unused waterfront &mdash; where off-leash use could be compatible with the Port's operational constraints.</p>
+<p>The Port of Seattle owns substantial waterfront property. Most is industrial and security-restricted, but parcels at the edges &mdash; landscape buffer, parking, unused waterfront &mdash; may be compatible with off-leash use within the Port's operational constraints.</p>
 <div class="data-gap"><strong>Data gap</strong>
 Still open: Port of Seattle asset inventory inside Seattle city limits; Port's public-access policy; precedent for Port&ndash;SPR partnerships on recreational use.</div>
 
-<div class="note-box"><strong>The systemic observation.</strong> Seattle has a multi-agency public-land footprint that is substantially larger than SPR's portfolio alone. If the policy question is framed as &ldquo;where can SPR build a new OLA on SPR land?&rdquo; the answer is &ldquo;slowly, expensively, and on a multi-decade cycle.&rdquo; If the policy question is framed as &ldquo;where inside Seattle city limits is there public land where dogs could be off-leash without triggering a new capital project?&rdquo; the answer is &ldquo;a significant amount, across three agencies SPR has not historically partnered with.&rdquo; That frame shift is what <a href="opinion.html">the Opinion page</a> argues for.</div>
+<div class="takeaway neutral">
+  <span class="kicker">Framing observation</span>
+  <p>Seattle's multi-agency public-land footprint is larger than SPR's portfolio alone. Framed as "where can SPR build a new OLA on SPR land?" the answer is a multi-decade capital cycle. Framed as "where inside city limits is there public land where dogs could be off-leash without a new capital project?" the answer involves three agencies SPR has not historically partnered with on this use. The <a href="opinion.html">Opinion page</a> argues for the second framing; this page documents the land.</p>
+</div>
 
-<div class="sources"><strong>Sources</strong> · <a href="https://www.seattle.gov/parks/about-us/plans-and-reports/recreation-plans-and-reports/off-leash-area-study">SPR Off-Leash Area Expansion Study (2023&ndash;24)</a> · <a href="https://www.seattlecola.info">COLA comments on the Expansion Study</a> · <a href="https://wsdot.wa.gov/">WSDOT</a> · <a href="https://www.seattle.gov/city-light">Seattle City Light</a> · <a href="https://www.portseattle.org/">Port of Seattle</a></div>
+<p class="sources-line"><strong>Sources</strong> &middot; <a href="https://www.seattle.gov/parks/about-us/plans-and-reports/recreation-plans-and-reports/off-leash-area-study">SPR Off-Leash Area Expansion Study (2023&ndash;24)</a> &middot; <a href="https://www.seattlecola.info">COLA comments on the Expansion Study</a> &middot; <a href="https://wsdot.wa.gov/">WSDOT</a> &middot; <a href="https://www.seattle.gov/city-light">Seattle City Light</a> &middot; <a href="https://www.portseattle.org/">Port of Seattle</a></p>
 
 <!-- ==================================================================== -->
-<h2 id="closing"><span class="num">Part III &middot; closing</span>What we're asking for</h2>
-<p>Part III is the forward-looking half of this project. The three sections above sketch the argument for each direction and name the specific primary sources that would strengthen it further. If you have materials on any of the three &mdash; Magnuson stewardship records, NYC/Boston/Chicago operational data, or WSDOT/City Light/Port recreational-use policies &mdash; the contact line on the <a href="index.html">Overview page</a> is the fastest way in.</p>
+<h2 class="finding" id="closing"><span class="num">Part III &middot; closing</span>Open lines for primary source material.</h2>
+<p>Part III is the forward-looking half of this project. The three sections above sketch each direction and name the specific primary sources that would strengthen them. Materials on any of the three &mdash; Magnuson stewardship records, NYC/Boston/Chicago operational data, or WSDOT/City Light/Port recreational-use policies &mdash; can be submitted via the <a href="https://github.com/avrignaud/seattledogparkdata/issues">project issue tracker</a>.</p>
 
-<p>The <a href="opinion.html">Opinion &amp; Recommendation page</a> is where the policy argument lives. This page is where the case studies and implementation options sit. The two are meant to be read together.</p>
+<p>The <a href="opinion.html">Opinion &amp; Recommendation page</a> is where the policy argument lives. This page documents the case studies and implementation options. The two are meant to be read together.</p>
+
+<!-- =============================================================== -->
+<nav class="paginate">
+  <a href="part2-access.html" class="prev">
+    <span class="kicker">&larr; Previous</span>
+    <span class="title">Part II &mdash; Access</span>
+  </a>
+  <a href="enforcement.html" class="next">
+    <span class="kicker">Next &rarr;</span>
+    <span class="title">Enforcement</span>
+  </a>
+</nav>
 
 <footer>
-  <p>Part III &middot; April 2026. Blocks marked &ldquo;Data gap&rdquo; name specific primary sources we haven't been able to verify; every other claim on this page links to its source. Corrections to <a href="https://github.com/avrignaud/seattledogparkdata/issues">the project issue tracker</a>.</p>
-  <p><a href="index.html">&larr; Back to Overview</a></p>
+  <p>Part III &middot; April 2026. Blocks marked "Data gap" name specific primary sources we have not been able to verify; every other claim on this page links to its source. Source code and all underlying data: <a href="https://github.com/avrignaud/seattledogparkdata">github.com/avrignaud/seattledogparkdata</a>. MIT license covers author-written code and analysis. Corrections: <a href="https://github.com/avrignaud/seattledogparkdata/issues">issue tracker</a>.</p>
+  <p><a href="seattle-dog-parks-report.pdf">Download full report (PDF)</a> &middot; <a href="opinion.html#about">About this project</a></p>
 </footer>
 
-</div>
-</main>
+</div></main>
 </body>
 </html>
