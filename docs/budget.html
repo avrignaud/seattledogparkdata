@@ -12,12 +12,18 @@
 <meta property="og:url" content="https://seattledogparkdata.com/budget.html">
 <meta property="og:site_name" content="Seattle Dog Park Data">
 <meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://seattledogparkdata.com/images/social-card.png">
+<meta name="twitter:image" content="https://seattledogparkdata.com/images/social-card.png">
+<link rel="canonical" href="https://seattledogparkdata.com/budget.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js" integrity="sha384-DhxhYObIMeMNGyAG7iK11OHzBIKyEIeRL0ad1iFPAOwZB8iirUlTT0O/WJJUk8+o" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0" integrity="sha384-y49Zu59jZHJL/PLKgZPv3k2WI9c0Yp3pWB76V8OBVCb0QBKS8l4Ff3YslzHVX76Y" crossorigin="anonymous"></script>
 <style>
+  .skip-link { position: absolute; top: -40px; left: 0; background: #121820; color: #F6F2E9; padding: 8px 16px; z-index: 100; text-decoration: none; font-family: 'IBM Plex Mono', monospace; font-size: 12px; }
+  .skip-link:focus { top: 0; }
+
   :root {
     --bg: #F6F2E9;
     --ink: #121820;
@@ -350,7 +356,8 @@
 </style>
 </head>
 <body>
-<div class="container">
+<a class="skip-link" href="#main">Skip to content</a>
+<main id="main"><div class="container">
 
 <div class="masthead">
   <div class="dateline">Budget Deep Dive · A Dog Park Data Story · Seattle, WA</div>
@@ -463,13 +470,13 @@
 
 <!-- ==================================================================== -->
 <h2><span class="num">Chart 02</span>OLA budget as a percentage of SPR total</h2>
-<p class="lead">Expressed as a share, the OLA investment is so small it rounds to zero at any reasonable precision. Using only the publicly disclosed OLA-only figures, the <strong>highest</strong> share ever recorded was 0.064% in 2018. Post-2018 bars on the chart use the combined OLA + P-Patch "Maintaining Parks &amp; Facilities" line because SPR no longer publishes the OLA-only split — so those bars are an <em>upper bound</em>, not the OLA share itself.</p>
+<p class="lead">Expressed as a share, the OLA investment is so small it rounds to zero at any reasonable precision. Using only the publicly disclosed OLA-only figures, the <strong>highest</strong> share ever recorded was 0.064% in 2016 ($100K of $156M); by 2018 the same $100K line had slipped to 0.06% as the SPR total grew. Post-2018 bars on the chart use the combined OLA + P-Patch "Maintaining Parks &amp; Facilities" line because SPR no longer publishes the OLA-only split &mdash; so those bars are an <em>upper bound</em>, not the OLA share itself.</p>
 
 <div class="chart-block">
   <div class="chart-title">OLA-related budget as a share of SPR total, 2016&ndash;2026</div>
   <div class="chart-subtitle">Bars plot share in basis points (1 bp = 0.01%). Solid bars are SPR's publicly-disclosed OLA-only operating figure + any Cycle 2 capital. Hollow/dashed bars are the combined OLA + P-Patch "Maintaining Parks &amp; Facilities" BSL (SPR does not publish the OLA-only split for 2019&ndash;2022 or 2025&ndash;2026) — those bars <em>overstate</em> the OLA share. A proportional baseline of 25% (SPR's own 2016 survey finding for the share of Seattle residents using OLAs) is <strong>2,500 basis points</strong> — not shown, because it would render the actual bars as invisible.</div>
   <div class="chart-wrap"><canvas id="chartPercentage" role="img" aria-label="Bar chart: OLA budget as a percentage of SPR total, 2016-2026. Never exceeded 0.1%."></canvas></div>
-  <div class="note-box"><strong>What this shows:</strong> the tallest <em>disclosed OLA-only</em> bar is 2018 at <strong>6.4 basis points</strong> (0.064% of SPR spending). If OLA spending were proportional to the share of Seattle residents who use OLAs — <a href="https://www.seattle.gov/parks/about-us/policies-and-plans/people-dogs-and-parks-strategic-plan">25% according to SPR's own 2016 survey</a> — the bars would be roughly <strong>390× taller</strong>. The hollow bars for 2025&ndash;2026 reach ~100 bp (~1%) because they include P-Patch community gardens <em>and</em> the one-time Cycle 2 OLA construction capital; the OLA-only slice is smaller and SPR does not publish it.</div>
+  <div class="note-box"><strong>What this shows:</strong> the tallest <em>disclosed OLA-only</em> bar is 2016 at <strong>6.4 basis points</strong> (0.064% of SPR spending); by 2018 it was 6.0 bp. If OLA spending were proportional to the share of Seattle residents who use OLAs — <a href="https://www.seattle.gov/parks/about-us/policies-and-plans/people-dogs-and-parks-strategic-plan">25% according to SPR's own 2016 survey</a> — the bars would be roughly <strong>390× taller</strong>. The hollow bars for 2025&ndash;2026 reach ~100 bp (~1%) because they include P-Patch community gardens <em>and</em> the one-time Cycle 2 OLA construction capital; the OLA-only slice is smaller and SPR does not publish it.</div>
   <div class="chart-source">Source: Seattle budget books (SPR total) · <a href="https://www.seattle.gov/parks/about-us/policies-and-plans/people-dogs-and-parks-strategic-plan">SPR People, Dogs and Parks Strategic Plan (2017)</a> · raw calculation in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/budget-detail.csv">data/budget-detail.csv</a></div>
 </div>
 
@@ -504,7 +511,7 @@
     <thead><tr><th>City</th><th class="num">OLA operating, latest disclosed</th><th>Mechanism</th></tr></thead>
     <tbody>
       <tr><td>Seattle</td><td class="num">$129K (2024)</td><td>Budget-book line; not separately reported post-2024</td></tr>
-      <tr><td>Minneapolis</td><td class="num">Enterprise Fund (permit-funded)</td><td>Dedicated ring-fenced OLA fund; annual revenue/expense in <a href="https://www.minneapolisparks.org/about_us/leadership__financials/annual_financial_reports/">MPRB CAFR</a></td></tr>
+      <tr><td>Minneapolis</td><td class="num">Enterprise Fund (permit-funded)</td><td>Dedicated ring-fenced OLA fund; annual revenue/expense in <a href="https://www.minneapolisparks.org/about-us/budget-financial/">MPRB CAFR</a></td></tr>
     </tbody>
   </table>
   <p style="margin: 0; max-width: 780px; font-size: 15px;">Minneapolis's <a href="peer-cities.html#minneapolis">Off-Leash Dog Park Enterprise Fund</a> is the only US precedent for OLA operating costs paid by user fees ($38/year resident permit, first dog). That's not necessarily the right policy for Seattle, but it is the only peer city where a reader can verify &mdash; line-item, in a published CAFR &mdash; what their city spends on OLAs. For everyone else, the OLA share is buried inside parks maintenance totals. <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/prrs/03-spr-ola-budget-split.md">PRR #3</a> asks SPR to restart publishing the Seattle split; equivalent PRRs to peer-city parks departments would be needed to construct a defensible dollars-per-dog comparison.</p>
@@ -610,7 +617,7 @@ The Park District Cycle 2 one-time capital of $3.46M is presented by SPR as a si
 <div class="chart-source">Source: <a href="https://www.seattle.gov/documents/Departments/FinanceDepartment/2631poposedcip/2026-2031%20Proposed%20CIP%20Book.pdf">Seattle 2026-2031 Proposed Capital Improvement Program</a> · <a href="https://www.seattle.gov/parks/about-us/projects/west-seattle-stadium-off-leash-area-development">SPR West Seattle Stadium project page</a></div>
 
 <!-- ==================================================================== -->
-<h2><span class="num">Finding 08</span>How peer cities fund their off-leash areas</h2>
+<h2 id="finding-08"><span class="num">Finding 08</span>How peer cities fund their off-leash areas</h2>
 <p class="lead">Seattle's ~$100&ndash;130K/yr disclosed OLA operating line looks sparse next to peer cities — but so does everyone else's. Four of the five peer cities with OLA systems worth studying (Portland, San Francisco, Vancouver BC, Washington DC) also don't publish an OLA-specific operating figure; they bundle it inside general parks ops. The honest comparison isn't operating spend, it's <em>how</em> each city pays for new capacity.</p>
 
 <table class="data">
@@ -1245,5 +1252,12 @@ The full year-by-year data is in <a href="https://github.com/avrignaud/seattledo
     }
   });
 </script>
+
+<footer style="margin-top: 72px; padding-top: 24px; border-top: 1px solid var(--rule); font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink-soft); line-height: 1.6;">
+  <p style="max-width: 780px; margin-bottom: 8px;">Data current as of April 2026. Source code and all underlying data: <a href="https://github.com/avrignaud/seattledogparkdata" style="color: var(--accent-3); text-decoration: underline;">github.com/avrignaud/seattledogparkdata</a>. MIT license covers author-written code and analysis; primary data (SPR PRRs, Seattle Open Data, U.S. Census) is public record. TPL ParkServe data redistributed under <a href="https://www.tpl.org/park-data-downloads" style="color: var(--accent-3); text-decoration: underline;">TPL's terms</a>. Corrections: <a href="https://github.com/avrignaud/seattledogparkdata/issues" style="color: var(--accent-3); text-decoration: underline;">issue tracker</a>.</p>
+  <p style="max-width: 780px;"><a href="seattle-dog-parks-report.pdf" style="color: var(--accent-3); text-decoration: underline;">Download full report (PDF)</a> &middot; <a href="print.html" style="color: var(--accent-3); text-decoration: underline;">Single-page print edition</a></p>
+</footer>
+
+</main>
 </body>
 </html>

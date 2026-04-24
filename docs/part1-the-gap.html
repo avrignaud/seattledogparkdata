@@ -8,16 +8,22 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<meta name="description" content="Part I: The Gap — Seattle has 14 fully-fenced off-leash areas for 150,000+ dogs, and the ratio has barely moved in 20 years while population surged.">
+<meta name="description" content="Part I: The Gap — Seattle has 14 fully-fenced off-leash areas for an estimated 250,000 dogs (AVMA-derived; 150,000 conservative floor), and the ratio has barely moved in 20 years while population surged.">
 <meta property="og:title" content="Part I: The Gap — Seattle Dog Park Data">
-<meta property="og:description" content="Seattle has 14 fully-fenced off-leash areas for 150,000+ dogs, and the ratio has barely moved in 20 years while population surged.">
+<meta property="og:description" content="Seattle has 14 fully-fenced off-leash areas for an estimated 250,000 dogs (AVMA-derived; 150,000 conservative floor), and the ratio has barely moved in 20 years while population surged.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://seattledogparkdata.com/part1-the-gap.html">
 <meta property="og:site_name" content="Seattle Dog Park Data">
 <meta name="twitter:card" content="summary_large_image">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
+<meta property="og:image" content="https://seattledogparkdata.com/images/social-card.png">
+<meta name="twitter:image" content="https://seattledogparkdata.com/images/social-card.png">
+<link rel="canonical" href="https://seattledogparkdata.com/part1-the-gap.html">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js" integrity="sha384-DhxhYObIMeMNGyAG7iK11OHzBIKyEIeRL0ad1iFPAOwZB8iirUlTT0O/WJJUk8+o" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0" integrity="sha384-y49Zu59jZHJL/PLKgZPv3k2WI9c0Yp3pWB76V8OBVCb0QBKS8l4Ff3YslzHVX76Y" crossorigin="anonymous"></script>
 <style>
+  .skip-link { position: absolute; top: -40px; left: 0; background: #121820; color: #F6F2E9; padding: 8px 16px; z-index: 100; text-decoration: none; font-family: 'IBM Plex Mono', monospace; font-size: 12px; }
+  .skip-link:focus { top: 0; }
+
   :root {
     --bg: #F6F2E9;
     --bg-dark: #0E1A2B;
@@ -396,7 +402,8 @@
 </style>
 </head>
 <body>
-<div class="container">
+<a class="skip-link" href="#main">Skip to content</a>
+<main id="main"><div class="container">
 
 <div class="masthead">
   <div class="dateline">Part I: The Gap · A Dog Park Data Story · Seattle, WA</div>
@@ -462,7 +469,7 @@
 </figure>
 
 <!-- ================================================================= -->
-<h2><span class="num">Finding 01</span>Residents per off-leash area, over time</h2>
+<h2 id="finding-01"><span class="num">Finding 01</span>Residents per off-leash area, over time</h2>
 <p class="lead">The simplest way to see the squeeze: divide <a href="https://ofm.wa.gov/washington-data-research/population-demographics/population-estimates/april-1-official-population-estimates">Seattle's population</a> by the <a href="https://www.seattle.gov/parks/recreation/dog-off-leash-areas">number of off-leash areas</a>. In 2010, one OLA served about <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-timeseries.csv">43,500 residents</a>. In 2025, it serves <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-timeseries.csv">58,300</a> — a 34% increase in "crowding" despite no corresponding change in OLA supply.</p>
 
 <div class="chart-block">
@@ -482,7 +489,7 @@
 </div>
 
 <!-- ================================================================= -->
-<h2><span class="num">Finding 02</span>The peer-city comparison</h2>
+<h2 id="finding-02"><span class="num">Finding 02</span>The peer-city comparison</h2>
 <p class="lead"><a href="https://www.tpl.org/parkscore">Trust for Public Land's 2025 ParkScore</a> measures dog parks per 100,000 residents across the 100 largest U.S. cities. Seattle ranks well below every major West Coast peer. <a href="https://www.portland.gov/parks/find-dog-off-leash-area">Portland</a> has <em>more than three times</em> Seattle's dog-park density.</p>
 
 <div class="chart-block">
@@ -506,7 +513,7 @@
 </div>
 
 <!-- ================================================================= -->
-<h2><span class="num">Finding 04</span>Seattle's parks budget, versus its OLA budget</h2>
+<h2 id="finding-04"><span class="num">Finding 04</span>Seattle's parks budget, versus its OLA budget</h2>
 <p class="lead">This is the chart that most directly challenges the "we are investing" narrative. <a href="https://www.seattle.gov/city-budget-office/budget-archives">Seattle Parks and Recreation's total budget</a> has nearly doubled since 2018. The specific Park District funding initiative dedicated to OLA maintenance stayed flat at $100,000/year from <a href="https://parkways.seattle.gov/">2016 through 2020</a>. See <a href="budget.html">Budget Deep Dive</a> for the full picture.</p>
 
 <div class="chart-block">
@@ -530,7 +537,7 @@
 </div>
 
 <!-- ================================================================= -->
-<h2><span class="num">Finding 06</span>The dogs-vs-kids ratio</h2>
+<h2 id="finding-06"><span class="num">Finding 06</span>The dogs-vs-kids ratio</h2>
 <p class="lead">Seattle famously has more dogs than children. Estimates for the dog population range from 150,000 (conservative, frequently cited — <a href="https://www.seattlehumane.org/">Seattle Humane</a>, <a href="https://www.cascadepbs.org/">Cascade PBS</a> coverage) to over 400,000 (per the <a href="https://www.seattle.gov/parks/about-us/plans-and-reports/recreation-plans-and-reports/off-leash-area-study">SPR 2023&ndash;24 OLA Expansion Study</a>). Even using the low estimate and the most recent child population, dogs outnumber kids roughly 1.4 to 1.</p>
 
 <div class="chart-block">
@@ -554,7 +561,7 @@
 </div>
 
 <!-- ================================================================= -->
-<h2><span class="num">Appendix</span>Raw comparison data</h2>
+<h2 id="methodology"><span class="num">Appendix</span>Raw comparison data &amp; methodology</h2>
 <p>All values below are the exact figures from Trust for Public Land's 2025 ParkScore methodology, except Vancouver BC (not in the U.S. dataset).</p>
 
 <table class="data">
@@ -615,7 +622,7 @@
   <p><strong>Dog population estimates — three independent sources, all bracketing the same range.</strong> Seattle does not universally license dogs, so dog-population figures are estimates. This site triangulates three:
 <ul style="margin-left: 22px;">
 <li><strong>Licensed floor:</strong> <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-pet-licenses/">26,652 active dog licenses</a> as of the April 1, 2026 snapshot of Seattle Open Data dataset <a href="https://data.seattle.gov/City-Administration/Seattle-Pet-Licenses/jguv-t9rb/about_data"><code>jguv-t9rb</code></a> (published by FAS / Seattle Animal Shelter). This is a hard lower bound — every dog counted is a real paid license. Widely estimated to represent 20–30% of actual dogs, implying ~90K–135K total.</li>
-<li><strong>AVMA-derived demographic estimate:</strong> <a href="https://www.avma.org/resources-tools/reports-statistics/us-pet-ownership-statistics">AVMA's 2025 Pet Ownership Sourcebook</a> reports 45.5% of U.S. households own a dog, averaging 1.5 dogs per dog-owning household. Applied to Seattle's <a href="https://api.census.gov/data/2023/acs/acs1?get=NAME,B11001_001E&amp;for=place:63000&amp;in=state:53">364,627 households (ACS 1-year 2023)</a>: <strong>364,627 × 0.455 × 1.5 ≈ 248,900 dogs</strong>. Limitation: AVMA publishes state-level data in the paywalled Sourcebook, not on the free landing page, so the rate used here is the national figure as a Seattle proxy.</li>
+<li><strong>AVMA-derived demographic estimate:</strong> <a href="https://www.avma.org/resources-tools/reports-statistics/us-pet-ownership-statistics">AVMA's 2025 Pet Ownership Sourcebook</a> reports 45.5% of U.S. households own a dog, averaging 1.5 dogs per dog-owning household. Applied to Seattle's <a href="https://data.census.gov/table/ACSDT1Y2023.B11001?g=160XX00US5363000">364,627 households (ACS 1-year 2023)</a>: <strong>364,627 × 0.455 × 1.5 ≈ 248,900 dogs</strong>. Limitation: AVMA publishes state-level data in the paywalled Sourcebook, not on the free landing page, so the rate used here is the national figure as a Seattle proxy.</li>
 <li><strong>SPR upper bound:</strong> the <a href="https://www.seattle.gov/parks/about-us/plans-and-reports/recreation-plans-and-reports/off-leash-area-study">SPR 2023–24 OLA Expansion Study</a> cites estimates ranging from ~187,000 to "upwards of 400,000."</li>
 </ul>
 All three estimates cluster between ~90K and ~400K. The site uses the <strong>AVMA-derived ~248,900</strong> as its canonical dog-population number (it's the best-attested mid-range figure) and names the <strong>150,000 conservative floor</strong> whenever a claim benefits from understating. A pending public records request to Seattle Animal Shelter (<a href="https://github.com/avrignaud/seattledogparkdata/blob/main/prrs/06-sas-dog-license-history.md">PRR #6</a>) will add historical licensed counts and any SPR-internal compliance estimate.</p>
@@ -1209,5 +1216,12 @@ All three estimates cluster between ~90K and ~400K. The site uses the <strong>AV
   });
 </script>
 
+
+<footer style="margin-top: 72px; padding-top: 24px; border-top: 1px solid var(--rule); font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink-soft); line-height: 1.6;">
+  <p style="max-width: 780px; margin-bottom: 8px;">Data current as of April 2026. Source code and all underlying data: <a href="https://github.com/avrignaud/seattledogparkdata" style="color: var(--accent-3); text-decoration: underline;">github.com/avrignaud/seattledogparkdata</a>. MIT license covers author-written code and analysis; primary data (SPR PRRs, Seattle Open Data, U.S. Census) is public record. TPL ParkServe data redistributed under <a href="https://www.tpl.org/park-data-downloads" style="color: var(--accent-3); text-decoration: underline;">TPL's terms</a>. Corrections: <a href="https://github.com/avrignaud/seattledogparkdata/issues" style="color: var(--accent-3); text-decoration: underline;">issue tracker</a>.</p>
+  <p style="max-width: 780px;"><a href="seattle-dog-parks-report.pdf" style="color: var(--accent-3); text-decoration: underline;">Download full report (PDF)</a> &middot; <a href="print.html" style="color: var(--accent-3); text-decoration: underline;">Single-page print edition</a></p>
+</footer>
+
+</main>
 </body>
 </html>

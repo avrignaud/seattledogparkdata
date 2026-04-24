@@ -12,10 +12,16 @@
 <meta property="og:url" content="https://seattledogparkdata.com/peer-cities.html">
 <meta property="og:site_name" content="Seattle Dog Park Data">
 <meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://seattledogparkdata.com/images/social-card.png">
+<meta name="twitter:image" content="https://seattledogparkdata.com/images/social-card.png">
+<link rel="canonical" href="https://seattledogparkdata.com/peer-cities.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
+  .skip-link { position: absolute; top: -40px; left: 0; background: #121820; color: #F6F2E9; padding: 8px 16px; z-index: 100; text-decoration: none; font-family: 'IBM Plex Mono', monospace; font-size: 12px; }
+  .skip-link:focus { top: 0; }
+
   :root {
     --bg: #F6F2E9;
     --ink: #121820;
@@ -269,7 +275,8 @@
 </style>
 </head>
 <body>
-<div class="container">
+<a class="skip-link" href="#main">Skip to content</a>
+<main id="main"><div class="container">
 
 <header class="masthead">
   <span>SEATTLE DOG PARK DATA</span>
@@ -442,7 +449,7 @@
     <a href="https://dpr.dc.gov/page/dog-parks-00">DC DPR &mdash; Dog Parks</a> &middot;
     <a href="https://code.dccouncil.gov/us/dc/council/laws/16-175">DC Law 16-175: Dog Park Establishment Act of 2005</a> &middot;
     <a href="https://code.dccouncil.gov/us/dc/council/code/sections/8-1810.01.html">DC Code §8-1810.01 Animal Education Fund</a> &middot;
-    <a href="https://doee.dc.gov/service/dog-licenses">DC Health dog licensing</a>
+    <a href="https://doh.dc.gov/service/dog-licenses">DC Health dog licensing</a>
   </div>
 </div>
 
@@ -465,7 +472,7 @@
     <tr><th>Non-resident, each additional dog</th><td>$38 annual</td></tr>
     <tr><th>Daily permit (any visitor)</th><td>$5 per dog</td></tr>
     <tr><th>Hours</th><td>6 AM &ndash; 10 PM</td></tr>
-    <tr><th>Ordinance</th><td><a href="https://www.minneapolisparks.org/about_us/leadership__financials/ordinances/">PB2-18</a> &mdash; dedicated ordinance for off-leash areas</td></tr>
+    <tr><th>Ordinance</th><td><a href="https://www.minneapolisparks.org/about-us/ordinances-park-rules/">PB2-18</a> &mdash; dedicated ordinance for off-leash areas</td></tr>
   </table>
 
   <h3>Governance</h3>
@@ -528,17 +535,17 @@
   <div class="headline-stats">
     <div class="stat"><div class="label">Apples-to-apples with Seattle</div><div class="value">~80 ac</div><div class="note">Fenced off-leash acreage — the number to use when comparing cities</div></div>
     <div class="stat"><div class="label">Apples-to-watermelons</div><div class="value">682 ac</div><div class="note">Includes 293-ac Walnut Creek Metro Park and natural-area voice-control sites</div></div>
-    <div class="stat"><div class="label">Still 2.6× Seattle</div><div class="value">1.28 / 100K</div><div class="note">Austin's per-capita rate stays well above Seattle's 1.82 even after correction</div></div>
+    <div class="stat"><div class="label">~2× Seattle per capita</div><div class="value">0.78 ac / 10K</div><div class="note">Fenced OLA acreage per capita vs Seattle's 0.38. On dog-parks-per-100K (TPL), Austin's 1.28 is below Seattle's 1.82.</div></div>
   </div>
-  <p><a href="https://www.austintexas.gov/department/dog-parks-leash-areas">Austin Parks &amp; Recreation</a> maintains a directory of 16 off-leash areas that explicitly distinguishes fenced dog parks, voice-control dog zones, and natural-area off-leash sites. The cross-city headline ranking works if you include everything on that list; the capital-cost-per-acre comparison to Seattle or Portland fenced sites does not.</p>
+  <p><a href="https://www.austintexas.gov/department/dog-parks">Austin Parks &amp; Recreation</a> maintains a directory of 16 off-leash areas that explicitly distinguishes fenced dog parks, voice-control dog zones, and natural-area off-leash sites. The cross-city headline ranking works if you include everything on that list; the capital-cost-per-acre comparison to Seattle or Portland fenced sites does not.</p>
   <p>The <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/peer-cities.csv">peer-cities.csv</a> carries both numbers for Austin and uses the fenced-only figure (<code>ola_acres_total_est = 80</code>) for per-capita math, with Walnut Creek Metropolitan Park's 293-acre voice-control footprint called out as the biggest single inflator. Any peer-city comparison on this site that cites Austin uses the adjusted figure; readers chasing the Austin headline elsewhere will find the 682 number and should know which number they are reading.</p>
   <div class="contrast">
     <strong class="label">Why this matters for Seattle</strong>
-    When advocates or reporters cite Austin as a comparison city, always ask which number. The 682-acre figure is real but incomparable to Seattle's fenced 30.7 acres. The ~80-acre figure is the honest comparator, and on that basis Austin is still roughly 2.6× Seattle per capita, but nothing close to the 22× implied by the headline.
+    When advocates or reporters cite Austin as a comparison city, always ask which number. The 682-acre figure is real but incomparable to Seattle's fenced 30.7 acres. The ~80-acre figure is the honest comparator, and on that basis Austin has roughly 2× Seattle's fenced-OLA acreage per capita (0.78 ac/10K vs 0.38) &mdash; meaningfully more, but nothing close to the 22&times; implied by the headline. On dog-parks-per-100K (TPL's count), Austin actually trails Seattle (1.28 vs 1.82).
   </div>
   <div class="sources">
     <strong>Sources:</strong>
-    <a href="https://www.austintexas.gov/department/dog-parks-leash-areas">Austin PARD &mdash; Dog Parks &amp; Off-Leash Areas</a> &middot;
+    <a href="https://www.austintexas.gov/department/dog-parks">Austin PARD &mdash; Dog Parks &amp; Off-Leash Areas</a> &middot;
     <a href="https://www.tpl.org/city/austin-texas">TPL 2025 ParkScore Austin</a> &middot;
     <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/peer-cities.csv">data/peer-cities.csv</a> (provenance column documents the adjustment)
   </div>
@@ -586,5 +593,6 @@
 </footer>
 
 </div>
+</main>
 </body>
 </html>

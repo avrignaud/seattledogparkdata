@@ -12,14 +12,20 @@
 <meta property="og:url" content="https://seattledogparkdata.com/part2-access.html">
 <meta property="og:site_name" content="Seattle Dog Park Data">
 <meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://seattledogparkdata.com/images/social-card.png">
+<meta name="twitter:image" content="https://seattledogparkdata.com/images/social-card.png">
+<link rel="canonical" href="https://seattledogparkdata.com/part2-access.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js" integrity="sha384-DhxhYObIMeMNGyAG7iK11OHzBIKyEIeRL0ad1iFPAOwZB8iirUlTT0O/WJJUk8+o" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0" integrity="sha384-y49Zu59jZHJL/PLKgZPv3k2WI9c0Yp3pWB76V8OBVCb0QBKS8l4Ff3YslzHVX76Y" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <style>
+  .skip-link { position: absolute; top: -40px; left: 0; background: #121820; color: #F6F2E9; padding: 8px 16px; z-index: 100; text-decoration: none; font-family: 'IBM Plex Mono', monospace; font-size: 12px; }
+  .skip-link:focus { top: 0; }
+
   :root {
     --bg: #F6F2E9;
     --bg-dark: #0E1A2B;
@@ -636,7 +642,8 @@
 </style>
 </head>
 <body>
-<div class="container">
+<a class="skip-link" href="#main">Skip to content</a>
+<main id="main"><div class="container">
 
 <div class="masthead">
   <div class="dateline">Part II: Access &middot; A Dog Park Data Story · Seattle, WA</div>
@@ -647,6 +654,7 @@
   <a href="index.html">Overview</a>
   <a href="part1-the-gap.html">Part I — The Gap</a>
   <a href="part2-access.html" class="active">Part II — Access</a>
+  <a href="part3.html">Part III — Forward</a>
   <a href="enforcement.html">Enforcement</a>
   <a href="budget.html">Budget</a>
   <a href="peer-cities.html">Peer Cities</a>
@@ -877,7 +885,7 @@
   <p class="part-intro">Counting "14 OLAs" flatters Seattle. Of those 14, half are under one acre. Three pocket OLAs are under a quarter-acre. The three largest — Magnuson, Westcrest, Dr. Jose Rizal — hold nearly three-quarters of the city's total off-leash acreage. Everything else is a postage stamp.</p>
 </div>
 
-<h2><span class="num">Finding 03</span>How small is small?</h2>
+<h2 id="finding-03"><span class="num">Finding 03</span>How small is small?</h2>
 <p class="lead">The median Seattle OLA is under one acre. The two smallest (Denny at 0.105 and Kinnear at 0.124) are roughly the footprint of a basketball court each — Denny is about 97% of an NBA court, Kinnear about 15% larger. For context: Portland's smallest fenced OLA is larger than Seattle's third-smallest.</p>
 
 <div class="chart-block">
@@ -1097,7 +1105,7 @@
   <div class="chart-source">Sources: <a href="https://images.akc.org/pdf/GLEG01.pdf">AKC</a> · <a href="https://www.parksandrecbusiness.com/articles/2011/08/01/designing-dog-parks">Parks &amp; Rec Business</a> · <a href="https://www.a2gov.org/media/hvqhrksg/recommendations-and-guidelines-for-dog-park-site-selection-updated-4-10-15.pdf">Ann Arbor Dog Park Guidelines</a> · <a href="https://www.fairfaxcounty.gov/parks/sites/parks/files/assets/documents/plandev/dog%20park%20study/dog%20park%20study%20appendices.pdf">FCPA Dog Park Standards</a> · Seattle OLA acreage from <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">data/seattle-olas.csv</a></div>
 </div>
 
-<h2><span class="num">Finding 04</span>Peer-city acreage, with an important methodology note</h2>
+<h2 id="finding-04"><span class="num">Finding 04</span>Peer-city acreage, with an important methodology note</h2>
 
 <p class="lead">Comparing total OLA acreage across cities is harder than comparing counts, because cities define "off-leash" differently. Portland has 30+ DOLAs but most are <em>unfenced</em> voice-control areas. San Francisco counts 42 dog-friendly sites including small DPAs (Dog Play Areas) carved into larger parks. Vancouver BC counts 36 OLAs including time-restricted areas. Seattle counts only fully-fenced, dedicated OLAs.</p>
 
@@ -1182,7 +1190,7 @@
 <div class="two-col">
 <div>
 <h3>1. There's no legal option nearby.</h3>
-<p>Roughly two-thirds of Seattle residents don't have a 10-minute walk to an OLA. The alternative to a 25-minute drive with a 70-pound dog is a local park. Most of the 39% are in this category.</p>
+<p>Roughly nine in ten Seattle residents don't have a 10-minute walk to an OLA (only 11.7% do). The alternative to a 25-minute drive with a 70-pound dog is a local park. Most of the 39% are in this category.</p>
 </div>
 <div>
 <h3>2. The legal option is too small.</h3>
@@ -1194,7 +1202,7 @@
 </div>
 <div>
 <h3>The net effect.</h3>
-<p>Seattle has created a system where compliance is a minority behavior, and is punishing the 61% who do comply by continuing to underbuild for the 39% who don't. The enforcement arm (Animal Control, Park Rangers) is effectively treating a supply problem as a behavior problem.</p>
+<p>Seattle has created a system where illegal off-leash use is routine &mdash; 39% of owners admit to it monthly or more often. The enforcement arm (Animal Control, Park Rangers) is effectively treating a supply problem as a behavior problem, which is why citations continue to concentrate in neighborhoods with no nearby OLA rather than declining in response to enforcement.</p>
 </div>
 </div>
 
@@ -1254,7 +1262,7 @@
   <li style="margin-bottom: 12px;">Seattle has been stuck at 14 OLAs since roughly 2009. Population has grown 34% in that window.</li>
   <li style="margin-bottom: 12px;">Per-capita OLA count puts Seattle at 1.82 per 100,000 — one-third of Portland, SF, and Vancouver BC.</li>
   <li style="margin-bottom: 12px;">Per-capita OLA <em>acreage</em> is worse still. Even on generous methodology, Vancouver BC has about 8× more OLA acreage per resident than Seattle.</li>
-  <li style="margin-bottom: 12px;">Roughly two-thirds of Seattle residents live outside a 10-minute walk of any OLA — in a city where 99% live within a 10-minute walk of <em>some</em> park.</li>
+  <li style="margin-bottom: 12px;">Roughly nine in ten Seattle residents live outside a 10-minute walk of any OLA (only 11.7% are within one) &mdash; in a city where 99% live within a 10-minute walk of <em>some</em> park.</li>
   <li style="margin-bottom: 12px;">Of the 14 existing OLAs, seven are under one acre, and four are under a quarter-acre — functionally unusable for many dog breeds.</li>
   <li style="margin-bottom: 12px;">A meaningful subset of existing OLAs have chronic safety issues that discount their practical availability.</li>
   <li style="margin-bottom: 12px;">39% of Seattle dog owners admit to illegal off-leash use in parks monthly or more often, per SPR's own survey — a direct, predictable response to insufficient supply.</li>
@@ -1741,5 +1749,12 @@
   });
 </script>
 
+
+<footer style="margin-top: 72px; padding-top: 24px; border-top: 1px solid var(--rule); font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink-soft); line-height: 1.6;">
+  <p style="max-width: 780px; margin-bottom: 8px;">Data current as of April 2026. Source code and all underlying data: <a href="https://github.com/avrignaud/seattledogparkdata" style="color: var(--accent-3); text-decoration: underline;">github.com/avrignaud/seattledogparkdata</a>. MIT license covers author-written code and analysis; primary data (SPR PRRs, Seattle Open Data, U.S. Census) is public record. TPL ParkServe data redistributed under <a href="https://www.tpl.org/park-data-downloads" style="color: var(--accent-3); text-decoration: underline;">TPL's terms</a>. Corrections: <a href="https://github.com/avrignaud/seattledogparkdata/issues" style="color: var(--accent-3); text-decoration: underline;">issue tracker</a>.</p>
+  <p style="max-width: 780px;"><a href="seattle-dog-parks-report.pdf" style="color: var(--accent-3); text-decoration: underline;">Download full report (PDF)</a> &middot; <a href="print.html" style="color: var(--accent-3); text-decoration: underline;">Single-page print edition</a></p>
+</footer>
+
+</main>
 </body>
 </html>

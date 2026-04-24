@@ -12,15 +12,21 @@
 <meta property="og:url" content="https://seattledogparkdata.com/enforcement.html">
 <meta property="og:site_name" content="Seattle Dog Park Data">
 <meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://seattledogparkdata.com/images/social-card.png">
+<meta name="twitter:image" content="https://seattledogparkdata.com/images/social-card.png">
+<link rel="canonical" href="https://seattledogparkdata.com/enforcement.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js" integrity="sha384-DhxhYObIMeMNGyAG7iK11OHzBIKyEIeRL0ad1iFPAOwZB8iirUlTT0O/WJJUk8+o" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0" integrity="sha384-y49Zu59jZHJL/PLKgZPv3k2WI9c0Yp3pWB76V8OBVCb0QBKS8l4Ff3YslzHVX76Y" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
 <style>
+  .skip-link { position: absolute; top: -40px; left: 0; background: #121820; color: #F6F2E9; padding: 8px 16px; z-index: 100; text-decoration: none; font-family: 'IBM Plex Mono', monospace; font-size: 12px; }
+  .skip-link:focus { top: 0; }
+
   :root {
     --bg: #F6F2E9;
     --ink: #121820;
@@ -389,14 +395,15 @@
 </style>
 </head>
 <body>
-<div class="container">
+<a class="skip-link" href="#main">Skip to content</a>
+<main id="main"><div class="container">
 
 <div class="masthead">
   <div class="dateline">Enforcement Hotspots · A Dog Park Data Story · Seattle, WA</div>
   <div>APRIL 2026</div>
 </div>
 
-<nav class="report-nav" aria-label="Report navigation">
+<nav class="report-nav" aria-label="Site navigation">
   <a href="index.html">Overview</a>
   <a href="part1-the-gap.html">Part I — The Gap</a>
   <a href="part2-access.html">Part II — Access</a>
@@ -455,7 +462,7 @@
 </figure>
 
 <!-- ==================================================================== -->
-<h2><span class="num">Finding 01</span>The hotspot map</h2>
+<h2 id="finding-01"><span class="num">Finding 01</span>The hotspot map</h2>
 <p class="lead">Each red circle is a park where Seattle Animal Control issued at least one off-leash citation between January 2014 and October 2019. Circle area is proportional to the number of citations. Green circles are existing OLAs (the legal-use baseline); grey are OLAs under construction or in planning.</p>
 
 <div class="chart-block">
@@ -509,7 +516,7 @@
 </div>
 
 <!-- ==================================================================== -->
-<h2><span class="num">Finding 04</span>Enforcement over time</h2>
+<h2 id="finding-04"><span class="num">Finding 04</span>Enforcement over time</h2>
 <p class="lead">Citations rose sharply from 2015 to 2018, more than doubling. The 2019 number covers only January through October (the public records request's cutoff). Pro-rated, 2019 would likely have exceeded 1,200 citations &mdash; roughly on par with 2018.</p>
 
 <div class="chart-block">
@@ -521,7 +528,7 @@
 </div>
 
 <!-- ==================================================================== -->
-<h2><span class="num">Finding 05</span>Citation severity mix</h2>
+<h2 id="finding-05"><span class="num">Finding 05</span>Citation severity mix</h2>
 <p class="lead">Animal Control escalates citations by offense count &mdash; 1st offense is a warning or $54 fine; 2nd is $109; 3rd is $136; 4th and beyond is $162. The vast majority are first offenses, indicating a broad population of occasional offenders rather than a small core of repeat violators.</p>
 
 <div class="chart-block">
@@ -1097,5 +1104,12 @@
     tbody.appendChild(tr);
   });
 </script>
+
+<footer style="margin-top: 72px; padding-top: 24px; border-top: 1px solid var(--rule); font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink-soft); line-height: 1.6;">
+  <p style="max-width: 780px; margin-bottom: 8px;">Data current as of April 2026. Source code and all underlying data: <a href="https://github.com/avrignaud/seattledogparkdata" style="color: var(--accent-3); text-decoration: underline;">github.com/avrignaud/seattledogparkdata</a>. MIT license covers author-written code and analysis; primary data (SPR PRRs, Seattle Open Data, U.S. Census) is public record. TPL ParkServe data redistributed under <a href="https://www.tpl.org/park-data-downloads" style="color: var(--accent-3); text-decoration: underline;">TPL's terms</a>. Corrections: <a href="https://github.com/avrignaud/seattledogparkdata/issues" style="color: var(--accent-3); text-decoration: underline;">issue tracker</a>.</p>
+  <p style="max-width: 780px;"><a href="seattle-dog-parks-report.pdf" style="color: var(--accent-3); text-decoration: underline;">Download full report (PDF)</a> &middot; <a href="print.html" style="color: var(--accent-3); text-decoration: underline;">Single-page print edition</a></p>
+</footer>
+
+</main>
 </body>
 </html>
