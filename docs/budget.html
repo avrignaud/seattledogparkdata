@@ -228,27 +228,23 @@
 </div></main>
 
 <script src="chart-defaults.js"></script>
+<script src="site-data.js"></script>
 <script>
+(async function init() {
   const P = SDPD.palette;
+  const num = SDPD.data.num;
+  const D = await SDPD.data.loadAll({
+    budget: 'data/budget-detail.csv',
+    peers: 'data/peer-cities.csv',
+    facilities: 'data/seattle-facility-counts.csv'
+  });
 
-  async function loadCSV(url) {
-    const resp = await fetch(url);
-    const text = await resp.text();
-    const [header, ...rows] = text.trim().split('\n');
-    const keys = header.split(',');
-    return rows.map(r => {
-      const vals = r.split(',');
-      return Object.fromEntries(keys.map((k, i) => [k.trim(), vals[i]?.trim()]));
-    });
-  }
-
-  loadCSV('data/budget-detail.csv').then(rows => {
-    const usable = rows.filter(r => r.spr_total_budget_m && r.spr_total_budget_m !== '');
-    const YEARS       = usable.map(r => parseInt(r.year, 10));
-    const SPR_TOTAL_M = usable.map(r => parseFloat(r.spr_total_budget_m));
-    const COMBINED_K  = usable.map(r => parseFloat(r.ola_ppatch_combined_k));
-    const OLA_ONLY_K  = usable.map(r => r.ola_only_k && r.ola_only_k !== '' ? parseFloat(r.ola_only_k) : null);
-    const CAPITAL_K   = usable.map(r => parseFloat(r.one_time_capital_k) || 0);
+  const usable = D.budget.filter(r => r.spr_total_budget_m);
+  const YEARS       = usable.map(r => parseInt(r.year, 10));
+  const SPR_TOTAL_M = usable.map(r => parseFloat(r.spr_total_budget_m));
+  const COMBINED_K  = usable.map(r => parseFloat(r.ola_ppatch_combined_k));
+  const OLA_ONLY_K  = usable.map(r => num(r.ola_only_k));
+  const CAPITAL_K   = usable.map(r => num(r.one_time_capital_k) || 0);
 
   const COMBINED_M = COMBINED_K.map(v => v / 1000);
   const OLA_ONLY_M = OLA_ONLY_K.map(v => v == null ? null : v / 1000);
@@ -435,22 +431,34 @@
       }
     }
   });
-  }); // end loadCSV(budget-detail).then
 
   // --- Chart 03: Off-leash space per dog, peer cities ---
-  const peerSpace = [
-    { city: 'Seattle',         pop:  816600, acres: 30.7,  methodology: 'fenced only' },
-    { city: 'Austin (fenced)', pop: 1025000, acres: 80,    methodology: 'fenced comparable; excludes 293-ac Walnut Creek voice-control' },
-    { city: 'Portland',        pop:  660000, acres: 85,    methodology: 'mix; includes unfenced voice-control' },
-    { city: 'San Francisco',   pop:  870000, acres: 120,   methodology: 'mix; includes DPAs inside larger parks' },
-    { city: 'Vancouver BC',    pop:  662000, acres: 168,   methodology: 'mix; includes time-restricted shared-use' }
-  ];
-  const DOG_RATE = 0.30;
-  const spaceRows = peerSpace.map(c => {
-    const dogs = c.pop * DOG_RATE;
-    const sqft = (c.acres * 43560) / dogs;
-    return { ...c, dogs, sqft };
-  }).sort((a, b) => a.sqft - b.sqft);
+  // From peer-cities.csv: only the cities the report uses for an
+  // apples-to-apples space-per-dog comparison (those with both a population
+  // and an ola_acres_total_est value). Austin uses the fenced-only acreage
+  // (per CSV's `counting_methodology` = "Mix fenced + voice-control (adjusted)").
+  const SPACE_LABEL = {
+    'Seattle WA': 'Seattle',
+    'Austin TX': 'Austin (fenced)',
+    'Portland OR': 'Portland',
+    'San Francisco CA': 'San Francisco',
+    'Vancouver BC': 'Vancouver BC'
+  };
+  const DOG_RATE = 0.30;  // ~30% of residents own a dog (AVMA-derived; see data-notes)
+  const spaceRows = D.peers
+    .filter(p => SPACE_LABEL[p.city] && p.population && p.ola_acres_total_est)
+    .map(p => {
+      const pop = parseInt(p.population, 10);
+      const acres = parseFloat(p.ola_acres_total_est);
+      const dogs = pop * DOG_RATE;
+      return {
+        city: SPACE_LABEL[p.city],
+        pop, acres, dogs,
+        sqft: (acres * 43560) / dogs,
+        methodology: p.counting_methodology
+      };
+    })
+    .sort((a, b) => a.sqft - b.sqft);
 
   new Chart(document.getElementById('chartSpacePerDogCities'), {
     type: 'bar',
@@ -500,13 +508,24 @@
   });
 
   // --- Chart 04: Kids vs Dogs facilities ---
+  // From seattle-facility-counts.csv.
+  function fmtConstituent(n) {
+    if (n >= 1000) return '~' + Math.round(n/1000) + ',000';
+    return String(n);
+  }
+  const kdLabels = D.facilities.map(r =>
+    r.facility + '\n(for ' + fmtConstituent(parseInt(r.constituent_count, 10)) + ' ' +
+    r.constituent_label.toLowerCase().replace(/\s*\(.*\)\s*$/, '') + ')'
+  );
+  const kdData = D.facilities.map(r => parseInt(r.count, 10));
+  const kdRatios = D.facilities.map(r => Math.round(parseInt(r.constituent_count, 10) / parseInt(r.count, 10)));
   new Chart(document.getElementById('chartKidsDogs'), {
     type: 'bar',
     data: {
-      labels: ['Playgrounds\n(for ~115,000 kids)', 'OLAs\n(for ≥150,000 dogs)'],
+      labels: kdLabels,
       datasets: [{
         label: 'Facility count',
-        data: [157, 14],
+        data: kdData,
         backgroundColor: [P.navy, P.orange]
       }]
     },
@@ -518,7 +537,9 @@
         tooltip: {
           callbacks: {
             label: ctx => ctx.parsed.y + ' facilities',
-            afterLabel: ctx => ctx.dataIndex === 0 ? '≈ 1 playground per 733 kids' : '≈ 1 OLA per 10,700+ dogs'
+            afterLabel: ctx => '≈ 1 ' + D.facilities[ctx.dataIndex].facility.toLowerCase().replace(/s$/, '') +
+              ' per ' + kdRatios[ctx.dataIndex].toLocaleString() + ' ' +
+              D.facilities[ctx.dataIndex].constituent_label.toLowerCase().replace(/\s*\(.*\)\s*$/, '')
           }
         },
         datalabels: {
@@ -537,6 +558,7 @@
       }
     }
   });
+})().catch(err => { console.error('init failed', err); });
 </script>
 
 </body>

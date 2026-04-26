@@ -1,0 +1,21 @@
+park,count,latitude,longitude,neighborhood,ola_status,nearest_ola,provenance
+Discovery Park,420,47.6564,-122.4063,Magnolia,no,Magnolia Manor (0.48 ac, 1.8 mi),calculated: enforcement-citations.csv top-20 by park
+Magnuson Park,248,47.68270,-122.25710,Sand Point,has,—,calculated: enforcement-citations.csv top-20 by park; coords from data/seattle-olas.csv
+Volunteer Park,230,47.6302,-122.3157,Capitol Hill,no,Plymouth Pillars (0.2 ac, 1.0 mi),calculated: enforcement-citations.csv top-20 by park
+Woodland Park,222,47.6722,-122.3322,Green Lake,partial,Lower Woodland OLA (0.75 ac, on-site),calculated: enforcement-citations.csv top-20 by park
+Golden Gardens Park,174,47.69090,-122.40064,Ballard,has,—,calculated: enforcement-citations.csv top-20 by park; coords from data/seattle-olas.csv
+Cal Anderson Park,133,47.6178,-122.3202,Capitol Hill,no,Plymouth Pillars (0.2 ac, 0.3 mi),calculated: enforcement-citations.csv top-20 by park
+Genesee Park,130,47.56395,-122.27608,Columbia City,has,—,calculated: enforcement-citations.csv top-20 by park; coords from data/seattle-olas.csv
+Lincoln Park,122,47.5300,-122.3936,West Seattle,no,Westcrest (8.4 ac, 3.4 mi),calculated: enforcement-citations.csv top-20 by park
+Martha Washington Park,103,47.5347,-122.2567,Rainier Beach,no,Genesee (2.7 ac, 2.2 mi),calculated: enforcement-citations.csv top-20 by park
+Green Lake Park,96,47.6805,-122.3290,Green Lake,no,Lower Woodland (0.75 ac, 0.5 mi),calculated: enforcement-citations.csv top-20 by park
+Wallingford Playfield,89,47.6578,-122.3337,Wallingford,no,Lower Woodland (0.75 ac, 0.8 mi),calculated: enforcement-citations.csv top-20 by park
+Seward Park,88,47.5526,-122.2558,Seward Park,no,Genesee (2.7 ac, 1.2 mi),calculated: enforcement-citations.csv top-20 by park
+Westcrest Park,86,47.52578,-122.34172,Highland Park,has,—,calculated: enforcement-citations.csv top-20 by park; coords from data/seattle-olas.csv
+West Queen Anne Playfield,77,47.6359,-122.3656,Queen Anne,no,Kinnear (0.124 ac, 0.7 mi),calculated: enforcement-citations.csv top-20 by park
+Maple Leaf Reservoir Park,73,47.6912,-122.3198,Maple Leaf,no,Northacres (1.4 ac, 1.8 mi),calculated: enforcement-citations.csv top-20 by park
+Rogers Playground,66,47.6431,-122.3240,Eastlake,no,I-5 Colonnade (0.5 ac, 0.3 mi),calculated: enforcement-citations.csv top-20 by park
+Soundview Playfield,56,47.6869,-122.3715,Crown Hill,no,Golden Gardens (1.0 ac, 1.3 mi),calculated: enforcement-citations.csv top-20 by park
+Alki Beach Park,55,47.5762,-122.4047,Alki,no,Westcrest (8.4 ac, 2.7 mi),calculated: enforcement-citations.csv top-20 by park
+Ravenna Park,54,47.6697,-122.3102,Ravenna,planned,Design-only funded (on-site),calculated: enforcement-citations.csv top-20 by park
+Meridian Playground,45,47.6571,-122.3342,Wallingford,no,Lower Woodland (0.75 ac, 0.8 mi),calculated: enforcement-citations.csv top-20 by park

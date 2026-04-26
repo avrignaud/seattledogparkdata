@@ -981,21 +981,40 @@
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.umd.min.js"></script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <script src="chart-defaults.js"></script>
+<script src="site-data.js"></script>
 <script>
+(async function init() {
   const P = SDPD.palette;
+  const num = SDPD.data.num;
   const HALF_MILE_METERS = 804.67;
+  const D = await SDPD.data.loadAll({
+    olas: 'data/seattle-olas.csv',
+    planned: 'data/planned-olas.csv',
+    peers: 'data/peer-cities.csv',
+    indicators: 'data/illegal-use-indicators.csv',
+    tplPriority: 'data/walkshed/tpl-priority-coverage.csv',
+    hotspots: 'data/enforcement-hotspots.csv'
+  });
+
+  // Helper: pull a single value out of indicators.csv by metric name.
+  function indicator(metricStartsWith) {
+    const r = D.indicators.find(i => i.metric.toLowerCase().startsWith(metricStartsWith.toLowerCase()));
+    return r ? parseFloat(r.value) : null;
+  }
 
   // ===== Finding 01 — walkshed comparison (hero stat, 22px labels) =====
+  // Values from illegal-use-indicators.csv (TPL ParkScore + walkshed pipeline).
+  const walkshedRows = [
+    { label: 'Any park, 10-min walk (TPL)',         value: indicator('Pct residents within 10-min walk of any park') },
+    { label: 'OLA, 10-min network walk',            value: indicator('Pct residents within 10-min network walk of an OLA') },
+    { label: 'OLA, 2.5-mi walk (SPR standard)',     value: indicator("Pct residents within SPR's 2.5-mi OLA access standard") }
+  ];
   new Chart(document.getElementById('chartWalkshed'), {
     type: 'bar',
     data: {
-      labels: [
-        'Any park, 10-min walk (TPL)',
-        'OLA, 10-min network walk',
-        'OLA, 2.5-mi walk (SPR standard)'
-      ],
+      labels: walkshedRows.map(r => r.label),
       datasets: [{
-        data: [99, 11.7, 76.6],
+        data: walkshedRows.map(r => r.value),
         backgroundColor: [P.sage, P.orange, P.gold],
         barThickness: 38
       }]
@@ -1022,13 +1041,25 @@
   });
 
   // ===== Finding 02c — TPL priority tier coverage =====
+  // From walkshed/tpl-priority-coverage.csv. We map the CSV's tier names
+  // ("High", "Medium-High", "Medium", "Low") to the chart's score-band labels.
+  // Note the chart shows tiers from low priority → high priority left-to-right
+  // (i.e. CSV order is reversed for display).
+  const TPL_TIER_LABEL = {
+    'Low': '1–2 (lowest priority)',
+    'Medium': '2–3',
+    'Medium-High': '3–4',
+    'High': '4–5 (highest priority)'
+  };
+  const tplOrder = ['Low', 'Medium', 'Medium-High', 'High'];
+  const tplByTier = Object.fromEntries(D.tplPriority.map(r => [r.priority_tier, parseFloat(r.pct_inside_walkshed)]));
   new Chart(document.getElementById('chartTplPriority'), {
     type: 'bar',
     data: {
-      labels: ['1–2 (lowest priority)', '2–3', '3–4', '4–5 (highest priority)'],
+      labels: tplOrder.map(t => TPL_TIER_LABEL[t]),
       datasets: [{
-        data: [15.6, 14.5, 24.1, 43.7],
-        backgroundColor: [P.sage, P.orange, P.sage, P.sage],
+        data: tplOrder.map(t => tplByTier[t]),
+        backgroundColor: tplOrder.map(t => t === 'Medium' ? P.orange : P.sage),
         barThickness: 30
       }]
     },
@@ -1054,26 +1085,13 @@
   });
 
   // ===== Finding 03 — Seattle OLA acreage ranked =====
-  // Loaded from data/seattle-olas.csv to keep this chart in sync with the
-  // canonical OLA inventory.
-  async function loadCSV(url) {
-    const resp = await fetch(url);
-    const text = await resp.text();
-    const [header, ...rows] = text.trim().split('\n');
-    const keys = header.split(',');
-    return rows.map(r => {
-      const vals = r.split(',');
-      return Object.fromEntries(keys.map((k, i) => [k.trim(), vals[i]?.trim()]));
-    });
-  }
-
-  loadCSV('data/seattle-olas.csv').then(olas => {
-    const ranked = olas
-      .map(o => ({ name: o.ola_name.replace(/ Park$/, ''), acres: parseFloat(o.acres) }))
-      .sort((a, b) => b.acres - a.acres);
-    const acreageLabels = ranked.map(r => r.name);
-    const acreageData = ranked.map(r => r.acres);
-    new Chart(document.getElementById('chartAcreage'), {
+  // From seattle-olas.csv (sorted by acres desc; "Lower" / " Park" trimmed).
+  const ranked = D.olas
+    .map(o => ({ name: o.ola_name.replace(/^Lower /, '').replace(/ Park$/, ''), acres: parseFloat(o.acres) }))
+    .sort((a, b) => b.acres - a.acres);
+  const acreageLabels = ranked.map(r => r.name);
+  const acreageData = ranked.map(r => r.acres);
+  new Chart(document.getElementById('chartAcreage'), {
     type: 'bar',
     data: {
       labels: acreageLabels,
@@ -1105,17 +1123,28 @@
         y: SDPD.catAxis({ ticks: { padding: 8, color: P.inkSoft, font: { size: 12 } } })
       }
     }
-    });
   });
 
   // ===== Finding 04 — Peer city acreage per 10K =====
+  // From peer-cities.csv (ola_acres_per_10k). Sorted descending; Seattle highlighted.
+  const PEER_ACRES_LABEL = {
+    'Seattle WA': 'Seattle, WA',
+    'Austin TX': 'Austin, TX',
+    'Portland OR': 'Portland, OR',
+    'San Francisco CA': 'San Francisco',
+    'Vancouver BC': 'Vancouver, BC'
+  };
+  const peerAcreageRows = D.peers
+    .filter(p => PEER_ACRES_LABEL[p.city] && p.ola_acres_per_10k)
+    .map(p => ({ label: PEER_ACRES_LABEL[p.city], value: parseFloat(p.ola_acres_per_10k) }))
+    .sort((a, b) => b.value - a.value);
   new Chart(document.getElementById('chartAcreagePeer'), {
     type: 'bar',
     data: {
-      labels: ['Vancouver, BC', 'San Francisco', 'Portland, OR', 'Austin, TX', 'Seattle, WA'],
+      labels: peerAcreageRows.map(r => r.label),
       datasets: [{
-        data: [2.54, 1.38, 1.29, 0.78, 0.38],
-        backgroundColor: ctx => ctx.dataIndex === 4 ? P.orange : P.sage,
+        data: peerAcreageRows.map(r => r.value),
+        backgroundColor: peerAcreageRows.map(r => r.label === 'Seattle, WA' ? P.orange : P.sage),
         barThickness: 30
       }]
     },
@@ -1150,33 +1179,28 @@
     subdomains: 'abcd', maxZoom: 19
   }).addTo(map);
 
-  const existingOlas = [
-    { name: 'Magnuson Park',   coords: [47.68270, -122.25710], acres: 9.0,  neighborhood: 'Sand Point',       note: 'Largest OLA in Seattle.' },
-    { name: 'Westcrest',       coords: [47.52578, -122.34172], acres: 8.4,  neighborhood: 'Highland Park',    note: 'Second largest. Panoramic city views.' },
-    { name: 'Dr. Jose Rizal',  coords: [47.59386, -122.31809], acres: 4.0,  neighborhood: 'Beacon Hill',      note: 'Hillside OLA with downtown views.' },
-    { name: 'Genesee',         coords: [47.56395, -122.27608], acres: 2.7,  neighborhood: 'Columbia City',    note: 'Flat and fully fenced. Small-dog area.' },
-    { name: 'Blue Dog Pond',   coords: [47.58889, -122.29863], acres: 1.7,  neighborhood: 'Mt. Baker',        note: 'In Sam Smith Park. Art installation.' },
-    { name: 'Northacres',      coords: [47.72178, -122.32612], acres: 1.4,  neighborhood: 'Pinehurst',        note: 'Wooded setting. Only OLA in deep north Seattle.' },
-    { name: 'Golden Gardens',  coords: [47.69090, -122.40064], acres: 1.0,  neighborhood: 'Ballard',          note: 'Upper portion of Golden Gardens Park.' },
-    { name: 'Lower Woodland',  coords: [47.67042, -122.34431], acres: 0.75, neighborhood: 'Green Lake',       note: 'On a slope. Near Woodland Park Zoo.' },
-    { name: 'I-5 Colonnade',   coords: [47.63483, -122.32376], acres: 0.5,  neighborhood: 'Eastlake',         note: 'Under I-5 overpass.' },
-    { name: 'Magnolia Manor',  coords: [47.65155, -122.39198], acres: 0.48, neighborhood: 'Magnolia',         note: 'Maintained by volunteer group.' },
-    { name: 'Regrade',         coords: [47.61435, -122.34478], acres: 0.3,  neighborhood: 'Belltown',         note: 'Dense urban setting. Artificial turf.' },
-    { name: 'Plymouth Pillars',coords: [47.61434, -122.32895], acres: 0.2,  neighborhood: 'Capitol Hill',     note: 'Pocket OLA; chronic site-adjacent safety concerns.' },
-    { name: 'Denny Park',      coords: [47.61937, -122.34108], acres: 0.105,neighborhood: 'South Lake Union', note: 'Small graveled OLA (0.105 ac) inside historic Denny Park.' },
-  ];
-  const kinnearOla = { name: 'Kinnear', coords: [47.62696, -122.36766], acres: 0.124, neighborhood: 'Queen Anne', note: '0.124-acre OLA. See case study below.' };
-
-  const plannedOlas = [
-    { name: 'West Seattle Stadium OLA', coords: [47.5596, -122.3731], note: 'Under construction. Opens fall 2026.' },
-    { name: 'Othello Playground OLA',   coords: [47.5414, -122.2745], note: 'Under construction. Opens fall 2026.' },
-  ];
-  const futureOlas = [
-    { name: 'Smith Cove Park',            coords: [47.6344, -122.3843], note: 'Planning phase.' },
-    { name: 'Georgetown Flume',           coords: [47.5421, -122.3159], note: 'Planning phase.' },
-    { name: 'South Park Community Center',coords: [47.5297, -122.3214], note: 'Planning phase.' },
-    { name: 'Ravenna Park',               coords: [47.6688, -122.3057], note: 'Design-only funded; construction unfunded.' },
-  ];
+  // OLA arrays for the map are derived from seattle-olas.csv + planned-olas.csv.
+  // Kinnear is split out so it can be styled in the danger color (case study).
+  function olaToMapItem(o) {
+    return {
+      name: o.ola_name,
+      coords: [parseFloat(o.latitude), parseFloat(o.longitude)],
+      acres: parseFloat(o.acres),
+      neighborhood: o.neighborhood,
+      note: o.map_note || ''
+    };
+  }
+  function plannedToMapItem(p) {
+    return {
+      name: p.ola_name + ' OLA',
+      coords: [parseFloat(p.latitude), parseFloat(p.longitude)],
+      note: p.map_note || ''
+    };
+  }
+  const kinnearOla = olaToMapItem(D.olas.find(o => o.ola_name === 'Kinnear'));
+  const existingOlas = D.olas.filter(o => o.ola_name !== 'Kinnear').map(olaToMapItem);
+  const plannedOlas  = D.planned.filter(p => p.status === 'Under construction').map(plannedToMapItem);
+  const futureOlas   = D.planned.filter(p => p.status !== 'Under construction').map(plannedToMapItem);
 
   // Keep references to each OLA's isochrone layer so mouseover can highlight it.
   const isochroneByOla = {};
@@ -1247,10 +1271,10 @@
     const d = L.DomUtil.create('div', 'sdpd-map-legend');
     d.innerHTML =
       `<div class="hdr">Off-leash areas</div>` +
-      `<div class="row"><span class="dot" style="background:${P.orange};"></span>Existing (13)</div>` +
+      `<div class="row"><span class="dot" style="background:${P.orange};"></span>Existing (${existingOlas.length})</div>` +
       `<div class="row"><span class="dot" style="background:${P.danger};color:${P.danger};"></span>Kinnear &middot; case study</div>` +
-      `<div class="row"><span class="dot dashed" style="background:${P.sage};color:${P.sage};"></span>Opening fall 2026 (2)</div>` +
-      `<div class="row"><span class="dot dashed" style="background:${P.inkFaint};color:${P.inkFaint};"></span>Planning / design (4)</div>`;
+      `<div class="row"><span class="dot dashed" style="background:${P.sage};color:${P.sage};"></span>Opening fall 2026 (${plannedOlas.length})</div>` +
+      `<div class="row"><span class="dot dashed" style="background:${P.inkFaint};color:${P.inkFaint};"></span>Planning / design (${futureOlas.length})</div>`;
     return d;
   };
   legend.addTo(map);
@@ -1278,28 +1302,14 @@
       })
       .catch(err => console.error('merged-map walkshed fetch failed', err));
 
-    const HOTSPOTS = [
-      { park: 'Discovery Park',            count: 420, lat: 47.6564, lng: -122.4063, ola: 'no' },
-      { park: 'Magnuson Park',             count: 248, lat: 47.6827, lng: -122.2571, ola: 'has' },
-      { park: 'Volunteer Park',            count: 230, lat: 47.6302, lng: -122.3157, ola: 'no' },
-      { park: 'Woodland Park',             count: 222, lat: 47.6722, lng: -122.3322, ola: 'partial' },
-      { park: 'Golden Gardens Park',       count: 174, lat: 47.6909, lng: -122.4006, ola: 'has' },
-      { park: 'Cal Anderson Park',         count: 133, lat: 47.6178, lng: -122.3202, ola: 'no' },
-      { park: 'Genesee Park',              count: 130, lat: 47.5640, lng: -122.2761, ola: 'has' },
-      { park: 'Lincoln Park',              count: 122, lat: 47.5300, lng: -122.3936, ola: 'no' },
-      { park: 'Martha Washington Park',    count: 103, lat: 47.5347, lng: -122.2567, ola: 'no' },
-      { park: 'Green Lake Park',           count:  96, lat: 47.6805, lng: -122.3290, ola: 'no' },
-      { park: 'Wallingford Playfield',     count:  89, lat: 47.6578, lng: -122.3337, ola: 'no' },
-      { park: 'Seward Park',               count:  88, lat: 47.5526, lng: -122.2558, ola: 'no' },
-      { park: 'Westcrest Park',            count:  86, lat: 47.5258, lng: -122.3417, ola: 'has' },
-      { park: 'West Queen Anne Playfield', count:  77, lat: 47.6359, lng: -122.3656, ola: 'no' },
-      { park: 'Maple Leaf Reservoir Park', count:  73, lat: 47.6912, lng: -122.3198, ola: 'no' },
-      { park: 'Rogers Playground',         count:  66, lat: 47.6431, lng: -122.3240, ola: 'no' },
-      { park: 'Soundview Playfield',       count:  56, lat: 47.6869, lng: -122.3715, ola: 'no' },
-      { park: 'Alki Beach Park',           count:  55, lat: 47.5762, lng: -122.4047, ola: 'no' },
-      { park: 'Ravenna Park',              count:  54, lat: 47.6697, lng: -122.3102, ola: 'planned' },
-      { park: 'Meridian Playground',       count:  45, lat: 47.6571, lng: -122.3342, ola: 'no' },
-    ];
+    // From data/enforcement-hotspots.csv (top 20 cited parks, with OLA-status flag).
+    const HOTSPOTS = D.hotspots.map(h => ({
+      park: h.park,
+      count: parseInt(h.count, 10),
+      lat: parseFloat(h.latitude),
+      lng: parseFloat(h.longitude),
+      ola: h.ola_status
+    }));
     HOTSPOTS.forEach(h => {
       const radius = Math.sqrt(h.count) * 1.8;
       const hasOla = h.ola === 'has';
@@ -1452,6 +1462,7 @@
   }).catch(err => {
     console.error('Finding 02d data load failed:', err);
   });
+})().catch(err => { console.error('init failed', err); });
 </script>
 
 </body>

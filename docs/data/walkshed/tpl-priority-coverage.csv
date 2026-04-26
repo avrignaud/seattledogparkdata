@@ -1,0 +1,5 @@
+priority_tier,pct_inside_walkshed,provenance
+High,15.6,calculated: walkshed pipeline 2026-04
+Medium-High,14.5,calculated: walkshed pipeline 2026-04
+Medium,24.1,calculated: walkshed pipeline 2026-04
+Low,43.7,calculated: walkshed pipeline 2026-04

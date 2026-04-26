@@ -1137,10 +1137,28 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
 <script src="chart-defaults.js"></script>
+<script src="site-data.js"></script>
 <script>
-(function () {
+(async function () {
   const P = SDPD.palette;
   const HALF_MILE_METERS = 804.67;
+  const num = SDPD.data.num;
+  const D = await SDPD.data.loadAll({
+    olas: 'data/seattle-olas.csv',
+    planned: 'data/planned-olas.csv',
+    timeseries: 'data/seattle-timeseries.csv',
+    peers: 'data/peer-cities.csv',
+    budget: 'data/budget-detail.csv',
+    facilities: 'data/seattle-facility-counts.csv',
+    indicators: 'data/illegal-use-indicators.csv',
+    hotspots: 'data/enforcement-hotspots.csv',
+    offenseMix: 'data/enforcement-offense-mix.csv',
+    programEcon: 'data/enforcement-program-economics.csv'
+  });
+  function indicator(metricStartsWith) {
+    const r = D.indicators.find(i => i.metric.toLowerCase().startsWith(metricStartsWith.toLowerCase()));
+    return r ? parseFloat(r.value) : null;
+  }
 
   // ================================================================
   // Signal plumbing: flag set once the single map finishes loading
@@ -1155,9 +1173,10 @@
   // PART I charts
   // ================================================================
 
-  // Residents per OLA
-  const years1 = [2010, 2016, 2017, 2019, 2020, 2021, 2023, 2024, 2025, 2026];
-  const residentsPerOla = [43476, 50314, 51767, 53836, 52644, 52386, 55657, 56979, 58329, 52000];
+  // Residents per OLA — from seattle-timeseries.csv.
+  const tsRows = D.timeseries.filter(r => r.residents_per_ola !== '');
+  const years1 = tsRows.map(r => parseInt(r.year, 10));
+  const residentsPerOla = tsRows.map(r => parseInt(r.residents_per_ola, 10));
   new Chart(document.getElementById('chartResPerOla'), {
     type: 'line',
     data: {
@@ -1204,9 +1223,21 @@
     }
   });
 
-  // Peer cities dog parks per 100K
-  const peerLabels = ['Boise, ID', 'Portland, OR', 'Vancouver, BC', 'San Francisco, CA', 'Seattle, WA', 'Austin, TX'];
-  const peerValues = [7.60, 5.74, 5.44, 5.03, 1.82, 1.28];
+  // Peer cities dog parks per 100K — from peer-cities.csv.
+  const PEER_BAR_LABELS = {
+    'Boise ID': 'Boise, ID',
+    'Portland OR': 'Portland, OR',
+    'Vancouver BC': 'Vancouver, BC',
+    'San Francisco CA': 'San Francisco, CA',
+    'Seattle WA': 'Seattle, WA',
+    'Austin TX': 'Austin, TX'
+  };
+  const peerBarRows = D.peers
+    .filter(p => PEER_BAR_LABELS[p.city] && p.dog_parks_per_100k_tpl)
+    .map(p => ({ label: PEER_BAR_LABELS[p.city], value: parseFloat(p.dog_parks_per_100k_tpl) }))
+    .sort((a, b) => b.value - a.value);
+  const peerLabels = peerBarRows.map(r => r.label);
+  const peerValues = peerBarRows.map(r => r.value);
   new Chart(document.getElementById('chartPeer'), {
     type: 'bar',
     data: {
@@ -1238,12 +1269,20 @@
     }
   });
 
-  // Kids vs Dogs
+  // Kids vs Dogs — from seattle-facility-counts.csv.
+  function fmtConstituent(n) {
+    return n >= 1000 ? '~' + Math.round(n/1000) + ',000' : String(n);
+  }
+  const kdLabels = D.facilities.map(r =>
+    r.facility + ' (for ' + fmtConstituent(parseInt(r.constituent_count, 10)) + ' ' +
+    r.constituent_label.toLowerCase().replace(/\s*\(.*\)\s*$/, '') + ')'
+  );
+  const kdData = D.facilities.map(r => parseInt(r.count, 10));
   new Chart(document.getElementById('chartKidsDogs'), {
     type: 'bar',
     data: {
-      labels: ['Playgrounds (for ~115,000 kids)', 'OLAs (for ≥150,000 dogs)'],
-      datasets: [{ data: [157, 14], backgroundColor: [P.navy, P.orange] }]
+      labels: kdLabels,
+      datasets: [{ data: kdData, backgroundColor: [P.navy, P.orange] }]
     },
     options: {
       responsive: true, maintainAspectRatio: false,
@@ -1267,18 +1306,19 @@
   });
 
   // ================================================================
-  // PART II: chartWalkshed
+  // PART II: chartWalkshed — values from illegal-use-indicators.csv.
   // ================================================================
+  const walkshedRows = [
+    { label: 'Any park, 10-min walk (TPL)',     value: indicator('Pct residents within 10-min walk of any park') },
+    { label: 'OLA, 10-min network walk',         value: indicator('Pct residents within 10-min network walk of an OLA') },
+    { label: 'OLA, 2.5-mi walk (SPR standard)',  value: indicator("Pct residents within SPR's 2.5-mi OLA access standard") }
+  ];
   new Chart(document.getElementById('chartWalkshed'), {
     type: 'bar',
     data: {
-      labels: [
-        'Any park, 10-min walk (TPL)',
-        'OLA, 10-min network walk',
-        'OLA, 2.5-mi walk (SPR standard)'
-      ],
+      labels: walkshedRows.map(r => r.label),
       datasets: [{
-        data: [99, 11.7, 76.6],
+        data: walkshedRows.map(r => r.value),
         backgroundColor: [P.sage, P.orange, P.gold],
         barThickness: 30
       }]
@@ -1305,30 +1345,13 @@
   });
 
   // ================================================================
-  // ENFORCEMENT charts
+  // ENFORCEMENT charts — top-20 hotspots from enforcement-hotspots.csv.
   // ================================================================
-  const HOTSPOTS = [
-    { park: 'Discovery Park', count: 420, ola: 'no' },
-    { park: 'Magnuson Park',  count: 248, ola: 'has' },
-    { park: 'Volunteer Park', count: 230, ola: 'no' },
-    { park: 'Woodland Park',  count: 222, ola: 'partial' },
-    { park: 'Golden Gardens Park', count: 174, ola: 'has' },
-    { park: 'Cal Anderson Park', count: 133, ola: 'no' },
-    { park: 'Genesee Park',   count: 130, ola: 'has' },
-    { park: 'Lincoln Park',   count: 122, ola: 'no' },
-    { park: 'Martha Washington Park', count: 103, ola: 'no' },
-    { park: 'Green Lake Park', count: 96, ola: 'no' },
-    { park: 'Wallingford Playfield', count: 89, ola: 'no' },
-    { park: 'Seward Park',    count: 88, ola: 'no' },
-    { park: 'Westcrest Park', count: 86, ola: 'has' },
-    { park: 'West Queen Anne Playfield', count: 77, ola: 'no' },
-    { park: 'Maple Leaf Reservoir Park', count: 73, ola: 'no' },
-    { park: 'Rogers Playground', count: 66, ola: 'no' },
-    { park: 'Soundview Playfield', count: 56, ola: 'no' },
-    { park: 'Alki Beach Park', count: 55, ola: 'no' },
-    { park: 'Ravenna Park',   count: 54, ola: 'planned' },
-    { park: 'Meridian Playground', count: 45, ola: 'no' }
-  ];
+  const HOTSPOTS = D.hotspots.map(h => ({
+    park: h.park,
+    count: parseInt(h.count, 10),
+    ola: h.ola_status
+  }));
   function olaFill(s) {
     if (s === 'has')     return P.sage;
     if (s === 'partial') return P.gold;
@@ -1369,12 +1392,19 @@
     }
   });
 
-  const OFFENSE_MIX = [
-    { level: '1st offense (warning / $54)', count: 4179 },
-    { level: '2nd offense ($109)', count: 418 },
-    { level: '3rd offense ($136)', count: 123 },
-    { level: '4th+ offense ($162)', count: 83 }
-  ];
+  // From enforcement-offense-mix.csv.
+  const OFFENSE_LABEL_BY_LEVEL = {
+    First:   '1st offense (warning / $',
+    Second:  '2nd offense ($',
+    Third:   '3rd offense ($',
+    'Fourth+': '4th+ offense ($'
+  };
+  const OFFENSE_MIX = D.offenseMix.map(o => ({
+    level: (OFFENSE_LABEL_BY_LEVEL[o.offense_level] || o.offense_level + ' (') + o.fee_per + ')',
+    count: parseInt(o.count, 10),
+    fee:   parseInt(o.fee_per, 10)
+  }));
+  const OFFENSE_TOTAL = OFFENSE_MIX.reduce((s, o) => s + o.count, 0);
   new Chart(document.getElementById('chartOffenseMix'), {
     type: 'bar',
     data: {
@@ -1395,7 +1425,7 @@
           display: true, anchor: 'end', align: 'end', offset: 6,
           color: P.ink,
           font: { family: "'IBM Plex Mono', monospace", size: 10, weight: 500 },
-          formatter: v => v.toLocaleString() + ' (' + (v / 4803 * 100).toFixed(1) + '%)'
+          formatter: v => v.toLocaleString() + ' (' + (v / OFFENSE_TOTAL * 100).toFixed(1) + '%)'
         }
       },
       scales: {
@@ -1405,11 +1435,16 @@
     }
   });
 
-  const REV_ACTUAL = 240652;
-  const REV_UPPER  = 4179 * 54 + 418 * 109 + 123 * 136 + 83 * 162;
+  // From enforcement-program-economics.csv (revenue actual + FAS/FMW costs).
+  function econ(metricName) {
+    const r = D.programEcon.find(e => e.metric === metricName);
+    return r ? parseInt(r.value, 10) : 0;
+  }
+  const REV_ACTUAL = econ('revenue_actual_total');
+  const REV_UPPER  = OFFENSE_MIX.reduce((s, o) => s + o.count * o.fee, 0);
   const REV_UPPER_MARGIN = REV_UPPER - REV_ACTUAL;
-  const COST_FAS = 152399 * 6;
-  const COST_FMW = 140000 * 6;
+  const COST_FAS = econ('fas_aco_annual_cost') * 6;
+  const COST_FMW = econ('spr_fmw_annual_cost_estimate') * 6;
 
   new Chart(document.getElementById('chartRevCost'), {
     type: 'bar',
@@ -1438,13 +1473,17 @@
   });
 
   // ================================================================
-  // BUDGET charts
+  // BUDGET charts — from budget-detail.csv.
   // ================================================================
-  const YEARS = [2016, 2017, 2018, 2019, 2020, 2021, 2023, 2024, 2025, 2026];
-  const SPR_TOTAL_M = [156, 163, 168, 247.7, 261.9, 228.1, 328.2, 320.7, 339.4, 506.9];
-  const COMBINED_M = [0.100, 0.100, 0.100, 0.1608, 0.3380, 0.3467, 0.4751, 0.6143, 1.8297, 1.8457];
-  const OLA_ONLY_M = [0.100, 0.100, 0.100, null, null, null, 0.126, 0.129, null, null];
-  const CAPITAL_M  = [null, null, null, null, null, null, null, 1.730, 1.730, null];
+  const budgetRows = D.budget.filter(r => r.spr_total_budget_m);
+  const YEARS       = budgetRows.map(r => parseInt(r.year, 10));
+  const SPR_TOTAL_M = budgetRows.map(r => parseFloat(r.spr_total_budget_m));
+  const COMBINED_M  = budgetRows.map(r => num(r.ola_ppatch_combined_k) == null ? null : num(r.ola_ppatch_combined_k) / 1000);
+  const OLA_ONLY_M  = budgetRows.map(r => num(r.ola_only_k) == null ? null : num(r.ola_only_k) / 1000);
+  const CAPITAL_M   = budgetRows.map(r => {
+    const v = num(r.one_time_capital_k);
+    return (v == null || v === 0) ? null : v / 1000;
+  });
 
   new Chart(document.getElementById('chartDualAxis'), {
     type: 'bar',
@@ -1489,14 +1528,22 @@
     }
   });
 
-  // Space per dog, peer cities
-  const peerSpace = [
-    { city: 'Seattle', pop: 816600, acres: 30.7 },
-    { city: 'Austin (fenced)', pop: 1025000, acres: 80 },
-    { city: 'Portland', pop: 660000, acres: 85 },
-    { city: 'San Francisco', pop: 870000, acres: 120 },
-    { city: 'Vancouver BC', pop: 662000, acres: 168 }
-  ];
+  // Space per dog, peer cities — from peer-cities.csv (cities with both
+  // population and ola_acres_total_est).
+  const SPACE_LABEL = {
+    'Seattle WA': 'Seattle',
+    'Austin TX': 'Austin (fenced)',
+    'Portland OR': 'Portland',
+    'San Francisco CA': 'San Francisco',
+    'Vancouver BC': 'Vancouver BC'
+  };
+  const peerSpace = D.peers
+    .filter(p => SPACE_LABEL[p.city] && p.population && p.ola_acres_total_est)
+    .map(p => ({
+      city: SPACE_LABEL[p.city],
+      pop: parseInt(p.population, 10),
+      acres: parseFloat(p.ola_acres_total_est)
+    }));
   const DOG_RATE = 0.30;
   const spaceRows = peerSpace.map(c => {
     const dogs = c.pop * DOG_RATE;
@@ -1546,32 +1593,25 @@
     subdomains: 'abcd', maxZoom: 19
   }).addTo(map);
 
-  const existingOlas = [
-    { name: 'Magnuson Park',   coords: [47.68270, -122.25710], acres: 9.0 },
-    { name: 'Westcrest',       coords: [47.52578, -122.34172], acres: 8.4 },
-    { name: 'Dr. Jose Rizal',  coords: [47.59386, -122.31809], acres: 4.0 },
-    { name: 'Genesee',         coords: [47.56395, -122.27608], acres: 2.7 },
-    { name: 'Blue Dog Pond',   coords: [47.58889, -122.29863], acres: 1.7 },
-    { name: 'Northacres',      coords: [47.72178, -122.32612], acres: 1.4 },
-    { name: 'Golden Gardens',  coords: [47.69090, -122.40064], acres: 1.0 },
-    { name: 'Lower Woodland',  coords: [47.67042, -122.34431], acres: 0.75 },
-    { name: 'I-5 Colonnade',   coords: [47.63483, -122.32376], acres: 0.5 },
-    { name: 'Magnolia Manor',  coords: [47.65155, -122.39198], acres: 0.48 },
-    { name: 'Regrade',         coords: [47.61435, -122.34478], acres: 0.3 },
-    { name: 'Plymouth Pillars',coords: [47.61434, -122.32895], acres: 0.2 },
-    { name: 'Denny Park',      coords: [47.61937, -122.34108], acres: 0.105 }
-  ];
-  const kinnearOla = { name: 'Kinnear', coords: [47.62696, -122.36766], acres: 0.124 };
-  const plannedOlas = [
-    { name: 'West Seattle Stadium OLA', coords: [47.5596, -122.3731] },
-    { name: 'Othello Playground OLA',   coords: [47.5414, -122.2745] }
-  ];
-  const futureOlas = [
-    { name: 'Smith Cove Park',     coords: [47.6344, -122.3843] },
-    { name: 'Georgetown Flume',    coords: [47.5421, -122.3159] },
-    { name: 'South Park CC',       coords: [47.5297, -122.3214] },
-    { name: 'Ravenna Park',        coords: [47.6688, -122.3057] }
-  ];
+  // From seattle-olas.csv + planned-olas.csv. Kinnear is split out for the
+  // case-study marker color.
+  function olaToMapItem(o) {
+    return {
+      name: o.ola_name,
+      coords: [parseFloat(o.latitude), parseFloat(o.longitude)],
+      acres: parseFloat(o.acres)
+    };
+  }
+  function plannedToMapItem(p) {
+    return {
+      name: p.ola_name + (p.status === 'Under construction' ? ' OLA' : ''),
+      coords: [parseFloat(p.latitude), parseFloat(p.longitude)]
+    };
+  }
+  const kinnearOla = olaToMapItem(D.olas.find(o => o.ola_name === 'Kinnear'));
+  const existingOlas = D.olas.filter(o => o.ola_name !== 'Kinnear').map(olaToMapItem);
+  const plannedOlas  = D.planned.filter(p => p.status === 'Under construction').map(plannedToMapItem);
+  const futureOlas   = D.planned.filter(p => p.status !== 'Under construction').map(plannedToMapItem);
 
   fetch('data/walkshed/ola_isochrones.geojson')
     .then(r => r.json())
@@ -1617,10 +1657,10 @@
     const d = L.DomUtil.create('div', 'sdpd-map-legend');
     d.innerHTML =
       '<div class="hdr">Off-leash areas</div>' +
-      '<div class="row"><span class="dot" style="background:' + P.orange + '"></span>Existing (13)</div>' +
+      '<div class="row"><span class="dot" style="background:' + P.orange + '"></span>Existing (' + existingOlas.length + ')</div>' +
       '<div class="row"><span class="dot" style="background:' + P.danger + '"></span>Kinnear · case study</div>' +
-      '<div class="row"><span class="dot" style="background:' + P.sage + '"></span>Opening fall 2026 (2)</div>' +
-      '<div class="row"><span class="dot" style="background:' + P.inkFaint + '"></span>Planning / design (4)</div>';
+      '<div class="row"><span class="dot" style="background:' + P.sage + '"></span>Opening fall 2026 (' + plannedOlas.length + ')</div>' +
+      '<div class="row"><span class="dot" style="background:' + P.inkFaint + '"></span>Planning / design (' + futureOlas.length + ')</div>';
     return d;
   };
   legend.addTo(map);

@@ -313,12 +313,24 @@
 </div></main>
 
 <script src="chart-defaults.js"></script>
+<script src="site-data.js"></script>
 <script>
+(async function init() {
   const P = SDPD.palette;
+  const D = await SDPD.data.loadAll({
+    olas: 'data/seattle-olas.csv',
+    timeseries: 'data/seattle-timeseries.csv',
+    peers: 'data/peer-cities.csv',
+    budget: 'data/budget-detail.csv',
+    facilities: 'data/seattle-facility-counts.csv'
+  });
+  const num = SDPD.data.num;
 
   // --- Chart 1: Residents per OLA ----------------------------------------
-  const years1 = [2010, 2016, 2017, 2019, 2020, 2021, 2023, 2024, 2025, 2026];
-  const residentsPerOla = [43476, 50314, 51767, 53836, 52644, 52386, 55657, 56979, 58329, 52000];
+  // From seattle-timeseries.csv: rows where residents_per_ola is populated.
+  const tsRows = D.timeseries.filter(r => r.residents_per_ola !== '');
+  const years1 = tsRows.map(r => parseInt(r.year, 10));
+  const residentsPerOla = tsRows.map(r => parseInt(r.residents_per_ola, 10));
   new Chart(document.getElementById('chartResPerOla'), {
     type: 'line',
     data: {
@@ -386,8 +398,23 @@
   });
 
   // --- Chart 2: Peer cities dog parks per 100K ---------------------------
-  const peerLabels = ['Boise, ID', 'Portland, OR', 'Vancouver, BC', 'San Francisco, CA', 'Seattle, WA', 'Austin, TX'];
-  const peerValues = [7.60, 5.74, 5.44, 5.03, 1.82, 1.28];
+  // From peer-cities.csv. The 6 cities shown are the ones used in the report's
+  // headline peer set (those with dog_parks_per_100k_tpl in the source data
+  // and a published OLA-acres-per-10k figure for cross-chart consistency).
+  const PEER_BAR_LABELS = {
+    'Boise ID': 'Boise, ID',
+    'Portland OR': 'Portland, OR',
+    'Vancouver BC': 'Vancouver, BC',
+    'San Francisco CA': 'San Francisco, CA',
+    'Seattle WA': 'Seattle, WA',
+    'Austin TX': 'Austin, TX'
+  };
+  const peerBarRows = D.peers
+    .filter(p => PEER_BAR_LABELS[p.city] && p.dog_parks_per_100k_tpl)
+    .map(p => ({ label: PEER_BAR_LABELS[p.city], value: parseFloat(p.dog_parks_per_100k_tpl) }))
+    .sort((a, b) => b.value - a.value);
+  const peerLabels = peerBarRows.map(r => r.label);
+  const peerValues = peerBarRows.map(r => r.value);
   const peerMedian = peerValues.slice().sort((a,b) => a-b);
   const median = (peerMedian[Math.floor((peerMedian.length-1)/2)] + peerMedian[Math.ceil((peerMedian.length-1)/2)]) / 2;
   new Chart(document.getElementById('chartPeer'), {
@@ -461,17 +488,10 @@
   });
 
   // --- Chart 3: Scatter investment vs dog parks --------------------------
-  async function loadCSV(url) {
-    const resp = await fetch(url);
-    const text = await resp.text();
-    const [header, ...rows] = text.trim().split('\n');
-    const keys = header.split(',');
-    return rows.map(r => {
-      const vals = r.split(',');
-      return Object.fromEntries(keys.map((k, i) => [k.trim(), vals[i]?.trim()]));
-    });
-  }
-
+  // From peer-cities.csv: every city with investment_per_capita AND
+  // dog_parks_per_100k_tpl populated (i.e. cities TPL ParkScore covers).
+  // Vancouver BC and Boise are excluded — TPL doesn't publish investment
+  // figures for them.
   const SCATTER_LABEL = {
     'Seattle WA': 'Seattle',
     'Portland OR': 'Portland',
@@ -485,18 +505,16 @@
     'Boston MA': 'Boston',
     'Arlington VA': 'Arlington, VA'
   };
-
-  loadCSV('data/peer-cities.csv').then(peers => {
-    const scatterCities = peers
-      .filter(p => p.investment_per_capita && p.investment_per_capita !== '' && SCATTER_LABEL[p.city])
-      .map(p => ({
-        label: SCATTER_LABEL[p.city],
-        x: parseFloat(p.investment_per_capita),
-        y: parseFloat(p.dog_parks_per_100k_tpl),
-        rank: parseInt(p.parkscore_rank, 10),
-        pop: Math.round(parseInt(p.population, 10) / 1000)
-      }));
-    new Chart(document.getElementById('chartScatter'), {
+  const scatterCities = D.peers
+    .filter(p => p.investment_per_capita && SCATTER_LABEL[p.city])
+    .map(p => ({
+      label: SCATTER_LABEL[p.city],
+      x: parseFloat(p.investment_per_capita),
+      y: parseFloat(p.dog_parks_per_100k_tpl),
+      rank: parseInt(p.parkscore_rank, 10),
+      pop: Math.round(parseInt(p.population, 10) / 1000)
+    }));
+  new Chart(document.getElementById('chartScatter'), {
     type: 'scatter',
     data: {
       datasets: [{
@@ -577,14 +595,15 @@
         })
       }
     }
-    });
-  }); // end loadCSV(peer-cities).then
+  });
 
   // --- Chart 4: Budget log-scale ----------------------------------------
-  const budgetYears = [2016, 2017, 2018, 2019, 2020, 2021, 2023, 2024, 2025, 2026];
-  const sprBudgetM   = [156,  163,  168,  247.7, 261.9, 228.1, 328.2, 320.7, 339.4, 506.9];
-  const olaOnlyM     = [0.100,0.100,0.100, null,  null,  null,  0.126, 0.129, null,  null];
-  const olaCombinedM = [0.100,0.100,0.100, 0.161, 0.338, 0.347, 0.475, 0.614, 1.830, 1.846];
+  // From budget-detail.csv: rows where spr_total_budget_m is populated.
+  const budgetRows = D.budget.filter(r => r.spr_total_budget_m);
+  const budgetYears  = budgetRows.map(r => parseInt(r.year, 10));
+  const sprBudgetM   = budgetRows.map(r => parseFloat(r.spr_total_budget_m));
+  const olaOnlyM     = budgetRows.map(r => num(r.ola_only_k) == null ? null : num(r.ola_only_k) / 1000);
+  const olaCombinedM = budgetRows.map(r => num(r.ola_ppatch_combined_k) == null ? null : num(r.ola_ppatch_combined_k) / 1000);
 
   new Chart(document.getElementById('chartBudget'), {
     type: 'bar',
@@ -675,9 +694,12 @@
   });
 
   // --- Chart 5: OLA improvement spending --------------------------------
-  const olaYears = [2016, 2017, 2018, 2019, 2020, 2021, 2023, 2024, 2025, 2026];
-  const olaData  = [100, 100, 100, 160.8, 338, 346.7, 475.1, 614.3, 1829.7, 1845.7];
-  const cycleColors = olaYears.map(y => y <= 2022 ? P.sageMute : P.orange);
+  // Same source as Chart 4: budget-detail.csv (ola_ppatch_combined_k column).
+  const olaSpendRows = D.budget.filter(r => r.ola_ppatch_combined_k);
+  const olaYears = olaSpendRows.map(r => parseInt(r.year, 10));
+  const olaData  = olaSpendRows.map(r => parseFloat(r.ola_ppatch_combined_k));
+  const cycleByYear = Object.fromEntries(D.budget.map(r => [parseInt(r.year, 10), r.cycle]));
+  const cycleColors = olaYears.map(y => cycleByYear[y] === 'Cycle 2' ? P.orange : P.sageMute);
   new Chart(document.getElementById('chartOlaSpend'), {
     type: 'bar',
     data: {
@@ -695,8 +717,11 @@
         legend: { display: false },
         tooltip: {
           callbacks: {
-            label: ctx => `$${ctx.parsed.y.toLocaleString()}K · ${olaYears[ctx.dataIndex] <= 2022 ? 'Park District Cycle 1' : 'Park District Cycle 2'}`,
-            afterLabel: ctx => (olaYears[ctx.dataIndex] === 2025 || olaYears[ctx.dataIndex] === 2026) ? 'Plus: $3.1M one-time capital for W. Seattle Stadium + Othello OLAs' : ''
+            label: ctx => `$${ctx.parsed.y.toLocaleString()}K · Park District ${cycleByYear[olaYears[ctx.dataIndex]] || 'Cycle 1'}`,
+            afterLabel: ctx => {
+              const cap = num((olaSpendRows[ctx.dataIndex] || {}).one_time_capital_k);
+              return cap ? `Plus: $${(cap/1000).toFixed(2)}M one-time capital this year` : '';
+            }
           }
         },
         datalabels: {
@@ -719,13 +744,26 @@
   });
 
   // --- Chart 6: Kids vs Dogs facilities ---------------------------------
+  // From seattle-facility-counts.csv. The OLA count is also derivable from
+  // seattle-olas.csv (D.olas.length); we use the explicit row so the
+  // playground figure has equal provenance.
+  function fmtConstituent(n) {
+    if (n >= 1000) return '~' + Math.round(n/1000) + ',000';
+    return String(n);
+  }
+  const kdLabels = D.facilities.map(r =>
+    r.facility + '\n(for ' + fmtConstituent(parseInt(r.constituent_count, 10)) + ' ' +
+    r.constituent_label.toLowerCase().replace(/\s*\(.*\)\s*$/, '') + ')'
+  );
+  const kdData = D.facilities.map(r => parseInt(r.count, 10));
+  const kdRatios = D.facilities.map(r => Math.round(parseInt(r.constituent_count, 10) / parseInt(r.count, 10)));
   new Chart(document.getElementById('chartKidsDogs'), {
     type: 'bar',
     data: {
-      labels: ['Playgrounds\n(for ~115,000 kids)', 'OLAs\n(for ≥150,000 dogs)'],
+      labels: kdLabels,
       datasets: [{
         label: 'Facility count',
-        data: [157, 14],
+        data: kdData,
         backgroundColor: [P.navy, P.orange]
       }]
     },
@@ -737,7 +775,9 @@
         tooltip: {
           callbacks: {
             label: ctx => ctx.parsed.y + ' facilities',
-            afterLabel: ctx => ctx.dataIndex === 0 ? '≈ 1 playground per 733 kids' : '≈ 1 OLA per 10,700+ dogs'
+            afterLabel: ctx => '≈ 1 ' + D.facilities[ctx.dataIndex].facility.toLowerCase().replace(/s$/, '') +
+              ' per ' + kdRatios[ctx.dataIndex].toLocaleString() + ' ' +
+              D.facilities[ctx.dataIndex].constituent_label.toLowerCase().replace(/\s*\(.*\)\s*$/, '')
           }
         },
         datalabels: {
@@ -758,8 +798,16 @@
   });
 
   // --- Chart 7: OLA acreage ---------------------------------------------
-  const acreageLabels = ['Magnuson', 'Westcrest', 'Dr. Jose Rizal', 'Genesee', 'Blue Dog Pond', 'Northacres', 'Golden Gardens', 'Woodland', 'I-5 Colonnade', 'Magnolia Manor', 'Regrade', 'Plymouth Pillars', 'Kinnear', 'Denny'];
-  const acreageData = [9.0, 8.4, 4.0, 2.7, 1.7, 1.4, 1.0, 0.75, 0.5, 0.48, 0.3, 0.2, 0.124, 0.105];
+  // From seattle-olas.csv, sorted by acres descending. Short labels strip
+  // "Lower " and " Park" so the bar y-axis stays compact.
+  const acreageRanked = D.olas
+    .map(o => ({
+      label: o.ola_name.replace(/^Lower /, '').replace(/ Park$/, ''),
+      acres: parseFloat(o.acres)
+    }))
+    .sort((a, b) => b.acres - a.acres);
+  const acreageLabels = acreageRanked.map(r => r.label);
+  const acreageData   = acreageRanked.map(r => r.acres);
   new Chart(document.getElementById('chartAcreage'), {
     type: 'bar',
     data: {
@@ -861,7 +909,7 @@
             padding: 6, color: P.inkSoft,
             callback: function(v) {
               const y = this.getLabelForValue(v);
-              return (y % 5 === 0 || y === 1997 || y === 2026) ? y : '';
+              return (y % 5 === 0 || y === minYear || y === maxYear) ? y : '';
             },
             font: { family: "'IBM Plex Mono', monospace", size: 11 }
           }
@@ -874,6 +922,7 @@
       }
     }
   });
+})().catch(err => { console.error('init failed', err); });
 </script>
 
 </body>

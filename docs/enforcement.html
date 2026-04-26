@@ -406,100 +406,73 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
 <script src="chart-defaults.js"></script>
+<script src="site-data.js"></script>
 <script>
+(async function init() {
   const P = SDPD.palette;
   const HALF_MILE_METERS = 804.67;
+  const D = await SDPD.data.loadAll({
+    olas: 'data/seattle-olas.csv',
+    hotspots: 'data/enforcement-hotspots.csv',
+    hotspotsExtra: 'data/enforcement-hotspots-extra.csv',
+    offenseMix: 'data/enforcement-offense-mix.csv',
+    neighborhoods: 'data/neighborhood-centers.csv',
+    programEcon: 'data/enforcement-program-economics.csv'
+  });
 
   // ===== Data =====
-  // Aggregated hotspot data. Derived from data/enforcement-by-park-year.csv.
-  // ola_status: 'has' (existing fenced OLA), 'no' (no OLA at all), 'partial' (small OLA inside large park), 'planned'
-  const HOTSPOTS = [
-    { park: 'Discovery Park',            count: 420, lat: 47.6564, lng: -122.4063, neigh: 'Magnolia',           ola: 'no',      nearest: 'Magnolia Manor (0.48 ac, 1.8 mi)' },
-    { park: 'Magnuson Park',             count: 248, lat: 47.68270, lng: -122.25710, neigh: 'Sand Point',         ola: 'has',     nearest: '—' },
-    { park: 'Volunteer Park',            count: 230, lat: 47.6302, lng: -122.3157, neigh: 'Capitol Hill',       ola: 'no',      nearest: 'Plymouth Pillars (0.2 ac, 1.0 mi)' },
-    { park: 'Woodland Park',             count: 222, lat: 47.6722, lng: -122.3322, neigh: 'Green Lake',         ola: 'partial', nearest: 'Lower Woodland OLA (0.75 ac, on-site)' },
-    { park: 'Golden Gardens Park',       count: 174, lat: 47.6911, lng: -122.4034, neigh: 'Ballard',            ola: 'has',     nearest: '—' },
-    { park: 'Cal Anderson Park',         count: 133, lat: 47.6178, lng: -122.3202, neigh: 'Capitol Hill',       ola: 'no',      nearest: 'Plymouth Pillars (0.2 ac, 0.3 mi)' },
-    { park: 'Genesee Park',              count: 130, lat: 47.5599, lng: -122.2688, neigh: 'Columbia City',      ola: 'has',     nearest: '—' },
-    { park: 'Lincoln Park',              count: 122, lat: 47.5300, lng: -122.3936, neigh: 'West Seattle',       ola: 'no',      nearest: 'Westcrest (8.4 ac, 3.4 mi)' },
-    { park: 'Martha Washington Park',    count: 103, lat: 47.5347, lng: -122.2567, neigh: 'Rainier Beach',      ola: 'no',      nearest: 'Genesee (2.7 ac, 2.2 mi)' },
-    { park: 'Green Lake Park',           count:  96, lat: 47.6805, lng: -122.3290, neigh: 'Green Lake',         ola: 'no',      nearest: 'Lower Woodland (0.75 ac, 0.5 mi)' },
-    { park: 'Wallingford Playfield',     count:  89, lat: 47.6578, lng: -122.3337, neigh: 'Wallingford',        ola: 'no',      nearest: 'Lower Woodland (0.75 ac, 0.8 mi)' },
-    { park: 'Seward Park',               count:  88, lat: 47.5526, lng: -122.2558, neigh: 'Seward Park',        ola: 'no',      nearest: 'Genesee (2.7 ac, 1.2 mi)' },
-    { park: 'Westcrest Park',            count:  86, lat: 47.5262, lng: -122.3574, neigh: 'Highland Park',      ola: 'has',     nearest: '—' },
-    { park: 'West Queen Anne Playfield', count:  77, lat: 47.6359, lng: -122.3656, neigh: 'Queen Anne',         ola: 'no',      nearest: 'Kinnear (0.124 ac, 0.7 mi)' },
-    { park: 'Maple Leaf Reservoir Park', count:  73, lat: 47.6912, lng: -122.3198, neigh: 'Maple Leaf',         ola: 'no',      nearest: 'Northacres (1.4 ac, 1.8 mi)' },
-    { park: 'Rogers Playground',         count:  66, lat: 47.6431, lng: -122.3240, neigh: 'Eastlake',           ola: 'no',      nearest: 'I-5 Colonnade (0.5 ac, 0.3 mi)' },
-    { park: 'Soundview Playfield',       count:  56, lat: 47.6869, lng: -122.3715, neigh: 'Crown Hill',         ola: 'no',      nearest: 'Golden Gardens (1.0 ac, 1.3 mi)' },
-    { park: 'Alki Beach Park',           count:  55, lat: 47.5762, lng: -122.4047, neigh: 'Alki',               ola: 'no',      nearest: 'Westcrest (8.4 ac, 2.7 mi)' },
-    { park: 'Ravenna Park',              count:  54, lat: 47.6697, lng: -122.3102, neigh: 'Ravenna',            ola: 'planned', nearest: 'Design-only funded (on-site)' },
-    { park: 'Meridian Playground',       count:  45, lat: 47.6571, lng: -122.3342, neigh: 'Wallingford',        ola: 'no',      nearest: 'Lower Woodland (0.75 ac, 0.8 mi)' }
-  ];
+  // Top-20 hotspots (data/enforcement-hotspots.csv). ola_status:
+  // 'has' (existing fenced OLA at this park), 'no' (no OLA at all),
+  // 'partial' (small OLA inside large host park), 'planned' (in planned-olas.csv).
+  const HOTSPOTS = D.hotspots.map(h => ({
+    park: h.park,
+    count: parseInt(h.count, 10),
+    lat: parseFloat(h.latitude),
+    lng: parseFloat(h.longitude),
+    neigh: h.neighborhood,
+    ola: h.ola_status,
+    nearest: h.nearest_ola
+  }));
 
-  const OFFENSE_MIX = [
-    { level: '1st offense (warning / $54)', count: 4179 },
-    { level: '2nd offense ($109)',           count:  418 },
-    { level: '3rd offense ($136)',           count:  123 },
-    { level: '4th+ offense ($162)',          count:   83 }
-  ];
+  // From data/enforcement-offense-mix.csv. Levels are 1st / 2nd / 3rd / 4th+;
+  // fees are the per-citation amount documented in SMC 9.25 (rolling totals).
+  const OFFENSE_LABEL_BY_LEVEL = {
+    First:   '1st offense (warning / $',
+    Second:  '2nd offense ($',
+    Third:   '3rd offense ($',
+    'Fourth+': '4th+ offense ($'
+  };
+  const OFFENSE_MIX = D.offenseMix.map(o => ({
+    level: (OFFENSE_LABEL_BY_LEVEL[o.offense_level] || o.offense_level + ' (') + o.fee_per + ')',
+    count: parseInt(o.count, 10),
+    fee:   parseInt(o.fee_per, 10)
+  }));
+  const OFFENSE_TOTAL = OFFENSE_MIX.reduce((s, o) => s + o.count, 0);
 
-  // Additional geocoded parks beyond the top-20 in HOTSPOTS (ranks 21–40). Coords approximate from park names.
-  const HEATMAP_EXTRA = [
-    { park: 'Ballard Playground',       count: 44, lat: 47.6687, lng: -122.3852 },
-    { park: 'Gilman Playground',        count: 35, lat: 47.6756, lng: -122.3876 },
-    { park: 'Carkeek Park',             count: 34, lat: 47.7111, lng: -122.3767 },
-    { park: 'Laurelhurst Playfield',    count: 32, lat: 47.6625, lng: -122.2770 },
-    { park: 'David Rodgers Park',       count: 31, lat: 47.6386, lng: -122.3588 },
-    { park: 'Salmon Bay Park',          count: 29, lat: 47.6711, lng: -122.3898 },
-    { park: 'Myrtle Edwards Park',      count: 27, lat: 47.6204, lng: -122.3582 },
-    { park: 'Gilman Playfield',         count: 26, lat: 47.6756, lng: -122.3876 },
-    { park: 'Smith Cove Park',          count: 25, lat: 47.6344, lng: -122.3843 },
-    { park: 'Interbay Playfield',       count: 24, lat: 47.6462, lng: -122.3789 },
-    { park: 'Alki Playground',          count: 19, lat: 47.5757, lng: -122.4064 },
-    { park: 'Leschi Park',              count: 19, lat: 47.6028, lng: -122.2861 },
-    { park: 'Madrona Park',             count: 19, lat: 47.6083, lng: -122.2886 },
-    { park: 'Ross Playground',          count: 19, lat: 47.6578, lng: -122.3655 },
-    { park: 'Madison Park',             count: 18, lat: 47.6361, lng: -122.2797 },
-    { park: 'Schmitz Preserve Park',    count: 18, lat: 47.5767, lng: -122.3933 },
-    { park: 'Pratt Park',               count: 17, lat: 47.6011, lng: -122.3066 },
-    { park: 'Gas Works Park',           count: 16, lat: 47.6456, lng: -122.3344 },
-    { park: 'Hiawatha Playfield',       count: 16, lat: 47.5785, lng: -122.3849 },
-    { park: 'Matthews Beach Park',      count: 16, lat: 47.6986, lng: -122.2684 }
-  ];
+  // Additional geocoded parks beyond top 20 — from enforcement-hotspots-extra.csv.
+  // Coords approximate from park names; all rows used only for the heatmap density.
+  const HEATMAP_EXTRA = D.hotspotsExtra.map(h => ({
+    park: h.park,
+    count: parseInt(h.count, 10),
+    lat: parseFloat(h.latitude),
+    lng: parseFloat(h.longitude)
+  }));
 
-  // All 14 existing OLAs with coordinates. Source: data/seattle-olas.csv.
-  const OLAS_ALL = [
-    { name: 'Magnuson Park',     lat: 47.68270, lng: -122.25710, acres: 9.0 },
-    { name: 'Westcrest',         lat: 47.52578, lng: -122.34172, acres: 8.4 },
-    { name: 'Dr. Jose Rizal',    lat: 47.59386, lng: -122.31809, acres: 4.0 },
-    { name: 'Genesee',           lat: 47.56395, lng: -122.27608, acres: 2.7 },
-    { name: 'Blue Dog Pond',     lat: 47.58889, lng: -122.29863, acres: 1.7 },
-    { name: 'Northacres',        lat: 47.72178, lng: -122.32612, acres: 1.4 },
-    { name: 'Golden Gardens',    lat: 47.69090, lng: -122.40064, acres: 1.0 },
-    { name: 'Lower Woodland',    lat: 47.67042, lng: -122.34431, acres: 0.75 },
-    { name: 'I-5 Colonnade',     lat: 47.63483, lng: -122.32376, acres: 0.5 },
-    { name: 'Magnolia Manor',    lat: 47.65155, lng: -122.39198, acres: 0.48 },
-    { name: 'Regrade',           lat: 47.61435, lng: -122.34478, acres: 0.3 },
-    { name: 'Plymouth Pillars',  lat: 47.61434, lng: -122.32895, acres: 0.2 },
-    { name: 'Kinnear',           lat: 47.62696, lng: -122.36766, acres: 0.124 },
-    { name: 'Denny Park',        lat: 47.61937, lng: -122.34108, acres: 0.105 }
-  ];
+  // From data/seattle-olas.csv (canonical 14-OLA inventory).
+  const OLAS_ALL = D.olas.map(o => ({
+    name: o.ola_name,
+    lat: parseFloat(o.latitude),
+    lng: parseFloat(o.longitude),
+    acres: parseFloat(o.acres)
+  }));
 
-  // Representative neighborhood centers — author-selected, not formal centroids.
-  const NEIGHBORHOODS = [
-    { name: 'Queen Anne',       lat: 47.6345, lng: -122.3578 },
-    { name: 'Capitol Hill',     lat: 47.6253, lng: -122.3217 },
-    { name: 'Wallingford',      lat: 47.6615, lng: -122.3344 },
-    { name: 'Ballard',          lat: 47.6687, lng: -122.3852 },
-    { name: 'Magnolia',         lat: 47.6485, lng: -122.3973 },
-    { name: 'Fremont',          lat: 47.6506, lng: -122.3508 },
-    { name: 'Ravenna',          lat: 47.6697, lng: -122.3102 },
-    { name: 'Madrona',          lat: 47.6083, lng: -122.2886 },
-    { name: 'West Seattle',     lat: 47.5614, lng: -122.3866 },
-    { name: 'Central District', lat: 47.6066, lng: -122.3057 },
-    { name: 'Rainier Valley',   lat: 47.5498, lng: -122.2754 },
-    { name: 'Green Lake',       lat: 47.6780, lng: -122.3290 }
-  ];
+  // From data/neighborhood-centers.csv. Representative centers selected by
+  // the author for label placement on the map — not formal centroids.
+  const NEIGHBORHOODS = D.neighborhoods.map(n => ({
+    name: n.name,
+    lat: parseFloat(n.latitude),
+    lng: parseFloat(n.longitude)
+  }));
 
   function olaFill(s) {
     if (s === 'has')     return P.sage;
@@ -765,12 +738,12 @@
       layout: { padding: { right: 120 } },
       plugins: {
         legend: { display: false },
-        tooltip: { callbacks: { label: ctx => ctx.parsed.x.toLocaleString() + ' citations (' + (ctx.parsed.x / 4803 * 100).toFixed(1) + '%)' } },
+        tooltip: { callbacks: { label: ctx => ctx.parsed.x.toLocaleString() + ' citations (' + (ctx.parsed.x / OFFENSE_TOTAL * 100).toFixed(1) + '%)' } },
         datalabels: {
           display: true, anchor: 'end', align: 'end', offset: 6,
           color: P.ink,
           font: { family: "'IBM Plex Mono', monospace", size: 11, weight: 500 },
-          formatter: v => v.toLocaleString() + ' (' + (v / 4803 * 100).toFixed(1) + '%)'
+          formatter: v => v.toLocaleString() + ' (' + (v / OFFENSE_TOTAL * 100).toFixed(1) + '%)'
         }
       },
       scales: {
@@ -787,12 +760,18 @@
   // ===================================================================
   //   CHART — Revenue vs. cost (Finding 05 / 06)
   // ===================================================================
-  // Actual revenue from CSV fee sum: $240,652. Upper bound: every non-warning row at max fee.
-  const REV_UPPER_6YR   = 4179 * 54 + 418 * 109 + 123 * 136 + 83 * 162;   // ~$301K upper bound
-  const REV_ACTUAL_6YR  = 240652;
+  // Upper-bound revenue derived from offense-mix CSV: every non-warning row
+  // billed at the per-level fee. Actual + cost figures from
+  // enforcement-program-economics.csv.
+  function econ(metricName) {
+    const r = D.programEcon.find(e => e.metric === metricName);
+    return r ? parseInt(r.value, 10) : 0;
+  }
+  const REV_UPPER_6YR   = OFFENSE_MIX.reduce((s, o) => s + o.count * o.fee, 0);
+  const REV_ACTUAL_6YR  = econ('revenue_actual_total');
   const REV_UPPER_MARGIN_6YR = REV_UPPER_6YR - REV_ACTUAL_6YR;
-  const COST_FAS_6YR    = 152399 * 6;
-  const COST_FMW_6YR    = 140000 * 6;  // author estimate; SPR doesn't publish this
+  const COST_FAS_6YR    = econ('fas_aco_annual_cost') * 6;
+  const COST_FMW_6YR    = econ('spr_fmw_annual_cost_estimate') * 6;
 
   new Chart(document.getElementById('chartRevCost'), {
     type: 'bar',
@@ -874,6 +853,7 @@
       `<td style="font-size:13px;color:var(--ink-soft);">${h.nearest}</td>`;
     tbody.appendChild(tr);
   });
+})().catch(err => { console.error('init failed', err); });
 </script>
 
 </body>

@@ -1,0 +1,4 @@
+metric,value,years_covered,source,notes,provenance
+revenue_actual_total,240652,2014-2019,enforcement-citations.csv fee sum,Actual revenue from sum of fee column in citations dataset,calculated: enforcement-citations.csv groupby
+fas_aco_annual_cost,152399,annual,2021 SAS-FAS interlocal MOA,Per-year FAS ACO II cost; 6-yr program total = 6 × this,sourced: 2021 SAS-FAS interlocal MOA (signed)
+spr_fmw_annual_cost_estimate,140000,annual,Author estimate,SPR Field Maintenance Workforce off-leash response cost; SPR does not publish this figure — author estimate,estimated: author triangulation; SPR does not publish FMW off-leash cost
