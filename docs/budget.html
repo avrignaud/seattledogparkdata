@@ -231,12 +231,24 @@
 <script>
   const P = SDPD.palette;
 
-  // Data: budget-detail.csv as JS arrays
-  const YEARS = [2016, 2017, 2018, 2019, 2020, 2021, 2023, 2024, 2025, 2026];
-  const SPR_TOTAL_M = [156, 163, 168, 247.7, 261.9, 228.1, 328.2, 320.7, 339.4, 506.9];
-  const COMBINED_K = [100, 100, 100, 160.8, 338.0, 346.7, 475.1, 614.3, 1829.7, 1845.7];
-  const OLA_ONLY_K = [100, 100, 100, null, null, null, 126, 129, null, null];
-  const CAPITAL_K = [0, 0, 0, 0, 0, 0, 0, 1730, 1730, 0];
+  async function loadCSV(url) {
+    const resp = await fetch(url);
+    const text = await resp.text();
+    const [header, ...rows] = text.trim().split('\n');
+    const keys = header.split(',');
+    return rows.map(r => {
+      const vals = r.split(',');
+      return Object.fromEntries(keys.map((k, i) => [k.trim(), vals[i]?.trim()]));
+    });
+  }
+
+  loadCSV('data/budget-detail.csv').then(rows => {
+    const usable = rows.filter(r => r.spr_total_budget_m && r.spr_total_budget_m !== '');
+    const YEARS       = usable.map(r => parseInt(r.year, 10));
+    const SPR_TOTAL_M = usable.map(r => parseFloat(r.spr_total_budget_m));
+    const COMBINED_K  = usable.map(r => parseFloat(r.ola_ppatch_combined_k));
+    const OLA_ONLY_K  = usable.map(r => r.ola_only_k && r.ola_only_k !== '' ? parseFloat(r.ola_only_k) : null);
+    const CAPITAL_K   = usable.map(r => parseFloat(r.one_time_capital_k) || 0);
 
   const COMBINED_M = COMBINED_K.map(v => v / 1000);
   const OLA_ONLY_M = OLA_ONLY_K.map(v => v == null ? null : v / 1000);
@@ -423,6 +435,7 @@
       }
     }
   });
+  }); // end loadCSV(budget-detail).then
 
   // --- Chart 03: Off-leash space per dog, peer cities ---
   const peerSpace = [
