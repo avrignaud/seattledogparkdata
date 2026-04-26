@@ -1054,9 +1054,26 @@
   });
 
   // ===== Finding 03 — Seattle OLA acreage ranked =====
-  const acreageLabels = ['Magnuson','Westcrest','Dr. Jose Rizal','Genesee','Blue Dog Pond','Northacres','Golden Gardens','Lower Woodland','I-5 Colonnade','Magnolia Manor','Regrade','Plymouth Pillars','Kinnear','Denny'];
-  const acreageData = [9.0, 8.4, 4.0, 2.7, 1.7, 1.4, 1.0, 0.75, 0.5, 0.48, 0.3, 0.2, 0.124, 0.105];
-  new Chart(document.getElementById('chartAcreage'), {
+  // Loaded from data/seattle-olas.csv to keep this chart in sync with the
+  // canonical OLA inventory.
+  async function loadCSV(url) {
+    const resp = await fetch(url);
+    const text = await resp.text();
+    const [header, ...rows] = text.trim().split('\n');
+    const keys = header.split(',');
+    return rows.map(r => {
+      const vals = r.split(',');
+      return Object.fromEntries(keys.map((k, i) => [k.trim(), vals[i]?.trim()]));
+    });
+  }
+
+  loadCSV('data/seattle-olas.csv').then(olas => {
+    const ranked = olas
+      .map(o => ({ name: o.ola_name.replace(/ Park$/, ''), acres: parseFloat(o.acres) }))
+      .sort((a, b) => b.acres - a.acres);
+    const acreageLabels = ranked.map(r => r.name);
+    const acreageData = ranked.map(r => r.acres);
+    new Chart(document.getElementById('chartAcreage'), {
     type: 'bar',
     data: {
       labels: acreageLabels,
@@ -1088,6 +1105,7 @@
         y: SDPD.catAxis({ ticks: { padding: 8, color: P.inkSoft, font: { size: 12 } } })
       }
     }
+    });
   });
 
   // ===== Finding 04 — Peer city acreage per 10K =====
