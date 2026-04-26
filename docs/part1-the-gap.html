@@ -466,13 +466,13 @@
     { label: 'Portland', x: 274, y: 5.74, rank: 9, pop: 660 },
     { label: 'San Francisco', x: 561, y: 5.03, rank: 6, pop: 870 },
     { label: 'Austin', x: 211, y: 1.28, rank: 54, pop: 1025 },
-    { label: 'Washington DC', x: 393, y: 2.8, rank: 1, pop: 699 },
-    { label: 'Minneapolis', x: 254, y: 0.7, rank: 3, pop: 435 },
-    { label: 'Cincinnati', x: 242, y: 1.4, rank: 4, pop: 311 },
-    { label: 'Denver', x: 196, y: 1.8, rank: 10, pop: 713 },
-    { label: 'Chicago', x: 168, y: 0.5, rank: 11, pop: 2660 },
-    { label: 'Boston', x: 300, y: 0.7, rank: 12, pop: 670 },
-    { label: 'Arlington, VA', x: 449, y: 3.8, rank: 7, pop: 236 }
+    { label: 'Washington DC', x: 393, y: 2.29, rank: 1, pop: 699 },
+    { label: 'Minneapolis', x: 254, y: 2.07, rank: 3, pop: 435 },
+    { label: 'Cincinnati', x: 242, y: 1.29, rank: 4, pop: 311 },
+    { label: 'Denver', x: 196, y: 1.82, rank: 10, pop: 713 },
+    { label: 'Chicago', x: 168, y: 0.53, rank: 11, pop: 2660 },
+    { label: 'Boston', x: 300, y: 0.75, rank: 12, pop: 670 },
+    { label: 'Arlington, VA', x: 449, y: 3.81, rank: 7, pop: 236 }
   ];
   new Chart(document.getElementById('chartScatter'), {
     type: 'scatter',
@@ -794,7 +794,7 @@
   // --- Chart 8: OLA openings per year -----------------------------------
   const openingYears = Array.from({length: 2026 - 1997 + 1}, (_, i) => 1997 + i);
   const openingCountsExisting = openingYears.map(y => ({
-    1997: 1, 1998: 1, 1999: 1, 2000: 2, 2001: 2, 2002: 1, 2003: 1,
+    1997: 1, 1999: 2, 2000: 2, 2001: 2, 2002: 1, 2003: 1,
     2004: 1, 2005: 1, 2008: 1, 2009: 2
   }[y] || 0));
   const openingCountsPlanned = openingYears.map(y => y === 2026 ? 2 : 0);
