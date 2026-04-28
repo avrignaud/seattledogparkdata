@@ -515,17 +515,17 @@ ul.link-list li,
   gap: 24px;
   max-width: none;
 }
-ul.link-list a,
-.data-list a,
-.data-list .file {
+ul.link-list > li > a,
+.data-list > li > a,
+.data-list > li > .file {
   color: var(--ink);
   text-decoration: none;
   font-family: 'IBM Plex Mono', monospace;
   font-size: 14px;
 }
-ul.link-list a:hover,
-.data-list a:hover,
-.data-list .file:hover { color: var(--orange); }
+ul.link-list > li > a:hover,
+.data-list > li > a:hover,
+.data-list > li > .file:hover { color: var(--orange); }
 ul.link-list .tag,
 .data-list .tag {
   font-family: 'Inter', sans-serif;
