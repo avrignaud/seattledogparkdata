@@ -75,15 +75,25 @@ const PDF_OVERRIDES = `
   .chart-block { padding: 10px 12px !important; margin: 8px 0 12px !important; }
   .chart-wrap { margin: 6px 0 !important; }
 
-  /* Page-break protection: keep small atomic units intact, but allow
-     large containers (.case-study, multi-paragraph .takeaway, long
-     tables) to flow across pages so we don't leave half-page gaps. */
-  .stat, .hstat, .timeline-item, .principle,
-  .chart-source, .chart-title, .chart-subtitle,
-  table.data thead { page-break-inside: avoid; break-inside: avoid; }
+  /* Page-break protection. Charts, maps, and tables are atomic visual
+     units — never split them across pages. Small atomic UI elements
+     (stat tiles, profile cards, timeline items) likewise stay intact.
+     Larger flowing containers (case studies, multi-paragraph takeaways)
+     are allowed to break so we don't leave half-page gaps. */
+  .chart-block, .map-block, table.data,
+  .stat, .hstat, .timeline-item, .principle, .profile-card,
+  .chart-source, .chart-title, .chart-subtitle {
+    page-break-inside: avoid; break-inside: avoid;
+  }
 
-  /* Headings should stick with the content that follows */
-  h1, h2, h3 { page-break-after: avoid; break-after: avoid; }
+  /* Keep headings glued to the paragraph that follows, and keep the
+     intro paragraph glued to the chart/table it introduces. */
+  h1, h2, h3, h4, .lead, .chart-title, .chart-subtitle {
+    page-break-after: avoid; break-after: avoid;
+  }
+  .chart-block, .map-block, table.data {
+    page-break-before: avoid; break-before: avoid;
+  }
 
   /* Hide the index page's redundant "All the reports" section in
      PDF — the link-list above it already serves as a TOC. The :has()
