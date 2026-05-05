@@ -151,10 +151,15 @@ async function renderPageToPdf(browser, baseUrl, page) {
     await p.waitForFunction('window.__walkshedReady === true', { timeout: 30_000 });
   } catch {}
   await new Promise(r => setTimeout(r, 6000));
+  // scale: 0.78 shrinks everything (text, charts, padding) to roughly
+  // print-publication density. The on-screen layout is tuned for ~14pt
+  // body type at 850px viewport; 0.78 brings that to ~11pt at Letter
+  // width, with charts proportionally smaller.
   const bytes = await p.pdf({
     format: 'Letter',
     printBackground: true,
     preferCSSPageSize: true,
+    scale: 0.78,
     margin: { top: '0.5in', right: '0.5in', bottom: '0.5in', left: '0.5in' },
   });
   await p.close();
