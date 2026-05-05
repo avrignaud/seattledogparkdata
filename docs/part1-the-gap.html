@@ -139,6 +139,22 @@
 </div>
 
 <!-- ================================================================= -->
+<h2 class="finding" id="finding-02b"><span class="num">Finding 02b</span>The allocation question: how much of each city's parkland is legal off-leash.</h2>
+<p class="lead">Per-capita supply is one frame; <em>allocation within an existing park system</em> is another. The "Seattle is land-constrained" defense argues against building more parks; the allocation cut asks how much of the parks the city <em>already operates</em> are legal for dogs. Of Seattle's 6,662 acres of municipal parkland, 30.7 are legal off-leash &mdash; about <strong>0.46%</strong>.</p>
+
+<div class="chart-block">
+  <div class="chart-title">OLA acreage as a share of total municipal parkland</div>
+  <div class="chart-subtitle">OLA acres divided by total parkland acres in each city. Uses each city's own published count, with the same fenced-OLA caveats as Finding 02. Vancouver figures from the Park Board's <a href="https://vancouver.ca/parks-recreation-culture/people-parks-dogs-strategy.aspx">People, Parks &amp; Dogs Strategy</a>; U.S. peers from <a href="https://www.tpl.org/parkscore">TPL 2025 ParkScore</a>.</div>
+  <div class="chart-wrap"><canvas id="chartOlaShare" role="img" aria-label="Horizontal bar chart: OLA acreage as a share of municipal parkland — Vancouver BC 2.27%, San Francisco 1.88%, Portland 0.65%, Seattle 0.46%, Austin 0.43%."></canvas></div>
+  <div class="chart-source">Source: total parkland acres from <a href="https://www.tpl.org/parkscore">TPL 2025 ParkScore</a> (US) and <a href="https://vancouver.ca/parks-recreation-culture/people-parks-dogs-strategy.aspx">Vancouver Park Board</a> &middot; OLA acres reconciled to each city's own inventory &middot; data in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/peer-cities.csv">data/peer-cities.csv</a></div>
+</div>
+
+<div class="takeaway neutral">
+  <span class="kicker">Observation</span>
+  <p>Vancouver allocates <strong>~5&times;</strong> the share of its parkland to off-leash use that Seattle does (2.27% vs 0.46%). San Francisco allocates ~4&times;. Even Portland, with most of its sites unfenced voice-control rather than dedicated acreage, still allocates a higher share. Austin sits at 0.43% on a fenced-comparable basis &mdash; comparable to Seattle. The framing matters because it isolates the policy choice (how much of the existing park system is legal for dogs) from the system-size argument (how much park land the city has overall).</p>
+</div>
+
+<!-- ================================================================= -->
 <h2 class="finding" id="finding-03"><span class="num">Finding 03</span>Park investment versus dog-park density.</h2>
 <p class="lead">Seattle is one of the <a href="https://www.tpl.org/parkscore">best-funded municipal park systems in the country</a>, with <a href="https://www.tpl.org/city/seattle-washington">$418 per resident per year</a> in TPL's investment category. The chart below plots each city's three-year average park investment against its dog-park density.</p>
 
@@ -472,6 +488,83 @@
         x: SDPD.xAxis({
           beginAtZero: true, max: 9,
           ticks: { padding: 6, color: P.inkSoft, callback: v => v.toFixed(1) }
+        }),
+        y: SDPD.catAxis({
+          ticks: {
+            padding: 8,
+            color: ctx => ctx.tick && ctx.tick.label === 'Seattle, WA' ? P.orange : P.inkSoft,
+            font: ctx => ({
+              family: "'Inter', sans-serif", size: 12.5,
+              weight: ctx.tick && ctx.tick.label === 'Seattle, WA' ? 600 : 400
+            })
+          }
+        })
+      }
+    }
+  });
+
+  // --- Chart 2b: OLA acreage as % of total parkland ---------------------
+  // From peer-cities.csv: every city with both parkland_acres and
+  // ola_acres_total_est populated. Order from highest share to lowest
+  // so the small bars at the bottom (Seattle, Austin) read naturally.
+  const SHARE_LABEL = {
+    'Vancouver BC': 'Vancouver, BC',
+    'San Francisco CA': 'San Francisco, CA',
+    'Portland OR': 'Portland, OR',
+    'Seattle WA': 'Seattle, WA',
+    'Austin TX': 'Austin, TX'
+  };
+  const shareRows = D.peers
+    .filter(p => SHARE_LABEL[p.city] && p.parkland_acres && p.ola_acres_total_est)
+    .map(p => ({
+      label: SHARE_LABEL[p.city],
+      pct: parseFloat(p.ola_acres_total_est) / parseFloat(p.parkland_acres) * 100,
+      olaAc: parseFloat(p.ola_acres_total_est),
+      parkAc: parseFloat(p.parkland_acres)
+    }))
+    .sort((a, b) => b.pct - a.pct);
+  const shareLabels = shareRows.map(r => r.label);
+  const shareValues = shareRows.map(r => r.pct);
+  new Chart(document.getElementById('chartOlaShare'), {
+    type: 'bar',
+    data: {
+      labels: shareLabels,
+      datasets: [{
+        data: shareValues,
+        backgroundColor: shareLabels.map(l => l === 'Seattle, WA' ? P.orange : P.sageMute),
+        hoverBackgroundColor: shareLabels.map(l => l === 'Seattle, WA' ? P.orange : P.sage),
+        barThickness: 26
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true, maintainAspectRatio: false,
+      layout: { padding: { right: 64, top: 4, bottom: 4, left: 4 } },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => {
+              const r = shareRows[ctx.dataIndex];
+              return r.olaAc.toFixed(1) + ' OLA ac of ' + r.parkAc.toLocaleString() + ' parkland ac (' + r.pct.toFixed(2) + '%)';
+            }
+          }
+        },
+        datalabels: {
+          display: true, anchor: 'end', align: 'end', offset: 6,
+          color: ctx => shareLabels[ctx.dataIndex] === 'Seattle, WA' ? P.orange : P.inkSoft,
+          font: ctx => ({
+            family: "'IBM Plex Mono', monospace", size: 11,
+            weight: shareLabels[ctx.dataIndex] === 'Seattle, WA' ? 600 : 500
+          }),
+          formatter: v => v.toFixed(2) + '%'
+        }
+      },
+      scales: {
+        x: SDPD.xAxis({
+          beginAtZero: true,
+          ticks: { padding: 6, color: P.inkSoft, callback: v => v.toFixed(1) + '%' },
+          title: { display: true, text: 'OLA acreage as % of total parkland', color: P.inkSoft, font: { size: 11, family: "'IBM Plex Mono', monospace" } }
         }),
         y: SDPD.catAxis({
           ticks: {
