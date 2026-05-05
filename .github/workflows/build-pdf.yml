@@ -5,7 +5,9 @@ on:
     branches: [main]
     paths:
       - 'docs/**'
+      - 'data/**'
       - 'scripts/build-pdf.mjs'
+      - 'scripts/sync-data.sh'
       - 'package.json'
       - 'package-lock.json'
       - '.github/workflows/build-pdf.yml'
@@ -34,21 +36,30 @@ jobs:
       - name: Install dependencies
         run: npm ci || npm install
 
+      # Mirror canonical /data CSVs into /docs/data so the runtime fetches
+      # see them. Doing this in CI removes the "did you remember to run
+      # sync-data.sh?" failure mode that bit us when CSV edits silently
+      # diverged from the served copy.
+      - name: Sync data CSVs into docs/data
+        run: bash scripts/sync-data.sh
+
       - name: Build PDF
         run: npm run build:pdf
 
-      - name: Commit updated PDF
+      - name: Commit updated PDF and synced data
         run: |
           git config user.name  'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          # The build also stamps docs/index.html with a ?v=<size>-<mtime>
-          # cache-bust query. Stage both artifacts so the rebase-on-reject
-          # path below doesn't fail with "unstaged changes".
-          if git diff --quiet -- docs/seattle-dog-parks-report.pdf docs/index.html; then
-            echo "No change to PDF or index link."
+          # The build stamps docs/index.html with a ?v=<size>-<mtime>
+          # cache-bust query, sync-data.sh may have updated docs/data/*,
+          # and the PDF itself changes whenever content changes. Stage all
+          # three so the rebase-on-reject path doesn't fail with "unstaged
+          # changes".
+          if git diff --quiet -- docs/seattle-dog-parks-report.pdf docs/index.html docs/data; then
+            echo "No change to PDF, index link, or synced data."
             exit 0
           fi
-          git add docs/seattle-dog-parks-report.pdf docs/index.html
+          git add docs/seattle-dog-parks-report.pdf docs/index.html docs/data
           git commit -m "chore(pdf): regenerate report from latest site [skip ci]"
           # Retry up to 5 times to handle the race where a developer pushes
           # while the Action is committing. Each retry rebases onto the new
