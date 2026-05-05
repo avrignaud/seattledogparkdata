@@ -38,7 +38,8 @@ const PAGES = [
 ];
 
 // CSS injected into every page during PDF build. Hides on-screen
-// navigation chrome that is meaningless in a printed document.
+// navigation chrome that is meaningless in a printed document, and
+// tightens layout density so we don't waste pages on whitespace.
 const PDF_OVERRIDES = `
   /* Hide on-screen-only navigation chrome */
   .skip-link,
@@ -47,23 +48,49 @@ const PDF_OVERRIDES = `
   footer { display: none !important; }
 
   /* Tighten the masthead so each chapter's date stamp is unobtrusive */
-  .masthead { padding: 6px 0 4px !important; font-size: 9pt !important; }
+  .masthead { padding: 6px 0 4px !important; font-size: 9pt !important; margin-bottom: 8px !important; }
 
   /* Each page rendered by puppeteer becomes its own PDF subdocument
      and is concatenated by pdf-lib, so chapters already start on fresh
      pages naturally — no page-break-before rule needed. */
 
-  /* Things that shouldn't straddle pages */
-  .chart-block, .map-block, .case-study, .takeaway, .note-box,
-  .stats, .standards-grid, .profile-card, .principle, table.data,
-  .data-gap, .timeline-item { page-break-inside: avoid; break-inside: avoid; }
+  /* Compress vertical rhythm. On-screen padding is tuned for desktop
+     reading; in print these become wasted space. */
+  body { font-size: 11pt; }
+  .wrap { padding-top: 0 !important; padding-bottom: 0 !important; }
+  .hero, .hero-number { padding: 12px 0 !important; margin: 0 0 12px !important; }
+  .hero .deck, .hero-number .deck { margin-top: 8px !important; }
+  .hero .big-number { font-size: 96pt !important; line-height: 0.95 !important; margin: 0 0 6px !important; }
+  h1.hed { margin: 6px 0 8px !important; }
+  h2 { margin-top: 14px !important; margin-bottom: 6px !important; }
+  h2.finding { margin-top: 18px !important; }
+  h3 { margin-top: 10px !important; margin-bottom: 4px !important; }
+  p, ul, ol { margin-top: 0 !important; margin-bottom: 8px !important; }
+  .lead { margin-bottom: 10px !important; }
+  .stats { gap: 8px !important; margin: 8px 0 12px !important; }
+  .stat { padding: 12px !important; }
+  .takeaway, .note-box, .data-currency, .corrections, .ai-disclosure {
+    padding: 10px 14px !important; margin: 8px 0 !important;
+  }
+  .chart-block { padding: 10px 12px !important; margin: 8px 0 12px !important; }
+  .chart-wrap { margin: 6px 0 !important; }
 
-  h2, h3 { page-break-after: avoid; break-after: avoid; }
+  /* Page-break protection: keep small atomic units intact, but allow
+     large containers (.case-study, multi-paragraph .takeaway, long
+     tables) to flow across pages so we don't leave half-page gaps. */
+  .stat, .hstat, .timeline-item, .principle,
+  .chart-source, .chart-title, .chart-subtitle,
+  table.data thead { page-break-inside: avoid; break-inside: avoid; }
 
-  /* Hide the index page's "All the reports" grid in PDF (the link-list
-     above it serves as a TOC; the grid is screen redundancy). */
+  /* Headings should stick with the content that follows */
+  h1, h2, h3 { page-break-after: avoid; break-after: avoid; }
+
+  /* Hide the index page's redundant "All the reports" section in
+     PDF — the link-list above it already serves as a TOC. The :has()
+     selector lets us hide the H2 that introduces the grid without
+     adding a class to it. */
   body .report-grid,
-  body h2.reports-grid-heading { display: none !important; }
+  body h2:has(+ .report-grid) { display: none !important; }
 `;
 
 const MIME = {
@@ -151,6 +178,8 @@ async function main() {
     for (const page of PAGES) {
       const bytes = await renderPageToPdf(browser, baseUrl, page);
       const doc = await PDFDocument.load(bytes);
+      const pageCount = doc.getPageCount();
+      console.log(`  ${page}: ${pageCount} pages`);
       const copied = await merged.copyPages(doc, doc.getPageIndices());
       copied.forEach(pg => merged.addPage(pg));
     }
