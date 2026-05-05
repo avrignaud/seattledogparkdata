@@ -755,7 +755,7 @@
 <!-- =============================================================== -->
 <h2 class="finding" id="finding-04"><span class="num">Finding 04</span><span>Peer-city acreage, with a methodology note.</span></h2>
 
-<p class="lead">Comparing total OLA acreage across cities is harder than comparing counts because cities define "off-leash" differently. Portland has 30+ DOLAs but most are unfenced voice-control areas. San Francisco counts 42 dog-friendly sites including small Dog Play Areas (DPAs) inside larger parks. Vancouver BC counts 36 including time-restricted areas. Seattle counts only fully-fenced dedicated OLAs.</p>
+<p class="lead">Comparing total OLA acreage across cities is harder than comparing counts because cities define "off-leash" differently. Portland has 38 DOLAs (TPL 2025) but most are unfenced voice-control areas. San Francisco counts 42 dog-friendly sites including small Dog Play Areas (DPAs) inside larger parks. Vancouver BC counts 36 including time-restricted areas. Seattle counts only fully-fenced dedicated OLAs.</p>
 
 <p>A best-effort comparison of OLA acreage per capita, with caveats inline:</p>
 
@@ -772,10 +772,10 @@
   </thead>
   <tbody>
     <tr class="me"><td><strong>Seattle, WA</strong></td><td>14 (all fenced)</td><td class="num">~31</td><td class="num highlight">0.38</td><td>9.0 (Magnuson)</td><td class="num">0.9</td></tr>
-    <tr><td>Portland, OR</td><td>33 (most unfenced)</td><td class="num">~85</td><td class="num">1.29</td><td>1,400 (Thousand Acres)*</td><td class="num">1.3</td></tr>
+    <tr><td>Portland, OR</td><td>38 (most unfenced)</td><td class="num">~85</td><td class="num">1.29</td><td>1,400 (Thousand Acres)*</td><td class="num">1.3</td></tr>
     <tr><td>San Francisco, CA</td><td>42 (mix fenced/unfenced)</td><td class="num">~120</td><td class="num">1.38</td><td>14 (Fort Funston)</td><td class="num">1.5</td></tr>
     <tr><td>Vancouver, BC</td><td>36 (mostly time-restricted)</td><td class="num">~168</td><td class="num">2.54</td><td>40 (New Brighton)</td><td class="num">2.3</td></tr>
-    <tr><td>Austin, TX</td><td>13 (mix)</td><td class="num">~680*</td><td class="num">6.63*</td><td>293 (Red Bud Isle, on-leash optional)</td><td class="num">2.0</td></tr>
+    <tr><td>Austin, TX</td><td>13 (mix)</td><td class="num">~680*</td><td class="num">6.63*</td><td>293 (Walnut Creek Metro Park, voice-control natural area)*</td><td class="num">2.0</td></tr>
   </tbody>
 </table>
 
@@ -946,7 +946,7 @@
 
   <p><strong>10-minute walkshed methodology.</strong> TPL defines the 10-minute walk as a half-mile service area along the public road network, cut by physical barriers (highways, tracks, rivers without bridges). TPL publishes the &ldquo;99% of Seattle residents&rdquo; figure using this methodology for all parks; TPL does not publish a dog-park-specific version. The OLA walkshed figures on this page (11.7% at 10-min, 76.6% at 2.5-mi) are computed in-repo: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/compute_walkshed.py">scripts/compute_walkshed.py</a> runs osmnx against Seattle's OSM walk network (projected to UTM 10N; physical barriers respected) to compute per-OLA isochrones; <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/population_coverage.py">scripts/population_coverage.py</a> intersects the union with 2020 Census block-group population clipped to the Seattle city boundary. The isochrone algorithm uses an alpha-shape (&alpha;=0.003) of reachable network nodes with a 0.3 km&sup2; area floor and a convex-hull fallback for OLAs at the edge of OSM coverage (Westcrest is one). Output at <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/walkshed/population_coverage.csv">data/walkshed/population_coverage.csv</a>; full methodology in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/METHODOLOGY.md">METHODOLOGY.md</a>.</p>
 
-  <p><strong>Peer-city OLA counts.</strong> The methodological differences are real and material. Portland's 33 DOLAs include 20+ unfenced voice-control areas; Seattle counts zero unfenced sites. Redefining Seattle's approach to include unfenced designated sites (as several other cities do) would raise its count, though SPR has publicly stated a preference for fenced sites on liability and environmental-impact grounds. The comparison in this report uses each city's own count.</p>
+  <p><strong>Peer-city OLA counts.</strong> The methodological differences are real and material. Portland's 38 DOLAs (TPL 2025) include 20+ unfenced voice-control areas; Seattle counts zero unfenced sites. Redefining Seattle's approach to include unfenced designated sites (as several other cities do) would raise its count, though SPR has publicly stated a preference for fenced sites on liability and environmental-impact grounds. The comparison in this report uses each city's TPL ParkScore count.</p>
 
   <p><strong>OLA acreage.</strong> Per-OLA acreage is pulled from SPR's Dog Off-Leash Areas ArcGIS FeatureServer (April 2026) and cross-checked against SPR individual OLA pages &mdash; see <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">data/seattle-olas.csv</a>. Peer-city totals are rougher (&plusmn;20% reasonable) because no peer city publishes a single authoritative inventory in the way Seattle does.</p>
 
