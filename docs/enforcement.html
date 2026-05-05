@@ -569,7 +569,14 @@
   // map hits the mid/dark end, denser minOpacity for presence, darker peak.
   // Basemap is Voyager (more park/water saturation), so underlying greenery
   // stays visible under the heat overlay.
-  L.heatLayer(heatPoints, {
+  //
+  // leaflet.heat calls getImageData() during onAdd; if the map container has
+  // 0 width at that moment (which happens when this IIFE runs before the
+  // browser has finished laying out the .map-block) it throws
+  // IndexSizeError and the heat surface never renders. Defer addTo until
+  // the container actually has dimensions, using ResizeObserver where
+  // available and a polling fallback otherwise.
+  const heatLayer = L.heatLayer(heatPoints, {
     radius: 38,
     blur: 36,
     maxZoom: 17,
@@ -582,7 +589,33 @@
       0.80: '#B83F14',                // signal orange, deepened
       1.00: '#6E1A0E'                 // deep red-brown peak
     }
-  }).addTo(gapMap);
+  });
+  (function addHeatWhenSized() {
+    const el = document.getElementById('gap-map');
+    if (el && el.clientWidth > 0) {
+      gapMap.invalidateSize();
+      heatLayer.addTo(gapMap);
+      return;
+    }
+    if (typeof ResizeObserver === 'function') {
+      const ro = new ResizeObserver(() => {
+        if (el && el.clientWidth > 0) {
+          ro.disconnect();
+          gapMap.invalidateSize();
+          heatLayer.addTo(gapMap);
+        }
+      });
+      ro.observe(el);
+    } else {
+      const t = setInterval(() => {
+        if (el && el.clientWidth > 0) {
+          clearInterval(t);
+          gapMap.invalidateSize();
+          heatLayer.addTo(gapMap);
+        }
+      }, 50);
+    }
+  })();
 
   // 0.5-mile walksheds around each existing OLA — prefer real network isochrones, fall back to a straight-line circle.
   const drawnIsochroneFor = {};

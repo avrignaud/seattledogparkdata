@@ -1,12 +1,16 @@
 #!/usr/bin/env bash
-# Mirror /data CSVs into /docs/data so GitHub Pages can serve them.
+# Mirror /data CSVs and walkshed GeoJSON into /docs/data so GitHub Pages
+# can serve them.
 #
 # The site is published from /docs (no build step). Charts on the site
 # fetch CSVs at runtime from data/* relative to the page, which resolves
-# to /docs/data/*. The canonical files live at /data/*; this script
-# copies them into /docs/data/* so the runtime fetches see them.
+# to /docs/data/*. The Part II and Enforcement maps also fetch
+# data/walkshed/ola_isochrones.geojson at runtime. The canonical files
+# live at /data/*; this script copies them into /docs/data/* so the
+# runtime fetches see them.
 #
-# Run this any time you edit a CSV in /data. CI does not run it for you.
+# Run this any time you edit a CSV or GeoJSON in /data. CI runs it for
+# you before the PDF build (.github/workflows/build-pdf.yml).
 #
 # Usage: ./scripts/sync-data.sh
 
@@ -46,4 +50,22 @@ for f in data/walkshed/*.csv; do
   cp "$f" "docs/$f"
 done
 
-echo "synced $(ls docs/data/*.csv docs/data/walkshed/*.csv 2>/dev/null | wc -l | tr -d ' ') CSV files into docs/data/"
+# Walkshed GeoJSON files fetched at runtime by Part II and Enforcement
+# maps. Skipping this previously caused docs/data/walkshed/ola_isochrones.geojson
+# to drift stale. Only the ones the browser actually fetches are listed
+# here — `seattle_block_groups.geojson` is only used by
+# scripts/population_coverage.py at compute time, so it stays out of /docs.
+geojsons=(
+  data/walkshed/ola_isochrones.geojson
+)
+for f in "${geojsons[@]}"; do
+  if [[ -f "$f" ]]; then
+    cp "$f" "docs/$f"
+  else
+    echo "WARN: missing $f (skipping)" >&2
+  fi
+done
+
+n_csv=$(ls docs/data/*.csv docs/data/walkshed/*.csv 2>/dev/null | wc -l | tr -d ' ')
+n_geo=$(ls docs/data/walkshed/*.geojson 2>/dev/null | wc -l | tr -d ' ')
+echo "synced $n_csv CSV + $n_geo GeoJSON files into docs/data/"

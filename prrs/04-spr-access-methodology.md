@@ -2,7 +2,7 @@
 
 **Recipient:** Seattle Parks & Recreation · `PKS_PDR@seattle.gov`
 
-**Status:** Draft — ready to file
+**Status:** Filed (awaiting response)
 
 ---
 

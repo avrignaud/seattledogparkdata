@@ -2,7 +2,7 @@
 
 **Recipient:** Seattle Parks & Recreation · `PKS_PDR@seattle.gov` (cc: Seattle Animal Shelter / FAS where appropriate)
 
-**Status:** Draft — ready to file
+**Status:** Filed (awaiting response)
 
 ---
 

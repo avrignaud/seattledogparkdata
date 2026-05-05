@@ -90,9 +90,9 @@ per-dog math — sits below every estimate by design.
 
 ## Outstanding audit items (unresolved, not hallucinations)
 
-- **Find-It-Fix-It "dog in a park" complaints = ~1,100 in 2024.** Labeled as approximate in `illegal-use-indicators.csv`; PRR #2 to SPU drafted to replace with authoritative number.
+- **Find-It-Fix-It "dog in a park" complaints = ~1,100 in 2024.** Labeled as approximate in `illegal-use-indicators.csv`; PRR #2 to SPU filed and awaiting response — will replace with authoritative number when answered.
 - **2022 budget row is blank** (`interpolated`/`missing`). Budget book for 2022 not consistently available; 2022 population is linear interpolation of 2021–2023.
-- **OLA-only 2025–2026 budget split** is `missing` — SPR publishes the combined OLA + P-Patch BSL only. PRR #3 drafted.
+- **OLA-only 2025–2026 budget split** is `missing` — SPR publishes the combined OLA + P-Patch BSL only. PRR #3 filed and awaiting response.
 - **Post-2019 enforcement citations** — PRR #1 filed, awaiting response.
 
 ## Claims verified by hand spot-check (no CSV)

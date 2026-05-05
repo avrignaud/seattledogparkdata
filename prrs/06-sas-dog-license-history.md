@@ -6,6 +6,8 @@
 **From:** Andre Vrignaud, seattledogparkdata@ozymandi.as
 **Subject:** Public Records Request — Dog-license counts and related data, 2014–present
 
+**Status:** Filed (awaiting response)
+
 ---
 
 ## Request

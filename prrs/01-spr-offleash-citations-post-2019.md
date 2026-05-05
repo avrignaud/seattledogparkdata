@@ -3,7 +3,7 @@
 **Recipient:** Seattle Parks & Recreation · `PKS_PDR@seattle.gov`
 (Seattle Animal Control is the likely owner but routing through SPR's PDR inbox is the same pattern used for request C049204 in 2019, which SPR handled directly.)
 
-**Status:** Filed by Andre in April 2026 (self-reported). Draft body retained here for reference and in case a re-file is needed.
+**Status:** Filed (awaiting response). Body retained here for reference and in case a re-file is needed.
 
 ---
 

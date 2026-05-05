@@ -67,9 +67,9 @@
   <div class="stat orange">
     <div>
       <div class="label">OLAs in 2010</div>
-      <div class="num">14</div>
+      <div class="num">14<span class="unit" style="font-size:14px;">&dagger;</span></div>
     </div>
-    <div class="note">Total Seattle off-leash areas. <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">src</a></div>
+    <div class="note">Total Seattle off-leash areas. <strong>&dagger;</strong> 2010 row in the timeseries CSV is flagged approximate &mdash; the 14 sites all opened by 2009; SPR did not publish a formal 2010 inventory. <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">src</a></div>
   </div>
   <div class="stat orange">
     <div>
@@ -128,7 +128,7 @@
 
 <div class="chart-block">
   <div class="chart-title">Dog parks per 100,000 residents, 2025</div>
-  <div class="chart-subtitle">Comparable and aspirational cities. Vancouver BC is not in ParkScore (not in the U.S.), so this uses its self-reported count of 36 OLAs from the <a href="https://vancouver.ca/parks-recreation-culture/people-parks-dogs-strategy.aspx">People, Parks &amp; Dogs Strategy</a> and April 2025 population.</div>
+  <div class="chart-subtitle">Comparable and aspirational cities. Vancouver BC is not in ParkScore (not in the U.S.), so this uses its self-reported count of 36 OLAs from the <a href="https://vancouver.ca/parks-recreation-culture/people-parks-dogs-strategy.aspx">People, Parks &amp; Dogs Strategy</a> and Statistics Canada 2021 census population (carried forward).</div>
   <div class="chart-wrap tall"><canvas id="chartPeer" role="img" aria-label="Horizontal bar chart: Seattle has 1.82 dog parks per 100,000 residents — below Boise (7.60), Portland (5.74), Vancouver BC (5.44), SF (5.03), and above Austin (1.28)."></canvas></div>
   <div class="chart-source">Source: <a href="https://www.tpl.org/parkscore">Trust for Public Land 2025 ParkScore Index</a> &middot; <a href="https://vancouver.ca/parks-recreation-culture/people-parks-dogs-strategy.aspx">Vancouver Park Board People, Parks &amp; Dogs Strategy</a> (2017) &middot; data in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/peer-cities.csv">data/peer-cities.csv</a></div>
 </div>
@@ -144,7 +144,7 @@
 
 <div class="chart-block">
   <div class="chart-title">OLA acreage as a share of total municipal parkland</div>
-  <div class="chart-subtitle">OLA acres divided by total parkland acres in each city. Uses each city's own published count, with the same fenced-OLA caveats as Finding 02. Vancouver figures from the Park Board's <a href="https://vancouver.ca/parks-recreation-culture/people-parks-dogs-strategy.aspx">People, Parks &amp; Dogs Strategy</a>; U.S. peers from <a href="https://www.tpl.org/parkscore">TPL 2025 ParkScore</a>.</div>
+  <div class="chart-subtitle">OLA acres divided by total parkland acres in each city. Uses each city's own published count, with the same fenced-OLA caveats as Finding 02. Portland's 0.65% includes ~85 ac of mostly-unfenced voice-control DOLAs (Portland's fenced-only acreage understates the share by an unpublished but smaller amount). Austin's 0.43% sits below Seattle on a fenced-comparable basis (~80 ac), excluding the much larger Walnut Creek voice-control natural area. Vancouver figures from the Park Board's <a href="https://vancouver.ca/parks-recreation-culture/people-parks-dogs-strategy.aspx">People, Parks &amp; Dogs Strategy</a>; U.S. peers from <a href="https://www.tpl.org/parkscore">TPL 2025 ParkScore</a>.</div>
   <div class="chart-wrap"><canvas id="chartOlaShare" role="img" aria-label="Horizontal bar chart: OLA acreage as a share of municipal parkland — Vancouver BC 2.27%, San Francisco 1.88%, Portland 0.65%, Seattle 0.46%, Austin 0.43%."></canvas></div>
   <div class="chart-source">Source: total parkland acres from <a href="https://www.tpl.org/parkscore">TPL 2025 ParkScore</a> (US) and <a href="https://vancouver.ca/parks-recreation-culture/people-parks-dogs-strategy.aspx">Vancouver Park Board</a> &middot; OLA acres reconciled to each city's own inventory &middot; data in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/peer-cities.csv">data/peer-cities.csv</a></div>
 </div>
@@ -172,7 +172,7 @@
 
 <!-- ================================================================= -->
 <h2 class="finding" id="finding-04"><span class="num">Finding 04</span>Seattle's parks budget, versus its OLA budget.</h2>
-<p class="lead"><a href="https://www.seattle.gov/city-budget-office/budget-archives">Seattle Parks and Recreation's total budget</a> has grown substantially since 2016. During Park District Cycle 1, <a href="https://parkways.seattle.gov/">SPR publicly stated</a> the dedicated OLA improvement line was $100,000/year. The combined OLA + P-Patch line item (which the city has reported as a single number since 2019) has grown sharply; the OLA-only share inside it is not separately disclosed for 2025&ndash;2026. A <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/prrs/03-spr-ola-budget-split.md">public records request</a> for that split has been submitted; this page will be updated when SPR responds. See <a href="budget.html">Budget</a> for the full picture.</p>
+<p class="lead"><a href="https://www.seattle.gov/city-budget-office/budget-archives">Seattle Parks and Recreation's total budget</a> has grown substantially since 2016. During Park District Cycle 1, <a href="https://parkways.seattle.gov/">SPR publicly stated</a> the dedicated OLA improvement line was $100,000/year. The combined OLA + P-Patch line item (which the city has reported as a single number since 2019) has grown sharply; the OLA-only share inside it is not separately disclosed for 2025&ndash;2026. A <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/prrs/03-spr-ola-budget-split.md">public records request</a> for that split has been filed and is awaiting SPR's response; this page will be updated when SPR responds. See <a href="budget.html">Budget</a> for the full picture.</p>
 
 <div class="chart-block">
   <div class="chart-title">Seattle Parks budget vs. dedicated OLA improvement funding</div>
@@ -183,7 +183,7 @@
 
 <div class="takeaway neutral">
   <span class="kicker">Observation</span>
-  <p>SPR's total budget rose from $156M in 2016 to $506.9M proposed in 2026. Every OLA-related series on the chart sits two to three orders of magnitude below it. The combined OLA + P-Patch line rises in part because P-Patch funding has grown. The OLA-only markers that SPR has publicly confirmed are $0.100M in Cycle 1 and $0.126M / $0.129M in Cycle 2 years 1&ndash;2. The $3.46M Cycle 2 one-time capital line funds <a href="https://harrell.seattle.gov/wp-content/uploads/sites/23/2022/08/Seattle-Park-District-Fact-sheet.pdf">two new OLAs plus Ravenna design</a>. A <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/prrs/03-spr-ola-budget-split.md">public records request</a> for the 2025&ndash;2026 OLA-only share has been submitted and is awaiting SPR's response.</p>
+  <p>SPR's total budget rose from $156M in 2016 to $506.9M proposed in 2026. Every OLA-related series on the chart sits two to three orders of magnitude below it. The combined OLA + P-Patch line rises in part because P-Patch funding has grown. The OLA-only markers that SPR has publicly confirmed are $0.100M in Cycle 1 and $0.126M / $0.129M in Cycle 2 years 1&ndash;2. The $3.46M Cycle 2 one-time capital line funds <a href="https://harrell.seattle.gov/wp-content/uploads/sites/23/2022/08/Seattle-Park-District-Fact-sheet.pdf">two new OLAs plus Ravenna design</a>. A <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/prrs/03-spr-ola-budget-split.md">public records request</a> for the 2025&ndash;2026 OLA-only share has been filed and is awaiting SPR's response.</p>
 </div>
 
 <!-- ================================================================= -->
@@ -302,7 +302,7 @@
 <li><strong>AVMA-derived demographic estimate:</strong> <a href="https://www.avma.org/resources-tools/reports-statistics/us-pet-ownership-statistics">AVMA's 2025 Pet Ownership Sourcebook</a> reports 45.5% of U.S. households own a dog, averaging 1.5 dogs per dog-owning household. Applied to Seattle's <a href="https://data.census.gov/table/ACSDT1Y2023.B11001?g=160XX00US5363000">364,627 households (ACS 1-year 2023)</a>: <strong>364,627 &times; 0.455 &times; 1.5 &asymp; 248,900 dogs</strong>. Limitation: AVMA publishes state-level data in the paywalled Sourcebook, so the rate used here is the national figure as a Seattle proxy.</li>
 <li><strong>SPR upper bound:</strong> the <a href="https://www.seattle.gov/parks/about-us/plans-and-reports/recreation-plans-and-reports/off-leash-area-study">SPR 2023&ndash;24 OLA Expansion Study</a> cites estimates ranging from ~187,000 to "upwards of 400,000."</li>
 </ul>
-<p>All three estimates cluster between ~90K and ~400K. The site uses the <strong>AVMA-derived ~248,900</strong> as its canonical dog-population number and names the <strong>150,000 conservative floor</strong> whenever a claim benefits from understating. A submitted public records request to Seattle Animal Shelter (<a href="https://github.com/avrignaud/seattledogparkdata/blob/main/prrs/06-sas-dog-license-history.md">PRR #6</a>), now awaiting response, will add historical licensed counts and any SPR-internal compliance estimate.</p>
+<p>All three estimates cluster between ~90K and ~400K. The site uses the <strong>AVMA-derived ~248,900</strong> as its canonical dog-population number and names the <strong>150,000 conservative floor</strong> whenever a claim benefits from understating. A public records request to Seattle Animal Shelter (<a href="https://github.com/avrignaud/seattledogparkdata/blob/main/prrs/06-sas-dog-license-history.md">PRR #6</a>) has been filed and is awaiting response; it will add historical licensed counts and any SPR-internal compliance estimate when answered.</p>
 <p><strong>Vancouver BC.</strong> Because Canada is not in the TPL ParkScore, Vancouver's data comes from its own Park Board documents (36 OLAs per the "People, Parks &amp; Dogs Strategy") and current population estimates. Vancouver does not publish OLA-specific budget data in a format comparable to Seattle's.</p>
 <p><strong>Boise.</strong> Boise has led <a href="https://www.tpl.org/parkscore">TPL's dog-park-per-capita category</a> in recent years (7.6 per 100K in the 2025 ParkScore). It is not a true peer city in size or density, but is included as the national-best benchmark.</p>
 <p><strong>Playground count.</strong> Seattle's 157 playgrounds is from the TPL 2025 ParkScore data. This includes playgrounds in parks and schoolyards with joint-use agreements.</p>
@@ -1001,12 +1001,35 @@
   });
 
   // --- Chart 8: OLA openings per year -----------------------------------
-  const openingYears = Array.from({length: 2026 - 1997 + 1}, (_, i) => 1997 + i);
-  const openingCountsExisting = openingYears.map(y => ({
-    1997: 1, 1999: 2, 2000: 2, 2001: 2, 2002: 1, 2003: 1,
-    2004: 1, 2005: 1, 2008: 1, 2009: 2
-  }[y] || 0));
-  const openingCountsPlanned = openingYears.map(y => y === 2026 ? 2 : 0);
+  // Derived live from seattle-olas.csv (existing) + planned-olas.csv (planned).
+  // Each existing OLA contributes 1 to its year_opened bucket; each planned
+  // OLA whose expected_open string parses to a year contributes 1 to that
+  // year's planned bucket. Edits to either CSV flow through automatically.
+  const existingByYear = D.olas.reduce((acc, o) => {
+    const y = parseInt(o.year_opened, 10);
+    if (Number.isFinite(y)) acc[y] = (acc[y] || 0) + 1;
+    return acc;
+  }, {});
+  const plannedByYear = (await SDPD.data.loadCSV('data/planned-olas.csv'))
+    .reduce((acc, p) => {
+      const m = (p.expected_open || '').match(/(19|20)\d{2}/);
+      if (m) {
+        const y = parseInt(m[0], 10);
+        acc[y] = (acc[y] || 0) + 1;
+      }
+      return acc;
+    }, {});
+  const minYear = Math.min(
+    ...Object.keys(existingByYear).map(Number),
+    ...Object.keys(plannedByYear).map(Number)
+  );
+  const maxYear = Math.max(
+    ...Object.keys(existingByYear).map(Number),
+    ...Object.keys(plannedByYear).map(Number)
+  );
+  const openingYears = Array.from({length: maxYear - minYear + 1}, (_, i) => minYear + i);
+  const openingCountsExisting = openingYears.map(y => existingByYear[y] || 0);
+  const openingCountsPlanned  = openingYears.map(y => plannedByYear[y] || 0);
   new Chart(document.getElementById('chartOlaOpenings'), {
     type: 'bar',
     data: {
@@ -1050,7 +1073,7 @@
             padding: 6, color: P.inkSoft,
             callback: function(v) {
               const y = this.getLabelForValue(v);
-              return (y % 5 === 0 || y === 1997 || y === 2026) ? y : '';
+              return (y % 5 === 0 || y === minYear || y === maxYear) ? y : '';
             },
             font: { family: "'IBM Plex Mono', monospace", size: 11 }
           }

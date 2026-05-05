@@ -2,7 +2,7 @@
 
 **Recipient:** Seattle Public Utilities (FIFI system owner) · `SPUPublicDisclosure@seattle.gov`
 
-**Status:** Draft — ready to file
+**Status:** Filed (awaiting response)
 
 ---
 

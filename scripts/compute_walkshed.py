@@ -30,17 +30,23 @@ Methodology:
 3. Use osmnx.routing.ego_graph_networkx equivalent — traverse network within
    a given walking distance (computed in meters). 0.5 mi = 804.67 m;
    1.0 mi = 1609.34 m; 2.5 mi = 4023.36 m.
-4. Build a convex hull (or alpha-shape) of reachable nodes → isochrone polygon.
+4. Build an alpha-shape (α=0.003) of reachable nodes → isochrone polygon.
+   Falls back to a convex hull when the alpha-shape collapses (e.g. for
+   OLAs at the edge of the OSM coverage area, like Westcrest), and
+   enforces a 0.3 km² area floor so a single thin reachable corridor
+   doesn't degenerate to a sliver.
 5. Union all 14 OLA isochrones per distance → total city coverage.
 6. Report total coverage area and (if census data is supplied) population.
 
 Caveats:
-- Isochrones are built from the convex hull of reachable nodes, which
-  slightly overestimates reachable area compared to a true alpha-shape.
 - Walking speed is assumed constant; does not model elevation. Seattle's
   hills would reduce real-world walkability further.
 - Physical barriers (I-5, Ship Canal) are respected because the walkable
   road network doesn't cross them without bridges.
+- The osmnx graph and TIGER census shapes are pulled live (cache=False),
+  so re-running can produce isochrones that differ at the meter scale
+  if the upstream OSM extract has changed; reported population
+  percentages are stable to the tenth of a percent.
 """
 
 from __future__ import annotations

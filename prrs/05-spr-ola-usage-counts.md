@@ -2,7 +2,7 @@
 
 **Recipient:** Seattle Parks & Recreation · `PKS_PDR@seattle.gov`
 
-**Status:** Draft — low priority (SPR likely does not track this systematically)
+**Status:** Filed (awaiting response). Low confidence SPR tracks this systematically; if the response comes back null, the request itself is the documentation.
 
 ---
 
