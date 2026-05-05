@@ -538,6 +538,44 @@ ul.link-list .tag,
   max-width: 60%;
 }
 
+/* ---------- Data tables ---------- */
+table.data {
+  width: 100%;
+  margin: 18px 0 28px;
+  border-collapse: collapse;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+}
+table.data thead th {
+  text-align: left;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--ink-soft);
+  padding: 10px 16px 10px 0;
+  border-bottom: 1.5px solid var(--ink);
+  white-space: nowrap;
+}
+table.data tbody td {
+  padding: 9px 16px 9px 0;
+  border-bottom: 1px solid var(--rule);
+  color: var(--ink);
+  vertical-align: top;
+}
+table.data tbody tr:hover td {
+  background: var(--rule-soft);
+}
+table.data th.num,
+table.data td.num {
+  text-align: right;
+  font-family: 'IBM Plex Mono', monospace;
+}
+table.data tbody td.num {
+  font-variant-numeric: tabular-nums;
+}
+
 /* ---------- Pagination (report prev/next) ---------- */
 nav.paginate {
   display: grid;

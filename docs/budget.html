@@ -60,7 +60,7 @@
 
 <div class="note-box">
   <strong class="tag">About this data</strong>
-  SPR total budget figures are drawn from published Seattle budget books. Since 2019, SPR's Maintaining Parks &amp; Facilities line item (BSL <strong>BC-PR-50000</strong>) has funded both off-leash areas <em>and</em> P-Patch community gardens, and the city has not published the OLA-only share in its budget documents. Cycle 1 (2015&ndash;2020) OLA-only figures are from SPR's public statements. Cycle 2 OLA-only amounts for 2023 and 2024 are from Parkways coverage; 2025&ndash;2026 OLA-only splits are not publicly disclosed. A public records request for the missing OLA-only detail has been drafted (see <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/prrs/03-spr-ola-budget-split.md">PRR #3</a>). Every figure below has its source linked; approximate or combined figures are flagged explicitly.
+  SPR total budget figures are drawn from published Seattle budget books. Since 2019, SPR's Maintaining Parks &amp; Facilities line item (BSL <strong>BC-PR-50000</strong>) has funded both off-leash areas <em>and</em> P-Patch community gardens, and the city has not published the OLA-only share in its budget documents. Cycle 1 (2015&ndash;2020) OLA-only figures are from SPR's public statements. Cycle 2 OLA-only amounts for 2023 and 2024 are from Parkways coverage; 2025&ndash;2026 OLA-only splits are not publicly disclosed. A public records request for the missing OLA-only detail has been submitted and is awaiting SPR's response (see <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/prrs/03-spr-ola-budget-split.md">PRR #3</a>). Every figure below has its source linked; approximate or combined figures are flagged explicitly.
 </div>
 
 <div class="stats">
@@ -207,7 +207,7 @@
 <p><strong>One-time capital.</strong> Cycle 2 includes $3.46M across 2024&ndash;2026 for construction at West Seattle Stadium OLA, Othello Playground OLA, and design only at Ravenna Park. Split across years as roughly $1.73M in 2024 and $1.73M in 2025 for chart purposes; the actual expenditure schedule depends on construction cadence.</p>
 <p><strong>Per-dog figure.</strong> Uses the 150,000 Seattle dog-population floor from Seattle Humane / Cascade PBS coverage. SPR's 2023 Expansion Study cites higher estimates up to 400K; the higher estimate would make any per-dog spending figure proportionally smaller.</p>
 <p><strong>Peer cities.</strong> Dog-park-specific budget lines were not found in published budget documents for Portland, San Francisco, Vancouver BC, Austin, DC, or Minneapolis (operating) as of April 2026 search. Minneapolis's MPRB publishes the OLA Enterprise Fund in its CAFR; the other cities do not separately report. See <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/peer-cities-budget.csv">data/peer-cities-budget.csv</a>.</p>
-<p><strong>Corrections and contributions.</strong> Primary-source corrections or access to peer-city dog-park budget data welcome at <a href="mailto:seattledogparkdata@ozymandi.as">email us</a> or via the <a href="https://github.com/avrignaud/seattledogparkdata/issues">issue tracker</a>.</p>
+<p><strong>Corrections and contributions.</strong> Primary-source corrections or access to peer-city dog-park budget data welcome &mdash; email us at <a href="mailto:seattledogparkdata@ozymandi.as">seattledogparkdata@ozymandi.as</a> or via the <a href="https://github.com/avrignaud/seattledogparkdata/issues">issue tracker</a>.</p>
 
 <nav class="paginate" aria-label="Report navigation">
   <a href="enforcement.html" class="prev">
@@ -354,15 +354,15 @@
   });
 
   // --- Chart 02: OLA as % of SPR (basis points) ---
-  const BP_OLA_ONLY = YEARS.map((y, i) => {
-    if (OLA_ONLY_K[i] === null) return null;
+  // Single dataset with per-bar styling so each year has exactly one bar
+  // centered on its tick. IS_DISCLOSED[i] flags whether the bar uses the
+  // OLA-only figure (solid orange) or the combined OLA + P-Patch figure
+  // (hollow dashed-outline upper bound).
+  const IS_DISCLOSED = YEARS.map((y, i) => OLA_ONLY_K[i] !== null);
+  const BP_VALUES = YEARS.map((y, i) => {
     const capK = CAPITAL_K[i] || 0;
-    return Math.round(((OLA_ONLY_K[i] + capK) * 1000) / (SPR_TOTAL_M[i] * 1000000) * 10000 * 10) / 10;
-  });
-  const BP_COMBINED = YEARS.map((y, i) => {
-    if (OLA_ONLY_K[i] !== null) return null;
-    const capK = CAPITAL_K[i] || 0;
-    return Math.round(((COMBINED_K[i] + capK) * 1000) / (SPR_TOTAL_M[i] * 1000000) * 10000 * 10) / 10;
+    const numerK = (IS_DISCLOSED[i] ? OLA_ONLY_K[i] : COMBINED_K[i]) + capK;
+    return Math.round((numerK * 1000) / (SPR_TOTAL_M[i] * 1000000) * 10000 * 10) / 10;
   });
 
   new Chart(document.getElementById('chartPercentage'), {
@@ -371,18 +371,12 @@
       labels: YEARS,
       datasets: [
         {
-          label: 'OLA-only + capital (disclosed)',
-          data: BP_OLA_ONLY,
-          backgroundColor: P.orange,
-          borderWidth: 0
-        },
-        {
-          label: 'OLA + P-Patch combined + capital (SPR does not publish split)',
-          data: BP_COMBINED,
-          backgroundColor: 'rgba(209,72,26,0.18)',
-          borderColor: P.orange,
-          borderWidth: 1.5,
-          borderDash: [4, 3]
+          label: 'OLA-only + capital (disclosed)  /  OLA + P-Patch combined + capital (SPR does not publish split)',
+          data: BP_VALUES,
+          backgroundColor: ctx => IS_DISCLOSED[ctx.dataIndex] ? P.orange : 'rgba(209,72,26,0.18)',
+          borderColor: ctx => IS_DISCLOSED[ctx.dataIndex] ? P.orange : P.orange,
+          borderWidth: ctx => IS_DISCLOSED[ctx.dataIndex] ? 0 : 1.5,
+          borderDash: ctx => IS_DISCLOSED[ctx.dataIndex] ? [] : [4, 3]
         }
       ]
     },
@@ -391,7 +385,7 @@
       layout: { padding: { top: 24 } },
       plugins: {
         legend: { position: 'top', align: 'start', labels: { usePointStyle: true, padding: 12 } },
-        tooltip: { callbacks: { label: ctx => ctx.dataset.label + ': ' + ctx.parsed.y + ' bp (' + (ctx.parsed.y/100).toFixed(3) + '%)' } },
+        tooltip: { callbacks: { label: ctx => (IS_DISCLOSED[ctx.dataIndex] ? 'OLA-only + capital (disclosed)' : 'OLA + P-Patch combined + capital (split not published)') + ': ' + ctx.parsed.y + ' bp (' + (ctx.parsed.y/100).toFixed(3) + '%)' } },
         datalabels: {
           display: ctx => ctx && ctx.parsed && ctx.parsed.y != null,
           anchor: 'end',

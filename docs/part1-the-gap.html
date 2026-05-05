@@ -167,7 +167,7 @@
 
 <div class="takeaway neutral">
   <span class="kicker">Observation</span>
-  <p>SPR's total budget rose from $156M in 2016 to $506.9M proposed in 2026. Every OLA-related series on the chart sits two to three orders of magnitude below it. The combined OLA + P-Patch line rises in part because P-Patch funding has grown. The OLA-only markers that SPR has publicly confirmed are $0.100M in Cycle 1 and $0.126M / $0.129M in Cycle 2 years 1&ndash;2. The $3.46M Cycle 2 one-time capital line funds <a href="https://harrell.seattle.gov/wp-content/uploads/sites/23/2022/08/Seattle-Park-District-Fact-sheet.pdf">two new OLAs plus Ravenna design</a>. A <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/prrs/03-spr-ola-budget-split.md">public records request</a> for the 2025&ndash;2026 OLA-only share is drafted and pending filing.</p>
+  <p>SPR's total budget rose from $156M in 2016 to $506.9M proposed in 2026. Every OLA-related series on the chart sits two to three orders of magnitude below it. The combined OLA + P-Patch line rises in part because P-Patch funding has grown. The OLA-only markers that SPR has publicly confirmed are $0.100M in Cycle 1 and $0.126M / $0.129M in Cycle 2 years 1&ndash;2. The $3.46M Cycle 2 one-time capital line funds <a href="https://harrell.seattle.gov/wp-content/uploads/sites/23/2022/08/Seattle-Park-District-Fact-sheet.pdf">two new OLAs plus Ravenna design</a>. A <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/prrs/03-spr-ola-budget-split.md">public records request</a> for the 2025&ndash;2026 OLA-only share has been submitted and is awaiting SPR's response.</p>
 </div>
 
 <!-- ================================================================= -->
@@ -286,7 +286,7 @@
 <li><strong>AVMA-derived demographic estimate:</strong> <a href="https://www.avma.org/resources-tools/reports-statistics/us-pet-ownership-statistics">AVMA's 2025 Pet Ownership Sourcebook</a> reports 45.5% of U.S. households own a dog, averaging 1.5 dogs per dog-owning household. Applied to Seattle's <a href="https://data.census.gov/table/ACSDT1Y2023.B11001?g=160XX00US5363000">364,627 households (ACS 1-year 2023)</a>: <strong>364,627 &times; 0.455 &times; 1.5 &asymp; 248,900 dogs</strong>. Limitation: AVMA publishes state-level data in the paywalled Sourcebook, so the rate used here is the national figure as a Seattle proxy.</li>
 <li><strong>SPR upper bound:</strong> the <a href="https://www.seattle.gov/parks/about-us/plans-and-reports/recreation-plans-and-reports/off-leash-area-study">SPR 2023&ndash;24 OLA Expansion Study</a> cites estimates ranging from ~187,000 to "upwards of 400,000."</li>
 </ul>
-<p>All three estimates cluster between ~90K and ~400K. The site uses the <strong>AVMA-derived ~248,900</strong> as its canonical dog-population number and names the <strong>150,000 conservative floor</strong> whenever a claim benefits from understating. A pending public records request to Seattle Animal Shelter (<a href="https://github.com/avrignaud/seattledogparkdata/blob/main/prrs/06-sas-dog-license-history.md">PRR #6</a>) will add historical licensed counts and any SPR-internal compliance estimate.</p>
+<p>All three estimates cluster between ~90K and ~400K. The site uses the <strong>AVMA-derived ~248,900</strong> as its canonical dog-population number and names the <strong>150,000 conservative floor</strong> whenever a claim benefits from understating. A submitted public records request to Seattle Animal Shelter (<a href="https://github.com/avrignaud/seattledogparkdata/blob/main/prrs/06-sas-dog-license-history.md">PRR #6</a>), now awaiting response, will add historical licensed counts and any SPR-internal compliance estimate.</p>
 <p><strong>Vancouver BC.</strong> Because Canada is not in the TPL ParkScore, Vancouver's data comes from its own Park Board documents (36 OLAs per the "People, Parks &amp; Dogs Strategy") and current population estimates. Vancouver does not publish OLA-specific budget data in a format comparable to Seattle's.</p>
 <p><strong>Boise.</strong> Boise has led <a href="https://www.tpl.org/parkscore">TPL's dog-park-per-capita category</a> in recent years (7.6 per 100K in the 2025 ParkScore). It is not a true peer city in size or density, but is included as the national-best benchmark.</p>
 <p><strong>Playground count.</strong> Seattle's 157 playgrounds is from the TPL 2025 ParkScore data. This includes playgrounds in parks and schoolyards with joint-use agreements.</p>
@@ -909,7 +909,7 @@
             padding: 6, color: P.inkSoft,
             callback: function(v) {
               const y = this.getLabelForValue(v);
-              return (y % 5 === 0 || y === minYear || y === maxYear) ? y : '';
+              return (y % 5 === 0 || y === 1997 || y === 2026) ? y : '';
             },
             font: { family: "'IBM Plex Mono', monospace", size: 11 }
           }
