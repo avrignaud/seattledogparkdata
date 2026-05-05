@@ -50,28 +50,50 @@ jobs:
         run: |
           git config user.name  'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          # The build stamps docs/index.html with a ?v=<size>-<mtime>
-          # cache-bust query, sync-data.sh may have updated docs/data/*,
-          # and the PDF itself changes whenever content changes. Stage all
-          # three so the rebase-on-reject path doesn't fail with "unstaged
-          # changes".
+
+          # If nothing changed, exit cleanly.
           if git diff --quiet -- docs/seattle-dog-parks-report.pdf docs/index.html docs/data; then
             echo "No change to PDF, index link, or synced data."
             exit 0
           fi
-          git add docs/seattle-dog-parks-report.pdf docs/index.html docs/data
-          git commit -m "chore(pdf): regenerate report from latest site [skip ci]"
+
+          # Save the freshly-built artifacts to a tmpdir outside the repo
+          # so we can replay them on top of whatever main looks like at
+          # push time. The cache-bust ?v= stamp in index.html and the
+          # binary PDF can't auto-merge during rebase, so we use "rebuild
+          # outputs always win" semantics: discard upstream's copy of any
+          # artifact, write our just-built copy in its place.
+          ART=$(mktemp -d)
+          mkdir -p "$ART/docs"
+          cp docs/seattle-dog-parks-report.pdf "$ART/docs/"
+          cp docs/index.html                   "$ART/docs/"
+          cp -r docs/data                      "$ART/docs/"
+
           # Retry up to 5 times to handle the race where a developer pushes
-          # while the Action is committing. Each retry rebases onto the new
-          # tip before re-pushing. PDF-only commits are always fast-forward
-          # safe because nothing else touches this file.
+          # while the Action is committing.
           for i in 1 2 3 4 5; do
-            if git push; then
-              echo "Push succeeded on attempt $i."
+            git fetch origin main
+            git reset --hard origin/main
+
+            cp "$ART/docs/seattle-dog-parks-report.pdf" docs/
+            cp "$ART/docs/index.html"                   docs/
+            rm -rf docs/data
+            cp -r "$ART/docs/data"                      docs/
+
+            git add docs/seattle-dog-parks-report.pdf docs/index.html docs/data
+            if git diff --cached --quiet; then
+              echo "Artifacts already match origin/main — nothing to commit."
+              rm -rf "$ART"
               exit 0
             fi
-            echo "Push rejected on attempt $i — rebasing onto latest main."
-            git pull --rebase origin main
+            git commit -m "chore(pdf): regenerate report from latest site [skip ci]"
+            if git push; then
+              echo "Push succeeded on attempt $i."
+              rm -rf "$ART"
+              exit 0
+            fi
+            echo "Push rejected on attempt $i — refetching and retrying."
           done
           echo "Could not push PDF after 5 attempts; giving up cleanly."
+          rm -rf "$ART"
           exit 0
