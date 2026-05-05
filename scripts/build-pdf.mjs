@@ -1,10 +1,15 @@
 // Build a single PDF of the full seattledogparkdata.com report by printing
-// each page from docs/ via headless Chrome and merging the results.
+// each report page from docs/ via headless Chrome and merging the results.
+//
+// The PDF is now generated directly from the live report pages (single
+// source of truth) — no separate print template to keep in sync. CSS is
+// injected at print time to hide nav chrome, the prev/next paginator,
+// and the page footer.
 //
 // Run locally: npm install && npm run build:pdf
-// CI: invoked by .github/workflows/build-pdf.yml on pushes to main that touch
-// docs/**. The generated PDF is committed back to docs/ so the link on the
-// landing page always points to the latest site content.
+// CI: invoked by .github/workflows/build-pdf.yml on pushes to main that
+// touch docs/**. The generated PDF is committed back to docs/ so the link
+// on the landing page always points to the latest site content.
 
 import http from 'node:http';
 import fs from 'node:fs/promises';
@@ -18,14 +23,48 @@ const ROOT = path.resolve(__dirname, '..');
 const DOCS = path.join(ROOT, 'docs');
 const OUT  = path.join(DOCS, 'seattle-dog-parks-report.pdf');
 
-// The report is generated from a single consolidated print template
-// (docs/print.html) with print-first CSS. The template condenses every
-// site page into one long document and handles its own page breaks.
-// Puppeteer emulates SCREEN so Chart.js + Leaflet actually draw, and
-// the pdf() call then applies the template's @media print rules.
+// Pages to merge into the PDF, in reading order. Each page is rendered
+// in its full live form; PDF_OVERRIDES below hides the elements that
+// don't belong in print (top nav, prev/next paginator, page footer).
 const PAGES = [
-  'print.html',
+  'index.html',
+  'part1-the-gap.html',
+  'part2-access.html',
+  'part3.html',
+  'enforcement.html',
+  'budget.html',
+  'peer-cities.html',
+  'opinion.html',
 ];
+
+// CSS injected into every page during PDF build. Hides on-screen
+// navigation chrome that is meaningless in a printed document.
+const PDF_OVERRIDES = `
+  /* Hide on-screen-only navigation chrome */
+  .skip-link,
+  .topbar,
+  nav.paginate,
+  footer { display: none !important; }
+
+  /* Tighten the masthead so each chapter's date stamp is unobtrusive */
+  .masthead { padding: 6px 0 4px !important; font-size: 9pt !important; }
+
+  /* Each page rendered by puppeteer becomes its own PDF subdocument
+     and is concatenated by pdf-lib, so chapters already start on fresh
+     pages naturally — no page-break-before rule needed. */
+
+  /* Things that shouldn't straddle pages */
+  .chart-block, .map-block, .case-study, .takeaway, .note-box,
+  .stats, .standards-grid, .profile-card, .principle, table.data,
+  .data-gap, .timeline-item { page-break-inside: avoid; break-inside: avoid; }
+
+  h2, h3 { page-break-after: avoid; break-after: avoid; }
+
+  /* Hide the index page's "All the reports" grid in PDF (the link-list
+     above it serves as a TOC; the grid is screen redundancy). */
+  body .report-grid,
+  body h2.reports-grid-heading { display: none !important; }
+`;
 
 const MIME = {
   '.html': 'text/html; charset=utf-8',
@@ -70,15 +109,17 @@ async function renderPageToPdf(browser, baseUrl, page) {
   const p = await browser.newPage();
   // Emulate SCREEN media so Chart.js (and other JS-driven rendering) executes
   // — emulating print media freezes JS in a way that leaves <canvas> blank.
-  // print.html's @page rules + @media print CSS still apply during pdf().
+  // The injected style tag below provides the print-only overrides.
   await p.emulateMediaType('screen');
   await p.setViewport({ width: 850, height: 1100, deviceScaleFactor: 2 });
   const u = `${baseUrl}/${page}`;
   console.log(`Rendering ${u}`);
   await p.goto(u, { waitUntil: 'networkidle0', timeout: 90_000 });
+  // Inject the PDF-build-only CSS overrides (hide nav/footer, page breaks).
+  await p.addStyleTag({ content: PDF_OVERRIDES });
   // Chart.js, Leaflet tile loads, font-load, and image decode all settle a
   // beat after networkidle. Wait for the walkshed geojson + map tiles to
-  // finish, then an extra buffer for charts + font paint.
+  // finish (Part II only), then an extra buffer for charts + font paint.
   try {
     await p.waitForFunction('window.__walkshedReady === true', { timeout: 30_000 });
   } catch {}
@@ -87,6 +128,7 @@ async function renderPageToPdf(browser, baseUrl, page) {
     format: 'Letter',
     printBackground: true,
     preferCSSPageSize: true,
+    margin: { top: '0.5in', right: '0.5in', bottom: '0.5in', left: '0.5in' },
   });
   await p.close();
   return bytes;
