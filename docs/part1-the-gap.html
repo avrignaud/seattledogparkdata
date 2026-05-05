@@ -525,48 +525,80 @@
     .sort((a, b) => b.pct - a.pct);
   const shareLabels = shareRows.map(r => r.label);
   const shareValues = shareRows.map(r => r.pct);
+  // Stacked horizontal bar: each row spans the full width (= 100% of
+  // that city's parkland). The orange segment is the OLA share; the
+  // sage segment is the rest of the park system, illustrating just
+  // how thin the off-leash sliver is even in the best peer cities.
+  const olaSegment = shareRows.map(r => r.pct);
+  const restSegment = shareRows.map(r => 100 - r.pct);
   new Chart(document.getElementById('chartOlaShare'), {
     type: 'bar',
     data: {
       labels: shareLabels,
-      datasets: [{
-        data: shareValues,
-        backgroundColor: shareLabels.map(l => l === 'Seattle, WA' ? P.orange : P.sageMute),
-        hoverBackgroundColor: shareLabels.map(l => l === 'Seattle, WA' ? P.orange : P.sage),
-        barThickness: 26
-      }]
+      datasets: [
+        {
+          label: 'OLA share',
+          data: olaSegment,
+          backgroundColor: P.orange,
+          hoverBackgroundColor: P.orange,
+          stack: 's',
+          barThickness: 26
+        },
+        {
+          label: 'Rest of parkland (on-leash or off-limits)',
+          data: restSegment,
+          backgroundColor: 'rgba(76,107,84,0.18)',
+          borderColor: 'rgba(76,107,84,0.35)',
+          borderWidth: 1,
+          hoverBackgroundColor: 'rgba(76,107,84,0.28)',
+          stack: 's',
+          barThickness: 26
+        }
+      ]
     },
     options: {
       indexAxis: 'y',
       responsive: true, maintainAspectRatio: false,
-      layout: { padding: { right: 64, top: 4, bottom: 4, left: 4 } },
+      layout: { padding: { right: 90, top: 4, bottom: 4, left: 4 } },
       plugins: {
-        legend: { display: false },
+        legend: { position: 'top', align: 'start', labels: { usePointStyle: true, padding: 12, font: { size: 11 } } },
         tooltip: {
           callbacks: {
             label: ctx => {
               const r = shareRows[ctx.dataIndex];
-              return r.olaAc.toFixed(1) + ' OLA ac of ' + r.parkAc.toLocaleString() + ' parkland ac (' + r.pct.toFixed(2) + '%)';
+              if (ctx.datasetIndex === 0) {
+                return r.olaAc.toFixed(1) + ' OLA ac (' + r.pct.toFixed(2) + '% of ' + r.parkAc.toLocaleString() + ' parkland ac)';
+              }
+              return (r.parkAc - r.olaAc).toLocaleString() + ' ac of parkland not legal off-leash';
             }
           }
         },
         datalabels: {
-          display: true, anchor: 'end', align: 'end', offset: 6,
-          color: ctx => shareLabels[ctx.dataIndex] === 'Seattle, WA' ? P.orange : P.inkSoft,
-          font: ctx => ({
-            family: "'IBM Plex Mono', monospace", size: 11,
-            weight: shareLabels[ctx.dataIndex] === 'Seattle, WA' ? 600 : 500
-          }),
-          formatter: v => v.toFixed(2) + '%'
+          // Suppress labels on the rest-of-parkland segment; show only
+          // the OLA share's percent at the right edge of each row.
+          display: ctx => ctx.datasetIndex === 0,
+          anchor: 'end',
+          align: 'end',
+          offset: 6,
+          clip: false,
+          color: P.ink,
+          font: { family: "'IBM Plex Mono', monospace", size: 11, weight: 600 },
+          formatter: (v, ctx) => {
+            const r = shareRows[ctx.dataIndex];
+            return r.pct.toFixed(2) + '% · ' + r.olaAc.toFixed(0) + ' / ' + r.parkAc.toLocaleString() + ' ac';
+          }
         }
       },
       scales: {
         x: SDPD.xAxis({
+          stacked: true,
           beginAtZero: true,
-          ticks: { padding: 6, color: P.inkSoft, callback: v => v.toFixed(1) + '%' },
-          title: { display: true, text: 'OLA acreage as % of total parkland', color: P.inkSoft, font: { size: 11, family: "'IBM Plex Mono', monospace" } }
+          max: 100,
+          ticks: { padding: 6, color: P.inkSoft, callback: v => v + '%' },
+          title: { display: true, text: 'Share of city parkland (each row = 100%)', color: P.inkSoft, font: { size: 11, family: "'IBM Plex Mono', monospace" } }
         }),
         y: SDPD.catAxis({
+          stacked: true,
           ticks: {
             padding: 8,
             color: ctx => ctx.tick && ctx.tick.label === 'Seattle, WA' ? P.orange : P.inkSoft,
