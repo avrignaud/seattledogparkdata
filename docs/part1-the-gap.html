@@ -541,6 +541,10 @@
           data: olaSegment,
           backgroundColor: P.orange,
           hoverBackgroundColor: P.orange,
+          // Round only the outer (left) corners; flat where the
+          // segment meets the rest-of-parkland segment.
+          borderRadius: { topLeft: 6, bottomLeft: 6, topRight: 0, bottomRight: 0 },
+          borderSkipped: false,
           stack: 's',
           barThickness: 26
         },
@@ -550,6 +554,10 @@
           backgroundColor: 'rgba(76,107,84,0.22)',
           borderWidth: 0,
           hoverBackgroundColor: 'rgba(76,107,84,0.32)',
+          // Round only the outer (right) corners; flat at the inner
+          // boundary so the two segments read as one continuous bar.
+          borderRadius: { topLeft: 0, bottomLeft: 0, topRight: 6, bottomRight: 6 },
+          borderSkipped: false,
           stack: 's',
           barThickness: 26
         }
