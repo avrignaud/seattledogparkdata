@@ -75,25 +75,37 @@ const PDF_OVERRIDES = `
   .chart-block { padding: 10px 12px !important; margin: 8px 0 12px !important; }
   .chart-wrap { margin: 6px 0 !important; }
 
-  /* Page-break protection. Charts, maps, and tables are atomic visual
-     units — never split them across pages. Small atomic UI elements
-     (stat tiles, profile cards, timeline items) likewise stay intact.
-     Larger flowing containers (case studies, multi-paragraph takeaways)
-     are allowed to break so we don't leave half-page gaps. */
+  /* Page-break protection. Charts, maps, tables, and any boxed/framed
+     content are atomic visual units — never split them across pages.
+     Including takeaways, note-boxes, case studies, and data-currency
+     blocks: a frame that breaks mid-border looks broken in print. */
   .chart-block, .map-block, table.data,
-  .stat, .hstat, .timeline-item, .principle, .profile-card,
+  .stat, .hstat, .stats, .timeline-item, .principle, .profile-card,
+  .takeaway, .note-box, .data-currency, .corrections, .ai-disclosure,
+  .case-study, .hero, .hero-number, .hero-cta,
   .chart-source, .chart-title, .chart-subtitle {
     page-break-inside: avoid; break-inside: avoid;
   }
 
-  /* Keep headings glued to the paragraph that follows, and keep the
-     intro paragraph glued to the chart/table it introduces. */
-  h1, h2, h3, h4, .lead, .chart-title, .chart-subtitle {
+  /* Keep headings glued to the content that follows. The h2.finding
+     "Finding 0X" headings must never end up orphaned at the bottom of
+     a page; we glue them both via break-after on the heading and
+     break-before on the immediately-following lead paragraph. */
+  h1, h2, h3, h4, .lead, .chart-title, .chart-subtitle, .kicker {
     page-break-after: avoid; break-after: avoid;
   }
+  h2 + p, h2 + .lead, h2.finding + *,
+  h3 + p, h3 + .lead,
+  .lead + .chart-block, .lead + .map-block, .lead + table.data,
   .chart-block, .map-block, table.data {
     page-break-before: avoid; break-before: avoid;
   }
+
+  /* Browsers sometimes still orphan a heading when the following block
+     has break-inside:avoid and won't fit on the remaining page. Forcing
+     a minimum widow/orphan count nudges the engine to push the heading
+     to the next page along with its content. */
+  p, li { orphans: 3; widows: 3; }
 
   /* Hide the index page's redundant "All the reports" section in
      PDF — the link-list above it already serves as a TOC. The :has()
