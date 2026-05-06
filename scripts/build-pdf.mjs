@@ -16,7 +16,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import url from 'node:url';
 import puppeteer from 'puppeteer';
-import { PDFDocument } from 'pdf-lib';
+import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -263,6 +263,30 @@ async function main() {
     await browser.close();
     server.close();
   }
+
+  // Stamp continuous page numbers across the merged document. We do this
+  // after merging (rather than via puppeteer's headerTemplate) so numbers
+  // are continuous across all chapters instead of restarting per file.
+  // Skip the cover page (index.html renders as the first 4 pages — but
+  // page 1 is the cover) so the title page isn't numbered.
+  const font = await merged.embedFont(StandardFonts.Helvetica);
+  const pages = merged.getPages();
+  const total = pages.length;
+  const SKIP_FIRST = 1; // don't number the cover page
+  pages.forEach((pg, i) => {
+    if (i < SKIP_FIRST) return;
+    const { width } = pg.getSize();
+    const label = `${i + 1} / ${total}`;
+    const size = 8.5;
+    const textWidth = font.widthOfTextAtSize(label, size);
+    pg.drawText(label, {
+      x: width - textWidth - 36,
+      y: 24,
+      size,
+      font,
+      color: rgb(0.45, 0.45, 0.45),
+    });
+  });
 
   const out = await merged.save();
   await fs.writeFile(OUT, out);
