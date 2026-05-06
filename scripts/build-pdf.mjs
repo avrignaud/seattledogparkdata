@@ -84,7 +84,7 @@ const PDF_OVERRIDES = `
   .takeaway, .note-box, .data-currency, .corrections, .ai-disclosure,
   .case-study, .hero, .hero-number, .hero-cta,
   .chart-source, .chart-title, .chart-subtitle {
-    page-break-inside: avoid; break-inside: avoid;
+    page-break-inside: avoid !important; break-inside: avoid !important;
   }
 
   /* Keep headings glued to the content that follows. The h2.finding
@@ -106,6 +106,16 @@ const PDF_OVERRIDES = `
      a minimum widow/orphan count nudges the engine to push the heading
      to the next page along with its content. */
   p, li { orphans: 3; widows: 3; }
+
+  /* Wrapper inserted at print time around each heading + its intro
+     content. Keeping these together prevents headings from being
+     orphaned at the bottom of a page. */
+  .pdf-keep-with-next {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+  }
 
   /* Hide the index page's redundant "All the reports" section in
      PDF — the link-list above it already serves as a TOC. The :has()
@@ -166,6 +176,45 @@ async function renderPageToPdf(browser, baseUrl, page) {
   await p.goto(u, { waitUntil: 'networkidle0', timeout: 90_000 });
   // Inject the PDF-build-only CSS overrides (hide nav/footer, page breaks).
   await p.addStyleTag({ content: PDF_OVERRIDES });
+  // Glue each h2 to the block(s) that immediately follow it. Chromium's
+  // break-after:avoid is unreliable when the following block has its own
+  // break-inside:avoid and is taller than the remaining page space — it
+  // silently leaves the heading orphaned at the bottom of a page. Wrapping
+  // heading + first 1-2 content blocks in a div with break-inside:avoid
+  // forces the engine to push the whole group to the next page when it
+  // doesn't fit. We only group small leading content (lead paragraph,
+  // kicker) so the wrapper itself stays page-fittable.
+  await p.evaluate(() => {
+    const headings = document.querySelectorAll('h1, h2, h3, h4');
+    headings.forEach(h => {
+      // Skip if already inside a no-break wrapper or display:none
+      if (h.closest('.pdf-keep-with-next')) return;
+      if (h.offsetParent === null && h.tagName !== 'H1') return;
+      const wrap = document.createElement('div');
+      wrap.className = 'pdf-keep-with-next';
+      const parent = h.parentNode;
+      parent.insertBefore(wrap, h);
+      wrap.appendChild(h);
+      // Pull in up to 2 immediately-following siblings if they're "intro"
+      // content (lead paragraph, subhead). Stop at the first chart/map/
+      // table/box — those are atomic and big enough to want their own
+      // break boundary.
+      let added = 0;
+      while (added < 2 && wrap.nextSibling) {
+        const next = wrap.nextSibling;
+        if (next.nodeType !== 1) { wrap.appendChild(next); continue; }
+        const tag = next.tagName;
+        const cls = next.className || '';
+        const isAtomic = /chart-block|map-block|takeaway|note-box|case-study|stats|hero/.test(cls)
+                       || tag === 'TABLE' || tag === 'CANVAS' || tag === 'IMG';
+        const isIntro = tag === 'P' || /lead|kicker|deck|chart-title|chart-subtitle/.test(cls);
+        if (isAtomic) break;
+        wrap.appendChild(next);
+        added++;
+        if (!isIntro) break;
+      }
+    });
+  });
   // Chart.js, Leaflet tile loads, font-load, and image decode all settle a
   // beat after networkidle. Wait for the walkshed geojson + map tiles to
   // finish (Part II only), then an extra buffer for charts + font paint.
