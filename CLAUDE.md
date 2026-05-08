@@ -94,6 +94,57 @@ See TODO.md for the full list. The highest-value items:
 * **Chart.js + Leaflet.** No D3, no Plotly, no Observable notebooks. Unless there's a clear reason to upgrade.  
 * **Two reports, not ten.** Part I and Part II are the current structure. A Part III is conceivable (see TODO) but shouldn't be created reflexively.  
 * **No analytics, no cookies, no tracking.** Civic data project, keep it clean.  
+## Updates log and date conventions
+
+The site has a user-facing updates log at `docs/updates.html` and a "Recent updates" panel near the top of `docs/index.html`. Both are hand-maintained, kept in sync manually. The threshold for what counts as a logged update is **internal-only** — do not document it on the public site.
+
+### When to log a new entry and bump page dates
+
+**Always check with Andre first** before logging an update or bumping site-wide dates. If you're not sure whether a change is significant enough to log, ask. Better to over-ask than to either bury a meaningful change or clutter the log with noise.
+
+**Likely worth logging** (confirm before acting):
+- A new page, new finding, or new chart ships
+- A methodology change that affects how a number reads (e.g., the straight-line → network walkshed pivot)
+- A PRR response is ingested into the dataset
+- A material data correction changes a headline figure or a chart's reading
+- A peer-city addition or substantive revision
+- An editorial framing change that affects tone or structure
+
+**Not logged** (don't bump dates either):
+- Typo fixes, link repairs, prose polish
+- CSS/layout adjustments
+- Wording changes that don't change meaning
+- Sub-headline data corrections that don't move a chart's reading
+- Internal refactors, audit pass-throughs, script reorganization that don't surface new findings
+- PDF regenerations, infrastructure changes
+
+### Workflow when a logged update lands
+
+1. Update the affected page(s).
+2. Bump the masthead month/year (`<span>APRIL 2026</span>` style) on every public page in `docs/`.
+3. Bump the byline "Updated [Month Year]" line on each page that has one (most content pages do).
+4. Bump the footer "Data current as of [Month Year]" line where present (enforcement.html, opinion.html).
+5. Prepend an entry to `docs/updates.html` using the existing entry pattern (`<article class="note-box">` with date + headline + body + page-anchor link).
+6. Prepend the same entry to the homepage "Recent updates" panel; drop the oldest of the three entries when the panel reaches three.
+7. Public pages to touch: `index.html`, `part1-the-gap.html`, `part2-access.html`, `part3.html`, `enforcement.html`, `budget.html`, `peer-cities.html`, `opinion.html`, `updates.html`. Don't touch `mockup-*.html`, `mockups.html`, `print.html`.
+
+### Things NOT to bump on a site-wide date update
+
+- **Inline factual references to specific dates** (e.g., "April 2026 ArcGIS pull", "as of April 2026 search", "Axios reported in April 2026"). These are content claims about when something was checked or reported, not site metadata. Updating them is a separate, deliberate act.
+- **Editorial publication marks on `opinion.html`**: the "Signed editorial · April 2026" kicker (line ~291) and the "Queen Anne, Seattle · April 2026" signature (line ~595) are publication-date marks for the editorial itself. Don't bump unless the editorial substantively changed.
+
+### Entry format for `updates.html`
+
+Each entry uses an `<article class="note-box">` with:
+- `id="<month-yyyy>-<topic-slug>"` for deep linking
+- `border-left-color` set to a brand variable (`--orange` for new findings/data, `--sage` for site/methodology, `--gold` for corrections, `--navy` for PRR responses or methodology). Pick a sensible match.
+- A `<strong class="tag">` line in the form `<strong class="tag" style="color: var(--xxx);">Month YYYY &middot; Topic</strong>`
+- An `<h3>` headline
+- 1-3 short paragraphs of body
+- A closing line in IBM Plex Mono with `&rarr; <a href="page.html#anchor">page.html &middot; section name</a>`
+
+The homepage panel uses a tighter format: `<strong>Month YYYY</strong> &middot; <a href="page.html#anchor">Headline</a>` plus a one-paragraph blurb. See `index.html` for the current pattern.
+
 ## Running locally  
 ```
 cd docs/

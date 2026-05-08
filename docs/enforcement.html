@@ -141,17 +141,18 @@
     <a href="budget.html">Budget</a>
     <a href="peer-cities.html">Peer Cities</a>
     <a href="opinion.html">Opinion</a>
+    <a href="updates.html">Updates</a>
   </nav>
 </div>
 
 <div class="masthead">
   <span class="dateline">Enforcement Hotspots &middot; seattledogparkdata.com</span>
-  <span>APRIL 2026</span>
+  <span>MAY 2026</span>
 </div>
 
 <div class="data-currency">
   <strong class="banner-label">About this data</strong>
-  The enforcement data on this page covers <strong>January 1, 2014 through October 15, 2019</strong>. This is the full response to Seattle public records request (PRR) C049204 (filed August 2019, produced October 2019). A follow-up PRR covering <strong>October 2019 to present</strong> has been filed and this page will be updated when the response is received.
+  The enforcement data on this page covers <strong>January 1, 2014 through October 15, 2019</strong>. This is the full response to Seattle public records request (PRR) C049204 (filed August 2019, produced October 2019). A follow-up PRR covering <strong>October 2019 to present</strong> has been filed and this page will be updated when the response is received. The dataset's 2019 cutoff falls just before the COVID period and the 2021 MOA renewal &mdash; the same window during which SPR planned its 2026 patrol expansion.
 </div>
 
 <header class="hero">
@@ -252,16 +253,30 @@
 </div>
 
 <!-- ==================================================================== -->
-<!-- Anchors finding-04 and finding-05 are retained here for back-compatibility with
-     inbound links from opinion.html. The per-year trend chart (formerly Finding 04)
-     has been retired; see note at the start of this section. -->
-<h2 class="finding" id="finding-04"><span class="num">Finding 04</span><span>Citation severity mix.</span></h2>
-<p class="lead" id="finding-05">Seattle Municipal Code <a href="https://library.municode.com/wa/seattle/codes/municipal_code?nodeId=TIT18PALA_CH18.12GEPRRE_SUBCHAPTER_IIOFPRPA_18.12.080DORELI">18.12.080(A)</a> escalates citations by offense count — 1st offense is a warning or $54 fine; 2nd is $109; 3rd is $136; 4th and beyond is $162. The majority are first offenses.</p>
+<h2 class="finding" id="finding-trend"><span class="num">Finding 04</span><span>Output rose. The behavioral signals didn't.</span></h2>
+<p class="lead">Citation output rose roughly seven-fold between 2014 and 2018, after the SPR/FAS Animal Control Officer + Facilities Maintenance Worker patrol team went full-time under the April 2016 MOA. Citations measure enforcement activity, not violation rates, and the available data does not show a corresponding change in off-leash behavior across the same period.</p>
 
 <div class="note-box">
-  <strong class="tag">Note on year-by-year counts</strong>
-  Year-by-year citation totals are tabulated in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-by-park-year.csv">data/enforcement-by-park-year.csv</a> (2014: 183 &middot; 2015: 519 &middot; 2016: 952 &middot; 2017: 844 &middot; 2018: 1,276 &middot; 2019: 1,029 through Oct 15). A year-trend chart was previously shown here; it has been retired because the 2019 row is partial (Jan 1 – Oct 15) and any linear annualization to a full-year figure is a thin projection. The follow-up PRR covering October 2019 onward will allow a clean comparable series.
+  <strong class="tag">Annual citation totals (PRR C049204)</strong>
+  2014: 183 &middot; 2015: 519 &middot; 2016: 952 &middot; 2017: 844 &middot; 2018: 1,276 &middot; 2019: 1,029 (Jan 1 &ndash; Oct 15). The 2014 row is the pre-program-expansion baseline; the April 2016 <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/moas/SPR-FAS-ACO2-MOA-2016-04-02.pdf">MOA</a> made the one-ACO-II + one-FMW patrol team full-time; 2018 is the highest full year in the dataset. Source: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-by-park-year.csv">data/enforcement-by-park-year.csv</a>.
 </div>
+
+<div class="takeaway neutral">
+  <span class="kicker">Observation</span>
+  <p>Three patterns in the available data are consistent with an enforcement-output increase that did not change underlying behavior:</p>
+  <ul>
+    <li><strong>The repeat-offender share is small and stable.</strong> Across 2014&ndash;2019, 87% of citations are first offenses; 2nd, 3rd, and 4th-plus offenses combined are 13% (<a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-offense-mix.csv">offense-mix CSV</a>). A program changing behavior would be expected to shift this ratio over time as repeat contacts accumulate. It does not.</li>
+    <li><strong>Self-reported illegal use stayed high.</strong> SPR's own 2016 <a href="https://www.seattle.gov/parks/about-us/policies-and-plans/people-dogs-and-parks-strategic-plan">People, Dogs and Parks</a> owner survey found 39% of dog owners admit weekly-to-monthly illegal off-leash use in parks. The survey was administered during the program's first full year of operation. SPR has not published a follow-up.</li>
+    <li><strong>Complaints continued to rise.</strong> Find It Fix It "dog in a park" complaints reached approximately 1,100 in 2024 (<a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/illegal-use-indicators.csv">illegal-use-indicators.csv</a>; secondary citation, exact annual series requested in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/prrs/02-spu-fifi-dog-complaints.md">PRR #2</a>). The complaint signal continued to grow during and after the program's full-time period.</li>
+  </ul>
+  <p>SPR has not, to our knowledge, published any internal evaluation of whether the 2016 program expansion changed off-leash compliance. A public records request for any such evaluation, deployment logs, and the 2026 expansion decision-record has been filed (<a href="https://github.com/avrignaud/seattledogparkdata/blob/main/prrs/08-spr-program-evaluation-2016-expansion.md">PRR #8</a>). The 2026 staffing expansion &mdash; from one ACO II on a four-day schedule to two ACO II positions on seven-day coverage plus backup, per <a href="https://www.axios.com/local/seattle/2026/04/17/more-paw-patrols-seattle-ramping-up-dog-related-enforcement">Axios Seattle, April 2026</a> &mdash; is being implemented without a publicly-released outcomes review of the 2016 expansion.</p>
+</div>
+
+<!-- ==================================================================== -->
+<!-- Anchors finding-04 and finding-05 are retained here for back-compatibility with
+     inbound links from opinion.html. -->
+<h2 class="finding" id="finding-04"><span class="num">Finding 05</span><span>Citation severity mix.</span></h2>
+<p class="lead" id="finding-05">Seattle Municipal Code <a href="https://library.municode.com/wa/seattle/codes/municipal_code?nodeId=TIT18PALA_CH18.12GEPRRE_SUBCHAPTER_IIOFPRPA_18.12.080DORELI">18.12.080(A)</a> escalates citations by offense count — 1st offense is a warning or $54 fine; 2nd is $109; 3rd is $136; 4th and beyond is $162. The majority are first offenses.</p>
 
 <div class="chart-block">
   <div class="chart-title">Citations by offense level, 2014&ndash;2019</div>
@@ -276,7 +291,7 @@
 </div>
 
 <!-- ==================================================================== -->
-<h2 class="finding" id="finding-06"><span class="num">Finding 05</span><span>Revenue vs. enforcement program cost.</span></h2>
+<h2 class="finding" id="finding-06"><span class="num">Finding 06</span><span>Revenue vs. enforcement program cost.</span></h2>
 <p class="lead">Using the <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/moas/SPR-FAS-ACO2-MOA-2021-AG21-PRF03-032.pdf">signed 2021 MOA</a>'s disclosed FAS-side cost of one ACO II ($152,399/year) and the per-tier fees recorded in the citations CSV, fee revenue covers a fraction of the program's direct personnel cost.</p>
 
 <div class="stats">
@@ -323,7 +338,7 @@
 </div>
 
 <!-- ==================================================================== -->
-<h2 class="finding" id="finding-07"><span class="num">Finding 06</span><span>The full top-20 table.</span></h2>
+<h2 class="finding" id="finding-07"><span class="num">Finding 07</span><span>The full top-20 table.</span></h2>
 
 <table class="data">
   <thead>
@@ -394,7 +409,7 @@
 </nav>
 
 <footer>
-  <p>Data current as of April 2026. Source code and all underlying data: <a href="https://github.com/avrignaud/seattledogparkdata">github.com/avrignaud/seattledogparkdata</a>. MIT license covers author-written code and analysis; primary data (SPR PRRs, Seattle Open Data, U.S. Census) is public record. TPL ParkServe data redistributed under <a href="https://www.tpl.org/park-data-downloads">TPL's terms</a>. Corrections: <a href="https://github.com/avrignaud/seattledogparkdata/issues">issue tracker</a>.</p>
+  <p>Data current as of May 2026. Source code and all underlying data: <a href="https://github.com/avrignaud/seattledogparkdata">github.com/avrignaud/seattledogparkdata</a>. MIT license covers author-written code and analysis; primary data (SPR PRRs, Seattle Open Data, U.S. Census) is public record. TPL ParkServe data redistributed under <a href="https://www.tpl.org/park-data-downloads">TPL's terms</a>. Corrections: <a href="https://github.com/avrignaud/seattledogparkdata/issues">issue tracker</a>.</p>
   <p><a href="seattle-dog-parks-report.pdf">Download full report (PDF)</a> &middot; <a href="opinion.html#about">About this project</a></p>
 </footer>
 

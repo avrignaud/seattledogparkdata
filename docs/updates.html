@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Updates &middot; Seattle Dog Park Data</title>
+<meta name="description" content="Log of major updates to seattledogparkdata.com — new findings, methodology changes, PRR responses, and other significant changes.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta property="og:title" content="Updates &middot; Seattle Dog Park Data">
+<meta property="og:description" content="Log of major updates to seattledogparkdata.com.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://seattledogparkdata.com/updates.html">
+<meta property="og:site_name" content="Seattle Dog Park Data">
+<link rel="canonical" href="https://seattledogparkdata.com/updates.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<main id="main"><div class="wrap">
+
+<div class="topbar">
+  <a class="brand" href="index.html">
+    <img class="mark" src="favicon.svg" alt="">
+    <span>Seattle Dog Park Data</span>
+  </a>
+  <nav class="nav" aria-label="Site navigation">
+    <a href="index.html">Overview</a>
+    <a href="part1-the-gap.html">The Gap</a>
+    <a href="part2-access.html">Access</a>
+    <a href="part3.html">Forward</a>
+    <a href="enforcement.html">Enforcement</a>
+    <a href="budget.html">Budget</a>
+    <a href="peer-cities.html">Peer Cities</a>
+    <a href="opinion.html">Opinion</a>
+    <a href="updates.html" class="active">Updates</a>
+  </nav>
+</div>
+
+<div class="masthead">
+  <span class="dateline">Updates &middot; Seattle Dog Park Data &middot; seattledogparkdata.com</span>
+  <span>MAY 2026</span>
+</div>
+
+<header class="hero">
+  <span class="kicker orange part-label">Updates</span>
+  <h1 class="hed">What's <em>changed</em> on this site.</h1>
+  <p class="deck">Reverse-chronological log of significant updates &mdash; new findings, methodology changes, PRR responses, peer-city additions, and material corrections. Minor edits (typo fixes, link repairs, prose polish) are not logged here; they live in the <a href="https://github.com/avrignaud/seattledogparkdata/commits/main">repo commit history</a>.</p>
+</header>
+
+<section class="update-list" style="margin-top: 40px;">
+
+  <article class="note-box" id="may-2026-enforcement-trend" style="border-left-color: var(--orange);">
+    <strong class="tag" style="color: var(--orange);">May 2026 &middot; Enforcement</strong>
+    <h3 style="margin: 4px 0 10px; font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 500;">2016-program-expansion finding added</h3>
+    <p style="margin: 0 0 10px;">Citation output rose roughly seven-fold between 2014 and 2018, after the SPR/FAS Animal Control Officer + Facilities Maintenance Worker patrol team went full-time under the April 2016 MOA. The available data does not show a corresponding change in off-leash behavior across the same period &mdash; the repeat-offender share stayed flat at 13%, self-reported illegal use stayed at 39% (SPR's own 2016 survey), and Find It Fix It complaints continued to rise into 2024.</p>
+    <p style="margin: 0 0 10px;">The new section synthesizes existing PRR C049204 data; no new dataset was ingested. The data-currency banner on the enforcement page was updated to note that the dataset's October 2019 cutoff falls just before the COVID period and the 2021 MOA renewal &mdash; the same window during which SPR planned its 2026 patrol expansion.</p>
+    <p style="margin: 0 0 10px;">A new public records request (<a href="https://github.com/avrignaud/seattledogparkdata/blob/main/prrs/08-spr-program-evaluation-2016-expansion.md">PRR #8</a>) was filed asking SPR/FAS for any internal evaluation of the 2016 program expansion, patrol-deployment logs, the decision-record for the 2026 expansion, and community-partner correspondence on program effectiveness. Whichever way the response comes back &mdash; documented evaluation, or absence of one &mdash; lets the section be replaced with a documented finding.</p>
+    <p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px;">&rarr; <a href="enforcement.html#finding-trend">enforcement.html &middot; Finding 04</a></p>
+  </article>
+
+  <article class="note-box" id="site-launch" style="border-left-color: var(--sage);">
+    <strong class="tag" style="color: var(--sage);">April 2026 &middot; Site launch (v1.0.0)</strong>
+    <h3 style="margin: 4px 0 10px; font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 500;">First complete public release</h3>
+    <p style="margin: 0 0 10px;">Eight-page public-data reference on Seattle's off-leash area system: <a href="index.html">overview</a>, <a href="part1-the-gap.html">Part I (The Gap)</a>, <a href="part2-access.html">Part II (Access)</a>, <a href="part3.html">Part III (Forward)</a>, <a href="enforcement.html">Enforcement</a>, <a href="budget.html">Budget</a>, <a href="peer-cities.html">Peer Cities</a>, and the signed <a href="opinion.html">Opinion</a> editorial. Every factual claim links back to its source; the underlying dataset pipeline is reproducible from committed scripts.</p>
+    <p style="margin: 0 0 10px;"><strong>Network walkshed methodology landed</strong> as part of v1.0. The earlier ~33% straight-line walkshed estimate was replaced with a proper network-distance analysis: 11.7% of Seattle residents are within a 10-minute walking path of an OLA (76.6% within SPR's 2.5-mile standard). Computed via <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/compute_walkshed.py">compute_walkshed.py</a> (osmnx against Seattle's OSM walk network) and <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/population_coverage.py">population_coverage.py</a> (2020 Census block-group overlay).</p>
+    <p style="margin: 0 0 10px;"><strong>Enforcement page</strong> shipped with the full PRR C049204 dataset (4,803 citations, 2014&ndash;2019), hotspot map, walkshed-overlap analysis, top-20 table, offense-mix breakdown, and revenue-vs-cost chart against the 2021 MOA's documented $152,399/yr ACO II cost.</p>
+    <p style="margin: 0 0 10px;"><strong>Peer Cities page</strong> shipped with detail sections on Portland, San Francisco, Vancouver BC, Washington DC, Minneapolis, NYC, Austin, and Boise.</p>
+    <p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px;">&rarr; <a href="index.html">index.html</a> &middot; full v1.0 details in the <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/CHANGELOG.md">CHANGELOG</a></p>
+  </article>
+
+</section>
+
+<footer style="margin-top: 60px;">
+  <p>Source code and all data: <a href="https://github.com/avrignaud/seattledogparkdata">github.com/avrignaud/seattledogparkdata</a> &middot; MIT license covers author-written code and analysis. Primary data: SPR public records, Seattle Open Data, U.S. Census &mdash; all public record. TPL ParkServe data is redistributed under TPL's own <a href="https://www.tpl.org/park-data-downloads">terms of use</a>. Corrections: <a href="https://github.com/avrignaud/seattledogparkdata/issues">issue tracker</a>.</p>
+</footer>
+
+</div></main>
+</body>
+</html>
