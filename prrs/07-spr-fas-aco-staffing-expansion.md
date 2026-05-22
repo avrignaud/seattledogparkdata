@@ -2,7 +2,7 @@
 
 **Recipient:** Seattle Parks & Recreation · `PKS_PDR@seattle.gov` (cc: Seattle Animal Shelter / FAS where appropriate)
 
-**Status:** Filed (awaiting response)
+**Status:** Filed (reference C264119-042026). The City Budget Office closed its portion of the request, reporting that a reasonable search did not locate responsive records (May 2026). SPR's response is still pending — the records sought (the SPR/SAS MOA and SPR's budget lines) are held by SPR/FAS, not CBO.
 
 ---
 

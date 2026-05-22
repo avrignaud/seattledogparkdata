@@ -13,8 +13,8 @@ Filed PRRs for the seattledogparkdata.com project. Each file below is the markdo
 | 4 | Methodology behind SPR's 2.5-mile OLA access standard | SPR | Filed (awaiting response) | `04-spr-access-methodology.md` |
 | 5 | Per-OLA usage / headcount data (if any) | SPR | Filed (awaiting response) | `05-spr-ola-usage-counts.md` |
 | 6 | Seattle Animal Shelter dog-license history + compliance estimate | SAS | Filed (awaiting response) | `06-sas-dog-license-history.md` |
-| 7 | Current MOU/MOA for 2026 expanded ACO + ranger park-patrol staffing | SPR (cc: SAS/FAS) | Filed (awaiting response) | `07-spr-fas-aco-staffing-expansion.md` |
-| 8 | Program-evaluation, deployment, and decision records for the 2016 patrol expansion | SPR (cc: SAS/FAS) | Drafted (not yet filed) | `08-spr-program-evaluation-2016-expansion.md` |
+| 7 | Current MOU/MOA for 2026 expanded ACO + ranger park-patrol staffing | SPR (cc: SAS/FAS) | Filed — CBO closed its portion (no records); SPR pending | [C264119-042026](07-spr-fas-aco-staffing-expansion.md) |
+| 8 | Program-evaluation, deployment, and decision records for the 2016 patrol expansion | SPR (cc: SAS/FAS) | Filed (awaiting response) | `08-spr-program-evaluation-2016-expansion.md` |
 
 This directory holds the filed PRR copies. Outreach emails (COLA, QACC, etc.) are handled off-site.
 
