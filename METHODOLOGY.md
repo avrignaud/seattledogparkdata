@@ -15,7 +15,8 @@ This file is the site's "show your work" index. If a number on the site isn't li
 | [`data/kinnear-timeline.csv`](data/kinnear-timeline.csv) | Contemporaneous reporting (Seattle Times, Seattle Weekly, KOMO, Fix Homelessness, dog-owner blogs). Every row has a source column. | Follow the source URL in each row. |
 | [`data/illegal-use-indicators.csv`](data/illegal-use-indicators.csv) | SPR owner survey (2016) published in the 2017 [*People, Dogs and Parks Strategic Plan*](https://www.seattle.gov/parks/about-us/policies-and-plans/people-dogs-and-parks-strategic-plan); TPL 2025 ParkScore amenity sub-scores; Seattle Animal Control 6-month ticket figure from published SPR communications. | Each metric has a `source` column. |
 | [`data/park-coordinates.csv`](data/park-coordinates.csv) | Per-park centroids used for citation spatial analysis. OLA host-park rows for Westcrest and Genesee were reconciled April 2026 to the SPR ArcGIS OLA point after an audit found ~1.17 km and ~650 m coordinate errors, respectively. Non-OLA parks geocoded by hand from Seattle geography. Every row has a `provenance` column. | For OLA host parks, cross-reference with SPR's ArcGIS feature service. Non-OLA parks cross-reference with SPR's individual park pages. |
-| [`data/prr-responses/C049204/*.xlsx`](data/prr-responses/C049204/) | Seattle public records request **C049204**, filed 2019-08-29 by Andre Vrignaud, produced 2019-10-15 by SPR. Covers Animal Control off-leash citations 2014-01-01 through 2019-10-15. | Original request text preserved in [`data/prr-responses/C049204/README.md`](data/prr-responses/C049204/README.md). Raw XLSX preserved unmodified. Anyone can file their own PRR to independently verify; see `prrs/01-spr-offleash-citations-post-2019.md` for an extension request format. |
+| [`data/prr-responses/C049204/*.xlsx`](data/prr-responses/C049204/) | Seattle public records request **C049204**, filed 2019-08-29 by Andre Vrignaud, produced 2019-10-15 by SPR. Covers Animal Control off-leash citations 2014-01-01 through 2019-10-15. Scope: Dog-Loose-in-Park (DLP) violations only. | Original request text preserved in [`data/prr-responses/C049204/README.md`](data/prr-responses/C049204/README.md). Raw XLSX preserved unmodified. |
+| [`data/prr-responses/C263949/*.xlsx`](data/prr-responses/C263949/) | Seattle public records request **C263949**, filed 2026-04-17, produced 2026-05-08 through 2026-05-15 by Seattle FAS (Animal Shelter). Covers parks-related Animal Control violations 2019-01-01 through 2026-04-17, four SSRS-exported workbooks. Scope: all parks-related violation types (DLP + license + scoop + permit + vaccinate + other). | Per-file row counts verified against the in-row `Total Violations: N` sentinel that SSRS embeds on every data row. Original request and response preserved in [`data/prr-responses/C263949/README.md`](data/prr-responses/C263949/README.md). |
 | [`sources/andre-qacc-thread-2019.md`](sources/andre-qacc-thread-2019.md) | First-person community-thread response by Andre Vrignaud, 2019. Retained for the first-person material on the opinion page and as a data cross-reference index. | Every data claim in the thread is flagged in the file's "needs citation from" table. |
 | [`sources/SOURCES.md`](sources/SOURCES.md) | Master list of primary sources cited across the site. | Self-referential — this is the entry point. |
 
@@ -27,41 +28,42 @@ These files are built by scripts. Do not hand-edit them — edit the inputs and 
 
 **Script:** [`scripts/build_enforcement_datasets.py`](scripts/build_enforcement_datasets.py)
 
-**Input:** The five XLSX workbooks in `data/prr-responses/C049204/`.
+**Inputs:**
+- The five XLSX workbooks in [`data/prr-responses/C049204/`](data/prr-responses/C049204/) — DLP-only, 2014-01-01 through 2019-10-15.
+- The four SSRS-exported XLSX workbooks in [`data/prr-responses/C263949/`](data/prr-responses/C263949/) — all parks-related violations, 2019-01-01 through 2026-04-17.
 
 **Process:**
-1. Load each workbook. Each has four sheets — `1st Offense`, `2nd Offense`, `3rd Offense`, `4th Offense` — covering a particular year or year-range.
-2. Iterate every row. Extract: date/time, offense level, fee, case result, raw location string, zip code, source file+sheet.
-3. Park-name **canonicalization**: apply an ordered list of case-insensitive regular expressions (see [`CANONICAL_PARKS`](scripts/build_enforcement_datasets.py) in the script) to collapse known spelling variants. First match wins. Rows whose raw location doesn't match any pattern pass through with their raw value as the canonical name.
-4. Write the full citation table to `data/enforcement-citations.csv` (one row per citation, 4,803 rows).
-5. Aggregate by `(location_canon, year)` and write `data/enforcement-by-park-year.csv`.
+1. Load each C049204 workbook. Each has four sheets — `1st Offense`, `2nd Offense`, `3rd Offense`, `4th Offense` — covering a particular year or year-range. Read header row 0, then every data row.
+2. Load each C263949 workbook. Each has one sheet with an SSRS report layout: rows 0–1 are report parameters, row 3 is the data header, row 4 onward is data. Parse by column position (the column map is documented inline in the build script).
+3. Each row from either PRR is normalized into a common schema with these key fields: `year`, `offense_level` (1-4 for DLP rows; 0 for non-DLP), `violation_item`, `violation_category` (dog_loose_in_park, license, scoop, permit_at_large, vaccinate, false_statement, voided, other), `dlp_only` (True/False), `district` (new C263949 field), `officer` (new C263949 field), `location_raw`, `location_canon`, `zip`, `issued_at`, `fee`, `case_result`, plus provenance fields (`source_file`, `source_sheet`, `source_prr`).
+4. **2019 overlap rule.** Both PRRs contain 2019 rows. C049204's 2019 is Jan 1 – Oct 15, DLP-only; C263949's 2019 is the full year, all categories. The build drops C049204's 2019 rows and treats C263949 as authoritative for 2019. This is logged on stdout when the build runs and asserted by `scripts/verify_enforcement_data.py`.
+5. Park-name **canonicalization**: apply an ordered list of case-insensitive regular expressions (see [`CANONICAL_PARKS`](scripts/build_enforcement_datasets.py) in the script) to collapse known spelling variants. First match wins. Rows whose raw location doesn't match any pattern pass through with their raw value as the canonical name. The same map applies to both PRRs.
+6. Write the full citation table to `data/enforcement-citations.csv` (one row per violation, 7,532 rows).
+7. Aggregate by `(location_canon, year, dlp_only)` and write `data/enforcement-by-park-year.csv`. The `dlp_only` dimension lets downstream consumers request the apples-to-apples DLP series across both PRRs without re-reading the wide CSV.
 
-**Data-quality summary** (output of the verification step of the script):
-- **4,803 total citations** across 2014-01-01 → 2019-10-15.
-- **3,414 citations (71.1%)** folded into one of 66 canonical named-park buckets via the regex map (e.g. "Warren G. Magnuson Park" and "Magnuson park" both → "Magnuson Park"). The committed regex map carries ~80 patterns; not all fire against the 2014-2019 data.
-- **606 citations (12.6%)** pass through as named parks that the canonicalizer didn't recognize — 216 distinct as-recorded names, typically smaller, less-cited parks; they still appear in the aggregate CSV under their as-recorded names.
-- **672 citations (14.0%)** have a street address rather than a park name. These are excluded from per-park counts and the hotspot map. They remain in `enforcement-citations.csv` under `location_raw`.
-- **111 citations (2.3%)** have a blank location field. These are lost for spatial analysis but still count in the year trend and offense-level breakdown.
-- **Combined, 16.3% of citations (783 rows)** are not spatially attributable. The hotspot/heatmap analysis covers the remaining **4,020 citations (83.7%)**.
+**Headline data-quality numbers after the May 2026 build:**
+- 7,532 total violations across 2014-01-01 → 2026-04-17 (4,955 DLP-only across the same window once 2019 is sourced from C263949).
+- 3,774 rows from C049204 retained (2014-2018 DLP-only); 1,029 dropped (2019 partial DLP-only, superseded by C263949).
+- 3,758 rows from C263949 ingested across four workbooks (1,806 / 758 / 799 / 395). Each file's row count matches its in-row `Total Violations: N` sentinel exactly.
+- Fee-tier consistency (DLP-only paid rows): 100% of 1st-offense rows at $54, 100% of 2nd at $109, 100% of 3rd at $136, 100% of 4th+ at $162 — all matching SMC 18.12.080(A).
 
 **Reconciling same location, different descriptions.** Same-location-different-description variants are collapsed via explicit regex patterns in the script, reviewable per-line. Examples:
 
 | Canonical | Raw-string variants observed |
 |---|---|
-| Magnuson Park | 6 — "Warren G Magnuson Park", "Warren G. Magnuson Park", "Magnuson park", etc. |
-| Alki Beach Park | 6 — "Alki Beach @ 52nd Ave SW", "Alki Beach near 53rd Av SW", "Alki Beach Park", etc. |
-| Woodland Park | 5 — "Lower Woodland Park ball field", "Woodland Park Off-Leash", "woodland park", etc. This fold is *intentionally lossy*: the raw records don't reliably distinguish citations inside the Lower Woodland OLA (0.75 ac) from citations in the rest of the larger Woodland Park. Classified as "partial" on the map. |
-| West Queen Anne Playfield | 3 — "W. Queen Anne Playfield", "West Queen Anne Playfield", "W Queen Anne Playfield" |
+| Magnuson Park | 6+ — "Warren G Magnuson Park", "Warren G. Magnuson Park", "Magnuson park", etc. |
+| Alki Beach Park | 6+ — "Alki Beach @ 52nd Ave SW", "Alki Beach near 53rd Av SW", "Alki Beach Park", etc. |
+| Woodland Park | 5+ — "Lower Woodland Park ball field", "Woodland Park Off-Leash", "woodland park", etc. This fold is *intentionally lossy*: the raw records don't reliably distinguish citations inside the Lower Woodland OLA (0.75 ac) from citations in the rest of the larger Woodland Park. Classified as "partial" on the map. |
+| West Queen Anne Playfield | 3+ — "W. Queen Anne Playfield", "West Queen Anne Playfield", "W Queen Anne Playfield" |
 
-The 66 canonical buckets are the ones the regex map recognized in this data; the remaining 216 pass-through names reach the CSV as-recorded.
-
-**Reproduce:**
+**Reproduce + verify:**
 ```
 python3 -m venv .venv
 .venv/bin/pip install openpyxl
 .venv/bin/python3 scripts/build_enforcement_datasets.py
+.venv/bin/python3 scripts/verify_enforcement_data.py
 ```
-The output CSVs should byte-match the versions in the repo. If they don't, something upstream changed; open an issue.
+The build prints a verification summary. The separate verifier asserts ~40 invariants across raw XLSX, consolidated CSV, and the four small derived CSVs. Both should exit 0; if not, open an issue.
 
 ### `data/walkshed/citation-rate-by-walkshed-status.csv`
 

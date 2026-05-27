@@ -88,19 +88,70 @@ Three independent estimates now cited on the site:
 Site uses the 150K Seattle Humane / Cascade PBS floor for all
 per-dog math — sits below every estimate by design.
 
+## May 2026 — PRR C263949 ingest (post-2019 enforcement data)
+
+Seattle FAS/SAS responded to PRR C263949 with four SSRS-exported workbooks covering 2019-01-01 through 2026-04-17. The raw files are in `data/prr-responses/C263949/` with a documenting README. The ingest required reworking the build pipeline because the new files use a completely different schema from C049204 (49-column SSRS export with parameter-rows-then-data layout vs. C049204's 14-column flat sheets).
+
+### Build script changes
+
+- `scripts/build_enforcement_datasets.py` now loads both PRR formats in one pass.
+- Schema for `data/enforcement-citations.csv` extended with appended columns: `violation_item`, `violation_category`, `dlp_only`, `district`, `officer`, `result_raw`, `source_prr`. The pre-existing columns are preserved in their original order/position.
+- `data/enforcement-by-park-year.csv` gains a `dlp_only` dimension so downstream consumers can request the apples-to-apples Dog-Loose-in-Park series independently of the broader all-violations series introduced by C263949.
+
+### 2019 overlap resolution
+
+C049204's 2019 partial-year (Jan 1 – Oct 15) and C263949's 2019 full-year overlap. The build script drops C049204's 2019 rows and uses C263949 as the authoritative 2019 source. C049204 returned DLP-only; C263949 returned all parks-related violation types — so the dedup is "drop the narrower scope's partial coverage" rather than a row-level merge. The verifier records both the pre-dedup partial count (1,029 DLP) and the post-dedup full count (1,181 DLP, 1,360 all categories) as ground-truth anchors.
+
+### Verification harness
+
+New: `scripts/verify_enforcement_data.py`. Re-runs end-to-end every time the pipeline or the source XLSX files change. Anchors:
+
+- Per-file row counts vs. the in-row "Total Violations: N" sentinel embedded by SSRS (1,806 / 758 / 799 / 395 = 3,758 total for C263949).
+- Per-file row counts vs. ground-truth constants pinned in the verifier.
+- C049204 per-year DLP counts (2014: 183, 2015: 519, 2016: 952, 2017: 844, 2018: 1,276, 2019 partial: 1,029).
+- Consolidated CSV: total rows == old-DLP (2014-2018) + new-PRR rows; no leftover C049204 2019 rows; source-PRR split matches expected sums.
+- DLP-only fee-tier consistency: ≥85% of paid rows at each offense level sit at the SMC 18.12.080 fee for that level. Empirically: 100% at all four levels.
+- Derived CSV sanity (legacy chart window, pinned to 2014-2019 pre-canonicalization-refresh): all hotspot parks exist in citation data; counts within ±30 of raw-PRR reconciliation; sorted descending; offense-mix sums to 4,803.
+- `enforcement-by-park-year.csv` reconciles exactly to the consolidated CSV.
+- `enforcement-program-economics.csv revenue_actual_total` reconciles exactly to the raw C049204 fee sum ($240,652) and its `years_covered` field still says 2014-2019.
+
+`ALL CHECKS PASSED` is the gate for any future commit touching the enforcement data path.
+
+### Headline numbers — full window now in consolidated CSV
+
+| Year | DLP-only | All categories |
+|---:|---:|---:|
+| 2014 | 183 | 183 |
+| 2015 | 519 | 519 |
+| 2016 | 952 | 952 |
+| 2017 | 844 | 844 |
+| 2018 | 1,276 | 1,276 |
+| 2019 | 1,181 | 1,360 |
+| 2020 | 393 | 446 |
+| 2021 | 471 | 559 |
+| 2022 | 169 | 199 |
+| 2023 | 248 | 285 |
+| 2024 | 447 | 514 |
+| 2025 | 267 | 326 |
+| 2026 YTD | 65 | 69 |
+| **Total** | **7,015** | **7,532** |
+
+### Pending: chart-driving derived CSVs
+
+The four small CSVs that drive the enforcement.html charts (`enforcement-hotspots.csv`, `enforcement-hotspots-extra.csv`, `enforcement-offense-mix.csv`, `enforcement-program-economics.csv`) were NOT regenerated in this pass. They still reflect the 2014-2019 DLP-only window that matches the current HTML chart labels and copy. The next change to enforcement.html will regenerate them in lockstep with the label refresh. Until then, the verifier sanity-checks them against the raw C049204 data and records ±30 count tolerance to account for canonicalization-regex drift since they were last produced.
+
 ## Outstanding audit items (unresolved, not hallucinations)
 
 - **Find-It-Fix-It "dog in a park" complaints = ~1,100 in 2024.** Labeled as approximate in `illegal-use-indicators.csv`; PRR #2 to SPU filed and awaiting response — will replace with authoritative number when answered.
 - **2022 budget row is blank** (`interpolated`/`missing`). Budget book for 2022 not consistently available; 2022 population is linear interpolation of 2021–2023.
-- **OLA-only 2025–2026 budget split** is `missing` — SPR publishes the combined OLA + P-Patch BSL only. PRR #3 filed and awaiting response.
-- **Post-2019 enforcement citations** — PRR #1 filed, awaiting response.
+- **OLA-only 2025–2026 budget split** is `missing` — SPR publishes the combined OLA + P-Patch BSL only. PRR #3 filed; CBO and Department of Neighborhoods both closed their portions with no responsive records (May 2026). SPR's portion still pending.
 
 ## Claims verified by hand spot-check (no CSV)
 
 - "Seattle has 14 fully-fenced OLAs" → matches SPR ArcGIS count (14 operational features + 1 non-SPR Denny Substation stub).
 - "99% of Seattle residents live within 10-min walk of a park" → TPL 2025 ParkScore Seattle fact sheet, verified.
 - "8th ParkScore nationally" → TPL 2025 rank for Seattle, verified.
-- "4,803 off-leash citations 2014–2019" → matches row count in enforcement-citations.csv.
+- "4,803 off-leash citations 2014–2019" → matched the original row count of enforcement-citations.csv prior to the May 2026 ingest of PRR C263949. After ingest, the CSV's 2019 rows are sourced from C263949 (full year, all-category) instead of C049204 (Jan-Oct, DLP only); the DLP-only 2014–2019 count is now 4,955 (3,774 from C049204 2014-2018 + 1,181 from C263949 2019). The legacy "4,803" claim on enforcement.html is **pending update** in the next HTML refresh pass; the underlying raw C049204 still has exactly 4,803 rows.
 - "Seven of 14 OLAs below AKC 1-acre floor" → count of acres < 1.0 in seattle-olas.csv: Lower Woodland 0.75, I-5 Colonnade 0.5, Magnolia Manor 0.48, Regrade 0.3, Plymouth Pillars 0.2, Kinnear 0.124, Denny 0.105 = 7. ✓
 - "Three OLAs below 0.25 acre" → Regrade 0.3 is just above; Plymouth Pillars 0.2, Kinnear 0.124, Denny 0.105 = 3. ✓
 - "Top four OLAs hold ~79% of acreage" → (9.0 + 8.4 + 4.0 + 2.7) = 24.1 / 30.66 = 0.786 → 78.6%. ✓ Site copy (~79%) is correct.

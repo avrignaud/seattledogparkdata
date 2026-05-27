@@ -66,7 +66,7 @@ Complements the 2016 SPR owner-survey data cited in `part2-access.html` (the "39
 - Citation counts reflect **enforcement activity**, not underlying violation rates. A drop could mean fewer violations *or* fewer patrols.
 - Geographic distribution may reflect where rangers were deployed, not where violations concentrate. SPR deployment patterns over 2014–2019 are not in this dataset; a separate PRR would be needed.
 - `location_raw` is free-text with inconsistent formatting ("Warren G. Magnuson Park" vs "Magnuson park" vs "Magnuson Park - Athletic Fields"). The canonicalization step in `scripts/build_enforcement_datasets.py` collapses the top ~40 parks to stable names; 672 rows remain as street addresses and 111 rows have no location at all.
-- The PRR's cutoff is 2019-10-15; citations issued 2019-10-16 onward are **not** in this dataset. A follow-up PRR for 2019-10 through present has been filed (draft at `prrs/01-spr-offleash-citations-post-2019.md`).
+- The PRR's cutoff is 2019-10-15; citations issued 2019-10-16 onward are **not** in this dataset. The follow-up PRR was filed and returned May 2026 as reference **C263949** — see [`../C263949/`](../C263949/) for the workbooks and processing notes. C263949 covers 2019-01-01 through 2026-04-17 in a broader scope (all parks-related violations, not only Dog Loose in Park), so `scripts/build_enforcement_datasets.py` drops this PRR's 2019 partial rows from the consolidated CSV and uses C263949 as the authoritative 2019 source. The raw 2019 XLSX rows in this directory are preserved unchanged — the dedupe happens in the build script, not by editing source files.
 
 ## Consolidated output
 

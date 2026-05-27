@@ -3,7 +3,7 @@
 **Recipient:** Seattle Parks & Recreation · `PKS_PDR@seattle.gov`
 (Seattle Animal Control is the likely owner but routing through SPR's PDR inbox is the same pattern used for request C049204 in 2019, which SPR handled directly.)
 
-**Status:** Filed (awaiting response). Body retained here for reference and in case a re-file is needed.
+**Status:** **Responded May 2026** as reference `C263949-041726` (routed to Seattle FAS / Animal Shelter rather than SPR). Records released as four SSRS-exported XLSX workbooks covering 2019-01-01 through 2026-04-17 — broader scope than the original C049204 (all parks-related violations, not only Dog Loose in Park). Full response, file index, and processing notes in [`data/prr-responses/C263949/README.md`](../data/prr-responses/C263949/). The request body below is retained for reference.
 
 ---
 
