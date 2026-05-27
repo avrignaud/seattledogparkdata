@@ -2,7 +2,10 @@
 
 **Recipient:** Seattle Parks & Recreation · `PKS_PDR@seattle.gov`
 
-**Status:** Filed (awaiting response)
+**Status:** Filed. Routed by the city to multiple departments:
+- **C263991-041726 — City Budget Office**: Closed/No Responsive Records (May 2026). CBO reported a reasonable search of network drives and SharePoint folders located no responsive records.
+- **C264838-042426 — Department of Neighborhoods**: Closed/No Responsive Records (May 2026). DON reported a reasonable search including subject-matter expert contacts located no responsive records.
+- **C264837-042426 — Seattle Parks & Recreation**: In Progress / Being Researched-Reviewed. SPR is the actual records owner for BC-PR-50000; their response is the one that matters.
 
 ---
 

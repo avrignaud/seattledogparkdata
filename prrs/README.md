@@ -9,7 +9,7 @@ Filed PRRs for the seattledogparkdata.com project. Each file below is the markdo
 | 0 | Off-leash citations 2014–2019 | SPR | **Responded Oct 2019** | [C049204](../data/prr-responses/C049204/) |
 | 1 | Off-leash citations Oct 2019 – present | SPR / Seattle Animal Control | Filed (awaiting response) | `01-spr-offleash-citations-post-2019.md` |
 | 2 | Find-It-Fix-It "dog in a park" complaints by year | SPU | Filed (awaiting response) | `02-spu-fifi-dog-complaints.md` |
-| 3 | OLA-only share of Maintaining Parks & Facilities BSL, 2023–2026 | SPR | Filed (awaiting response) | `03-spr-ola-budget-split.md` |
+| 3 | OLA-only share of Maintaining Parks & Facilities BSL, 2023–2026 | SPR | Filed — CBO and DON closed their portions (no records); SPR pending | `03-spr-ola-budget-split.md` |
 | 4 | Methodology behind SPR's 2.5-mile OLA access standard | SPR | Filed (awaiting response) | `04-spr-access-methodology.md` |
 | 5 | Per-OLA usage / headcount data (if any) | SPR | Filed (awaiting response) | `05-spr-ola-usage-counts.md` |
 | 6 | Seattle Animal Shelter dog-license history + compliance estimate | SAS | Filed (awaiting response) | `06-sas-dog-license-history.md` |
