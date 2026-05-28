@@ -632,11 +632,10 @@ PUBLIC_PAGES = [
 ]
 # Content staged for the next push but not yet promoted into a public page.
 # Scanned now so the numbers we're about to publish are already guarded.
-# REMOVE an entry the moment it is promoted (e.g. drop "enforcement-draft.html"
-# when it becomes enforcement.html) so the scan tracks the real public site.
-STAGED_PAGES = [
-    "enforcement-draft.html",
-]
+# ADD an entry while a page is staged (e.g. "enforcement-draft.html"); REMOVE it
+# the moment it is promoted into a public page above, so the scan tracks the real
+# public site. Currently empty: the enforcement rebuild is live in enforcement.html.
+STAGED_PAGES: list[str] = []
 
 
 def _site_corpus() -> tuple[str, list[str], list[str]]:

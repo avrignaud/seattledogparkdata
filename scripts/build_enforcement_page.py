@@ -1,18 +1,19 @@
 #!/usr/bin/env python3
 """
-Build docs/enforcement-draft.html from scripts/draft_page_data.json.
+Build docs/enforcement.html from scripts/enforcement_page_data.json.
 
-This is the working-draft generator for the post-PRR-C263949 enforcement
-page refresh. It is NOT part of the production data pipeline — it exists so
-the draft can be regenerated as the data or copy evolves during review.
+Generator for the production enforcement page (2014–2026 record, post-PRR
+C263949 ingest). The page data is itself derived from the consolidated CSV, so
+every number on the page is reproducible from committed scripts and checked by
+scripts/verify_enforcement_data.py.
 
-Run from repo root:  .venv/bin/python scripts/build_draft.py
+Run from repo root:  .venv/bin/python scripts/build_enforcement_page.py
 """
 import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-D = json.load(open(ROOT / "scripts" / "draft_page_data.json"))
+D = json.load(open(ROOT / "scripts" / "enforcement_page_data.json"))
 DATA_JS = json.dumps(D)
 
 HTML = r'''<!DOCTYPE html>
@@ -20,9 +21,8 @@ HTML = r'''<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>13 years of off-leash enforcement: rising cost, falling output [DRAFT] — Seattle Dog Park Data</title>
+<title>13 years of off-leash enforcement: rising cost, falling output — Seattle Dog Park Data</title>
 <meta name="description" content="Seattle's off-leash dog enforcement program 2014–2026: where citations were issued, what the program costs, and whether the available data shows it reducing violations.">
-<meta name="robots" content="noindex,nofollow">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,8 +30,6 @@ HTML = r'''<!DOCTYPE html>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
 <link rel="stylesheet" href="site.css">
 <style>
-  .draft-banner { background: #FFF4D1; border: 2px solid #B8872B; padding: 12px 18px; margin: 0 0 22px; border-radius: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; line-height: 1.6; color: #5A3E10; }
-  .draft-banner strong { color: #8B2518; text-transform: uppercase; letter-spacing: 0.08em; }
   .data-currency { background: var(--surface); border: 1px solid var(--rule); border-left: 3px solid var(--navy); border-radius: 6px; padding: 18px 22px; margin: 0 0 28px; font-size: 14px; line-height: 1.55; color: var(--ink); }
   .data-currency .banner-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--navy); display: block; margin-bottom: 6px; font-weight: 500; }
   table.data { width: 100%; border-collapse: collapse; margin: 18px 0 12px; font-size: 14.5px; background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; font-variant-numeric: tabular-nums; }
@@ -89,10 +87,6 @@ HTML = r'''<!DOCTYPE html>
 <div class="masthead">
   <span class="dateline">Enforcement &middot; seattledogparkdata.com</span>
   <span>MAY 2026</span>
-</div>
-
-<div class="draft-banner">
-  <strong>Private working draft.</strong> Not linked from the site; <code>noindex,nofollow</code> set. Numbers and narrative are pending review &mdash; do not cite. Production version is at <a href="enforcement.html">enforcement.html</a> (unchanged). Reflects PRR C263949 ingest + the editorial reshape: lead with the fiscal story (cost per citation), then temporal arc, then deterrence signals, then geography.
 </div>
 
 <div class="data-currency">
@@ -490,6 +484,6 @@ const fullYears = D.full_years; // 2014-2025
 </html>
 '''
 HTML = HTML.replace('__DATA__', DATA_JS)
-out = ROOT / "docs" / "enforcement-draft.html"
+out = ROOT / "docs" / "enforcement.html"
 out.write_text(HTML)
 print(f"Wrote {out} ({len(HTML):,} chars)")
