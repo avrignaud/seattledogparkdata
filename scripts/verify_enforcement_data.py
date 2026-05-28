@@ -7,11 +7,10 @@ Run this after every change to:
   - scripts/build_enforcement_datasets.py
   - data/enforcement-citations.csv (do not hand-edit; this script will fail)
   - any of the small derived CSVs:
-      data/enforcement-offense-mix.csv
       data/enforcement-hotspots.csv
       data/enforcement-hotspots-extra.csv
-      data/enforcement-program-economics.csv
       data/enforcement-by-park-year.csv
+      data/enforcement-year-metrics.csv
 
 It re-derives every published number from the raw PRR workbooks and the
 consolidated CSV and asserts equality. Any drift fails the script with a
@@ -38,10 +37,8 @@ PRR_OLD_DIR = REPO_ROOT / "data" / "prr-responses" / "C049204"
 PRR_NEW_DIR = REPO_ROOT / "data" / "prr-responses" / "C263949"
 CITATIONS = REPO_ROOT / "data" / "enforcement-citations.csv"
 BY_PARK_YEAR = REPO_ROOT / "data" / "enforcement-by-park-year.csv"
-OFFENSE_MIX = REPO_ROOT / "data" / "enforcement-offense-mix.csv"
 HOTSPOTS = REPO_ROOT / "data" / "enforcement-hotspots.csv"
 HOTSPOTS_EXTRA = REPO_ROOT / "data" / "enforcement-hotspots-extra.csv"
-PROGRAM_ECON = REPO_ROOT / "data" / "enforcement-program-economics.csv"
 
 # Ground-truth values pinned from the source PRR responses.
 # Anchor every published number in the repo to one of these constants.
@@ -292,110 +289,6 @@ def verify_fee_arithmetic(rows: list[dict]) -> None:
 
 # ---- Derived CSV checks ---------------------------------------------------
 
-# The four small chart-driving CSVs (offense-mix, hotspots, hotspots-extra,
-# program-economics) were generated against the original C049204-only
-# dataset, before C263949 was ingested. Until the HTML chart labels and
-# copy are refreshed for the broader 2014-2026 window, these derived
-# CSVs MUST continue to reflect that exact original C049204 slice. To
-# avoid coupling the legacy-CSV check to the post-dedup consolidated CSV
-# (which no longer contains C049204's 2019 rows), this verifier
-# re-reads the raw C049204 XLSX files and reconciles directly.
-
-# Import build script as a module (script layout, not a package) so the
-# canonicalization and helpers used by both files stay consistent.
-import importlib.util
-
-
-def _load_build_module():
-    spec = importlib.util.spec_from_file_location(
-        "build_enforcement_datasets",
-        REPO_ROOT / "scripts" / "build_enforcement_datasets.py",
-    )
-    mod = importlib.util.module_from_spec(spec)
-    assert spec.loader is not None
-    spec.loader.exec_module(mod)
-    return mod
-
-
-_BUILD = _load_build_module()
-
-
-def _legacy_slice_raw() -> list[dict]:
-    """Materialize the original C049204 row set for derived-CSV checks."""
-    rows: list[dict] = []
-    for path in sorted(PRR_OLD_DIR.glob("*.xlsx")):
-        wb = load_workbook(path, read_only=True, data_only=True)
-        for sheet_name in wb.sheetnames:
-            m = _BUILD.OLD_SHEET_RE.match(sheet_name)
-            if not m:
-                continue
-            offense_level = int(m.group(1))
-            ws = wb[sheet_name]
-            headers: list[str] | None = None
-            for i, raw in enumerate(ws.iter_rows(values_only=True)):
-                if i == 0:
-                    headers = [str(c).strip() if c is not None else "" for c in raw]
-                    continue
-                if all(c is None for c in raw):
-                    continue
-                d = dict(zip(headers, raw))
-                addr_raw = str(d.get("Address") or "").strip()
-                canon = _BUILD.canonicalize(addr_raw)
-                fee_cell = d.get("Fee")
-                fee = 0.0
-                if fee_cell not in (None, ""):
-                    try:
-                        fee = float(fee_cell)
-                    except (TypeError, ValueError):
-                        fee = 0.0
-                rows.append(
-                    {
-                        "location_canon": canon,
-                        "location_type": _BUILD.classify_location(addr_raw, canon),
-                        "offense_level": offense_level,
-                        "fee": fee,
-                    }
-                )
-        wb.close()
-    return rows
-
-
-# Sanity-check thresholds for the legacy derived CSVs.
-# Per-park counts on the legacy hotspot and offense-mix CSVs were
-# generated against an earlier snapshot of the canonicalization regex
-# map; raw-PRR reconciliation against the current map produces close
-# but not byte-identical counts (the current map folds a handful of
-# park-name variants more aggressively). The verifier accepts these
-# small differences here so it isn't a perpetual red flag — the next
-# pass that regenerates the chart-driving CSVs (lockstep with the
-# HTML chart-label refresh for 2014-2026) will reconcile exactly.
-LEGACY_PARK_COUNT_TOLERANCE = 30
-
-
-def verify_offense_mix(_rows: list[dict]) -> None:
-    print("\n[5] enforcement-offense-mix.csv sums and per-level orderings")
-    if not OFFENSE_MIX.exists():
-        check(False, "enforcement-offense-mix.csv missing")
-        return
-    slice_rows = _legacy_slice_raw()
-    with OFFENSE_MIX.open() as fh:
-        mix_rows = list(csv.DictReader(fh))
-    level_counts = Counter(r["offense_level"] for r in slice_rows)
-    raw_total = sum(level_counts.values())
-    csv_total = sum(int(mr["count"]) for mr in mix_rows)
-    check(
-        csv_total == raw_total,
-        f"offense-mix total {csv_total} == raw C049204 row count {raw_total}",
-    )
-    # Per-level ordering should still be First > Second > Third > Fourth+.
-    label_order = ["First", "Second", "Third", "Fourth+"]
-    csv_ordered = [int(mr["count"]) for label in label_order for mr in mix_rows if mr["offense_level"] == label]
-    check(
-        csv_ordered == sorted(csv_ordered, reverse=True),
-        f"offense-mix counts monotonically decrease 1st > 2nd > 3rd > 4th+: {csv_ordered}",
-    )
-
-
 def _dlp_park_named_counts(rows: list[dict]) -> Counter:
     """DLP-only park-named citation counts per canonical park, full 2014–2026."""
     return Counter(
@@ -408,7 +301,7 @@ def _dlp_park_named_counts(rows: list[dict]) -> Counter:
 
 
 def verify_hotspots(rows: list[dict]) -> None:
-    print("\n[6] enforcement-hotspots.csv reconciles to consolidated DLP park-named counts (2014–2026)")
+    print("\n[5] enforcement-hotspots.csv reconciles to consolidated DLP park-named counts (2014–2026)")
     if not HOTSPOTS.exists():
         check(False, "enforcement-hotspots.csv missing")
         return
@@ -430,7 +323,7 @@ def verify_hotspots(rows: list[dict]) -> None:
 
 
 def verify_hotspots_extra(rows: list[dict]) -> None:
-    print("\n[7] enforcement-hotspots-extra.csv reconciles to consolidated DLP park-named counts (ranks 21–40)")
+    print("\n[6] enforcement-hotspots-extra.csv reconciles to consolidated DLP park-named counts (ranks 21–40)")
     if not HOTSPOTS_EXTRA.exists():
         check(False, "enforcement-hotspots-extra.csv missing")
         return
@@ -447,7 +340,7 @@ def verify_hotspots_extra(rows: list[dict]) -> None:
 
 
 def verify_by_park_year(rows: list[dict]) -> None:
-    print("\n[8] enforcement-by-park-year.csv reconciles to consolidated citations CSV")
+    print("\n[7] enforcement-by-park-year.csv reconciles to consolidated citations CSV")
     if not BY_PARK_YEAR.exists():
         check(False, "enforcement-by-park-year.csv missing")
         return
@@ -476,35 +369,13 @@ def verify_by_park_year(rows: list[dict]) -> None:
     )
 
 
-def verify_program_economics(_rows: list[dict]) -> None:
-    print("\n[9] enforcement-program-economics.csv revenue reconciles to raw C049204 fee sum")
-    if not PROGRAM_ECON.exists():
-        check(False, "enforcement-program-economics.csv missing")
-        return
-    slice_rows = _legacy_slice_raw()
-    total_revenue = sum(r["fee"] for r in slice_rows)
-    with PROGRAM_ECON.open() as fh:
-        for r in csv.DictReader(fh):
-            if r["metric"] == "revenue_actual_total":
-                expected = int(float(r["value"]))
-                check(
-                    expected == int(total_revenue),
-                    f"program-economics.revenue_actual_total: {expected} == {int(total_revenue)}",
-                )
-                years_field = r.get("years_covered", "")
-                check(
-                    "2014" in years_field and "2019" in years_field,
-                    f"program-economics.revenue_actual_total years_covered anchors 2014-2019: '{years_field}'",
-                )
-
-
 YEAR_METRICS = REPO_ROOT / "data" / "enforcement-year-metrics.csv"
 
 
 def verify_year_metrics(rows: list[dict]) -> None:
     """Recompute the per-year metrics CSV from the consolidated CSV + the
     staffing/cost model in build_enforcement_metrics.py and assert equality."""
-    print("\n[10] enforcement-year-metrics.csv reconciles to citations CSV + cost model")
+    print("\n[8] enforcement-year-metrics.csv reconciles to citations CSV + cost model")
     if not YEAR_METRICS.exists():
         check(False, "enforcement-year-metrics.csv missing")
         return
@@ -644,7 +515,7 @@ def _site_corpus() -> tuple[str, list[str], list[str]]:
 
 
 def verify_html_prose(rows: list[dict]) -> None:
-    print("\n[11] site HTML prose — hardcoded numbers match the data (public site + staged)")
+    print("\n[9] site HTML prose — hardcoded numbers match the data (public site + staged)")
     html, pages, missing = _site_corpus()
     for name in missing:
         check(False, f"public page present in docs/: {name}")
@@ -777,7 +648,7 @@ DEAD_TILE_HOSTS = [
 
 def verify_asset_urls() -> None:
     """Fail if any public page references a known-dead map tile host."""
-    print("\n[12] site HTML assets — no dead/deprecated map tile hosts")
+    print("\n[10] site HTML assets — no dead/deprecated map tile hosts")
     html, pages, _ = _site_corpus()
     if not html:
         print("  INFO  no public/staged HTML pages found — skipping asset check")
@@ -803,11 +674,9 @@ def main() -> int:
     rows = load_citations()
     verify_citations_csv(rows)
     verify_fee_arithmetic(rows)
-    verify_offense_mix(rows)
     verify_hotspots(rows)
     verify_hotspots_extra(rows)
     verify_by_park_year(rows)
-    verify_program_economics(rows)
     verify_year_metrics(rows)
     verify_html_prose(rows)
     verify_asset_urls()

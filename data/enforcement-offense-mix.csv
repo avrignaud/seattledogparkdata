@@ -1,5 +1,0 @@
-offense_level,count,fee_per,provenance
-First,4179,54,calculated: enforcement-citations.csv groupby
-Second,418,109,calculated: enforcement-citations.csv groupby
-Third,123,136,calculated: enforcement-citations.csv groupby
-Fourth+,83,162,calculated: enforcement-citations.csv groupby
