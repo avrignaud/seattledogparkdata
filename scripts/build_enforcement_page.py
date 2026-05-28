@@ -456,7 +456,7 @@ const fullYears = D.full_years; // 2014-2025
 
   // Map 1 — hotspots
   const m1 = L.map('hotspot-map', { scrollWheelZoom: false }).setView(CENTER, 11);
-  L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}{r}.png', { attribution: '© OpenStreetMap © CARTO', subdomains: 'abcd', maxZoom: 18 }).addTo(m1);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', { attribution: '© OpenStreetMap © CARTO', subdomains: 'abcd', maxZoom: 18 }).addTo(m1);
   OLAS.forEach(o => L.circleMarker([o.lat, o.lng], { radius: 4, fillColor: P.sage, fillOpacity: 0.95, color: '#fff', weight: 1.5 }).bindTooltip(`<strong>${o.name}</strong><br>${o.acres} ac OLA`).addTo(m1));
   HOTSPOTS.forEach(h => L.circleMarker([h.lat, h.lng], { radius: Math.sqrt(h.count)*1.1 + 4, fillColor: fill(h.ola_status), fillOpacity: 0.5, color: '#fff', weight: 1.5 }).bindTooltip(`<strong>${h.park}</strong><br>${h.count} DLP citations · ${h.neighborhood}`).addTo(m1));
   legend(`<div class="hdr">Legend</div>
@@ -468,7 +468,7 @@ const fullYears = D.full_years; // 2014-2025
 
   // Map 2 — walkshed gap
   const m2 = L.map('gap-map', { scrollWheelZoom: false }).setView(CENTER, 11);
-  L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}{r}.png', { attribution: '© OpenStreetMap © CARTO', subdomains: 'abcd', maxZoom: 18 }).addTo(m2);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', { attribution: '© OpenStreetMap © CARTO', subdomains: 'abcd', maxZoom: 18 }).addTo(m2);
   OLAS.forEach(o => { L.circle([o.lat, o.lng], { radius: 804.67, fillColor: P.sage, fillOpacity: 0.08, color: P.sage, weight: 1 }).addTo(m2); L.circleMarker([o.lat, o.lng], { radius: 4, fillColor: P.sage, fillOpacity: 1, color: '#fff', weight: 1 }).addTo(m2); });
   L.heatLayer([...HOTSPOTS, ...EXTRA].map(h => [h.lat, h.lng, h.count]), { radius: 28, blur: 22, gradient: {0.2:'#F5B78E',0.5:'#E07839',0.8:'#B83F14',1:'#6E1A0E'} }).addTo(m2);
   NEIGH.forEach(n => L.circleMarker([n.lat, n.lng], { radius: 2, color: P.inkFaint, fillOpacity: 0.4 }).bindTooltip(n.name).addTo(m2));
