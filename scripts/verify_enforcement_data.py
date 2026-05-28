@@ -781,6 +781,31 @@ def verify_html_prose(rows: list[dict]) -> None:
         check(needle in html, f"prose: {label} ({needle!r}) present in site HTML")
 
 
+# Map tile hosts that are dead or deprecated and must not appear in any public
+# page. CARTO retired the fastly host (it now serves grey/blank tiles); the live
+# endpoint is {s}.basemaps.cartocdn.com. Add hosts here as vendors rotate them.
+DEAD_TILE_HOSTS = [
+    "cartodb-basemaps-",          # old CARTO fastly host (light_all etc.)
+    ".global.ssl.fastly.net",     # the bare fastly domain it lived on
+]
+
+
+def verify_asset_urls() -> None:
+    """Fail if any public page references a known-dead map tile host."""
+    print("\n[12] site HTML assets — no dead/deprecated map tile hosts")
+    html, pages, _ = _site_corpus()
+    if not html:
+        print("  INFO  no public/staged HTML pages found — skipping asset check")
+        return
+    for name in PUBLIC_PAGES + STAGED_PAGES:
+        p = DOCS_DIR / name
+        if not p.exists():
+            continue
+        text = p.read_text()
+        for host in DEAD_TILE_HOSTS:
+            check(host not in text, f"asset: {name} free of dead tile host {host!r}")
+
+
 # ---- Entry point ----------------------------------------------------------
 
 def main() -> int:
@@ -800,6 +825,7 @@ def main() -> int:
     verify_program_economics(rows)
     verify_year_metrics(rows)
     verify_html_prose(rows)
+    verify_asset_urls()
 
     print("\n" + "=" * 72)
     if failures:
