@@ -513,6 +513,275 @@ def verify_program_economics(_rows: list[dict]) -> None:
                 )
 
 
+YEAR_METRICS = REPO_ROOT / "data" / "enforcement-year-metrics.csv"
+
+
+def verify_year_metrics(rows: list[dict]) -> None:
+    """Recompute the per-year metrics CSV from the consolidated CSV + the
+    staffing/cost model in build_enforcement_metrics.py and assert equality."""
+    print("\n[10] enforcement-year-metrics.csv reconciles to citations CSV + cost model")
+    if not YEAR_METRICS.exists():
+        check(False, "enforcement-year-metrics.csv missing")
+        return
+
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(
+        "build_enforcement_metrics", REPO_ROOT / "scripts" / "build_enforcement_metrics.py"
+    )
+    mod = importlib.util.module_from_spec(spec)
+    assert spec.loader is not None
+    spec.loader.exec_module(mod)
+    STAFFING = mod.STAFFING
+    FAS = mod.FAS_ACO_ANNUAL
+    FMW = mod.FMW_ANNUAL
+    PARTIAL = mod.PARTIAL_YEARS
+
+    dlp_by_year = Counter()
+    off_by_year: dict[str, Counter] = defaultdict(Counter)
+    rev_by_year: dict[str, float] = defaultdict(float)
+    for r in rows:
+        y = r["year"]
+        if not y:
+            continue
+        if r["dlp_only"] == "True":
+            dlp_by_year[y] += 1
+            if r["offense_level"]:
+                try:
+                    off_by_year[y][int(r["offense_level"])] += 1
+                except ValueError:
+                    pass
+        if r["fee"] not in ("", None):
+            try:
+                rev_by_year[y] += float(r["fee"])
+            except (TypeError, ValueError):
+                pass
+
+    with YEAR_METRICS.open() as fh:
+        committed = {row["year"]: row for row in csv.DictReader(fh)}
+
+    for y, (aco, fmw) in STAFFING.items():
+        m = committed.get(y)
+        if not m:
+            check(False, f"year-metrics missing row for {y}")
+            continue
+        exp_cost = round(aco * FAS + fmw * FMW)
+        exp_dlp = dlp_by_year.get(y, 0)
+        check(int(m["dlp_citations"]) == exp_dlp, f"year-metrics {y} dlp: {m['dlp_citations']} == {exp_dlp}")
+        check(int(m["annual_cost"]) == exp_cost, f"year-metrics {y} cost: {m['annual_cost']} == {exp_cost}")
+        check(round(rev_by_year.get(y, 0.0)) == int(m["fee_revenue"]), f"year-metrics {y} revenue: {m['fee_revenue']} == {round(rev_by_year.get(y,0.0))}")
+        if y not in PARTIAL and exp_dlp:
+            exp_cpc = round(exp_cost / exp_dlp)
+            check(int(m["cost_per_citation"]) == exp_cpc, f"year-metrics {y} cost/citation: {m['cost_per_citation']} == {exp_cpc}")
+            exp_fte = round(exp_dlp / (aco + fmw), 1)
+            check(abs(float(m["citations_per_fte"]) - exp_fte) < 0.05, f"year-metrics {y} per-FTE: {m['citations_per_fte']} == {exp_fte}")
+        else:
+            check(m["cost_per_citation"] == "", f"year-metrics {y} cost/citation blank (partial year)")
+        off_total = sum(off_by_year[y].values())
+        if off_total:
+            exp_first = round(100 * off_by_year[y].get(1, 0) / off_total, 1)
+            check(abs(float(m["first_offense_pct"]) - exp_first) < 0.05, f"year-metrics {y} first-offense%: {m['first_offense_pct']} == {exp_first}")
+
+    # Cumulative cost-recovery cross-check (the 11% / $3.34M headline)
+    cum_cost = sum(round(STAFFING[y][0]*FAS + STAFFING[y][1]*FMW) for y in STAFFING)
+    cum_rev = round(sum(rev_by_year.values()))
+    recovery = 100 * cum_rev / cum_cost
+    check(3_300_000 <= cum_cost <= 3_400_000, f"cumulative cost ~$3.34M: ${cum_cost:,}")
+    check(cum_rev == 351099, f"cumulative revenue == $351,099: ${cum_rev:,}")
+    check(10.0 <= recovery <= 11.0, f"cost recovery 10-11%: {recovery:.1f}%")
+    print(f"  INFO  cumulative cost ${cum_cost:,}, revenue ${cum_rev:,}, recovery {recovery:.1f}%")
+
+
+# ---- HTML prose check -----------------------------------------------------
+
+# The CSV checks above guarantee the *data* is correct. They do NOT guarantee
+# that the hardcoded numbers written into the enforcement page's prose match
+# that data — every figure typed into a <p> or stat card is a separate place a
+# stale or fat-fingered number can hide (this is how "$1,716" survived once
+# when the real value was $1,730, and how a "33%" top-10 share survived when
+# the data said 40%). This check recomputes each load-bearing prose figure from
+# the consolidated CSV + metrics CSV + OLA acreage and asserts the formatted
+# string actually appears in the rendered HTML. It is deliberately string-based
+# ("grep the page for the number the data implies") rather than DOM-parsing, so
+# it stays simple and dependency-free.
+#
+# The corpus is defined by an explicit ALLOWLIST, not a glob, for two reasons:
+#  1. "Genuine public site" should mean exactly the canonical, linked, indexed
+#     pages — an allowlist says so unambiguously, and it FAILS loudly if one of
+#     those pages goes missing or is renamed (a glob would just silently shrink
+#     the corpus and let an error slip through).
+#  2. New content is published in two phases. While a change is staged (e.g. the
+#     working enforcement-draft.html we're about to promote), its numbers must
+#     already be guarded — so staged files are scanned too, kept in a separate
+#     STAGED list. Once a staged file is promoted into a public page (draft →
+#     enforcement.html), delete it from STAGED: the scan then verifies the
+#     updated complete public site, with the content living in its public page.
+DOCS_DIR = REPO_ROOT / "docs"
+OLAS_CSV = REPO_ROOT / "data" / "seattle-olas.csv"
+
+# The genuine public site: canonical, linked, indexed pages (see CLAUDE.md).
+PUBLIC_PAGES = [
+    "index.html",
+    "part1-the-gap.html",
+    "part2-access.html",
+    "part3.html",
+    "enforcement.html",
+    "budget.html",
+    "peer-cities.html",
+    "opinion.html",
+    "updates.html",
+]
+# Content staged for the next push but not yet promoted into a public page.
+# Scanned now so the numbers we're about to publish are already guarded.
+# REMOVE an entry the moment it is promoted (e.g. drop "enforcement-draft.html"
+# when it becomes enforcement.html) so the scan tracks the real public site.
+STAGED_PAGES = [
+    "enforcement-draft.html",
+]
+
+
+def _site_corpus() -> tuple[str, list[str], list[str]]:
+    """Return (combined_text, scanned_filenames, missing_public_pages)."""
+    parts: list[str] = []
+    scanned: list[str] = []
+    missing: list[str] = []
+    for name in PUBLIC_PAGES:
+        p = DOCS_DIR / name
+        if p.exists():
+            parts.append(p.read_text())
+            scanned.append(name)
+        else:
+            missing.append(name)
+    for name in STAGED_PAGES:
+        p = DOCS_DIR / name
+        if p.exists():
+            parts.append(p.read_text())
+            scanned.append(f"{name} (staged)")
+    return "\n".join(parts), scanned, missing
+
+
+def verify_html_prose(rows: list[dict]) -> None:
+    print("\n[11] site HTML prose — hardcoded numbers match the data (public site + staged)")
+    html, pages, missing = _site_corpus()
+    for name in missing:
+        check(False, f"public page present in docs/: {name}")
+    if not html:
+        print("  INFO  no public/staged HTML pages found — skipping prose check")
+        return
+    print(f"  INFO  scanning {len(pages)} pages: {', '.join(pages)}")
+
+    # ---- recompute every prose figure from the data ----
+    dlp = [r for r in rows if r["dlp_only"] == "True"]
+    named = [r for r in dlp if r.get("location_type") == "park_named" and r["location_canon"]]
+
+    def yr(r: dict) -> int:
+        return int(r["year"]) if r["year"] else 0
+
+    dlp_total = len(dlp)
+    dlp_by_year = Counter(r["year"] for r in dlp)
+    all_by_year = Counter(r["year"] for r in rows if r["year"])
+    peak_2018 = dlp_by_year["2018"]
+    # "Best year since the COVID period" = strongest year AFTER the shaded
+    # 2020-2021 COVID window (2021's 471 partial-rebound is inside it).
+    best_post = max((dlp_by_year[str(y)] for y in range(2022, 2027)), default=0)
+    pct_2024_of_peak = round(100 * best_post / peak_2018)
+    drop_2020 = round(100 * (dlp_by_year["2020"] - dlp_by_year["2019"]) / dlp_by_year["2019"])
+    non_dlp_post2019 = sum(1 for r in rows if r["dlp_only"] != "True" and yr(r) >= 2019)
+
+    # metrics CSV
+    with YEAR_METRICS.open() as fh:
+        ym = {row["year"]: row for row in csv.DictReader(fh)}
+    cpc_2018 = int(ym["2018"]["cost_per_citation"])
+    cpc_2022 = int(ym["2022"]["cost_per_citation"])
+    cpc_2024 = int(ym["2024"]["cost_per_citation"])
+    perfte_2018 = round(float(ym["2018"]["citations_per_fte"]))
+    perfte_2024 = round(float(ym["2024"]["citations_per_fte"]))
+    cum_rev = sum(int(ym[y]["fee_revenue"]) for y in ym)
+    cum_cost = sum(int(ym[y]["annual_cost"]) for y in ym)
+    recovery = round(100 * cum_rev / cum_cost)
+    base_cost = int(ym["2018"]["annual_cost"])  # 292,399 full-team baseline
+
+    # first-offense range across all years
+    fo = [float(ym[y]["first_offense_pct"]) for y in ym if ym[y]["first_offense_pct"]]
+    fo_lo, fo_hi = round(min(fo)), round(max(fo))
+
+    # per-park (named) counts
+    pc = Counter(r["location_canon"] for r in named)
+    top_parks = pc.most_common(5)  # Discovery 564, Magnuson 367, ...
+    named_share = round(100 * len(named) / dlp_total)
+    lincoln = pc.get("Lincoln Park", 0)
+
+    # top-10 share, pre/post COVID, over named citations (matches the prose denominator)
+    def top10_share(lo: int, hi: int) -> int:
+        seg = [r for r in named if lo <= yr(r) <= hi]
+        c = Counter(r["location_canon"] for r in seg)
+        return round(100 * sum(n for _, n in c.most_common(10)) / len(seg))
+
+    pre_share, post_share = top10_share(2014, 2019), top10_share(2020, 2026)
+
+    # 2026 annualized + projection
+    y2026 = dlp_by_year["2026"]
+    factor = 365 / 107  # day-of-year cutoff 2026-04-17
+    annualized_2026 = round(y2026 * factor)
+    # Projection uses the unrounded per-FTE rate (matches build_draft.py /
+    # draft_page_data.json), not the rounded display value.
+    proj_low = round(float(ym["2024"]["citations_per_fte"]) * 4)
+    proj_high = round(float(ym["2018"]["citations_per_fte"]) * 4)
+    expansion_cost = base_cost * 2
+
+    # OLA acreage (Finding 05)
+    olas = {}
+    if OLAS_CSV.exists():
+        with OLAS_CSV.open() as fh:
+            for o in csv.DictReader(fh):
+                olas[o["ola_name"]] = o.get("acres", "")
+
+    # ---- assertions: (label, substring that must appear verbatim) ----
+    checks: list[tuple[str, str]] = [
+        ("total DLP citations", f"{dlp_total:,}"),
+        ("2018 peak", f"{peak_2018:,}"),
+        ("best post-COVID year (2024)", f"{best_post}"),
+        ("2024 as % of 2018 peak", f"{pct_2024_of_peak}%"),
+        ("2014 baseline", "183"),
+        ("2020 crater count", "393"),
+        ("2020 drop vs 2019", f"{abs(drop_2020)}%"),
+        ("cost/citation 2018 (low)", f"${cpc_2018:,}"),
+        ("cost/citation 2022 (high)", f"${cpc_2022:,}"),
+        ("cost/citation 2024", f"${cpc_2024}"),
+        ("per-FTE 2018 peak", f"{perfte_2018}"),
+        ("per-FTE 2024", f"{perfte_2024}"),
+        ("cumulative fee revenue", f"${cum_rev:,}"),
+        ("cost recovery %", f"{recovery}%"),
+        ("cumulative cost $3.34M", "$3.34M"),
+        ("first-offense range low", f"{fo_lo}"),
+        ("first-offense range high", f"{fo_hi}"),
+        ("non-DLP post-2019 rows", f"{non_dlp_post2019}"),
+        ("2019 DLP (full year)", f"{dlp_by_year['2019']:,}"),
+        ("named-park share", f"{named_share}%"),
+        ("Lincoln Park cumulative", f"{lincoln}"),
+        ("top-10 pre-COVID share", f"{pre_share}%"),
+        ("top-10 post-COVID share", f"{post_share}%"),
+        ("2026 annualized estimate", f"{annualized_2026}"),
+        ("projection low (4 FTE × 2024 rate)", f"{proj_low}"),
+        ("projection high (4 FTE × 2018 rate)", f"{proj_high:,}"),
+        ("baseline cost ~$292K", f"${round(base_cost/1000)}K"),
+        ("expansion cost ~$585K", f"${round(expansion_cost/1000)}K"),
+    ]
+    # top-5 named parks with their counts (footnote: "Discovery 564, ...")
+    park_short = {"Discovery Park": "Discovery", "Magnuson Park": "Magnuson",
+                  "Volunteer Park": "Volunteer", "Woodland Park": "Woodland",
+                  "Golden Gardens Park": "Golden Gardens"}
+    for park, n in top_parks:
+        label = park_short.get(park, park)
+        checks.append((f"top park {label} count", f"{label} {n}"))
+    # OLA acreages cited in Finding 05
+    for name in ("Kinnear", "Magnolia Manor"):
+        if name in olas:
+            checks.append((f"{name} acreage", f"{olas[name]} acre"))
+
+    for label, needle in checks:
+        check(needle in html, f"prose: {label} ({needle!r}) present in site HTML")
+
+
 # ---- Entry point ----------------------------------------------------------
 
 def main() -> int:
@@ -530,6 +799,8 @@ def main() -> int:
     verify_hotspots_extra(rows)
     verify_by_park_year(rows)
     verify_program_economics(rows)
+    verify_year_metrics(rows)
+    verify_html_prose(rows)
 
     print("\n" + "=" * 72)
     if failures:

@@ -63,7 +63,24 @@ python3 -m venv .venv
 .venv/bin/python3 scripts/build_enforcement_datasets.py
 .venv/bin/python3 scripts/verify_enforcement_data.py
 ```
-The build prints a verification summary. The separate verifier asserts ~40 invariants across raw XLSX, consolidated CSV, and the four small derived CSVs. Both should exit 0; if not, open an issue.
+The build prints a verification summary. The separate verifier asserts ~120 invariants across raw XLSX, consolidated CSV, the four small derived CSVs, and the per-year metrics CSV. Both should exit 0; if not, open an issue.
+
+### `data/enforcement-year-metrics.csv`
+
+**Script:** [`scripts/build_enforcement_metrics.py`](scripts/build_enforcement_metrics.py)
+
+**Input:** `data/enforcement-citations.csv` plus the staffing + cost model defined in the script.
+
+**Process:** For each year 2014–2026, computes DLP citations, all-category citations, the assumed ACO+FMW FTE, annual program cost, cost per citation, citations per FTE, first-offense share, repeat-offense share, and assessed fee revenue. The staffing FTE schedule and the FMW cost estimate ($140K/yr) are **assumptions** stated explicitly in the script header; the FAS-side ACO II cost ($152,399/yr) is sourced from the 2021 MOA. 2026 is a partial year (through April 17): its `cost_per_citation` and `citations_per_fte` are emitted blank and `partial_year=true`, because the partial-year denominator would inflate those ratios.
+
+**Honest-use note:** Pre-2016 cost and FTE are imputed (part-time staffing, no documented cost basis). The enforcement page therefore begins the cost-per-citation and per-FTE charts at **2016** — the first MOA-documented year — while the raw citation-volume charts keep the full 2014–2026 history. The metrics CSV still emits the pre-2016 rows (they are accurate given the stated assumption), but downstream charts treat them as not directly comparable.
+
+**Reproduce + verify:**
+```
+.venv/bin/python3 scripts/build_enforcement_metrics.py
+.venv/bin/python3 scripts/verify_enforcement_data.py
+```
+The verifier recomputes every metric from the consolidated CSV + the model and asserts equality, plus cross-checks the cumulative cost (~$3.34M), revenue ($351,099), and cost-recovery (10.5%) headline figures.
 
 ### `data/walkshed/citation-rate-by-walkshed-status.csv`
 
