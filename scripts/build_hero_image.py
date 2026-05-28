@@ -44,7 +44,16 @@ def load():
     years = [r["year"] for r in rows]
     dlp = [int(r["dlp_citations"]) for r in rows]
     cpc = [int(r["cost_per_citation"]) if r["cost_per_citation"] else None for r in rows]
-    return years, dlp, cpc
+    cost = [int(r["annual_cost"]) for r in rows]
+    return years, dlp, cpc, cost
+
+
+def avg_cost_per_citation(years, dlp, cost) -> int:
+    """Aggregate average = total program cost / total citations over the
+    displayed 2016–2025 window (excludes imputed pre-2016 cost and the partial
+    2026 year, matching the cost-per-citation line on the chart)."""
+    idx = [i for i, y in enumerate(years) if 2016 <= int(y) <= 2025]
+    return round(sum(cost[i] for i in idx) / sum(dlp[i] for i in idx))
 
 
 # The three headline points, shared by both layouts. The big numbers render in
@@ -62,8 +71,8 @@ POINTS = [
 COVID_SPAN = (5.5, 7.5)
 
 
-def draw_chart(fig, rect, years, dlp, cpc, *, compact: bool) -> None:
-    """Citation bars + cost-per-citation line + COVID band, into a sub-axes."""
+def draw_chart(fig, rect, years, dlp, cpc, *, compact: bool, avg: int) -> None:
+    """Citation bars + cost-per-citation line + COVID band + average line."""
     fs_tick = 7 if compact else 10
     fs_lbl = 8.5 if compact else 11
     fs_ann = 8 if compact else 11
@@ -109,6 +118,11 @@ def draw_chart(fig, rect, years, dlp, cpc, *, compact: bool) -> None:
     ax2.spines["top"].set_visible(False)
     ax2.spines["right"].set_color(NAVY)
 
+    # average cost-per-citation reference line (2016–2025 aggregate)
+    ax2.axhline(avg, color=NAVY, linestyle=(0, (5, 3)), linewidth=1.1, alpha=0.55, zorder=1)
+    ax2.text(len(years) - 0.5, avg + 30, f"avg \\${avg}", ha="right", va="bottom",
+             color=NAVY, fontsize=fs_tick, family="DejaVu Sans")
+
     ax.bar(0, 0, color=ORANGE, label="Citations issued" + ("" if compact else " (left)"))
     ax.plot([], [], color=NAVY, linewidth=2.4, marker="o",
             label="Cost / citation" + ("" if compact else ", 2016+ (right)"))
@@ -120,7 +134,7 @@ SOURCE = ("Source: Seattle Animal Control PRRs C049204 + C263949 (2014–2026)  
           "seattledogparkdata.com/enforcement")
 
 
-def build_hero(years, dlp, cpc) -> None:
+def build_hero(years, dlp, cpc, avg) -> None:
     """4:3 image for the email attachment: title, full chart, three callouts."""
     fig = plt.figure(figsize=(11, 8.5), dpi=140)
     fig.patch.set_facecolor(BG)
@@ -128,7 +142,7 @@ def build_hero(years, dlp, cpc) -> None:
              fontsize=24, fontweight="bold", color=INK)
     fig.text(0.065, 0.905, "Rising cost, falling output.",
              fontsize=19, fontstyle="italic", color=ORANGE)
-    draw_chart(fig, [0.075, 0.345, 0.85, 0.46], years, dlp, cpc, compact=False)
+    draw_chart(fig, [0.075, 0.345, 0.85, 0.46], years, dlp, cpc, compact=False, avg=avg)
     for (color, kicker, big, sub), xp in zip(POINTS, (0.075, 0.395, 0.715)):
         fig.text(xp, 0.215, kicker, fontsize=11, fontweight="bold", color=color,
                  family="monospace")
@@ -148,7 +162,7 @@ CARD_SUBS = [
 ]
 
 
-def build_card(years, dlp, cpc) -> None:
+def build_card(years, dlp, cpc, avg) -> None:
     """1200x630 social card: title + three stacked callouts (left), chart (right)."""
     fig = plt.figure(figsize=(12, 6.3), dpi=100)
     fig.patch.set_facecolor(BG)
@@ -162,7 +176,7 @@ def build_card(years, dlp, cpc) -> None:
         fig.text(0.045, yc, big, fontsize=22, fontweight="bold", color=INK,
                  family="DejaVu Sans", va="center")
         fig.text(0.045, yc - 0.075, sub, fontsize=9, color=INK_SOFT, va="top")
-    draw_chart(fig, [0.55, 0.20, 0.42, 0.58], years, dlp, cpc, compact=True)
+    draw_chart(fig, [0.55, 0.20, 0.42, 0.58], years, dlp, cpc, compact=True, avg=avg)
     fig.text(0.045, 0.045, SOURCE, fontsize=7.5, color=INK_SOFT, family="monospace")
     fig.savefig(OUT_CARD, facecolor=BG, dpi=100)
     print(f"Wrote {OUT_CARD.relative_to(ROOT)} ({OUT_CARD.stat().st_size:,} bytes)")
@@ -170,9 +184,11 @@ def build_card(years, dlp, cpc) -> None:
 
 def main() -> None:
     OUT_HERO.parent.mkdir(parents=True, exist_ok=True)
-    years, dlp, cpc = load()
-    build_hero(years, dlp, cpc)
-    build_card(years, dlp, cpc)
+    years, dlp, cpc, cost = load()
+    avg = avg_cost_per_citation(years, dlp, cost)
+    print(f"Average cost per citation (2016–2025): ${avg}")
+    build_hero(years, dlp, cpc, avg)
+    build_card(years, dlp, cpc, avg)
 
 
 if __name__ == "__main__":
