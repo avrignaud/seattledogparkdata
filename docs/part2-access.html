@@ -432,31 +432,31 @@
 <div class="callout-pair">
   <div class="callout-e" style="border-left-color: var(--orange);">
     <span class="kicker orange">Citations outside any OLA 0.5-mi walkshed</span>
-    <div class="n" style="color: var(--orange);">72.2%</div>
-    <div class="tag">2,577 of the 3,570 placed citations (park-named + geocoded street addresses)</div>
+    <div class="n" style="color: var(--orange);">73.4%</div>
+    <div class="tag">3,631 of the 4,948 placed citations (park-named + geocoded street addresses)</div>
   </div>
   <div class="callout-e" style="border-left-color: var(--sage);">
     <span class="kicker sage">Citations inside an OLA walkshed</span>
-    <div class="n" style="color: var(--sage);">27.8%</div>
-    <div class="tag">993 citations — concentrated at Magnuson (248), Lower Woodland (222), Golden Gardens (174), Genesee (130), Westcrest (86); the rest spread across Cascade Playground, Denny, Kinnear, and Northacres, plus 103 geocoded street addresses inside an OLA walkshed.</div>
+    <div class="n" style="color: var(--sage);">26.6%</div>
+    <div class="tag">1,317 citations (1,210 park-named + 107 geocoded street addresses) — concentrated at the large OLA host parks: Magnuson (367), Woodland (291), Golden Gardens (227), Genesee (152), Westcrest (122), where citations fall on the non-OLA portions.</div>
   </div>
 </div>
 
-<p>Of 35 uniquely identified parks in the citation data, <strong>26 sit outside any OLA's 10-minute walkshed</strong>. Nine sit inside; eight of those are themselves OLA host parks: Magnuson (248 citations), Lower Woodland (222), Golden Gardens (174), Genesee (130), Westcrest (86), Denny Park (10), Kinnear (5), Northacres (2) — plus Cascade Playground (13) inside Denny's walkshed. At the larger host parks, citations are on the non-OLA portions (athletic fields, shorelines, wooded sections).</p>
+<p>Of 37 uniquely identified parks in the citation data, <strong>26 sit outside any OLA's 10-minute walkshed</strong> and 11 sit inside. Most of the inside parks are themselves OLA host parks — Magnuson (367 citations), Woodland (291), Golden Gardens (227), Genesee (152), Westcrest (122) lead — where the citations fall on the non-OLA portions (athletic fields, shorelines, wooded sections).</p>
 
-<p style="font-size: 14px; color: var(--ink-soft); max-width: 72ch;"><strong>Two passes, same direction.</strong> Park-named only: 69.6% outside (2,035 of 2,925). Combined with 645 street-address citations geocoded via the Census Bureau batch geocoder with Nominatim fallback (457 of 481 unique addresses matched, 95.0%): 72.2% outside (2,577 of 3,570). Reproducible end-to-end via <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/citation_walkshed_analysis.py">citation_walkshed_analysis.py</a> + <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/geocode_street_addresses.py">geocode_street_addresses.py</a>.</p>
+<p style="font-size: 14px; color: var(--ink-soft); max-width: 72ch;"><strong>Two passes, same direction.</strong> Park-named only: 71.9% outside (3,089 of 4,299). Combined with 649 street-address citations geocoded via the Census Bureau batch geocoder with Nominatim fallback (464 of 489 unique addresses matched, 94.9%): 73.4% outside (3,631 of 4,948). Reproducible end-to-end via <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/citation_walkshed_analysis.py">citation_walkshed_analysis.py</a> + <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/geocode_street_addresses.py">geocode_street_addresses.py</a>.</p>
 
 <div class="map-block">
   <div class="chart-title">Access &times; enforcement, one map</div>
-  <div class="chart-subtitle">The 14 existing OLAs' 0.5-mi network walksheds are shaded green. Citation hotspots are bubbles (radius scales with citation count, 2014&ndash;2019). Orange bubbles are citation hotspots outside any OLA walkshed; amber bubbles are OLA host parks where citations occur on non-OLA portions.</div>
-  <div id="walkshed-citation-map" role="img" aria-label="Map overlaying Seattle OLA walksheds with off-leash citation hotspots from 2014-2019."></div>
+  <div class="chart-subtitle">The 14 existing OLAs' 0.5-mi network walksheds are shaded green. Citation hotspots are bubbles (radius scales with citation count, 2014&ndash;2026). Orange bubbles are citation hotspots outside any OLA walkshed; amber bubbles are OLA host parks where citations occur on non-OLA portions.</div>
+  <div id="walkshed-citation-map" role="img" aria-label="Map overlaying Seattle OLA walksheds with off-leash citation hotspots from 2014-2026."></div>
   <div class="map-legend">
     <span><span class="sw" style="background: rgba(76,107,84,0.35); box-shadow: 0 0 0 1.5px var(--sage);"></span>0.5-mi OLA walkshed (network)</span>
     <span><span class="sw" style="background: var(--orange);"></span>OLA location</span>
     <span><span class="sw" style="background: rgba(209,72,26,0.6);"></span>Citation hotspot &mdash; no OLA</span>
     <span><span class="sw" style="background: rgba(184,135,43,0.7);"></span>Citation hotspot &mdash; at an OLA host park</span>
   </div>
-  <div class="chart-source">Sources: walkshed polygons from <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/compute_walkshed.py">scripts/compute_walkshed.py</a> via <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/walkshed/ola_isochrones.geojson">data/walkshed/ola_isochrones.geojson</a> &middot; citation locations from <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-citations.csv">data/enforcement-citations.csv</a> (PRR C049204) aggregated by canonical park name &middot; park coordinates from <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/park-coordinates.csv">data/park-coordinates.csv</a> &middot; tiles: <a href="https://carto.com/">CARTO</a> / <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a></div>
+  <div class="chart-source">Sources: walkshed polygons from <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/compute_walkshed.py">scripts/compute_walkshed.py</a> via <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/walkshed/ola_isochrones.geojson">data/walkshed/ola_isochrones.geojson</a> &middot; citation locations from <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-citations.csv">data/enforcement-citations.csv</a> (PRRs C049204 + C263949) aggregated by canonical park name &middot; park coordinates from <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/park-coordinates.csv">data/park-coordinates.csv</a> &middot; tiles: <a href="https://carto.com/">CARTO</a> / <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a></div>
 </div>
 
 <div class="takeaway neutral">
@@ -464,7 +464,7 @@
   <p>Citation hotspots cluster outside OLA walksheds: Capitol Hill (outside Plymouth Pillars), Queen Anne (outside Kinnear), Wallingford / Maple Leaf / Ravenna (north Seattle gap), Lincoln Park (3.4 mi from Westcrest). A pattern of enforcement distributed evenly across the city would imply uniform off-leash use; the observed concentration follows walkshed absence.</p>
 </div>
 
-<p class="chart-source" style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-faint); margin-top: 8px;">Method: point-in-polygon intersection of citation locations against the union of 0.5-mi network isochrones. Citation source: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-citations.csv">data/enforcement-citations.csv</a> (PRR C049204). Isochrones: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/walkshed/ola_isochrones.geojson">data/walkshed/ola_isochrones.geojson</a>. 111 blank-location rows excluded. Aggregated output: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/walkshed/citation-rate-by-walkshed-status.csv">citation-rate-by-walkshed-status.csv</a>.</p>
+<p class="chart-source" style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-faint); margin-top: 8px;">Method: point-in-polygon intersection of citation locations against the union of 0.5-mi network isochrones. Citation source: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-citations.csv">data/enforcement-citations.csv</a> (PRRs C049204 + C263949). Isochrones: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/walkshed/ola_isochrones.geojson">data/walkshed/ola_isochrones.geojson</a>. 114 blank-location rows excluded. Aggregated output: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/walkshed/citation-rate-by-walkshed-status.csv">citation-rate-by-walkshed-status.csv</a>.</p>
 
 <!-- =============================================================== -->
 <h2 class="finding" id="finding-tpl-overlay"><span class="num">Finding 02c</span><span>Seattle's OLAs and TPL's park-priority tiers.</span></h2>
@@ -1321,7 +1321,7 @@
       const m = L.circleMarker([h.lat, h.lng], {
         radius, fillColor, color: '#fff', weight: 1.5, fillOpacity: 0.65
       }).addTo(mergedMap);
-      m.bindPopup(`<strong style="font-family:'Space Grotesk',sans-serif;font-size:14px;">${h.park}</strong><br><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:${P.inkSoft};">${h.count} citations (2014&ndash;2019)</span>${hasOla ? `<br><span style="font-size:12px;color:${P.inkSoft};"><em>Hosts an OLA — citations on non-OLA portions.</em></span>` : ''}`, { closeButton: false });
+      m.bindPopup(`<strong style="font-family:'Space Grotesk',sans-serif;font-size:14px;">${h.park}</strong><br><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:${P.inkSoft};">${h.count} citations (2014&ndash;2026)</span>${hasOla ? `<br><span style="font-size:12px;color:${P.inkSoft};"><em>Hosts an OLA — citations on non-OLA portions.</em></span>` : ''}`, { closeButton: false });
       m.on('mouseover', function(){ this.openPopup(); });
       m.on('mouseout',  function(){ this.closePopup(); });
     });

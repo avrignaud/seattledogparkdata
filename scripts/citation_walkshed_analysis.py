@@ -62,6 +62,13 @@ def main() -> None:
     print(f"OLA 0.5-mi isochrones loaded: {len(iso05)} polygons")
 
     cits = pd.read_csv(CITS_PATH)
+    # DLP-only, to match the enforcement page's "Dog Loose in Park" framing and
+    # the original analysis (C049204 was DLP-only by construction). Without this
+    # filter the post-C263949 dataset would mix in license/scoop/other-category
+    # citations and inflate the placed counts.
+    before = len(cits)
+    cits = cits[cits["dlp_only"].astype(str) == "True"].copy()
+    print(f"Filtered to DLP-only: {len(cits):,} of {before:,} rows")
     parks = pd.read_csv(PARKS_PATH)
     park_coords = dict(
         zip(parks["park_name"], zip(parks["latitude"], parks["longitude"]))
@@ -151,7 +158,7 @@ def main() -> None:
         w = csv.writer(f)
         w.writerow([
             "walkshed_status", "pass", "n_parks_or_addrs",
-            "total_citations_2014_2019", "share_of_placed_citations",
+            "total_citations", "share_of_placed_citations",
         ])
         w.writerow([
             "Inside 0.5-mi OLA walkshed", "park-named",

@@ -396,69 +396,54 @@ def verify_offense_mix(_rows: list[dict]) -> None:
     )
 
 
-def verify_hotspots(_rows: list[dict]) -> None:
-    print("\n[6] enforcement-hotspots.csv sanity (legacy window pre-canonicalization-refresh)")
+def _dlp_park_named_counts(rows: list[dict]) -> Counter:
+    """DLP-only park-named citation counts per canonical park, full 2014–2026."""
+    return Counter(
+        r["location_canon"]
+        for r in rows
+        if r["dlp_only"] == "True"
+        and r["location_type"] == "park_named"
+        and r["location_canon"]
+    )
+
+
+def verify_hotspots(rows: list[dict]) -> None:
+    print("\n[6] enforcement-hotspots.csv reconciles to consolidated DLP park-named counts (2014–2026)")
     if not HOTSPOTS.exists():
         check(False, "enforcement-hotspots.csv missing")
         return
-    slice_rows = _legacy_slice_raw()
-    park_counts = Counter(
-        r["location_canon"]
-        for r in slice_rows
-        if r["location_canon"] and r["location_type"] == "park_named"
-    )
+    park_counts = _dlp_park_named_counts(rows)
+    ranked = [p for p, _ in park_counts.most_common()]
     with HOTSPOTS.open() as fh:
-        rows = list(csv.DictReader(fh))
-    # Every park named in the CSV must exist in the consolidated dataset.
-    missing = [r["park"] for r in rows if park_counts.get(r["park"], 0) == 0]
-    check(not missing, f"all hotspots parks present in citation data: missing={missing}")
-    # Counts should be within tolerance of the raw-PRR count.
-    drift = [
-        (r["park"], int(r["count"]), park_counts.get(r["park"], 0))
-        for r in rows
-        if abs(int(r["count"]) - park_counts.get(r["park"], 0)) > LEGACY_PARK_COUNT_TOLERANCE
-    ]
-    check(
-        not drift,
-        f"hotspot counts within tolerance ({LEGACY_PARK_COUNT_TOLERANCE}) of raw C049204: drift={drift}",
-    )
-    # CSV should be sorted by count descending.
-    counts_seq = [int(r["count"]) for r in rows]
-    check(counts_seq == sorted(counts_seq, reverse=True), "hotspots.csv is sorted by count desc")
+        csv_rows = list(csv.DictReader(fh))
+    # Each CSV count must equal the recomputed DLP park-named count exactly
+    # (the CSV is now generated from the same data, no tolerance needed).
+    bad = [(r["park"], int(r["count"]), park_counts.get(r["park"], 0))
+           for r in csv_rows if int(r["count"]) != park_counts.get(r["park"], 0)]
+    check(not bad, f"hotspots counts match consolidated DLP park-named: mismatches={bad}")
+    # Every CSV park must be in the genuine top-20 by count.
+    top20 = set(ranked[:20])
+    not_top = [r["park"] for r in csv_rows if r["park"] not in top20]
+    check(not not_top, f"all hotspots parks are in the top-20: outliers={not_top}")
+    counts_seq = [int(r["count"]) for r in csv_rows]
+    check(counts_seq == sorted(counts_seq, reverse=True), "hotspots.csv sorted by count desc")
 
 
-def verify_hotspots_extra(_rows: list[dict]) -> None:
-    print("\n[7] enforcement-hotspots-extra.csv sanity (legacy window pre-canonicalization-refresh)")
+def verify_hotspots_extra(rows: list[dict]) -> None:
+    print("\n[7] enforcement-hotspots-extra.csv reconciles to consolidated DLP park-named counts (ranks 21–40)")
     if not HOTSPOTS_EXTRA.exists():
         check(False, "enforcement-hotspots-extra.csv missing")
         return
-    slice_rows = _legacy_slice_raw()
-    park_counts = Counter(
-        r["location_canon"]
-        for r in slice_rows
-        if r["location_canon"] and r["location_type"] == "park_named"
-    )
+    park_counts = _dlp_park_named_counts(rows)
+    ranked = [p for p, _ in park_counts.most_common()]
     with HOTSPOTS_EXTRA.open() as fh:
-        rows = list(csv.DictReader(fh))
-    # In this file, missing-from-raw is allowed only for parks whose canonical
-    # name has shifted under the newer regex map (e.g. "Gilman Playfield"
-    # was folded into "Gilman Playground"). We flag them but don't fail
-    # for that specific class of drift.
-    missing = [r["park"] for r in rows if park_counts.get(r["park"], 0) == 0]
-    if missing:
-        print(f"  INFO  hotspots-extra parks not in raw map (likely canonicalization fold): {missing}")
-    # Counts should be within tolerance for parks that still exist.
-    drift = [
-        (r["park"], int(r["count"]), park_counts.get(r["park"], 0))
-        for r in rows
-        if park_counts.get(r["park"], 0) > 0
-        and abs(int(r["count"]) - park_counts.get(r["park"], 0))
-        > LEGACY_PARK_COUNT_TOLERANCE
-    ]
-    check(
-        not drift,
-        f"hotspots-extra counts within tolerance ({LEGACY_PARK_COUNT_TOLERANCE}): drift={drift}",
-    )
+        csv_rows = list(csv.DictReader(fh))
+    bad = [(r["park"], int(r["count"]), park_counts.get(r["park"], 0))
+           for r in csv_rows if int(r["count"]) != park_counts.get(r["park"], 0)]
+    check(not bad, f"hotspots-extra counts match consolidated DLP park-named: mismatches={bad}")
+    band = set(ranked[20:40])
+    not_band = [r["park"] for r in csv_rows if r["park"] not in band]
+    check(not not_band, f"all hotspots-extra parks are in ranks 21–40: outliers={not_band}")
 
 
 def verify_by_park_year(rows: list[dict]) -> None:

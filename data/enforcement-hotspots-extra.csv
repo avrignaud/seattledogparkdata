@@ -1,21 +1,21 @@
 park,count,latitude,longitude,provenance
-Ballard Playground,44,47.6687,-122.3852,calculated: enforcement-citations.csv ranks 21-40; coords approximate from park names
-Gilman Playground,35,47.6756,-122.3876,calculated: enforcement-citations.csv ranks 21-40; coords approximate from park names
-Carkeek Park,34,47.7111,-122.3767,calculated: enforcement-citations.csv ranks 21-40; coords approximate from park names
-Laurelhurst Playfield,32,47.6625,-122.2770,calculated: enforcement-citations.csv ranks 21-40; coords approximate from park names
-David Rodgers Park,31,47.6386,-122.3588,calculated: enforcement-citations.csv ranks 21-40; coords approximate from park names
-Salmon Bay Park,29,47.6711,-122.3898,calculated: enforcement-citations.csv ranks 21-40; coords approximate from park names
-Myrtle Edwards Park,27,47.6204,-122.3582,calculated: enforcement-citations.csv ranks 21-40; coords approximate from park names
-Gilman Playfield,26,47.6756,-122.3876,calculated: enforcement-citations.csv ranks 21-40; coords approximate from park names
-Smith Cove Park,25,47.6344,-122.3843,calculated: enforcement-citations.csv ranks 21-40; coords approximate from park names
-Interbay Playfield,24,47.6462,-122.3789,calculated: enforcement-citations.csv ranks 21-40; coords approximate from park names
-Alki Playground,19,47.5757,-122.4064,calculated: enforcement-citations.csv ranks 21-40; coords approximate from park names
-Leschi Park,19,47.6028,-122.2861,calculated: enforcement-citations.csv ranks 21-40; coords approximate from park names
-Madrona Park,19,47.6083,-122.2886,calculated: enforcement-citations.csv ranks 21-40; coords approximate from park names
-Ross Playground,19,47.6578,-122.3655,calculated: enforcement-citations.csv ranks 21-40; coords approximate from park names
-Madison Park,18,47.6361,-122.2797,calculated: enforcement-citations.csv ranks 21-40; coords approximate from park names
-Schmitz Preserve Park,18,47.5767,-122.3933,calculated: enforcement-citations.csv ranks 21-40; coords approximate from park names
-Pratt Park,17,47.6011,-122.3066,calculated: enforcement-citations.csv ranks 21-40; coords approximate from park names
-Gas Works Park,16,47.6456,-122.3344,calculated: enforcement-citations.csv ranks 21-40; coords approximate from park names
-Hiawatha Playfield,16,47.5785,-122.3849,calculated: enforcement-citations.csv ranks 21-40; coords approximate from park names
-Matthews Beach Park,16,47.6986,-122.2684,calculated: enforcement-citations.csv ranks 21-40; coords approximate from park names
+Meridian Playground,88,47.6571,-122.3342,"calculated: enforcement-citations.csv DLP park-named ranks 21-40, 2014-2026 (PRRs C049204 + C263949)"
+Ballard Playground,69,47.6687,-122.3852,"calculated: enforcement-citations.csv DLP park-named ranks 21-40, 2014-2026 (PRRs C049204 + C263949)"
+David Rodgers Park,64,47.6386,-122.3588,"calculated: enforcement-citations.csv DLP park-named ranks 21-40, 2014-2026 (PRRs C049204 + C263949)"
+Laurelhurst Playfield,63,47.6625,-122.277,"calculated: enforcement-citations.csv DLP park-named ranks 21-40, 2014-2026 (PRRs C049204 + C263949)"
+Myrtle Edwards Park,62,47.6204,-122.3582,"calculated: enforcement-citations.csv DLP park-named ranks 21-40, 2014-2026 (PRRs C049204 + C263949)"
+Carkeek Park,58,47.7111,-122.3767,"calculated: enforcement-citations.csv DLP park-named ranks 21-40, 2014-2026 (PRRs C049204 + C263949)"
+TT Minor Playground,57,,,"calculated: enforcement-citations.csv DLP park-named ranks 21-40, 2014-2026 (PRRs C049204 + C263949)"
+Salmon Bay Park,56,47.6711,-122.3898,"calculated: enforcement-citations.csv DLP park-named ranks 21-40, 2014-2026 (PRRs C049204 + C263949)"
+Sandel Playground,56,,,"calculated: enforcement-citations.csv DLP park-named ranks 21-40, 2014-2026 (PRRs C049204 + C263949)"
+Hiawatha Playfield,56,47.5785,-122.3849,"calculated: enforcement-citations.csv DLP park-named ranks 21-40, 2014-2026 (PRRs C049204 + C263949)"
+Alki Playground,47,47.5757,-122.4064,"calculated: enforcement-citations.csv DLP park-named ranks 21-40, 2014-2026 (PRRs C049204 + C263949)"
+Smith Cove Park,39,47.6344,-122.3843,"calculated: enforcement-citations.csv DLP park-named ranks 21-40, 2014-2026 (PRRs C049204 + C263949)"
+Fairmount Park,38,,,"calculated: enforcement-citations.csv DLP park-named ranks 21-40, 2014-2026 (PRRs C049204 + C263949)"
+Montlake Playfield,37,,,"calculated: enforcement-citations.csv DLP park-named ranks 21-40, 2014-2026 (PRRs C049204 + C263949)"
+Loyal Heights Playfield,36,,,"calculated: enforcement-citations.csv DLP park-named ranks 21-40, 2014-2026 (PRRs C049204 + C263949)"
+Judkins Park,36,,,"calculated: enforcement-citations.csv DLP park-named ranks 21-40, 2014-2026 (PRRs C049204 + C263949)"
+Madison Park,35,47.6361,-122.2797,"calculated: enforcement-citations.csv DLP park-named ranks 21-40, 2014-2026 (PRRs C049204 + C263949)"
+Riverview Playfield,33,,,"calculated: enforcement-citations.csv DLP park-named ranks 21-40, 2014-2026 (PRRs C049204 + C263949)"
+Meadowbrook Playfield,31,,,"calculated: enforcement-citations.csv DLP park-named ranks 21-40, 2014-2026 (PRRs C049204 + C263949)"
+Ross Playground,29,47.6578,-122.3655,"calculated: enforcement-citations.csv DLP park-named ranks 21-40, 2014-2026 (PRRs C049204 + C263949)"
