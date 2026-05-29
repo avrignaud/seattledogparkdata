@@ -27,7 +27,7 @@ fixed. Append as new audits happen.
 | `budget-detail.csv` | 11 | ✓ | Post-2018 OLA-only split is `missing:` — SPR does not publish |
 | `peer-cities-budget.csv` | 10 | ✓ | Most cities don't publish a dog-park-specific line |
 | `peer-cities.csv` | 14 | ✓ | Added `population_year` column for clarity on TPL vs OFM year |
-| `enforcement-citations.csv` | 4,803 | — | Already has per-row `source_file` + `source_sheet` + `location_type` columns |
+| `enforcement-citations.csv` | 7,532 | — | Consolidated PRRs C049204 + C263949 (2014–2026); DLP-only subset is 7,015. Already has per-row `source_file` + `source_sheet` + `location_type` + `source_prr` columns |
 | `enforcement-by-park-year.csv` | ~1,100 | — | Derived from enforcement-citations.csv via `scripts/build_enforcement_datasets.py` — all rows `calculated` |
 
 ## Math + consistency fixes made in this pass
@@ -52,8 +52,14 @@ Every row spot-checked:
 
 ### Enforcement revenue (from `data/enforcement-citations.csv`)
 
-Already regenerated in an earlier commit (Apr 2026). Audit spot-check
-of the CSV aggregate against the numbers on `docs/enforcement.html`:
+> **Historical snapshot (April 2026, C049204-only).** The table below
+> reflects the pre-ingest 4,803-row dataset. It was superseded by the
+> May 2026 PRR C263949 ingest and rebuild — the live page now covers the
+> full 2014–2026 window (7,015 DLP citations, $351,099 cumulative fee
+> revenue). Retained here as the audit record of the original spot-check.
+
+Audit spot-check of the CSV aggregate against the numbers on the
+then-current `docs/enforcement.html`:
 
 | Offense level | CSV count | Unique fee rows | Fee sum |
 |---|---:|---:|---:|
@@ -63,7 +69,7 @@ of the CSV aggregate against the numbers on `docs/enforcement.html`:
 | 4th+ | 83 | $162 | $13,446 |
 | **Total** | **4,803** | — | **$240,652** |
 
-Matches page prose (~$241K over 2014–2019). Cost-recovery math
+Matched the then-current page prose (~$241K over 2014–2019). Cost-recovery math
 (26% FAS-only, 14% FAS+FMW) consistent with disclosed MOA figures.
 
 ### Walkshed numbers (from `scripts/compute_walkshed.py` + `population_coverage.py`)
@@ -111,9 +117,11 @@ New: `scripts/verify_enforcement_data.py`. Re-runs end-to-end every time the pip
 - C049204 per-year DLP counts (2014: 183, 2015: 519, 2016: 952, 2017: 844, 2018: 1,276, 2019 partial: 1,029).
 - Consolidated CSV: total rows == old-DLP (2014-2018) + new-PRR rows; no leftover C049204 2019 rows; source-PRR split matches expected sums.
 - DLP-only fee-tier consistency: ≥85% of paid rows at each offense level sit at the SMC 18.12.080 fee for that level. Empirically: 100% at all four levels.
-- Derived CSV sanity (legacy chart window, pinned to 2014-2019 pre-canonicalization-refresh): all hotspot parks exist in citation data; counts within ±30 of raw-PRR reconciliation; sorted descending; offense-mix sums to 4,803.
+- Derived CSV sanity: `enforcement-hotspots.csv` and `enforcement-hotspots-extra.csv` now reconcile exactly to the consolidated DLP park-named counts over the full **2014–2026** window (verifier steps [5]/[6]) — they were regenerated in lockstep with the May 2026 page rebuild and are no longer pinned to the legacy 2014–2019 window.
 - `enforcement-by-park-year.csv` reconciles exactly to the consolidated CSV.
-- `enforcement-program-economics.csv revenue_actual_total` reconciles exactly to the raw C049204 fee sum ($240,652) and its `years_covered` field still says 2014-2019.
+- `enforcement-year-metrics.csv` recomputes every per-year metric from the consolidated CSV + the documented cost model (verifier step [8]); cumulative cost ~$3.34M, revenue $351,099, recovery 10.5%.
+
+> **Note (May 2026 rebuild):** the earlier `enforcement-offense-mix.csv` and `enforcement-program-economics.csv` were **retired** — the offense mix and program economics are now embedded directly in `scripts/enforcement_page_data.json` and rendered by `scripts/build_enforcement_page.py`. The verifier no longer references those two files.
 
 `ALL CHECKS PASSED` is the gate for any future commit touching the enforcement data path.
 
@@ -138,7 +146,7 @@ New: `scripts/verify_enforcement_data.py`. Re-runs end-to-end every time the pip
 
 ### Pending: chart-driving derived CSVs
 
-The four small CSVs that drive the enforcement.html charts (`enforcement-hotspots.csv`, `enforcement-hotspots-extra.csv`, `enforcement-offense-mix.csv`, `enforcement-program-economics.csv`) were NOT regenerated in this pass. They still reflect the 2014-2019 DLP-only window that matches the current HTML chart labels and copy. The next change to enforcement.html will regenerate them in lockstep with the label refresh. Until then, the verifier sanity-checks them against the raw C049204 data and records ±30 count tolerance to account for canonicalization-regex drift since they were last produced.
+**Resolved by the May 2026 page rebuild (see next section).** At ingest time the four small chart-driving CSVs had not yet been regenerated and still reflected the legacy 2014–2019 DLP-only window. That is no longer the case: `enforcement-hotspots.csv` and `enforcement-hotspots-extra.csv` were regenerated to the full **2014–2026** window and now reconcile exactly to the consolidated CSV in the verifier; `enforcement-offense-mix.csv` and `enforcement-program-economics.csv` were **retired** entirely, their content folded into `scripts/enforcement_page_data.json` and rendered by `scripts/build_enforcement_page.py`. Every number on the live page is reproducible from committed scripts and checked end-to-end by `verify_enforcement_data.py`.
 
 ## May 2026 — enforcement page refresh deep audit
 

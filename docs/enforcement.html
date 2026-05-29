@@ -88,7 +88,7 @@
 <header class="hero">
   <span class="kicker orange">Enforcement</span>
   <h1 class="hed">13 years of off-leash enforcement in Seattle: <em>rising cost, falling output</em>.</h1>
-  <p class="deck">Seattle Animal Control's records cover 13 years of off-leash (&ldquo;Dog Loose in Park,&rdquo; DLP) enforcement. Citation output peaked in 2018, fell sharply during the COVID period, and has not recovered. The cost of issuing each citation has risen. Across the full record, the available data does not show the program reducing violations &mdash; first-time offenders remain the overwhelming majority of citations every year. The 2026 staffing expansion is being implemented without a published evaluation of the 2016 expansion's results.</p>
+  <p class="deck">Seattle Animal Control's records cover 13 years of off-leash (&ldquo;Dog Loose in Park,&rdquo; DLP) enforcement. Citation output peaked in 2018, fell sharply during the COVID period, and has not recovered. The program's cost per published citation has risen. Across the full record, the available data does not show the program reducing violations &mdash; first-time offenders remain the overwhelming majority of citations every year. The 2026 staffing expansion is being implemented without a published evaluation of the 2016 expansion's results.</p>
   <div class="byline">Source: Seattle Animal Control PRRs <a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C049204">C049204</a> (2014&ndash;2018) and <a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C263949">C263949</a> (2019&ndash;2026-04-17) &middot; staffing: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/moas/SPR-FAS-ACO2-MOA-2016-04-02.pdf">2016 MOA</a>, <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/moas/SPR-FAS-ACO2-MOA-2021-AG21-PRF03-032.pdf">signed 2021 MOA</a>, <a href="https://www.axios.com/local/seattle/2026/04/17/more-paw-patrols-seattle-ramping-up-dog-related-enforcement">Axios Seattle April 2026</a> &middot; coordinates approximate from park names</div>
 </header>
 
@@ -124,19 +124,19 @@
 </figure>
 
 <!-- ============ FINDING 01 — FISCAL LEAD ============ -->
-<h2 class="finding" id="finding-01"><span class="num">Finding 01</span><span>Fewer citations, each costing more to produce.</span></h2>
+<h2 class="finding" id="finding-01"><span class="num">Finding 01</span><span>Fewer citations, and a rising program cost per published citation.</span></h2>
 <p class="lead">Citation volume has fallen well below its 2018 peak, while the program's staffing cost has held roughly flat (and is set to roughly double in 2026). The result: the cost attributable to each citation has risen. The bars show citations issued per year; the line shows the program's annual cost divided by that year's citations &mdash; a cost-to-output ratio, not the price of writing a single ticket. The MOA defines the ACO/FMW team's work as <em>primarily educational</em>, so citations are one output among several (warnings, contacts, deterrent presence); read the line as a trend in cost against the one output the city publishes, not as a unit production cost.</p>
 
 <div class="chart-block">
-  <div class="chart-title">DLP citations vs. cost per citation, 2014&ndash;2025</div>
-  <div class="chart-subtitle">Green bars (left axis): DLP citations per year, 2014&ndash;2025. Orange line (right axis): annual FAS+FMW program cost &divide; that year's citations. The cost-per-citation line begins in 2016 &mdash; the first year with a documented cost basis (the April 2016 MOA) &mdash; because pre-2016 part-time staffing has no separately documented cost. COVID period shaded. The line stops at 2025 because 2026 is a partial year (see Finding 02). All dollars nominal.</div>
-  <div class="chart-wrap"><canvas id="chartCostPerCit" role="img" aria-label="Dual-axis chart: DLP citations per year as bars and cost per citation as a line, 2014-2025."></canvas></div>
-  <div class="chart-source">Citations: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-citations.csv">enforcement-citations.csv</a> &middot; FAS cost: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/moas/SPR-FAS-ACO2-MOA-2021-AG21-PRF03-032.pdf">2021 MOA Attachment A</a> ($152,399/yr per ACO II) &middot; FMW pairing ~$140K/yr (author estimate, documented in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-program-economics.csv">enforcement-program-economics.csv</a>)</div>
+  <div class="chart-title">DLP citations vs. program cost per published citation, 2014&ndash;2025</div>
+  <div class="chart-subtitle">Green bars (left axis): DLP citations per year, 2014&ndash;2025. Orange line (right axis): annual FAS+FMW program cost &divide; that year's citations. The program cost-per-citation line begins in 2016 &mdash; the first year with a documented cost basis (the April 2016 MOA) &mdash; because pre-2016 part-time staffing has no separately documented cost. COVID period shaded. The line stops at 2025 because 2026 is a partial year (see Finding 02). All dollars nominal.</div>
+  <div class="chart-wrap"><canvas id="chartCostPerCit" role="img" aria-label="Dual-axis chart: DLP citations per year as bars and program cost per published citation as a line, 2014-2025."></canvas></div>
+  <div class="chart-source">Citations: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-citations.csv">enforcement-citations.csv</a> &middot; FAS cost: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/moas/SPR-FAS-ACO2-MOA-2021-AG21-PRF03-032.pdf">2021 MOA Attachment A</a> ($152,399/yr per ACO II) &middot; FMW pairing ~$140K/yr (author estimate, documented in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-year-metrics.csv">enforcement-year-metrics.csv</a>)</div>
 </div>
 
 <div class="takeaway neutral">
   <span class="kicker">Observation</span>
-  <p>Across 2014&ndash;2025, fee revenue ($351,099 cumulative) covered roughly 11% of the program's estimated $3.34M FAS+FMW cost. In the MOA-documented era (2016 on), cost per citation was lowest in the peak-output years &mdash; $229 in 2018 &mdash; and highest in the trough &mdash; $1,730 in 2022. Even the 2024 partial recovery to 447 citations leaves cost-per-citation at $654, nearly triple the 2018 figure. Because the announced 2026 expansion roughly doubles staffing cost, holding the existing cost-per-citation ratio would require citation output to roughly double from current levels &mdash; which it has not approached in any year since 2019.</p>
+  <p>Across 2014&ndash;2025, fee revenue ($351,099 cumulative) covered roughly 11% of the program's estimated $3.34M FAS+FMW cost. In the MOA-documented era (2016 on), the program cost per published citation was lowest in the peak-output years &mdash; $229 in 2018 &mdash; and highest in the trough &mdash; $1,730 in 2022. Even the 2024 partial recovery to 447 citations leaves cost-per-citation at $654, nearly triple the 2018 figure. Because the announced 2026 expansion roughly doubles staffing cost, holding the existing cost-per-citation ratio would require citation output to roughly double from current levels &mdash; which it has not approached in any year since 2019.</p>
 </div>
 
 <div class="fair-note">
@@ -211,7 +211,7 @@
 
 <div class="map-block">
   <div class="chart-title">Citation density and 0.5-mile OLA walksheds</div>
-  <div class="chart-subtitle">Heat = DLP citation density (kernel density across geocoded park locations, weighted by count). Green rings = 0.5-mile walksheds around each of the 14 OLAs. Green dots = OLA locations. Grey dots = neighborhood reference points.</div>
+  <div class="chart-subtitle">Heat = DLP citation density (a smoothed heat surface across geocoded park locations, weighted by citation count). Green rings = 0.5-mile walksheds around each of the 14 OLAs. Green dots = OLA locations. Grey dots = neighborhood reference points.</div>
   <div id="gap-map" role="img" aria-label="Heatmap of off-leash citation density with 0.5-mile OLA walksheds overlaid."></div>
   <div class="chart-source">Sources: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-citations.csv">enforcement-citations.csv</a> &middot; <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">seattle-olas.csv</a> &middot; walksheds per <a href="https://www.tpl.org/parkscore/about">TPL ParkScore</a> &middot; <a href="https://github.com/Leaflet/Leaflet.heat">Leaflet.heat</a> &middot; tiles: <a href="https://carto.com/">CARTO</a> / <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a></div>
 </div>
@@ -301,7 +301,7 @@ const fullYears = D.full_years; // 2014-2025
     type: 'bar',
     data: { labels: yt.map(t => t.year), datasets: [
       { label: 'DLP citations (left axis)', data: yt.map(t => t.dlp), backgroundColor: P.sage, yAxisID: 'y' },
-      { label: 'Cost per citation $, 2016+ (right axis)', data: costLine, spanGaps: false,
+      { label: 'Program cost per published citation $, 2016+ (right axis)', data: costLine, spanGaps: false,
         type: 'line', borderColor: P.orange, backgroundColor: P.orange, tension: 0.18, pointRadius: 4, borderWidth: 2.5, fill: false, yAxisID: 'y1' }
     ]},
     options: { responsive: true, maintainAspectRatio: false, animation: false,

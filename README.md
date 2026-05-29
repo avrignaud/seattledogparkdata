@@ -19,7 +19,7 @@ This is a civic advocacy research project. Everything here is sourced from publi
 
 - **[Part I — The Gap](https://seattledogparkdata.com/part1-the-gap.html)** — population growth vs. OLA count, peer-city comparison, budget reality.
 - **[Part II — Access](https://seattledogparkdata.com/part2-access.html)** — walkability analysis with interactive Seattle map, peer-city acreage comparison, illegal off-leash use, and the Kinnear Park case study.
-- **[Enforcement](https://seattledogparkdata.com/enforcement.html)** — 4,803 off-leash citations 2014–2019 (PRR C049204), year trend, cost-recovery math, walkshed overlay.
+- **[Enforcement](https://seattledogparkdata.com/enforcement.html)** — 7,015 Dog-Loose-in-Park (DLP) off-leash citations 2014–2026 (7,532 all-category rows; PRRs C049204 + C263949), year trend, cost-recovery math, walkshed overlay.
 - **[Peer cities](https://seattledogparkdata.com/peer-cities.html)** — deeper per-city comparisons against Portland, SF, Vancouver BC, Austin, Boise, and others.
 - **[Budget](https://seattledogparkdata.com/budget.html)** — SPR and Seattle Park District line items.
 - **[Opinion & Recommendation](https://seattledogparkdata.com/opinion.html)** — clearly marked author recommendations.
@@ -35,7 +35,7 @@ Both render as standalone HTML with Chart.js and Leaflet. No build step, no back
 │   ├── index.html                  # Landing page
 │   ├── part1-the-gap.html          # Population / budget / peer-city analysis
 │   ├── part2-access.html           # Walkability, mapping, Kinnear case study
-│   ├── enforcement.html            # 4,803 citations, year trend, walkshed overlay
+│   ├── enforcement.html            # 7,015 DLP citations 2014–2026, year trend, walkshed overlay
 │   ├── peer-cities.html            # Per-city comparison pages
 │   ├── budget.html                 # SPR + Park District line items
 │   ├── opinion.html                # Clearly-marked author recommendations
@@ -44,7 +44,7 @@ Both render as standalone HTML with Chart.js and Leaflet. No build step, no back
 │   ├── seattle-olas.csv            # 14 existing OLAs: coordinates (SPR ArcGIS), acreage, neighborhood
 │   ├── seattle-timeseries.csv      # Population, SPR budget, OLA budget by year
 │   ├── peer-cities.csv             # Portland, SF, Vancouver BC, Austin, Boise, etc.
-│   ├── enforcement-citations.csv   # 4,803 citations from PRR C049204 (2014-01 → 2019-10)
+│   ├── enforcement-citations.csv   # 7,532 all-category rows (7,015 DLP) from PRRs C049204 + C263949 (2014-01 → 2026-04)
 │   ├── enforcement-by-park-year.csv
 │   ├── kinnear-timeline.csv        # 20-year chronology of Kinnear encampment/safety
 │   ├── planned-olas.csv            # Under-construction + planning-phase OLAs

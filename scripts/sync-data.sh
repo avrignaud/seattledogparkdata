@@ -31,8 +31,6 @@ csvs=(
   data/kinnear-timeline.csv
   data/enforcement-hotspots.csv
   data/enforcement-hotspots-extra.csv
-  data/enforcement-offense-mix.csv
-  data/enforcement-program-economics.csv
   data/seattle-facility-counts.csv
   data/neighborhood-centers.csv
 )

@@ -341,7 +341,7 @@
 
 <div class="data-currency">
   <strong class="banner-label">About this data</strong>
-  Off-leash survey data referenced below is from SPR's 2016 owner survey, published in the 2017 <a href="https://www.seattle.gov/parks/about-us/policies-and-plans/people-dogs-and-parks-strategic-plan">People, Dogs and Parks Strategic Plan</a>. That decade-old behavioral survey is the most recent public version; the 39% figure needs a current replacement. The "~1,100 Find-It-Fix-It nuisance-dog reports" figure is a secondary citation; a <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/prrs/02-spu-fifi-dog-complaints.md">public records request</a> to SPU for exact annual counts has been filed and is awaiting response. Corrections and better primary sources are welcome — see <a href="index.html">the overview</a>.
+  Off-leash survey data referenced below is from Seattle Parks &amp; Recreation's (SPR) 2016 owner survey, published in the 2017 <a href="https://www.seattle.gov/parks/about-us/policies-and-plans/people-dogs-and-parks-strategic-plan">People, Dogs and Parks Strategic Plan</a>. That decade-old behavioral survey is the most recent public version; the 39% figure needs a current replacement. The "~1,100 Find-It-Fix-It nuisance-dog reports" figure is a secondary citation; a <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/prrs/02-spu-fifi-dog-complaints.md">public records request (PRR)</a> to Seattle Public Utilities (SPU) for exact annual counts has been filed and is awaiting response. Corrections and better primary sources are welcome — see <a href="index.html">the overview</a>.
 </div>
 
 <header class="hero hero-number">
@@ -349,7 +349,7 @@
   <div>
     <span class="kicker orange">Part II &middot; Access</span>
     <h1 class="hed">99% of Seattleites live within a 10-minute walk of a park. <em>11.7%</em> live within a 10-minute walk of one where dogs are legal.</h1>
-    <p class="deck">11.7% of Seattleites are within a 10-minute walk of a legal off-leash area. 76.6% are within SPR's published 2.5-mile OLA standard. This report measures the gap between "a park" and "a park where dogs are legal."</p>
+    <p class="deck">11.7% of Seattleites are within a 10-minute walk of a legal off-leash area (OLA). 76.6% are within SPR's published 2.5-mile OLA standard. This report measures the gap between "a park" and "a park where dogs are legal."</p>
     <div class="byline"><strong>Andre Vrignaud</strong> &middot; Network-distance analysis &middot; Updated May 2026</div>
   </div>
 </header>
@@ -361,7 +361,7 @@
         <div class="label">10-min walk to any park</div>
         <div class="num">99<span class="unit">%</span></div>
       </div>
-      <div class="note">Seattle residents, <a href="https://www.tpl.org/city/seattle-washington">TPL 2025 ParkScore</a>.</div>
+      <div class="note">Seattle residents, <a href="https://www.tpl.org/city/seattle-washington">Trust for Public Land (TPL) 2025 ParkScore</a>.</div>
     </div>
     <div class="stat orange">
       <div>
@@ -411,11 +411,11 @@
 
 <!-- =============================================================== -->
 <h2 class="finding"><span class="num">Finding 02</span><span>Mapping the OLA gap.</span></h2>
-<p class="lead">The map shows Seattle's 14 existing off-leash areas (half-mile network isochrones), the two under construction for fall 2026, and four sites in longer-term planning. Network walksheds follow the OSM pedestrian graph and stop at barriers — I-5, the Ship Canal, steep terrain — that a straight-line circle would cross.</p>
+<p class="lead">The map shows Seattle's 14 existing off-leash areas with their half-mile walking-distance areas, the two under construction for fall 2026, and four sites in longer-term planning. These walk areas follow Seattle's pedestrian street network and stop at barriers — I-5, the Ship Canal, steep terrain — that a straight-line circle would cross.</p>
 
 <div class="map-block">
   <div class="chart-title">Seattle off-leash areas, with half-mile walksheds</div>
-  <div class="chart-subtitle">Half-mile network-distance isochrones along the OSM pedestrian graph. Planned and in-design sites (no isochrone computed yet) are shown as dashed straight-line half-mile circles and are labeled as placeholders.</div>
+  <div class="chart-subtitle">Half-mile network walking-distance areas along Seattle's pedestrian street network. Planned and in-design sites (walk area not yet computed) are shown as dashed straight-line half-mile circles and labeled as placeholders.</div>
   <div id="seattle-map" role="img" aria-label="Map of Seattle showing 14 existing off-leash areas with their half-mile network walksheds, two under-construction sites for fall 2026, and four in-planning sites."></div>
   <div class="chart-source">Source: <a href="https://www.seattle.gov/parks/recreation/dog-off-leash-areas">SPR OLA inventory</a> &middot; <a href="https://www.seattle.gov/parks/about-us/plans-and-reports/recreation-plans-and-reports/off-leash-area-study">SPR Off-Leash Area Expansion Study (2023-24)</a> &middot; <a href="https://www.seattle.gov/seattle-park-district/park-district-planning">Park District Cycle 2 project pages</a> &middot; isochrones from <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/walkshed/ola_isochrones.geojson">data/walkshed/ola_isochrones.geojson</a> &middot; map tiles from <a href="https://carto.com/">CARTO</a> / <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &middot; data in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">data/seattle-olas.csv</a> and <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/planned-olas.csv">data/planned-olas.csv</a></div>
 </div>
@@ -461,10 +461,10 @@
 
 <div class="takeaway neutral">
   <span class="kicker">Observation</span>
-  <p>Citation hotspots cluster outside OLA walksheds: Capitol Hill (outside Plymouth Pillars), Queen Anne (outside Kinnear), Wallingford / Maple Leaf / Ravenna (north Seattle gap), Lincoln Park (3.4 mi from Westcrest). A pattern of enforcement distributed evenly across the city would imply uniform off-leash use; the observed concentration follows walkshed absence.</p>
+  <p>Citation hotspots cluster outside OLA walksheds: Capitol Hill (outside Plymouth Pillars), Queen Anne (outside Kinnear), Wallingford / Maple Leaf / Ravenna (north Seattle gap), Lincoln Park (3.4 mi from Westcrest). The observed concentration is consistent with walkshed absence, but citation records cannot distinguish violation rates from patrol targeting &mdash; they record where citations were issued, not where off-leash use is highest.</p>
 </div>
 
-<p class="chart-source" style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-faint); margin-top: 8px;">Method: point-in-polygon intersection of citation locations against the union of 0.5-mi network isochrones. Citation source: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-citations.csv">data/enforcement-citations.csv</a> (PRRs C049204 + C263949). Isochrones: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/walkshed/ola_isochrones.geojson">data/walkshed/ola_isochrones.geojson</a>. 114 blank-location rows excluded. Aggregated output: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/walkshed/citation-rate-by-walkshed-status.csv">citation-rate-by-walkshed-status.csv</a>.</p>
+<p class="chart-source" style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-faint); margin-top: 8px;">Method: each citation location is tested for whether it falls inside the merged 0.5-mile walk-distance areas (a point-in-polygon test against the network isochrones). Citation source: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-citations.csv">data/enforcement-citations.csv</a> (PRRs C049204 + C263949). Isochrones: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/walkshed/ola_isochrones.geojson">data/walkshed/ola_isochrones.geojson</a>. 114 blank-location rows excluded. Aggregated output: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/walkshed/citation-rate-by-walkshed-status.csv">citation-rate-by-walkshed-status.csv</a>.</p>
 
 <!-- =============================================================== -->
 <h2 class="finding" id="finding-tpl-overlay"><span class="num">Finding 02c</span><span>Seattle's OLAs and TPL's park-priority tiers.</span></h2>
@@ -945,7 +945,7 @@
 <div class="footnotes">
   <h3>Data notes</h3>
 
-  <p><strong>10-minute walkshed methodology.</strong> TPL defines the 10-minute walk as a half-mile service area along the public road network, cut by physical barriers (highways, tracks, rivers without bridges). TPL publishes the &ldquo;99% of Seattle residents&rdquo; figure using this methodology for all parks; TPL does not publish a dog-park-specific version. The OLA walkshed figures on this page (11.7% at 10-min, 76.6% at 2.5-mi) are computed in-repo: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/compute_walkshed.py">scripts/compute_walkshed.py</a> runs osmnx against Seattle's OSM walk network (projected to UTM 10N; physical barriers respected) to compute per-OLA isochrones; <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/population_coverage.py">scripts/population_coverage.py</a> intersects the union with 2020 Census block-group population clipped to the Seattle city boundary. The isochrone algorithm uses an alpha-shape (&alpha;=0.003) of reachable network nodes with a 0.3 km&sup2; area floor and a convex-hull fallback for OLAs at the edge of OSM coverage (Westcrest is one). Output at <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/walkshed/population_coverage.csv">data/walkshed/population_coverage.csv</a>; full methodology in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/METHODOLOGY.md">METHODOLOGY.md</a>.</p>
+  <p><strong>10-minute walkshed methodology.</strong> TPL defines the 10-minute walk as a half-mile service area along the public road network, cut by physical barriers (highways, tracks, rivers without bridges). TPL publishes the &ldquo;99% of Seattle residents&rdquo; figure using this methodology for all parks; TPL does not publish a dog-park-specific version. The OLA walkshed figures on this page (11.7% at 10-min, 76.6% at 2.5-mi) are computed in-repo: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/compute_walkshed.py">scripts/compute_walkshed.py</a> runs osmnx against Seattle's OSM walk network (projected to UTM 10N; physical barriers respected) to compute per-OLA isochrones; <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/population_coverage.py">scripts/population_coverage.py</a> intersects the union with 2020 Census block-group population clipped to the Seattle city boundary. Each walk-area boundary is drawn as an alpha-shape (&alpha;=0.003) &mdash; a shape that hugs the reachable street network's actual concavities rather than bridging across them the way a simpler convex outline would &mdash; of reachable network nodes, with a 0.3 km&sup2; area floor and a convex-hull fallback for OLAs at the edge of OpenStreetMap (OSM) coverage (Westcrest is one). Output at <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/walkshed/population_coverage.csv">data/walkshed/population_coverage.csv</a>; full methodology in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/METHODOLOGY.md">METHODOLOGY.md</a>.</p>
 
   <p><strong>Peer-city OLA counts.</strong> The methodological differences are real and material. Portland's 38 DOLAs (TPL 2025) include 20+ unfenced voice-control areas; Seattle counts zero unfenced sites. Redefining Seattle's approach to include unfenced designated sites (as several other cities do) would raise its count, though SPR has publicly stated a preference for fenced sites on liability and environmental-impact grounds. The comparison in this report uses each city's TPL ParkScore count.</p>
 

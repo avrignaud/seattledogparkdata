@@ -61,12 +61,12 @@ Andre's preferences (from conversation history):
     * --accent-3: #2C4A6E (navy)  
     * --danger: #8B2518 (deep red, used for Kinnear)  
 * **Charts:** Chart.js v4.4.0 with the datalabels plugin. Never overload a chart with more than ~10 data points unless necessary. Source attribution line goes at the bottom of every chart block.  
-* **Map:** Leaflet v1.9.4 with CARTO light_all tiles. Half-mile walksheds are straight-line circles, not network polygons.  
+* **Map:** Leaflet v1.9.4 with CARTO light_all tiles. The Part II coverage map draws **network-distance isochrones** (osmnx-computed, from `data/walkshed/ola_isochrones.geojson`); planned/in-design sites with no isochrone yet fall back to straight-line half-mile circles. The enforcement-page gap map still uses straight-line circles (legacy). Don't conflate the two.  
 * **CSV format:** Plain CSV, no comment headers in data files (the monolithic #-commented CSV in /mnt/user-data/outputs/was intentionally consolidated out). Preserve column names and don't add/reorder columns without updating any code that reads them.  
 * **Writing voice:** Editorial but restrained. Fraunces italic for emphasis. Short sentences preferred over long ones. No em-dashes used as commas when a comma would do.  
 ## Data methodology — things that will bite you  
-## 1. The 33% walkshed estimate  
-In Part II, "~33% of Seattle residents within 10-min walk of an OLA" is my calculation, not TPL's. It's a straight-line half-mile buffer around each OLA coordinate, overlaid on 2020 Census block groups. A proper network analysis (accounting for I-5, the Ship Canal, hills) would produce a **smaller** number, not larger. Do not upgrade this to a bigger number or claim precision it doesn't have. The TODO has "replace with real network analysis" as the single highest-value methodological improvement — that would be QGIS + TPL ParkServe data + shapely or similar.  
+## 1. The walkshed coverage figure (now 11.7%, network-distance)  
+The headline Part II number is **11.7% of Seattle residents within a 10-minute (0.5-mi) network walk of an OLA** (76.6% within SPR's 2.5-mi standard), population-weighted. This **supersedes** the earlier "~33%" straight-line author estimate, which is gone from the site — don't reintroduce it. The current figure is computed in-repo by `scripts/compute_walkshed.py` (osmnx against Seattle's OSM walk network, alpha-shape isochrones, α=0.003) + `scripts/population_coverage.py` (2020 Census block-group overlay clipped to the city boundary). It is still a **modeled estimate**, not a citable TPL number — TPL publishes the 99%-of-residents-near-any-park figure but no dog-park-specific version. Do not claim more precision than the model supports, and keep both figures (11.7% / 76.6%) consistent across pages.  
 ## 2. Peer-city OLA counts use different definitions  
 Portland counts 30+ DOLAs but most are **unfenced voice-control areas**. Seattle counts only fully-fenced dedicated OLAs. SF mixes both. Vancouver BC includes time-restricted beach/field access. Every peer-city comparison chart should have a methodology caveat nearby. Don't quietly normalize these to make any one city look better or worse.  
 ## 3. The OLA budget is not really the OLA budget  
@@ -79,7 +79,7 @@ Austin shows up in some sources with ~682 acres of "off-leash area" — this is 
 They were derived from SPR address data, not from an official GeoJSON layer. Good enough for display on a Leaflet map at city scale; don't use them for legal or engineering purposes. If someone wants canonical geometry, they're on Seattle's ArcGIS Open Data portal somewhere.  
 ## Known-incomplete work (on TODO, don't re-invent)  
 See TODO.md for the full list. The highest-value items:  
-1. **Replace straight-line walkshed with network analysis** (QGIS + TPL ParkServe data). Would upgrade the key 33% number from an estimate to a citable figure.  
+1. ~~**Replace straight-line walkshed with network analysis**~~ **DONE (April 2026).** The network-distance walkshed (osmnx + 2020 Census block groups) shipped and replaced the old 33% straight-line estimate with 11.7% (10-min) / 76.6% (2.5-mi). Remaining refinement: geocode the ~695 street-address citation rows and spatial-join against park polygons; recompute as Seattle's OSM walk network improves.  
 2. **PRR to SPR** for the OLA-only share of the Maintaining Parks & Facilities BSL, 2023-2026.  
 3. **PRR to Seattle Animal Control** for annual off-leash ticket counts 2016-2025.  
 4. **PRR to SPU** for Find It Fix It "dog in a park" complaints by year.  

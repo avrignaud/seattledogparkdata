@@ -42,7 +42,7 @@ These files are built by scripts. Do not hand-edit them — edit the inputs and 
 7. Aggregate by `(location_canon, year, dlp_only)` and write `data/enforcement-by-park-year.csv`. The `dlp_only` dimension lets downstream consumers request the apples-to-apples DLP series across both PRRs without re-reading the wide CSV.
 
 **Headline data-quality numbers after the May 2026 build:**
-- 7,532 total violations across 2014-01-01 → 2026-04-17 (4,955 DLP-only across the same window once 2019 is sourced from C263949).
+- 7,532 all-category violations across 2014-01-01 → 2026-04-17; 7,015 DLP-only across the same window once 2019 is sourced from C263949.
 - 3,774 rows from C049204 retained (2014-2018 DLP-only); 1,029 dropped (2019 partial DLP-only, superseded by C263949).
 - 3,758 rows from C263949 ingested across four workbooks (1,806 / 758 / 799 / 395). Each file's row count matches its in-row `Total Violations: N` sentinel exactly.
 - Fee-tier consistency (DLP-only paid rows): 100% of 1st-offense rows at $54, 100% of 2nd at $109, 100% of 3rd at $136, 100% of 4th+ at $162 — all matching SMC 18.12.080(A).
@@ -126,7 +126,7 @@ Output should byte-match the committed CSV; if it doesn't, open an issue.
 | Hotspot circle-marker map | `HOTSPOTS` data embedded in the HTML; derived from `enforcement-by-park-year.csv` + `park-coordinates.csv`. Marker radius = `max(6, sqrt(count) × 1.6)`. |
 | Walkshed-gap heatmap | [Leaflet.heat](https://github.com/Leaflet/Leaflet.heat) kernel density estimate. Points: top-40 geocoded parks (HOTSPOTS + HEATMAP_EXTRA arrays in `enforcement.html`), weighted by citation count. Walksheds on the enforcement-page gap map are still straight-line circles (legacy); the newer merged Part II map uses the network isochrones from `data/walkshed/ola_isochrones.geojson`. |
 | Top-20 cited parks | Direct aggregate from `enforcement-by-park-year.csv`. |
-| Citations per year | Direct aggregate from `enforcement-by-park-year.csv`. 2019 is partial (Jan 1 – Oct 15, 288 days); naive annualization = count × 365 / 288. |
+| Citations per year | Direct aggregate from `enforcement-by-park-year.csv`. 2019 is now a full year (sourced from C263949 under the overlap rule). 2026 is the partial year (Jan 1 – Apr 17, day 107, ~29%); its annualized equivalent = count ÷ 0.293, shown as a dashed marker, not treated as actual. |
 | Offense-mix | Derived counts from `enforcement-citations.csv` grouped by `offense_level`. Fees per offense level reference SMC 18.12.080(A). |
 
 ### Editorial (opinion.html)
