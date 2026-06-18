@@ -1,5 +1,27 @@
 # Changelog
 
+## [1.1.0] — 2026-06-18
+
+Ingests three public-records responses and weaves the new data across the site. The complaint and licensing datasets move from "filed, awaiting response" to primary sources.
+
+### New data and findings
+
+- **Resident complaints (PRR C263990).** Find It Fix It "Nuisance Dogs in a Park" reports — ~3,010 in 2025 (the first full year of the record), roughly 11 per off-leash citation. New Enforcement Finding 07 sets complaint volume against citation output: the two series move independently (monthly r = 0.13), shown as stacked panels rather than a dual-axis chart. A "Complaints 2024–26" column is added to the per-park enforcement table.
+- **Dog licensing (PRR C264029).** Annual license issuance fell ~21% over 2014–2025 (24,309 → 19,219); ~26,650 dogs hold current licenses, an estimated 7–18% of the 150,000–400,000 dog population. New Part I licensing/compliance finding; Seattle Animal Shelter confirmed it holds no internal compliance or dog-population estimate.
+- **License revenue vs. OLA spending (Budget).** New finding: the city collects ~$1.24M/yr in dog-license fees vs. a ~$129K OLA-only operating budget (~10×), with an explicit cross-department caveat (license revenue funds the Seattle Animal Shelter under FAS, not SPR) — a scale contrast, not an accounting claim.
+
+### Site changes
+
+- **Part II** complaint figure updated (~1,100 → ~3,010, now primary); licensing-trend note added; the citation-vs-walkshed and TPL priority-tier detail moved to the Enforcement page; the 14-row OLA capacity table condensed to prose; Finding 07 summary expanded.
+- **Updates page + homepage panel** carry two new June 2026 entries (complaints received; licensing received).
+- **Site-wide date** advanced to June 2026 across all public pages.
+- **Sub-$1M dollar formatting** standardized to plain dollars (e.g. $100,000 / $126,000 / $129,000) instead of decimal-millions notation.
+
+### Data and scripts
+
+- New datasets: `data/licensing-revenue.csv`, `data/licensing-by-year.csv`, `data/licensing-by-zip.csv`, `data/complaints-citations-monthly.csv`, `data/complaints-vs-citations-by-park.csv`, plus raw PRR responses under `data/prr-responses/C263990/` and `data/prr-responses/C264029/`.
+- New build scripts: `scripts/build_licensing_datasets.py`, `scripts/compare_complaints_citations.py`.
+
 ## [1.0.0] — 2026-04-19
 
 First complete version. The site is a coherent public-data reference on Seattle's off-leash area system — overview, Part I (The Gap), Part II (Access), Part III (Forward), Enforcement, Budget, Peer Cities, Opinion, and a single-file print PDF — with every factual claim linking back to its source and the underlying dataset pipeline fully reproducible from committed scripts. History tracks forward from here.

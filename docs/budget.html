@@ -47,15 +47,15 @@
 
 <div class="masthead">
   <span class="dateline">Budget Deep Dive &middot; Seattle Dog Park Data &middot; seattledogparkdata.com</span>
-  <span>MAY 2026</span>
+  <span>JUNE 2026</span>
 </div>
 
 <header class="hero">
   <span class="kicker orange part-label">Budget &middot; 2016&ndash;2026</span>
-  <h1 class="hed">The SPR budget, and the <em>off-leash</em> share of it.</h1>
+  <h1 class="hed">The Seattle Parks budget, and the <em>off-leash</em> share of it.</h1>
   <p class="deck">Seattle Parks &amp; Recreation's (SPR) reported budget grew from $168M (2018, operating only) to $507M proposed (2026, all funds). About half the apparent jump is a 2019 reporting shift, not real growth. The publicly disclosed off-leash area (OLA) line went from $100K to $129K through 2024, after which SPR no longer breaks the OLA share out from the combined OLA + P-Patch line; a <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/prrs/03-spr-ola-budget-split.md">public records request (PRR)</a> for the missing split has been filed and is awaiting response. These charts put both series on one page with the methodology caveats intact.</p>
   <div class="byline">
-    <strong>Andre Vrignaud</strong> &middot; Seattle Dog Park Data &middot; Updated May 2026
+    <strong>Andre Vrignaud</strong> &middot; Seattle Dog Park Data &middot; Updated June 2026
   </div>
 </header>
 
@@ -125,6 +125,28 @@
 <div class="takeaway neutral">
   <span class="kicker">Observation</span>
   <p>The tallest disclosed OLA-only bar is 2016 at 6.4 bp (0.064% of SPR spending); by 2018 it was 6.0 bp. Dashed-outline bars for 2025&ndash;2026 reach roughly 36&ndash;54 bp because they include P-Patch community gardens and, in 2024&ndash;2025, one-time Cycle 2 OLA capital; the OLA-only slice inside those bars is smaller and not published. SPR's 2016 People, Dogs and Parks survey found that about 25% of Seattle residents use OLAs; proportional spending would be 2,500 bp, which would render the actual bars as a flat baseline at this scale.</p>
+</div>
+
+<!-- ================================================================= -->
+<!-- NEW — license revenue vs OLA spending (PRR C264029) -->
+<h2 class="finding" id="finding-license-revenue"><span class="num" style="color: var(--orange);">New</span>The other side of the ledger: dog-license revenue vs. OLA spending.</h2>
+<p class="lead">The figures above track what the city <em>spends</em> on off-leash areas. A 2026 public records request (<a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C264029">PRR C264029</a>) lets us add what the city <em>collects</em> from dog owners. The two are an order of magnitude apart.</p>
+
+<div style="background: var(--navy-soft); border: 1px solid var(--navy); border-left: 5px solid var(--navy); border-radius: 8px; padding: 16px 20px; margin: 0 0 24px;">
+  <strong style="display:block; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--navy); margin-bottom:8px;">Read first &mdash; this is scale, not accounting (different departments)</strong>
+  <span style="font-size:14.5px; line-height:1.6;">Dog-license revenue goes to the Seattle Animal Shelter (Finance &amp; Administrative Services) and funds <em>all</em> of its animal services &mdash; sheltering, cruelty response, adoptions, licensing, and citywide animal control &mdash; <strong>not</strong> Seattle Parks &amp; Recreation&rsquo;s OLA budget. License money does not, and is not meant to, fund OLAs. This is an honest contrast of two dog-related public-money flows, not a claim that one should pay for the other.</span>
+</div>
+
+<div class="chart-block">
+  <div class="chart-title">Annual dog-license revenue vs. OLA-only operating budget</div>
+  <div class="chart-subtitle">Dog-license General Fund revenue averaged about $1.24M/year over 2018&ndash;2024 (PRR C264029; 2015 and 2017 were partial/incomplete and are excluded). The publicly disclosed OLA-only operating budget was about $100K&ndash;129K/year over the same period. Both in nominal dollars.</div>
+  <div class="chart-wrap"><canvas id="chartLicenseVsOla" role="img" aria-label="Two-bar chart: dog-license revenue about 1.24 million dollars per year versus OLA-only operating budget about 0.13 million dollars per year."></canvas></div>
+  <div class="chart-source">Revenue: <a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C264029">PRR C264029</a> (SAS dog-license revenue), see <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/licensing-revenue.csv">data/licensing-revenue.csv</a> &middot; OLA-only budget: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/budget-detail.csv">data/budget-detail.csv</a> (2024 disclosed figure)</div>
+</div>
+
+<div class="takeaway neutral">
+  <span class="kicker">Observation</span>
+  <p>The city collects roughly <strong>$1.24M a year</strong> in dog-license fees &mdash; about <strong>ten times</strong> the ~$100K&ndash;129K it discloses spending to operate off-leash areas. Dog-license revenue also dwarfs the ~$29K/year in off-leash citation fines on the <a href="enforcement.html">Enforcement</a> page. If there is a fiscal lever in Seattle&rsquo;s dog program, it is licensing, not fines.</p>
 </div>
 
 <!-- ================================================================= -->
@@ -554,6 +576,34 @@
     }
   });
 })().catch(err => { console.error('init failed', err); });
+</script>
+
+<script>
+// NEW — license revenue vs OLA spending chart (PRR C264029)
+(function(){
+  var el = document.getElementById('chartLicenseVsOla'); if(!el) return;
+  var P = (window.SDPD && SDPD.palette) ? SDPD.palette : {orange:'#D1481A', gold:'#B8872B', inkSoft:'#4C4A44'};
+  var MONO = "'IBM Plex Mono', monospace";
+  new Chart(el, {
+    type: 'bar',
+    data: { labels: ['Dog-license revenue (avg 2018-24)', 'OLA-only operating budget (2024)'],
+      datasets: [{ data: [1240000, 129000], backgroundColor: [P.orange, P.gold], maxBarThickness: 150 }] },
+    options: { responsive: true, maintainAspectRatio: false, animation: false,
+      plugins: {
+        legend: { display: false },
+        datalabels: { display: true, anchor: 'end', align: 'end', color: P.inkSoft,
+          font: { family: MONO, size: 13, weight: '600' },
+          formatter: function(v){ return '$' + (v/1000000).toFixed(2) + 'M'; } },
+        tooltip: { callbacks: { label: function(c){ return '$' + c.parsed.y.toLocaleString(); } } }
+      },
+      scales: {
+        x: { grid: { display: false }, ticks: { font: { family: "'Inter', sans-serif", size: 12.5 } } },
+        y: { beginAtZero: true, suggestedMax: 1400000, grid: { color: '#E8E5DC' },
+          ticks: { font: { family: MONO, size: 11 }, callback: function(v){ return '$' + (v/1000000).toFixed(1) + 'M'; } } }
+      }
+    }
+  });
+})();
 </script>
 
 </body>

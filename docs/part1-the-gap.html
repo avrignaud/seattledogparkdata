@@ -47,7 +47,7 @@
 
 <div class="masthead">
   <span class="dateline">Part I: The Gap &middot; Seattle Dog Park Data &middot; seattledogparkdata.com</span>
-  <span>MAY 2026</span>
+  <span>JUNE 2026</span>
 </div>
 
 <header class="hero">
@@ -55,7 +55,7 @@
   <h1 class="hed">Seattle added <em>zero</em> net off-leash areas in seventeen years.</h1>
   <p class="deck">The city's <a href="https://ofm.wa.gov/washington-data-research/population-demographics/population-estimates/april-1-official-population-estimates">population grew by roughly 208,000</a> between 2010 and 2025. Its <a href="https://www.seattle.gov/city-budget-office/budget-archives">parks budget rose 37%</a> on an apples-to-apples baseline. Two new off-leash areas open in late 2026 &mdash; the first net increase since 2009.</p>
   <div class="byline">
-    <strong>Andre Vrignaud</strong> &middot; Seattle Dog Park Data &middot; Updated May 2026
+    <strong>Andre Vrignaud</strong> &middot; Seattle Dog Park Data &middot; Updated June 2026
   </div>
 </header>
 
@@ -220,6 +220,16 @@
 </div>
 
 <!-- ================================================================= -->
+<!-- NEW — licensing / compliance (PRR C264029) -->
+<h2 class="finding" id="finding-licensing"><span class="num" style="color: var(--orange);">New</span>How many of those dogs are licensed? About 26,650 &mdash; and falling.</h2>
+<p class="lead">Part of why the dog population is so hard to pin down: Seattle licenses only a small fraction of its dogs. About <strong>26,650 dogs</strong> held a current license in the April 2026 Open Data snapshot &mdash; and a 2026 records release from the Seattle Animal Shelter (<a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C264029">PRR C264029</a>) shows annual licensing has been <em>falling</em>, not rising: dog licenses issued dropped about <strong>21%</strong> from 24,309 in 2014 to 19,219 in 2025, even as the city&rsquo;s human population grew.</p>
+
+<div class="takeaway neutral">
+  <span class="kicker">Observation</span>
+  <p>Set against this page&rsquo;s population estimates, ~26,650 licensed dogs is only about <strong>7&ndash;18%</strong> of the 150,000&ndash;400,000 range (roughly 11% against the site&rsquo;s canonical ~249,000). By any reading, <strong>most Seattle dogs are unlicensed</strong> &mdash; and the share is shrinking. Asked directly, the Animal Shelter holds <strong>no compliance estimate and no internal dog-population figure of its own</strong> (PRR C264029, items #3 and #5: no responsive records), so the figure here is ours. Caveats: licenses run 1- or 2-year terms, so the active count is an estimate; and the compliance share depends on the population denominator, which is itself uncertain.</p>
+</div>
+
+<!-- ================================================================= -->
 <h2 class="finding" id="finding-07"><span class="num">Finding 07</span>Acreage, not just count.</h2>
 <p class="lead">The four largest parks hold <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">~79% of total OLA acreage</a>, and half of Seattle's OLAs are under one acre. The two smallest (<a href="https://www.seattle.gov/parks/find/parks/denny-park">Denny</a> at 0.105 and <a href="https://www.seattle.gov/parks/find/parks/kinnear-park">Kinnear</a> at 0.124) are roughly a tenth of an acre each. The <a href="part2-access.html#size-standards">dog-park size standards</a> in Part II quantify what "too small" means.</p>
 
@@ -299,11 +309,11 @@
 <p><strong>SPR budget comparisons.</strong> Seattle's 2016&ndash;2018 SPR budgets of ~$156M&ndash;$168M are General Fund + core operating only; from 2019 forward the published figures are all-funds (operating + capital). To avoid methodology drift, the stat tile at the top of this page uses the 2019&rarr;2025 all-funds comparison ($247.7M &rarr; $339.4M, +37%). The log-scale budget chart in Finding 04 plots both eras on one axis with the methodology shift noted.</p>
 <p><strong>Dog population estimates &mdash; three independent sources bracketing the same range.</strong> Seattle does not universally license dogs, so dog-population figures are estimates. This site triangulates three:</p>
 <ul>
-<li><strong>Licensed floor:</strong> <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-pet-licenses/">26,652 active dog licenses</a> as of the April 1, 2026 snapshot of Seattle Open Data dataset <a href="https://data.seattle.gov/City-Administration/Seattle-Pet-Licenses/jguv-t9rb/about_data"><code>jguv-t9rb</code></a> (published by Finance &amp; Administrative Services [FAS] / Seattle Animal Shelter). A hard lower bound &mdash; every dog counted is a real paid license. Widely estimated to represent 20&ndash;30% of actual dogs, implying ~90K&ndash;135K total.</li>
+<li><strong>Licensed floor:</strong> <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-pet-licenses/">26,652 active dog licenses</a> as of the April 1, 2026 snapshot of Seattle Open Data dataset <a href="https://data.seattle.gov/City-Administration/Seattle-Pet-Licenses/jguv-t9rb/about_data"><code>jguv-t9rb</code></a> (published by Finance &amp; Administrative Services [FAS] / Seattle Animal Shelter). A hard lower bound &mdash; every dog counted is a real paid license. Widely estimated to represent 20&ndash;30% of actual dogs, implying ~90K&ndash;135K total. Per <a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C264029">PRR C264029</a>, annual dog-license issuance fell ~21% over 2014&ndash;2025 (24,309 &rarr; 19,219), so the licensed share is declining over time &mdash; see the licensing finding above.</li>
 <li><strong>AVMA-derived demographic estimate:</strong> <a href="https://www.avma.org/resources-tools/reports-statistics/us-pet-ownership-statistics">AVMA's 2025 Pet Ownership Sourcebook</a> reports 45.5% of U.S. households own a dog, averaging 1.5 dogs per dog-owning household. Applied to Seattle's <a href="https://data.census.gov/table/ACSDT1Y2023.B11001?g=160XX00US5363000">364,627 households (ACS 1-year 2023)</a>: <strong>364,627 &times; 0.455 &times; 1.5 &asymp; 248,900 dogs</strong>. Limitation: AVMA publishes state-level data in the paywalled Sourcebook, so the rate used here is the national figure as a Seattle proxy.</li>
 <li><strong>SPR upper bound:</strong> the <a href="https://www.seattle.gov/parks/about-us/plans-and-reports/recreation-plans-and-reports/off-leash-area-study">SPR 2023&ndash;24 OLA Expansion Study</a> cites estimates ranging from ~187,000 to "upwards of 400,000."</li>
 </ul>
-<p>All three estimates cluster between ~90K and ~400K. The site uses the <strong>AVMA-derived ~248,900</strong> as its canonical dog-population number and names the <strong>150,000 conservative floor</strong> whenever a claim benefits from understating. A public records request to Seattle Animal Shelter (<a href="https://github.com/avrignaud/seattledogparkdata/blob/main/prrs/06-sas-dog-license-history.md">PRR #6</a>) has been filed and is awaiting response; it will add historical licensed counts and any SPR-internal compliance estimate when answered.</p>
+<p>All three estimates cluster between ~90K and ~400K. The site uses the <strong>AVMA-derived ~248,900</strong> as its canonical dog-population number and names the <strong>150,000 conservative floor</strong> whenever a claim benefits from understating. The public records request to the Seattle Animal Shelter (<a href="https://github.com/avrignaud/seattledogparkdata/blob/main/prrs/06-sas-dog-license-history.md">PRR #6</a>, released June 2026 as <a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C264029">C264029</a>) <strong>has now been answered</strong>: it provided 2014&ndash;2025 licensed counts and revenue, and confirmed SAS holds <strong>no</strong> compliance or dog-population estimate of its own. See the licensing finding above.</p>
 <p><strong>Vancouver BC.</strong> Because Canada is not in the TPL ParkScore, Vancouver's data comes from its own Park Board documents (36 OLAs per the "People, Parks &amp; Dogs Strategy") and current population estimates. Vancouver does not publish OLA-specific budget data in a format comparable to Seattle's.</p>
 <p><strong>Boise.</strong> Boise has led <a href="https://www.tpl.org/parkscore">TPL's dog-park-per-capita category</a> in recent years (7.6 per 100K in the 2025 ParkScore). It is not a true peer city in size or density, but is included as the national-best benchmark.</p>
 <p><strong>Playground count.</strong> Seattle's 157 playgrounds is from the TPL 2025 ParkScore data. This includes playgrounds in parks and schoolyards with joint-use agreements.</p>
