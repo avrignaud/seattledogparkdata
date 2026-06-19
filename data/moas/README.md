@@ -18,7 +18,7 @@ three ACO IIs from 2023 under the current MOA).
 
 | File | Dated | Notes |
 |---|---|---|
-| Monthly parks-data summary reports | 2023– | MOA §5 requires SPR to send FAS a monthly summary of parks-patrol data with each invoice; §7 references a per-period cost calculation spreadsheet. Both are public-records-eligible and would resolve actual *filled* ACO FTE by year and real per-park parks-patrol activity (the funded-vs-deployed gap the 2023 MOA does not settle). Better next request than re-asking for the agreement itself. |
+| Monthly parks-data summary reports | 2023– | MOA §5 requires SPR to send FAS a monthly summary of parks-patrol data with each invoice; §7 references a per-period cost calculation spreadsheet. Both are public-records-eligible and would resolve actual *filled* ACO FTE by year and real per-park parks-patrol activity (the funded-vs-deployed gap the 2023 MOA does not settle). **Filed June 2026 as [PRR #9](../../prrs/09-spr-aco-monthly-parks-reports.md).** |
 
 > **Note on the assumed "2026 MOA":** earlier this archive expected a separate 2026 amendment reflecting the April 2026 Axios-reported expansion. The 2023 MOA above appears to *be* the authority behind that reported posture — it funds three ACO IIs on a 7-day schedule and runs through 2027. There is no evidence a distinct 2026 agreement exists; the expansion was authorized in 2023 and was being reported as operational in 2026.
 

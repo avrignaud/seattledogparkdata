@@ -15,7 +15,7 @@ Filed PRRs for the seattledogparkdata.com project. Each file below is the markdo
 | 6 | Seattle Animal Shelter dog-license history + compliance estimate | SAS | Filed (awaiting response) | `06-sas-dog-license-history.md` |
 | 7 | Current MOU/MOA for expanded ACO park-patrol staffing | SPR (cc: SAS/FAS) | **Fulfilled via [C265341](../data/prr-responses/C265341/)** (FAS, June 2026) | [07-spr-fas-aco-staffing-expansion.md](07-spr-fas-aco-staffing-expansion.md) |
 | 8 | Program-evaluation, deployment, and decision records for the 2016 patrol expansion | SPR (cc: SAS/FAS) | Filed (awaiting response) | `08-spr-program-evaluation-2016-expansion.md` |
-| 9 | Monthly parks-patrol summary reports (MOA §5) + cost spreadsheets (MOA §7), 2023–present | SPR (cc: SAS/FAS) | Draft (not yet filed) | `09-spr-aco-monthly-parks-reports.md` |
+| 9 | Monthly parks-patrol summary reports (MOA §5) + cost spreadsheets (MOA §7), 2023–present | SPR (cc: SAS/FAS) | Filed (awaiting response) | `09-spr-aco-monthly-parks-reports.md` |
 
 This directory holds the filed PRR copies. Outreach emails (COLA, QACC, etc.) are handled off-site.
 
