@@ -124,7 +124,7 @@ a { color: var(--orange); }
 
 h1.hed {
   font-family: 'Schibsted Grotesk', sans-serif;
-  font-weight: 500;
+  font-weight: 600;
   font-size: clamp(48px, 7vw, 96px);
   line-height: 0.98;
   letter-spacing: -0.035em;
