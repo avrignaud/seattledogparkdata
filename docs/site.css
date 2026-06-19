@@ -287,22 +287,19 @@ li { margin-bottom: 8px; max-width: 68ch; }
 .stats {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin: 40px 0 60px;
+  gap: 32px;
+  margin: 44px 0 64px;
 }
 .stat {
-  padding: 28px 24px;
-  border-radius: 20px;
-  display: flex; flex-direction: column; justify-content: space-between;
-  min-height: 220px;
-  transition: transform .15s ease;
-  background: var(--rule-soft);
+  padding: 16px 0 0;
+  border-top: 2px solid var(--ink);
+  display: flex; flex-direction: column;
+  background: none;
 }
-.stat:hover { transform: translateY(-2px); }
-.stat.orange { background: var(--orange-soft); }
-.stat.navy   { background: var(--navy-soft); }
-.stat.sage   { background: var(--sage-soft); }
-.stat.gold   { background: var(--gold-soft); }
+.stat.orange { border-top-color: var(--orange); }
+.stat.navy   { border-top-color: var(--navy); }
+.stat.sage   { border-top-color: var(--sage); }
+.stat.gold   { border-top-color: var(--gold); }
 .stat .label {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 11px;
@@ -368,7 +365,7 @@ li { margin-bottom: 8px; max-width: 68ch; }
   box-shadow: 0 12px 30px -16px rgba(26,23,18,0.18);
 }
 .report-card .kicker { margin-bottom: 14px; color: var(--orange); }
-.report-card.opinion { border-left: 2px solid var(--navy); }
+.report-card.opinion { background: var(--navy-soft); }
 .report-card.opinion .kicker { color: var(--navy); }
 .report-card h3 {
   font-size: 24px;
@@ -463,7 +460,7 @@ li { margin-bottom: 8px; max-width: 68ch; }
 /* ---------- Takeaway / observation box ---------- */
 .takeaway {
   background: var(--orange-soft);
-  border-radius: 16px;
+  border-radius: 12px;
   padding: 26px 28px;
   margin: 32px 0;
 }
@@ -489,10 +486,9 @@ li { margin-bottom: 8px; max-width: 68ch; }
 
 /* ---------- Note box (AI disclosure, caveats, etc.) ---------- */
 .note-box {
-  background: var(--surface);
+  background: var(--rule-soft);
   border: 1px solid var(--rule);
-  border-left: 3px solid var(--navy);
-  border-radius: 6px;
+  border-radius: 12px;
   padding: 20px 24px;
   margin: 30px 0;
   font-size: 14.5px;
@@ -511,10 +507,9 @@ li { margin-bottom: 8px; max-width: 68ch; }
 }
 
 .corrections {
-  background: var(--surface);
+  background: var(--rule-soft);
   border: 1px solid var(--rule);
-  border-left: 3px solid var(--gold);
-  border-radius: 6px;
+  border-radius: 12px;
   padding: 20px 24px;
   margin: 40px 0;
   font-size: 14px;
