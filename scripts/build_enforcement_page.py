@@ -66,6 +66,7 @@ HTML = r'''<!DOCTYPE html>
   .gap-callout ul { margin: 10px 0 0 22px; padding: 0; }
   .gap-callout li { margin-bottom: 4px; }
   .fair-note { background: rgba(31,58,95,0.05); border-left: 3px solid var(--navy); padding: 16px 20px; margin: 18px 0; border-radius: 0 6px 6px 0; font-size: 14px; line-height: 1.6; }
+  .fair-note p { max-width: 86ch; }
   .fair-note strong.head { display: block; color: var(--navy); font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
   .supporting { background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 22px; margin: 18px 0; }
   .supporting .supporting-title { font-family: 'Fraunces', serif; font-size: 17px; font-weight: 600; margin: 0 0 8px; }
@@ -95,19 +96,19 @@ HTML = r'''<!DOCTYPE html>
 
 <div class="masthead">
   <span class="dateline">Enforcement &middot; seattledogparkdata.com</span>
-  <span>MAY 2026</span>
+  <span>JUNE 2026</span>
 </div>
 
 <div class="data-currency">
   <strong class="banner-label">About this data</strong>
-  Citations on this page run from <strong>January 1, 2014 through April 17, 2026</strong>, combining two Seattle public records requests to cover the full period: <a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C049204">C049204</a> for 2014&ndash;2018 and <a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C263949">C263949</a> for 2019 through April 17, 2026. Headline figures use <strong>&ldquo;Dog Loose in Park&rdquo; (DLP)</strong> citations &mdash; Seattle's off-leash violation under <a href="https://library.municode.com/wa/seattle/codes/municipal_code?nodeId=TIT18PALA_CH18.12GEPRRE_SUBCHAPTER_IIOFPRPA_18.12.080DORELI">SMC 18.12.080(A)</a> &mdash; so every year is measured the same way. Where 2019 appears in both requests, the fuller C263949 record is used. 2026 is a partial year (through April 17) and is marked as such on every chart.
+  Citations on this page run from <strong>January 1, 2014 through April 17, 2026</strong>, combining two Seattle public-records requests (PRRs) to cover the full period: <a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C049204">C049204</a> for 2014&ndash;2018 and <a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C263949">C263949</a> for 2019 through April 17, 2026. Headline figures use <strong>&ldquo;Dog Loose in Park&rdquo; (DLP)</strong> citations &mdash; Seattle's off-leash violation under the <a href="https://library.municode.com/wa/seattle/codes/municipal_code?nodeId=TIT18PALA_CH18.12GEPRRE_SUBCHAPTER_IIOFPRPA_18.12.080DORELI">Seattle Municipal Code (SMC) 18.12.080(A)</a> &mdash; so every year is measured the same way. Where 2019 appears in both requests, the fuller C263949 record is used. 2026 is a partial year (through April 17) and is marked as such on every chart. <strong>New:</strong> Finding 07 and the complaint figures in Findings 04 and 06 add <strong>resident &ldquo;Nuisance Dogs in a Park&rdquo; complaints</strong> (Find It Fix It, 2024&ndash;26, <a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C263990">PRR C263990</a>) as a separate, resident-reported read on off-leash activity &mdash; reports filed, not verified incidents. Findings 02 and 03 also cite Seattle dog-license counts (<a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C264029">PRR C264029</a>) for scale.
 </div>
 
 <header class="hero">
   <span class="kicker orange">Enforcement</span>
   <h1 class="hed">13 years of off-leash enforcement in Seattle: <em>rising cost, falling output</em>.</h1>
   <p class="deck">Seattle Animal Control's records cover 13 years of off-leash (&ldquo;Dog Loose in Park,&rdquo; DLP) enforcement. Citation output peaked in 2018, fell sharply during the COVID period, and has not recovered. The program's cost per published citation has risen. Across the full record, the available data does not show the program reducing violations &mdash; first-time offenders remain the overwhelming majority of citations every year. The 2026 staffing expansion is being implemented without a published evaluation of the 2016 expansion's results.</p>
-  <div class="byline">Source: Seattle Animal Control PRRs <a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C049204">C049204</a> (2014&ndash;2018) and <a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C263949">C263949</a> (2019&ndash;2026-04-17) &middot; staffing: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/moas/SPR-FAS-ACO2-MOA-2016-04-02.pdf">2016 MOA</a>, <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/moas/SPR-FAS-ACO2-MOA-2021-AG21-PRF03-032.pdf">signed 2021 MOA</a>, <a href="https://www.axios.com/local/seattle/2026/04/17/more-paw-patrols-seattle-ramping-up-dog-related-enforcement">Axios Seattle April 2026</a> &middot; coordinates approximate from park names</div>
+  <div class="byline">Source: Seattle Animal Control PRRs <a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C049204">C049204</a> (2014&ndash;2018) and <a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C263949">C263949</a> (2019&ndash;2026-04-17) &middot; staffing: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/moas/SPR-FAS-ACO2-MOA-2016-04-02.pdf">2016 Memorandum of Agreement (MOA)</a>, <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/moas/SPR-FAS-ACO2-MOA-2021-AG21-PRF03-032.pdf">signed 2021 MOA</a>, <a href="https://www.axios.com/local/seattle/2026/04/17/more-paw-patrols-seattle-ramping-up-dog-related-enforcement">Axios Seattle April 2026</a> &middot; coordinates approximate from park names</div>
 </header>
 
 <section>
@@ -125,8 +126,8 @@ HTML = r'''<!DOCTYPE html>
       <div class="note">Share of citations that are 1st offenses. The mix never shifted toward repeat offenders.</div>
     </div>
     <div class="stat navy">
-      <div><div class="label">2026 cost increase</div><div class="num">~2&times;</div></div>
-      <div class="note">Annual baseline rises from $292K to ~$585K under the <a href="https://www.axios.com/local/seattle/2026/04/17/more-paw-patrols-seattle-ramping-up-dog-related-enforcement">announced expansion</a>.</div>
+      <div><div class="label">2023 cost increase</div><div class="num">~2&ndash;3&times;</div></div>
+      <div class="note">FAS-side Animal Control Officer cost tripled &mdash; $152K (one officer) to $455K (three) &mdash; under the <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/moas/SPR-FAS-ACO2-MOA-2023-PRF1602.pdf">2023 Park District expansion</a>; ~$600K&ndash;$875K all-in with paired FMWs, up from ~$292K.</div>
     </div>
   </div>
 </section>
@@ -143,18 +144,18 @@ HTML = r'''<!DOCTYPE html>
 
 <!-- ============ FINDING 01 — FISCAL LEAD ============ -->
 <h2 class="finding" id="finding-01"><span class="num">Finding 01</span><span>Fewer citations, and a rising program cost per published citation.</span></h2>
-<p class="lead">Citation volume has fallen well below its 2018 peak, while the program's staffing cost has held roughly flat (and is set to roughly double in 2026). The result: the cost attributable to each citation has risen. The bars show citations issued per year; the line shows the program's annual cost divided by that year's citations &mdash; a cost-to-output ratio, not the price of writing a single ticket. The MOA defines the ACO/FMW team's work as <em>primarily educational</em>, so citations are one output among several (warnings, contacts, deterrent presence); read the line as a trend in cost against the one output the city publishes, not as a unit production cost.</p>
+<p class="lead">Citation volume has fallen well below its 2018 peak, while the program's staffing cost &mdash; measured by the off-leash-attributable officer time this page tracks &mdash; has held roughly flat. (Funded officer headcount itself tripled in 2023; see the <a href="#headcount-cost">cost footnote</a> for why the two differ.) The result: the cost attributable to each citation has risen. The bars show citations issued per year; the line shows the program's annual cost divided by that year's citations &mdash; a cost-to-output ratio, not the price of writing a single ticket. The MOA defines the Animal Control Officer and paired Facilities Maintenance Worker (ACO/FMW) team's work as <em>primarily educational</em>, so citations are one output among several (warnings, contacts, deterrent presence); read the line as a trend in cost against the one output the city publishes, not as a unit production cost.</p>
 
 <div class="chart-block">
   <div class="chart-title">DLP citations vs. program cost per published citation, 2014&ndash;2025</div>
-  <div class="chart-subtitle">Green bars (left axis): DLP citations per year, 2014&ndash;2025. Orange line (right axis): annual FAS+FMW program cost &divide; that year's citations. The program cost-per-citation line begins in 2016 &mdash; the first year with a documented cost basis (the April 2016 MOA) &mdash; because pre-2016 part-time staffing has no separately documented cost. COVID period shaded. The line stops at 2025 because 2026 is a partial year (see Finding 02). All dollars nominal.</div>
+  <div class="chart-subtitle">Green bars (left axis): DLP citations per year, 2014&ndash;2025. Orange line (right axis): annual Finance &amp; Administrative Services (FAS) + FMW program cost &divide; that year's citations. The program cost-per-citation line begins in 2016 &mdash; the first year with a documented cost basis (the April 2016 MOA) &mdash; because pre-2016 part-time staffing has no separately documented cost. COVID period shaded. The line stops at 2025 because 2026 is a partial year (see Finding 02). All dollars nominal.</div>
   <div class="chart-wrap"><canvas id="chartCostPerCit" role="img" aria-label="Dual-axis chart: DLP citations per year as bars and program cost per published citation as a line, 2014-2025."></canvas></div>
-  <div class="chart-source">Citations: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-citations.csv">enforcement-citations.csv</a> &middot; FAS cost: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/moas/SPR-FAS-ACO2-MOA-2021-AG21-PRF03-032.pdf">2021 MOA Attachment A</a> ($152,399/yr per ACO II) &middot; FMW pairing ~$140K/yr (author estimate, documented in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-year-metrics.csv">enforcement-year-metrics.csv</a>)</div>
+  <div class="chart-source">Citations: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-citations.csv">enforcement-citations.csv</a> &middot; FAS cost: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/moas/SPR-FAS-ACO2-MOA-2021-AG21-PRF03-032.pdf">2021 MOA Attachment A</a> ($152,399/yr per ACO II; the <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/moas/SPR-FAS-ACO2-MOA-2023-PRF1602.pdf">2023 MOA</a> funds three at $454,652/yr &mdash; this line uses attributable FTE, see <a href="#headcount-cost">cost footnote</a>) &middot; FMW pairing ~$140K/yr (author estimate, documented in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-year-metrics.csv">enforcement-year-metrics.csv</a>)</div>
 </div>
 
 <div class="takeaway neutral">
   <span class="kicker">Observation</span>
-  <p>Across 2014&ndash;2025, fee revenue ($351,099 cumulative) covered roughly 11% of the program's estimated $3.34M FAS+FMW cost. In the MOA-documented era (2016 on), the program cost per published citation was lowest in the peak-output years &mdash; $229 in 2018 &mdash; and highest in the trough &mdash; $1,730 in 2022. Even the 2024 partial recovery to 447 citations leaves cost-per-citation at $654, nearly triple the 2018 figure. Because the announced 2026 expansion roughly doubles staffing cost, holding the existing cost-per-citation ratio would require citation output to roughly double from current levels &mdash; which it has not approached in any year since 2019.</p>
+  <p>Across 2014&ndash;2025, fee revenue ($351,099 cumulative) covered roughly 11% of the program's estimated $3.34M FAS+FMW cost. In the MOA-documented era (2016 on), the program cost per published citation was lowest in the peak-output years &mdash; $229 in 2018 &mdash; and highest in the trough &mdash; $1,730 in 2022. Even the 2024 partial recovery to 447 citations leaves cost-per-citation at $654, nearly triple the 2018 figure. The 2023 Park District expansion tripled the program&rsquo;s funded officer headcount (one ACO to three, $454,652/yr FAS-side); holding the existing cost-per-citation ratio against that fuller staffing would require citation output to rise in step &mdash; which it has not approached in any year since 2019.</p>
 </div>
 
 <div class="fair-note">
@@ -163,19 +164,39 @@ HTML = r'''<!DOCTYPE html>
 </div>
 
 <!-- ============ FINDING 02 — TEMPORAL ARC ============ -->
-<h2 class="finding" id="finding-02"><span class="num">Finding 02</span><span>The arc: 2016 build-up, COVID crater, 2026 expansion.</span></h2>
-<p class="lead">Annual DLP citations rose roughly seven-fold from 2014 to 2018 after the April 2016 Animal Control Officer + paired Facilities Maintenance Worker team went full-time. Output cratered during the COVID period and has not returned to anything near peak. The shaded box at right shows the range of plausible 2027&ndash;2028 output if the announced 2026 expansion (roughly double the staffing) is fully deployed.</p>
+<h2 class="finding" id="finding-02"><span class="num">Finding 02</span><span>The arc: 2016 build-up, COVID crater, 2023 staffing expansion.</span></h2>
+<p class="lead">Annual DLP citations rose roughly seven-fold from 2014 to 2018 after the April 2016 Animal Control Officer + paired Facilities Maintenance Worker team went full-time. Output cratered during the COVID period and has not returned to anything near peak &mdash; and the 2023 expansion to three officers (up from one) has not changed that, so the chart marks 2027&ndash;2028 as an outlook zone without a numeric projection.</p>
 
 <div class="chart-block">
-  <div class="chart-title">Annual DLP citations, 2014&ndash;2026, with projected 2027&ndash;2028 range</div>
-  <div class="chart-subtitle">Orange bars: actual DLP citations. 2026 (lighter) is partial-year through April 17; the dashed marker shows its annualized full-year equivalent (~222). The shaded box at right is the 2027&ndash;2028 projection range at the announced 4-FTE staffing &mdash; floor = current (2024) per-officer rate, ceiling = 2018 peak rate. COVID period shaded.</div>
-  <div class="chart-wrap"><canvas id="chartYearTrend" role="img" aria-label="Bar chart of DLP citations per year 2014-2026 with COVID shading and a 2027-2028 projection range box."></canvas></div>
-  <div class="chart-source">Source: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-citations.csv">enforcement-citations.csv</a> &middot; projection staffing baselines: 2016 MOA, 2021 MOA, Axios Seattle April 2026</div>
+  <div class="chart-title">Annual DLP citations, 2014&ndash;2026</div>
+  <div class="chart-subtitle">Orange bars: actual DLP citations. 2026 (lighter) is partial-year through April 17; the dashed marker shows its annualized full-year equivalent (~222). The shaded zone at right marks 2027&ndash;2028: neither prior staffing increase produced sustained output growth, so the page shows no numeric projection. COVID period shaded.</div>
+  <div class="chart-wrap"><canvas id="chartYearTrend" role="img" aria-label="Bar chart of DLP citations per year 2014-2026 with COVID shading and a 2027-2028 outlook note (no numeric projection)."></canvas></div>
+  <div class="chart-source">Source: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-citations.csv">enforcement-citations.csv</a> &middot; staffing baselines: 2016 MOA, 2021 MOA, <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/moas/SPR-FAS-ACO2-MOA-2023-PRF1602.pdf">2023 MOA</a>, Axios Seattle April 2026</div>
 </div>
 
 <div class="takeaway neutral">
   <span class="kicker">Observation</span>
-  <p>Three phases are visible. The 2016&ndash;2019 build-up: citations climbed from 183 (2014) to a 1,276 peak (2018). The COVID-era crater: 2020 fell to 393 (&minus;67% from 2019), and output has not recovered &mdash; the strongest year since the COVID period (2024) reached 447, about a third of peak. The 2026 expansion: doubling staffing produces a projected 2027&ndash;2028 range of roughly 894 citations/year (if per-officer output stays at the 2024 rate) to 2,552/year (if it returns to the 2018 peak rate). Per-officer output has not exceeded ~225 in any year since 2019, so the lower half of that range is the more likely outcome absent a change in approach.</p>
+  <p>Three phases are visible. The 2016&ndash;2019 build-up: citations climbed from 183 (2014) to a 1,276 peak (2018). The COVID-era crater: 2020 fell to 393 (&minus;67% from 2019), and output has not recovered &mdash; the strongest year since the COVID period (2024) reached 447, about a third of peak. The staffing expansion: the 2023 Park District MOA funded three officers (up from one), yet output did not rise &mdash; 2023&ndash;2025 ran at 248, 447, and 267 citations, at or below the single-officer years. Neither prior staffing increase produced <em>sustained</em> output growth &mdash; the 2016 build-up peaked in 2018 then collapsed, and the 2023 expansion brought no rise at all &mdash; so this page makes no numeric 2027&ndash;28 projection. <strong>For scale against the dog base:</strong> Seattle dog-license issuance fell about 21% from 2014 to 2025 (<a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C264029">PRR C264029</a>), while citations fell roughly 80% from their 2018 peak &mdash; so enforcement output dropped several times faster than the licensed-dog base it draws from, by any plausible accounting. One documented reason output stays low regardless of patrol effort: Animal Control Officers can&rsquo;t compel identification from someone who refuses, so a field contact that doesn&rsquo;t yield a name ends in a verbal warning, not a citation &mdash; detailed below.</p>
+</div>
+
+<div class="fair-note" style="border-left-color: var(--navy);">
+  <strong class="head">A documented mechanism: why citation output can fall while patrols continue.</strong>
+  <p>Animal Control Officers are not police. An ACO II holds a limited &ldquo;special commission&rdquo; that lets them issue citations, serve warrants, testify in court, retrieve state licensing records, and enter posted property &mdash; but it does <strong>not</strong> let them compel identification from someone who refuses to give it, and neither ACOs nor their paired Facilities Maintenance Workers (FMWs) have the power to detain. Because a name is required to write an infraction, an owner who declines to identify themselves can lawfully be given only a verbal warning.</p>
+  <p>In its September 2022 report to the City Council, Finance &amp; Administrative Services (FAS) stated the position directly: &ldquo;only sworn officers have the sufficient level of commission to retrieve identification from resistant residents,&rdquo; that Seattle Police &ldquo;have historically assisted ACO IIs in obtaining identification&rdquo; but &ldquo;recently&hellip; have been unable to assist,&rdquo; and that absent SPD help &ldquo;SAS will continue to be unable to issue citations for leash law violations from people who refuse to show identification.&rdquo; FAS reported it had &ldquo;adjusted its approach&hellip; by issuing verbal warnings on all first contacts.&rdquo; The same report documents that residents &ldquo;regularly ignore officers&rsquo; requests for identification or simply walk away or flee when contacted&rdquo; and use neighborhood social-media groups to share patrol locations and encourage non-compliance.</p>
+  <p>The records do not isolate what caused the post-2020 citation decline. But this is a <strong>city-documented mechanism</strong> by which patrols can be present and citation output can still fall: when refusing to identify yourself carries no consequence, and word of that spreads, fewer field contacts convert into citations regardless of how many dogs are off-leash. It is one more reason citation counts measure enforcement activity, not underlying violation rates.</p>
+  <p style="margin:10px 0 0;font-size:13px;color:var(--ink-soft);">Source: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/prr-responses/C265341/SLI-FAS-003-B-001-AnimalControlPatrolling-2022-09-30.pdf">FAS response to SLI FAS-003-B-001</a>, Sept 30 2022, pp.&nbsp;3&ndash;4 (<a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C265341">PRR C265341</a>).</p>
+</div>
+
+<div class="chart-block">
+  <div class="chart-title">What the Park District funds vs. what reaches off-leash enforcement, 2016&ndash;2026</div>
+  <div class="chart-subtitle">What the Park District pays for the Animal Control Officers assigned to parks (billed, FAS-side dollars). Navy = the ~1-officer cost this page ties to off-leash citations; light blue (2023+) = the extra capacity the 2023 agreement funded by tripling the program to three officers. How much of that extra actually reaches park patrols isn&rsquo;t public &mdash; it would show in the monthly patrol reports the agreement requires SPR to file, which are public records not yet requested. (Billed officer cost only; the maintenance worker paired with each officer is excluded, so every dollar shown is documented.)</div>
+  <div class="chart-wrap"><canvas id="chartFundedVsDeployed" role="img" aria-label="Stacked bar chart of funded Animal Control Officer cost versus off-leash-attributable cost per year, 2016 to 2026, with a funded-but-undisclosed band opening in 2023."></canvas></div>
+  <div class="chart-source">Funded: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/moas/SPR-FAS-ACO2-MOA-2023-PRF1602.pdf">2023 MOA</a> ($454,652/yr, 3 ACO II) and <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/moas/SPR-FAS-ACO2-MOA-2021-AG21-PRF03-032.pdf">2021 MOA</a> ($152,399/yr, 1 ACO II) &middot; attributable floor &amp; method: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-year-metrics.csv">enforcement-year-metrics.csv</a></div>
+</div>
+
+<div class="takeaway neutral">
+  <span class="kicker">Observation</span>
+  <p>Through 2022 the funded program and the off-leash-attributable cost were the same line: one Park District&ndash;funded officer. In 2023 funded ACO capacity tripled to three officers (<strong>$152,399 &rarr; $454,652/yr</strong>, FAS-side) while citation output (above) did not rise. The light band is the difference &mdash; roughly <strong>$300,000/yr</strong> of funded officer capacity whose deployment to park patrols, let alone to off-leash enforcement specifically, the public record does not yet show. Parks patrols were 33% of these officers&rsquo; calls for service in 2021; the post-2023 split is undisclosed. This view shows ACO dollars only; each officer is also paired with an SPR Facilities Maintenance Worker carried separately, so the full program runs higher (see <a href="opinion.html#O1">opinion O1</a>).</p>
 </div>
 
 <!-- ============ FINDING 03 — DETERRENCE ============ -->
@@ -191,7 +212,13 @@ HTML = r'''<!DOCTYPE html>
 
 <div class="takeaway neutral">
   <span class="kicker">Observation</span>
-  <p>First offenses have ranged from about 84% to 96% of DLP citations in every year of the record, rising over time rather than falling. One reading is that enforcement is deterring repeat offenses. A second reading is that lower total citation volume mechanically reduces the chance of an officer encountering the same person twice, which would push the first-offense share up regardless of behavior. The two cannot be separated here: neither PRR includes owner identifiers that would let us track individuals across citations. What the data does show is that the offense mix never shifted toward repeat offenders &mdash; the pattern is consistent with a program issuing fresh first-time contacts year after year, not one drawing down a shrinking pool of repeat violators. SPR's own 2016 owner survey found 39% of dog owners admit weekly-to-monthly illegal off-leash use; no follow-up survey has been published (see <a href="#gap">what SPR has not measured</a>).</p>
+  <p>First offenses have ranged from about 84% to 96% of DLP citations in every year of the record, rising over time rather than falling. One reading is that enforcement is deterring repeat offenses. A second reading is that lower total citation volume mechanically reduces the chance of an officer encountering the same person twice, which would push the first-offense share up regardless of behavior. The two cannot be separated here: neither PRR includes owner identifiers that would let us track individuals across citations. What the data does show is that the offense mix never shifted toward repeat offenders &mdash; the pattern is consistent with a program issuing fresh first-time contacts year after year, not one drawing down a shrinking pool of repeat violators. Seattle Parks &amp; Recreation's (SPR) own 2016 owner survey found 39% of dog owners admit weekly-to-monthly illegal off-leash use; no follow-up survey has been published (see <a href="#gap">what SPR has not measured</a>).</p>
+</div>
+
+<div class="fair-note" style="border-left-color: var(--navy);">
+  <strong class="head">Why hasn't the repeat-offender share grown? Several explanations fit &mdash; and the data can't separate them.</strong>
+  <p>Two readings sit on top of each other and the records can&rsquo;t pull them apart: the citation may genuinely change behavior, so few owners reach a second offense &mdash; <em>or</em> low volume simply means an officer rarely meets the same person twice. Two mechanical effects push the first-offense share up regardless of behavior: as citations fell after COVID, repeat encounters fell with them; and the crowd keeps refreshing, with new puppies, residents, and visitors arriving constantly. The avoidance and one-officer-against-a-large-crowd dynamics that also suppress repeat citations are the same ones that hold total output down (see <a href="#finding-02">Finding 02</a>).</p>
+  <p style="margin:12px 0 0;"><strong>A key limit &mdash; and why we temper all of this.</strong> The citation records carry <em>no owner identity</em> &mdash; partly by privacy design, and partly because officers usually <em>can&rsquo;t obtain</em> identification in the first place (<a href="#finding-02">Finding 02</a>). &ldquo;First offense&rdquo; is only what the officer recorded at the time; we cannot verify it, follow individuals across years, or measure true repeat rates. So we can describe the offense <em>mix</em> the city recorded &mdash; but cannot tell genuine deterrence apart from simply not catching people twice. Any claim that enforcement is, or is not, &ldquo;working&rdquo; on repeat behavior would read more into this dataset than it can support.</p>
 </div>
 
 <div class="supporting" id="per-fte-supporting">
@@ -206,7 +233,7 @@ HTML = r'''<!DOCTYPE html>
 
 <div class="map-block">
   <div class="chart-title">Where off-leash citations were issued, 2014&ndash;2026</div>
-  <div class="chart-subtitle">Circles sized by DLP citation count at the cited park. Green dots mark all 14 existing OLAs. Hover a marker for details.</div>
+  <div class="chart-subtitle">Circles sized by DLP citation count at the cited park. Green dots mark all 14 existing off-leash areas (OLAs). Hover a marker for details.</div>
   <div id="hotspot-map" role="img" aria-label="Map of Seattle off-leash citation hotspots 2014 to 2026 with existing OLA locations overlaid."></div>
   <div class="chart-source">Source: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-citations.csv">enforcement-citations.csv</a> &middot; coordinates <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/park-coordinates.csv">park-coordinates.csv</a> (approximate) &middot; tiles: <a href="https://carto.com/">CARTO</a> / <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a></div>
 </div>
@@ -221,6 +248,7 @@ HTML = r'''<!DOCTYPE html>
 <div class="takeaway neutral">
   <span class="kicker">Observation</span>
   <p>Citations cluster where designated OLAs aren't. Discovery, Volunteer, Cal Anderson, Lincoln, Martha Washington, Wallingford Playfield, Seward, and Maple Leaf Reservoir all rank in the top 20 and none has a dedicated OLA on site. Magnuson and Westcrest appear as hotspots because the non-OLA portions of those large host parks are used off-leash. The top 10 parks accounted for 46% of citations before COVID and 40% after &mdash; concentration eased somewhat but the same handful of parks still dominate. <strong>The data records where citations were issued, not why officers were there</strong>, so it cannot establish whether a given park is a hotspot because of higher violation rates or because patrols were directed to it. One post-COVID shift is worth noting without over-reading: West Queen Anne Playfield is the only top-10 pre-COVID park whose citation volume did not fall with the citywide decline &mdash; consistent with enforcement attention following community complaints in that area, though the data alone cannot confirm the cause.</p>
+  <p><strong>New &mdash; complaints by park type.</strong> The 2024&ndash;26 resident-complaint data (Finding 07) sharpens this picture. Destination and natural-area parks &mdash; Discovery, Woodland, Golden Gardens, Magnuson &mdash; stay roughly balanced between complaints and citations, the parks Animal Control actively patrols. Dense-neighborhood playfields run from 5:1 up to 100:1 complaints-over-citations: West Queen Anne Playfield (255 complaints), Maple Leaf Reservoir (147), East Queen Anne Playground (132), Beacon Hill Playground (108), Rainier Playfield (100). Where officers go and where neighbors object are structurally different places &mdash; visible in the new Complaints column in the table below.</p>
 </div>
 
 <!-- ============ FINDING 05 — WALKSHED GAP ============ -->
@@ -242,9 +270,29 @@ HTML = r'''<!DOCTYPE html>
 <!-- ============ FINDING 06 — TABLE ============ -->
 <h2 class="finding" id="finding-06"><span class="num">Finding 06</span><span>The full top-20 table.</span></h2>
 <table class="data">
-  <thead><tr><th class="num">Rank</th><th>Park</th><th>Neighborhood</th><th class="num">Total 2014&ndash;2026</th><th class="num">Pre-COVID</th><th class="num">Post-COVID</th><th>OLA?</th></tr></thead>
+  <thead><tr><th class="num">Rank</th><th>Park</th><th>Neighborhood</th><th class="num">Citations 2014&ndash;2026</th><th class="num">Pre-COVID</th><th class="num">Post-COVID</th><th class="num">Complaints 2024&ndash;26</th><th>OLA?</th></tr></thead>
   <tbody id="topTable"></tbody>
 </table>
+<p style="font-size:13px;color:var(--ink-soft);max-width:74ch;margin:4px 0 0;"><strong>New column.</strong> Citation columns span 2014&ndash;2026; the complaint column is 2024&ndash;26 only (the complaint record begins in 2024), so the two are not the same window &mdash; read the column for the within-park <em>contrast</em> between enforcement and resident reporting, not as a like-for-like total. Source: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/complaints-vs-citations-by-park.csv">complaints-vs-citations-by-park.csv</a> (PRR C263990).</p>
+
+<!-- ============ FINDING 07 — RESIDENT COMPLAINTS (NEW) ============ -->
+<h2 class="finding" id="finding-07"><span class="num">Finding 07</span><span>More complaints, fewer citations &mdash; and no link between the two.</span></h2>
+<p class="lead">In 2025, the first full year of the complaint record, residents filed about <strong>3,010</strong> &ldquo;Nuisance Dogs in a Park&rdquo; reports through Find It Fix It &mdash; roughly <strong>11 for every dog-loose-in-park citation</strong> the city issued that year. As complaints rose, citations fell, and after mid-2025 citations went nearly silent while complaints held steady. Complaints are resident-reported &mdash; they track who files, not only where dogs run off-leash &mdash; so they are read here as a behavior proxy, not an incident count. This is the independent proxy the <a href="#gap">data-gap note below</a> had flagged as pending.</p>
+
+<div class="chart-block">
+  <div class="chart-title">Resident complaints vs. dog-loose-in-park citations, 2024&ndash;2026</div>
+  <div class="chart-subtitle">Top panel (orange bars): monthly Find It Fix It complaints. Bottom panel (navy line): monthly DLP citations, same months. Two stacked panels on one shared timeline &mdash; deliberately not a dual-axis chart, which would imply a correlation the data does not support.</div>
+  <p style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-faint);margin:8px 0 4px;">Monthly resident complaints</p>
+  <div class="chart-wrap short"><canvas id="chartCmpTop" role="img" aria-label="Monthly Find It Fix It nuisance-dog complaints, April 2024 to June 2026."></canvas></div>
+  <p style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-faint);margin:14px 0 4px;">Monthly dog-loose-in-park citations</p>
+  <div class="chart-wrap short"><canvas id="chartCmpBot" role="img" aria-label="Monthly dog-loose-in-park citations over the same period, falling to near zero after mid-2025."></canvas></div>
+  <div class="chart-source">Complaints: <a href="https://data.seattle.gov/City-Administration/Customer-Service-Requests/5ngg-rpne/about_data">Open Data 5ngg-rpne</a> (PRR C263990) &middot; citations: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-citations.csv">enforcement-citations.csv</a>, DLP only &middot; monthly series: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/complaints-citations-monthly.csv">complaints-citations-monthly.csv</a></div>
+</div>
+
+<div class="takeaway neutral">
+  <span class="kicker">Observation</span>
+  <p>Month to month, complaint volume and citation volume <strong>move independently</strong> &mdash; a heavy month for complaints is no more (and no less) likely to be a heavy month for citations. <span style="color:var(--ink-faint);">(For the statistically inclined: the correlation is r&nbsp;=&nbsp;0.13, near zero on a scale where 1.0 would mean the two rise and fall in lockstep and 0 means no link at all.)</span> Complaints roughly <strong>tripled</strong> from 2024 to 2025 while citations <em>fell</em> about 40% (447 to 267), then dropped to near-zero for the second half of 2025. With Animal Control at roughly one full-time officer, citation output cannot scale to complaint volume; the two systems operate in parallel, not in sequence. This neither proves nor disproves that complaints lead to enforcement &mdash; the records show citation volume, not what happened after any individual complaint.</p>
+</div>
 
 <!-- ============ GAP CALLOUT ============ -->
 <div class="gap-callout" id="gap">
@@ -252,8 +300,8 @@ HTML = r'''<!DOCTYPE html>
   <p>Citation counts measure <em>enforcement activity</em>, not underlying violation rates. A drop in citations could mean fewer violations <em>or</em> fewer patrols. SPR's 2016 <em>People, Dogs and Parks</em> owner survey found 39% of dog owners admit weekly-to-monthly illegal off-leash use; <strong>no follow-up survey has been published.</strong> The 2026 staffing expansion is being implemented without a publicly-released review of the 2016 expansion's effect on behavior. Pending public-records requests that would help close these gaps:</p>
   <ul>
     <li>SPR program evaluation, deployment logs, and 2026 expansion decision record (<a href="https://github.com/avrignaud/seattledogparkdata/blob/main/prrs/08-spr-program-evaluation-2016-expansion.md">PRR #8</a>, filed; SPR responding)</li>
-    <li>Find-It-Fix-It &ldquo;dog in a park&rdquo; complaints by year &mdash; an independent behavior proxy (<a href="https://github.com/avrignaud/seattledogparkdata/blob/main/prrs/02-spu-fifi-dog-complaints.md">PRR #2</a>, pending)</li>
-    <li>Current SPR/SAS MOA and 2026 budget lines for the expanded staffing (<a href="https://github.com/avrignaud/seattledogparkdata/blob/main/prrs/07-spr-fas-aco-staffing-expansion.md">PRR #7</a>, partial &mdash; CBO closed with no records; SPR responding)</li>
+    <li><s>Find-It-Fix-It &ldquo;dog in a park&rdquo; complaints by year &mdash; an independent behavior proxy</s> &mdash; <strong>received</strong> (<a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C263990">PRR C263990</a>); see <a href="#finding-07">Finding 07</a> above. Still open: the free-text &ldquo;General Inquiry &ndash; Animal Shelter&rdquo; export, and the cause of the mid-2025 citation drop-off.</li>
+    <li><s>Current SPR/SAS MOA and budget lines for the expanded staffing</s> &mdash; <strong>received</strong> (<a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C265341">PRR C265341</a>): the 2023 Park District MOA funds three ACO IIs at $454,652/yr; see the authority-gap note under <a href="#finding-02">Finding 02</a> and the cost footnote below. Still open: the MOA &sect;5 monthly parks-data reports, which would show actual filled FTE by year.</li>
   </ul>
   <p>Until these land, this page can describe enforcement output and cost but cannot prove or disprove that the program changed behavior. Policy implications are discussed on the <a href="opinion.html">opinion page</a>.</p>
 </div>
@@ -269,8 +317,9 @@ HTML = r'''<!DOCTYPE html>
   <h3>2026 is a partial year</h3>
   <p>C263949 ends April 17, 2026 &mdash; day 107 of the year, about 29%. Charts mark 2026 as partial. Where a full-year comparison is needed, the annualized equivalent (YTD &divide; 0.293) is shown as a dashed marker, not treated as actual. The cost-per-citation and per-FTE lines stop at 2025 to avoid the partial-year denominator inflating the most recent point.</p>
 
-  <h3>Headcount &amp; cost assumptions</h3>
-  <p>Annual ACO+FMW FTE attributable to off-leash enforcement: 0.5 ACO (2014&ndash;2015, imputed from PRR context); 0.75 ACO + 0.75 FMW for the 2016 transition year; 1.0 ACO + 1.0 FMW (2017&ndash;2025, per the 2016 and 2021 MOAs); doubling to 2.0 ACO under the 2026 expansion. FAS-side ACO II cost = <strong>$152,399/yr</strong> (sourced, 2021 MOA Attachment A). FMW pairing = <strong>$140,000/yr</strong> (author estimate; SPR does not publish a per-FMW off-leash line). The exact 2026 MOA terms are pending <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/prrs/07-spr-fas-aco-staffing-expansion.md">PRR #7</a>. Pre-2016 and 2016-transition FTE are the softest assumptions here and are flagged accordingly.</p>
+  <h3 id="headcount-cost">Headcount &amp; cost assumptions</h3>
+  <p>This page separates two numbers that are easy to conflate. <strong>Funded ACO headcount</strong> rose from one Animal Control Officer II (2016&ndash;2022, per the 2016 and 2021 MOAs) to <strong>three</strong> from 2023, when the Seattle Park District Board funded two additional positions. The current signed agreement (the <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/moas/SPR-FAS-ACO2-MOA-2023-PRF1602.pdf">2023 MOA</a>, Project PRF1602, term through 2027) bills SPR <strong>$454,652/yr</strong> for the three FTEs &mdash; $151,551 each, essentially unchanged per officer from the 2021 MOA&rsquo;s <strong>$152,399</strong>. Each is paired with an SPR Facilities Maintenance Worker (FMW) carried separately on SPR&rsquo;s books (~$140,000/yr each; author estimate, SPR publishes no per-FMW off-leash line).</p>
+  <p>The cost-per-citation and per-officer lines above deliberately do <strong>not</strong> use that funded headcount as the denominator. They use the <strong>off-leash-attributable</strong> FTE &mdash; held at roughly 0.5 ACO (2014&ndash;2015, imputed from PRR context), 0.75 ACO + 0.75 FMW (2016 transition), and ~1.0 ACO + 1.0 FMW from 2017 on &mdash; because parks patrols are a minority of these officers&rsquo; duties (33% of Field Services calls for service in 2021) and citation output never corroborated a three-fold field deployment. Tripling the denominator on funded headcount alone would overstate the enforcement actually aimed at off-leash use. The funded-vs-deployed gap would be settled by the MOA&rsquo;s &sect;5 monthly parks-data reports, not yet obtained. The 2023 MOA was received via <a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C265341">PRR C265341</a>; pre-2016 and 2016-transition FTE remain the softest assumptions here.</p>
 
   <h3>Location quality</h3>
   <p>Of the 7,015 DLP citations, about 89% are confidently attributable to a named park (top contributors: Discovery 564, Magnuson 367, Volunteer 328, Woodland 291, Golden Gardens 227). The rest are street-address citations (geocoded separately, used in the Finding 05 heatmap) or blank locations (excluded from spatial analysis). Park-name canonicalization is documented in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/METHODOLOGY.md">METHODOLOGY.md</a>.</p>
@@ -282,7 +331,7 @@ HTML = r'''<!DOCTYPE html>
 </nav>
 
 <footer>
-  <p>Data current as of May 2026 (PRR C263949 ingest). Source code and all underlying data: <a href="https://github.com/avrignaud/seattledogparkdata">github.com/avrignaud/seattledogparkdata</a>. MIT license covers author-written code and analysis; primary data is public record. Corrections: <a href="https://github.com/avrignaud/seattledogparkdata/issues">issue tracker</a>.</p>
+  <p>Data current as of June 2026 (PRR C263990 ingest). Source code and all underlying data: <a href="https://github.com/avrignaud/seattledogparkdata">github.com/avrignaud/seattledogparkdata</a>. MIT license covers author-written code and analysis; primary data is public record. Corrections: <a href="https://github.com/avrignaud/seattledogparkdata/issues">issue tracker</a>.</p>
 </footer>
 
 </div></main>
@@ -298,6 +347,10 @@ const D = __DATA__;
 const P = SDPD.palette;
 const FONT = "'Inter', sans-serif";
 const FONT_MONO = "'IBM Plex Mono', monospace";
+
+// NEW — resident complaint data (PRR C263990), 2024-26
+const CMP_MONTHLY = [["2024-04", 68, 39], ["2024-05", 73, 48], ["2024-06", 109, 40], ["2024-07", 106, 34], ["2024-08", 117, 35], ["2024-09", 100, 44], ["2024-10", 89, 28], ["2024-11", 86, 28], ["2024-12", 105, 29], ["2025-01", 420, 32], ["2025-02", 363, 58], ["2025-03", 299, 62], ["2025-04", 276, 51], ["2025-05", 219, 26], ["2025-06", 249, 21], ["2025-07", 214, 1], ["2025-08", 209, 1], ["2025-09", 236, 5], ["2025-10", 206, 4], ["2025-11", 168, 5], ["2025-12", 151, 1], ["2026-01", 206, 19], ["2026-02", 127, 13], ["2026-03", 157, 17], ["2026-04", 248, 16], ["2026-05", 236, 0], ["2026-06", 28, 0]];
+const CMP_BYPARK = {"Discovery Park": 109, "Magnuson Park": 140, "Volunteer Park": 99, "Woodland Park": 62, "Golden Gardens Park": 44, "Cal Anderson Park": 95, "Lincoln Park": 97, "West Queen Anne Playfield": 255, "Maple Leaf Reservoir Park": 147, "Genesee Park": 68, "Martha Washington Park": 8, "Green Lake Park": 93, "Seward Park": 26, "Westcrest Park": 28, "Gilman Playground": 24, "Wallingford Playfield": 35, "Alki Beach Park": 23, "Soundview Playfield": 9, "Rogers Playground": 35, "Ravenna Park": 9};
 
 const covidAnn = () => ({
   type: 'box', xMin: 5.5, xMax: 7.5,
@@ -343,27 +396,19 @@ const fullYears = D.full_years; // 2014-2025
   const barColors = labels.map((y,i) => i === idx2026 ? 'rgba(209,72,26,0.45)' : P.orange);
   // 2026 annualized dashed marker (within historical scale)
   const annualized2026 = labels.map(y => y === '2026' ? D.y2026.dlp_annualized : null);
-  const projLow = D.projection.low_2027_28, projHigh = D.projection.high_2027_28;
-
   // COVID region box
   const covid = covidAnn();
-  // Projection region box (2027-2028), shaded like COVID, with the numeric
-  // range as a text label. We do NOT draw full-height floating bars for the
-  // projection: the high case (~2,552) is 2x the historical peak (1,276) and
-  // would blow out the y-axis, making the actual data unreadable and giving a
-  // speculative figure undue visual weight. The shaded region + label conveys
-  // "future zone, projected range" honestly without distorting the scale.
+  // 2027-2028 "outlook" zone. We deliberately show NO numeric projection: the
+  // two prior staffing increases (2016, 2023) did not produce sustained output
+  // growth, so a citations-per-year forecast would assert a scaling the record
+  // doesn't support. The shaded zone carries a flat factual note instead.
   const projBox = { type: 'box', xMin: idx2026 + 0.5, xMax: idx2026 + 2.5,
     backgroundColor: 'rgba(31,58,95,0.07)', borderWidth: 0, drawTime: 'beforeDatasetsDraw',
     label: { display: true,
-      content: ['Projected 2027–28', `${projLow.toLocaleString()}–${projHigh.toLocaleString()}/yr`, '(2× staffing)'],
+      content: ['2027–28', 'no numeric', 'projection'],
       position: { x: 'center', y: 'center' },
       backgroundColor: 'transparent', color: 'rgba(31,58,95,0.85)',
       font: { family: FONT_MONO, size: 10, weight: '600' } } };
-  // Low-case projection reference line (visible within scale)
-  const projLowLine = { type: 'line', yMin: projLow, yMax: projLow,
-    xMin: idx2026 + 0.5, xMax: idx2026 + 2.5,
-    borderColor: 'rgba(31,58,95,0.55)', borderWidth: 2, borderDash: [4,3], drawTime: 'beforeDatasetsDraw' };
 
   new Chart(document.getElementById('chartYearTrend'), {
     type: 'bar',
@@ -374,10 +419,46 @@ const fullYears = D.full_years; // 2014-2025
     ]},
     options: { responsive: true, maintainAspectRatio: false, animation: false,
       plugins: { legend: { labels: { font: { family: FONT, size: 12 } } },
-        annotation: { annotations: { covid, proj: projBox, projLow: projLowLine } } },
+        annotation: { annotations: { covid, proj: projBox } } },
       scales: {
         x: { ticks: { font: { family: FONT_MONO, size: 11 } }, grid: { display: false } },
         y: { title: { display: true, text: 'DLP citations', font: { family: FONT_MONO, size: 11 } }, ticks: { font: { family: FONT_MONO, size: 11 } }, beginAtZero: true, suggestedMax: 1400 }
+      } }
+  });
+})();
+
+// ===== Finding 02 supporting — funded vs. off-leash-attributable ACO cost =====
+(function() {
+  // FAS-side ACO dollars, 2016-2026. traceable = aco_fte x $152,399 (2021 MOA
+  // per-FTE; same basis as the cost-per-citation chart); funded = MOA totals
+  // (1 ACO $152,399 -> 3 ACO $454,652 from the 2023 MOA PRF1602). Both fields
+  // come from data/enforcement-year-metrics.csv via the page-data JSON.
+  const rows = D.year_trend.filter(t => parseInt(t.year, 10) >= 2016);
+  const labels = rows.map(t => t.year);
+  const traceable = rows.map(t => t.traceable_aco_cost);
+  const gap = rows.map(t => Math.max(0, t.funded_aco_cost - t.traceable_aco_cost));
+  new Chart(document.getElementById('chartFundedVsDeployed'), {
+    type: 'bar',
+    data: { labels, datasets: [
+      { label: 'Off-leash-attributable cost (~1 officer)', data: traceable, backgroundColor: P.navy, stack: 'cost',
+        borderSkipped: false,
+        borderRadius: (c) => { const g = gap[c.dataIndex] || 0; return { topLeft: g > 0 ? 0 : 6, topRight: g > 0 ? 0 : 6, bottomLeft: 6, bottomRight: 6 }; } },
+      { label: 'Funded but not traceable to off-leash output', data: gap, backgroundColor: P.navySoft, borderColor: P.navyMute, borderWidth: 1, stack: 'cost',
+        borderSkipped: false, borderRadius: { topLeft: 6, topRight: 6, bottomLeft: 0, bottomRight: 0 } }
+    ]},
+    options: { responsive: true, maintainAspectRatio: false, animation: false,
+      plugins: { legend: { labels: { font: { family: FONT, size: 12 } } },
+        tooltip: { callbacks: { label: c => c.dataset.label.split(' (')[0] + ': $' + c.parsed.y.toLocaleString() } },
+        annotation: { annotations: {
+          undisclosed: { type: 'label', xValue: '2024', yValue: 305000,
+            content: ['park deployment', 'not disclosed'],
+            color: P.navyMute, font: { family: FONT_MONO, size: 10, weight: '600' } }
+        } } },
+      scales: {
+        x: { stacked: true, ticks: { font: { family: FONT_MONO, size: 11 } }, grid: { display: false } },
+        y: { stacked: true, beginAtZero: true,
+          title: { display: true, text: 'FAS-side ACO cost', font: { family: FONT_MONO, size: 11 } },
+          ticks: { font: { family: FONT_MONO, size: 11 }, callback: v => '$' + Math.round(v/1000) + 'K' } }
       } }
   });
 })();
@@ -443,8 +524,31 @@ const fullYears = D.full_years; // 2014-2025
   const tbody = document.getElementById('topTable');
   const olaCell = (s) => s === 'has' ? '<td class="ola-yes">Yes</td>' : s === 'partial' ? '<td class="ola-partial">Partial</td>' : s === 'planned' ? '<td class="ola-planned">Planned</td>' : '<td class="ola-no">No</td>';
   D.top20_full.forEach((p, i) => {
-    tbody.insertAdjacentHTML('beforeend', `<tr><td class="num">${i+1}</td><td>${p.park}</td><td>${p.neighborhood||'—'}</td><td class="num">${p.count.toLocaleString()}</td><td class="num">${p.pre.toLocaleString()}</td><td class="num">${p.post.toLocaleString()}</td>${olaCell(p.ola_status)}</tr>`);
+    const cmp = CMP_BYPARK[p.park];
+    const cmpCell = (cmp != null) ? cmp.toLocaleString() : '&mdash;';
+    tbody.insertAdjacentHTML('beforeend', `<tr><td class="num">${i+1}</td><td>${p.park}</td><td>${p.neighborhood||'—'}</td><td class="num">${p.count.toLocaleString()}</td><td class="num">${p.pre.toLocaleString()}</td><td class="num">${p.post.toLocaleString()}</td><td class="num">${cmpCell}</td>${olaCell(p.ola_status)}</tr>`);
   });
+})();
+
+// ===== Finding 07 — complaints vs citations, monthly (NEW) =====
+(function() {
+  const labels = CMP_MONTHLY.map(r => r[0]);
+  const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const fmt = m => { const a = m.split('-'); return MON[parseInt(a[1],10)-1] + " '" + a[0].slice(2); };
+  const xcfg = (show) => ({ grid: { display: false }, ticks: { display: show, autoSkip: true, maxRotation: 0,
+    font: { family: FONT_MONO, size: 10 }, callback: (v,i) => (labels[i].slice(-2) === '01' || labels[i].slice(-2) === '07') ? fmt(labels[i]) : '' } });
+  const topEl = document.getElementById('chartCmpTop');
+  if (topEl) new Chart(topEl, { type: 'bar',
+    data: { labels, datasets: [{ label: 'Complaints', data: CMP_MONTHLY.map(r => r[1]), backgroundColor: P.orange }] },
+    options: { responsive: true, maintainAspectRatio: false, animation: false,
+      plugins: { legend: { display: false }, tooltip: { callbacks: { title: i => fmt(i[0].label), label: c => c.parsed.y + ' complaints' } } },
+      scales: { x: xcfg(false), y: { beginAtZero: true, ticks: { font: { family: FONT_MONO, size: 10 } } } } } });
+  const botEl = document.getElementById('chartCmpBot');
+  if (botEl) new Chart(botEl, { type: 'line',
+    data: { labels, datasets: [{ label: 'DLP citations', data: CMP_MONTHLY.map(r => r[2]), borderColor: P.navy, backgroundColor: 'rgba(31,58,95,0.09)', fill: true, tension: 0.25, pointRadius: 2, pointBackgroundColor: P.navy, borderWidth: 2 }] },
+    options: { responsive: true, maintainAspectRatio: false, animation: false,
+      plugins: { legend: { display: false }, tooltip: { callbacks: { title: i => fmt(i[0].label), label: c => c.parsed.y + ' citations' } } },
+      scales: { x: xcfg(true), y: { beginAtZero: true, suggestedMax: 80, ticks: { font: { family: FONT_MONO, size: 10 } } } } } });
 })();
 
 // ===== Maps =====
@@ -494,5 +598,5 @@ const fullYears = D.full_years; // 2014-2025
 '''
 HTML = HTML.replace('__DATA__', DATA_JS)
 out = ROOT / "docs" / "enforcement.html"
-out.write_text(HTML)
+out.write_text(HTML, encoding='utf-8')
 print(f"Wrote {out} ({len(HTML):,} chars)")

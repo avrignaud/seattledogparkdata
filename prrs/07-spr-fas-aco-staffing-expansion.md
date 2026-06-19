@@ -2,7 +2,7 @@
 
 **Recipient:** Seattle Parks & Recreation · `PKS_PDR@seattle.gov` (cc: Seattle Animal Shelter / FAS where appropriate)
 
-**Status:** Filed (reference C264119-042026). The City Budget Office closed its portion of the request, reporting that a reasonable search did not locate responsive records (May 2026). SPR's response is still pending — the records sought (the SPR/SAS MOA and SPR's budget lines) are held by SPR/FAS, not CBO.
+**Status:** **Fulfilled (June 2026).** Filed as C264119-042026; the City Budget Office closed its portion reporting no responsive records (May 2026). FAS then produced the responsive records under reference **C265341-042926**: the current signed SPR/FAS MOA ([`SPR-FAS-ACO2-MOA-2023-PRF1602.pdf`](../data/moas/SPR-FAS-ACO2-MOA-2023-PRF1602.pdf), responsive to items #1–4) and the 2022 SLI FAS-003-B-001 response package (responsive to item #5). Key result: the expanded posture was authorized **in 2023**, not 2026 — the Park District Board funded two new ACO IIs (1 → 3 total) and the MOA funds three ACO IIs at **$454,652/yr** FAS-side, term through 2027-12-31. Budget codes captured in the [MOA archive README](../data/moas/README.md). Remaining open thread: the MOA §5 monthly parks-data summary reports and §7 cost spreadsheet, which would resolve actual *filled* FTE by year (see that README's "What's pending").
 
 ---
 

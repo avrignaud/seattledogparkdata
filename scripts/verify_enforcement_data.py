@@ -577,11 +577,6 @@ def verify_html_prose(rows: list[dict]) -> None:
     y2026 = dlp_by_year["2026"]
     factor = 365 / 107  # day-of-year cutoff 2026-04-17
     annualized_2026 = round(y2026 * factor)
-    # Projection uses the unrounded per-FTE rate (matches build_draft.py /
-    # draft_page_data.json), not the rounded display value.
-    proj_low = round(float(ym["2024"]["citations_per_fte"]) * 4)
-    proj_high = round(float(ym["2018"]["citations_per_fte"]) * 4)
-    expansion_cost = base_cost * 2
 
     # OLA acreage (Finding 05)
     olas = {}
@@ -616,10 +611,9 @@ def verify_html_prose(rows: list[dict]) -> None:
         ("top-10 pre-COVID share", f"{pre_share}%"),
         ("top-10 post-COVID share", f"{post_share}%"),
         ("2026 annualized estimate", f"{annualized_2026}"),
-        ("projection low (4 FTE × 2024 rate)", f"{proj_low}"),
-        ("projection high (4 FTE × 2018 rate)", f"{proj_high:,}"),
         ("baseline cost ~$292K", f"${round(base_cost/1000)}K"),
-        ("expansion cost ~$585K", f"${round(expansion_cost/1000)}K"),
+        ("single-officer ACO cost ~$152K", f"${round(int(ym['2018']['traceable_aco_cost'])/1000)}K"),
+        ("three-officer ACO cost ~$455K", f"${round(int(ym['2023']['funded_aco_cost'])/1000)}K"),
     ]
     # top-5 named parks with their counts (footnote: "Discovery 564, ...")
     park_short = {"Discovery Park": "Discovery", "Magnuson Park": "Magnuson",

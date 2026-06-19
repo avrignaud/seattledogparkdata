@@ -39,10 +39,17 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 CITATIONS = REPO_ROOT / "data" / "enforcement-citations.csv"
 OUT = REPO_ROOT / "data" / "enforcement-year-metrics.csv"
 
-FAS_ACO_ANNUAL = 152399   # sourced: 2021 MOA Attachment A
-FMW_ANNUAL = 140000       # estimated: author triangulation
+FAS_ACO_ANNUAL = 152399      # sourced: 2021 MOA Attachment A (per ACO II FTE)
+FAS_ACO_ANNUAL_2023 = 151551 # sourced: 2023 MOA PRF1602 (per ACO II FTE; 3 FTE = $454,652)
+FAS_ACO_TOTAL_2023 = 454652  # sourced: 2023 MOA PRF1602 (3 ACO II FTE, FAS-side)
+FMW_ANNUAL = 140000          # estimated: author triangulation
 
-# (aco_fte, fmw_fte) attributable to off-leash enforcement, by year.
+# (aco_fte, fmw_fte) attributable to OFF-LEASH enforcement, by year. This is the
+# conservative, output-anchored measure used for cost-per-citation and per-FTE —
+# deliberately NOT the funded headcount (see FUNDED_ACO below). It is held flat
+# because parks patrols are a minority of these officers' duties (33% of Field
+# Services calls in 2021) and citation output never corroborated a larger field
+# deployment. See verify/docs notes.
 STAFFING = {
     "2014": (0.5, 0.0),
     "2015": (0.5, 0.0),
@@ -58,6 +65,25 @@ STAFFING = {
     "2025": (1.0, 1.0),
     "2026": (1.3, 1.0),   # YTD blend; expansion announced mid-April 2026
 }
+
+# FUNDED ACO headcount, by year — what the Park District actually pays for under
+# the SPR/FAS MOAs, regardless of how much lands on off-leash. DOCUMENTED, not
+# estimated: one ACO II 2016–2022 (2016 & 2021 MOAs); three ACO IIs from 2023
+# (2023 MOA PRF1602, term through 2027). Pre-2016 mirrors STAFFING. The gap
+# between this and STAFFING is the "funded vs. traceable" band on Finding 02.
+FUNDED_ACO = {
+    "2014": 0.5, "2015": 0.5, "2016": 0.75,
+    "2017": 1.0, "2018": 1.0, "2019": 1.0, "2020": 1.0, "2021": 1.0, "2022": 1.0,
+    "2023": 3.0, "2024": 3.0, "2025": 3.0, "2026": 3.0,
+}
+
+
+def funded_aco_cost(year: str, fte: float) -> int:
+    """FAS-side funded ACO cost. 2023+ uses the documented MOA total; earlier
+    years use the 2021 MOA per-FTE rate."""
+    if int(year) >= 2023:
+        return FAS_ACO_TOTAL_2023
+    return round(fte * FAS_ACO_ANNUAL)
 
 # 2026 partial-year cutoff (inclusive day count for annualization).
 Y2026_CUTOFF = date(2026, 4, 17)
@@ -105,6 +131,8 @@ def main() -> None:
         partial = y in PARTIAL_YEARS
         cost_per_citation = "" if (partial or not dlp) else round(cost / dlp)
         per_fte = "" if (partial or not total_fte) else round(dlp / total_fte, 1)
+        funded_aco = FUNDED_ACO[y]
+        funded_aco_cost_y = funded_aco_cost(y, funded_aco)
         out_rows.append({
             "year": y,
             "dlp_citations": dlp,
@@ -118,6 +146,9 @@ def main() -> None:
             "repeat_offense_pct": repeat_pct,
             "fee_revenue": round(revenue_by_year.get(y, 0.0)),
             "partial_year": "true" if partial else "false",
+            "funded_aco_fte": funded_aco,
+            "funded_aco_cost": funded_aco_cost_y,
+            "traceable_aco_cost": round(aco * FAS_ACO_ANNUAL),
         })
 
     fields = list(out_rows[0].keys())
