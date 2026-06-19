@@ -35,7 +35,7 @@
 html, body {
   background: var(--bg);
   color: var(--ink);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   font-weight: 400;
   font-size: 16.5px;
   line-height: 1.65;
@@ -72,7 +72,7 @@ a { color: var(--orange); }
 }
 .brand {
   display: flex; align-items: center; gap: 10px;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Schibsted Grotesk', sans-serif;
   font-weight: 600;
   font-size: 16px;
   letter-spacing: -0.01em;
@@ -123,7 +123,7 @@ a { color: var(--orange); }
 .hero .kicker { margin-bottom: 24px; display: inline-block; }
 
 h1.hed {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Schibsted Grotesk', sans-serif;
   font-weight: 500;
   font-size: clamp(48px, 7vw, 96px);
   line-height: 0.98;
@@ -163,7 +163,7 @@ h1.hed em { font-style: italic; font-weight: 500; color: var(--orange); }
   align-items: center;
 }
 .hero.hero-number .big-number {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Schibsted Grotesk', sans-serif;
   font-weight: 500;
   font-size: clamp(120px, 22vw, 260px);
   line-height: 0.9;
@@ -183,7 +183,7 @@ h1.hed em { font-style: italic; font-weight: 500; color: var(--orange); }
 
 /* ---------- Headings within body ---------- */
 h2 {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Schibsted Grotesk', sans-serif;
   font-size: clamp(30px, 3.4vw, 46px);
   line-height: 1.08;
   font-weight: 500;
@@ -213,7 +213,7 @@ h2.finding .num {
 }
 
 h3 {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Schibsted Grotesk', sans-serif;
   font-weight: 500;
   font-size: 24px;
   line-height: 1.2;
@@ -270,7 +270,7 @@ li { margin-bottom: 8px; max-width: 68ch; }
   font-size: 14.5px; font-weight: 500;
   text-decoration: none;
   letter-spacing: -0.005em;
-  font-family: 'Inter', sans-serif;
+  font-family: 'IBM Plex Sans', sans-serif;
   transition: transform .12s ease, background .15s, color .15s, border-color .15s;
   cursor: pointer; border: 0;
 }
@@ -318,7 +318,7 @@ li { margin-bottom: 8px; max-width: 68ch; }
 .stat.sage   .label { color: var(--sage); }
 .stat.gold   .label { color: var(--gold); }
 .stat .num {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Schibsted Grotesk', sans-serif;
   font-size: 52px;
   font-weight: 500;
   letter-spacing: -0.04em;
@@ -382,7 +382,7 @@ li { margin-bottom: 8px; max-width: 68ch; }
 }
 .report-card .arrow {
   margin-top: auto;
-  font-family: 'Inter', sans-serif;
+  font-family: 'IBM Plex Sans', sans-serif;
   font-size: 14px; font-weight: 500;
   color: var(--orange);
   letter-spacing: -0.005em;
@@ -398,7 +398,7 @@ li { margin-bottom: 8px; max-width: 68ch; }
   margin: 32px 0;
 }
 .chart-block .chart-title {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Schibsted Grotesk', sans-serif;
   font-size: 20px; font-weight: 500;
   letter-spacing: -0.015em;
   margin-bottom: 6px;
@@ -432,7 +432,7 @@ li { margin-bottom: 8px; max-width: 68ch; }
   padding: 28px 28px 20px;
   margin: 32px 0;
 }
-.map-block .chart-title { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 500; letter-spacing: -0.015em; margin-bottom: 6px; }
+.map-block .chart-title { font-family: 'Schibsted Grotesk', sans-serif; font-size: 20px; font-weight: 500; letter-spacing: -0.015em; margin-bottom: 6px; }
 .map-block .chart-subtitle { font-size: 14.5px; color: var(--ink-soft); margin-bottom: 20px; max-width: 72ch; }
 .map-block > .leaflet-container,
 .map-block [id$="-map"],
@@ -477,7 +477,7 @@ li { margin-bottom: 8px; max-width: 68ch; }
 .takeaway.gold    .kicker { color: var(--gold); }
 .takeaway.navy    .kicker { color: var(--navy); }
 .takeaway p {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Schibsted Grotesk', sans-serif;
   font-size: 19px;
   line-height: 1.4;
   font-weight: 500;
@@ -563,7 +563,7 @@ ul.link-list > li > a:hover,
 .data-list > li > .file:hover { color: var(--orange); }
 ul.link-list .tag,
 .data-list .tag {
-  font-family: 'Inter', sans-serif;
+  font-family: 'IBM Plex Sans', sans-serif;
   font-size: 13.5px;
   color: var(--ink-soft);
   text-align: right;
@@ -579,7 +579,7 @@ table.data {
   margin: 18px 0 28px;
   border-collapse: collapse;
   font-size: 14px;
-  font-family: 'Inter', sans-serif;
+  font-family: 'IBM Plex Sans', sans-serif;
 }
 table.data thead th {
   text-align: left;
@@ -631,7 +631,7 @@ nav.paginate a {
 nav.paginate a:hover { border-color: var(--ink); transform: translateY(-2px); }
 nav.paginate a.next { text-align: right; }
 nav.paginate .kicker { color: var(--ink-faint); }
-nav.paginate .title { font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: 18px; }
+nav.paginate .title { font-family: 'Schibsted Grotesk', sans-serif; font-weight: 500; font-size: 18px; }
 
 /* ---------- Footer ---------- */
 footer {
@@ -663,14 +663,14 @@ footer a:hover { color: var(--orange); border-bottom-color: var(--orange); }
 }
 .case-study .meta .kicker { color: rgba(255,255,255,0.6); margin-bottom: 16px; display: block; }
 .case-study .meta h3 {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Schibsted Grotesk', sans-serif;
   font-size: 32px; font-weight: 500;
   color: #fff; margin: 0 0 12px;
 }
 .case-study .meta p { color: rgba(255,255,255,0.78); max-width: none; margin-bottom: 0; font-size: 14.5px; }
 .case-study .stats-inline { display: flex; gap: 28px; margin-top: 20px; }
 .case-study .stats-inline .s .n {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Schibsted Grotesk', sans-serif;
   font-size: 24px; font-weight: 500;
   color: #fff;
 }

@@ -9,7 +9,7 @@
 - Strategy: restrained — tinted neutrals + orange as the lead accent; navy/sage/gold used as semantic roles (peer cities, budget, etc.), not decoration.
 
 ## Typography
-- Display: **Space Grotesk**. Body: **Inter**. Metadata/labels: **IBM Plex Mono** (uppercase, letter-spaced kickers, masthead, source lines).
+- Display: **Schibsted Grotesk**. Body: **IBM Plex Sans**. Metadata/labels: **IBM Plex Mono** (uppercase, letter-spaced kickers, masthead, source lines).
 - Type scale (use classes, not inline sizes): `.lead` 18.5px / body 16.5px / `.note` 15px (secondary, ink-soft) / `.fineprint` 13.5px (captions, sources, methodology). Headings via Space Grotesk weight+scale.
 - Body line length capped ~62–72ch.
 
@@ -22,4 +22,4 @@
 
 ## Conventions
 - Em-dashes are house style. Acronyms spelled out on first use per page. Sub-$1M numbers written in full; millions as `$X.XXM`; chart axis unit labels may keep `($M)`.
-- Note: CLAUDE.md's older "Fraunces / IBM Plex Sans" note is stale — the live stack is Space Grotesk / Inter / IBM Plex Mono.
+- Note: CLAUDE.md's older "Fraunces / IBM Plex Sans" note is stale — the live stack is Schibsted Grotesk / IBM Plex Sans / IBM Plex Mono.

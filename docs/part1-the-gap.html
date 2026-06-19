@@ -17,7 +17,7 @@
 <link rel="canonical" href="https://seattledogparkdata.com/part1-the-gap.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="site.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
@@ -500,7 +500,7 @@
             padding: 8,
             color: ctx => ctx.tick && ctx.tick.label === 'Seattle, WA' ? P.orange : P.inkSoft,
             font: ctx => ({
-              family: "'Inter', sans-serif", size: 12.5,
+              family: "'IBM Plex Sans', sans-serif", size: 12.5,
               weight: ctx.tick && ctx.tick.label === 'Seattle, WA' ? 600 : 400
             })
           }
@@ -622,7 +622,7 @@
             padding: 8,
             color: ctx => ctx.tick && ctx.tick.label === 'Seattle, WA' ? P.orange : P.inkSoft,
             font: ctx => ({
-              family: "'Inter', sans-serif", size: 12.5,
+              family: "'IBM Plex Sans', sans-serif", size: 12.5,
               weight: ctx.tick && ctx.tick.label === 'Seattle, WA' ? 600 : 400
             })
           }
@@ -717,7 +717,7 @@
             const d = ctx.dataset.data[ctx.dataIndex];
             const isHighlight = d && (d.label === 'Seattle' || d.label === 'Portland' || d.label === 'San Francisco');
             return {
-              family: "'Inter', sans-serif",
+              family: "'IBM Plex Sans', sans-serif",
               size: d && d.label === 'Seattle' ? 13 : (isHighlight ? 12 : 11),
               weight: isHighlight ? 600 : 400
             };
@@ -927,7 +927,7 @@
         datalabels: {
           display: true, anchor: 'end', align: 'top', offset: 6, clamp: true,
           color: P.ink,
-          font: { family: "'Space Grotesk', sans-serif", size: 24, weight: 500 },
+          font: { family: "'Schibsted Grotesk', sans-serif", size: 24, weight: 500 },
           formatter: v => v
         }
       },

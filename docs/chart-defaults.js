@@ -32,14 +32,14 @@
   };
 
   // ---- Chart.js global defaults ----
-  Chart.defaults.font.family = "'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif";
+  Chart.defaults.font.family = "'IBM Plex Sans', -apple-system, BlinkMacSystemFont, system-ui, sans-serif";
   Chart.defaults.font.size   = 12.5;
   Chart.defaults.color       = palette.inkSoft;
   Chart.defaults.borderColor = palette.grid;
 
   Chart.defaults.plugins.tooltip.backgroundColor = palette.ink;
-  Chart.defaults.plugins.tooltip.titleFont  = { family: "'Space Grotesk', sans-serif", size: 13, weight: '500' };
-  Chart.defaults.plugins.tooltip.bodyFont   = { family: "'Inter', sans-serif", size: 13 };
+  Chart.defaults.plugins.tooltip.titleFont  = { family: "'Schibsted Grotesk', sans-serif", size: 13, weight: '500' };
+  Chart.defaults.plugins.tooltip.bodyFont   = { family: "'IBM Plex Sans', sans-serif", size: 13 };
   Chart.defaults.plugins.tooltip.padding    = 12;
   Chart.defaults.plugins.tooltip.cornerRadius = 8;
   Chart.defaults.plugins.tooltip.displayColors = false;
@@ -49,7 +49,7 @@
   Chart.defaults.plugins.legend.labels.padding  = 16;
   Chart.defaults.plugins.legend.labels.boxWidth = 8;
   Chart.defaults.plugins.legend.labels.boxHeight = 8;
-  Chart.defaults.plugins.legend.labels.font = { family: "'Inter', sans-serif", size: 12.5 };
+  Chart.defaults.plugins.legend.labels.font = { family: "'IBM Plex Sans', sans-serif", size: 12.5 };
 
   // ---- Bar defaults: rounded ends, no side-skip ----
   if (Chart.defaults.datasets && Chart.defaults.datasets.bar) {

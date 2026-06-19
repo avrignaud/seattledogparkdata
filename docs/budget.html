@@ -17,7 +17,7 @@
 <link rel="canonical" href="https://seattledogparkdata.com/budget.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="site.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
@@ -558,7 +558,7 @@
         datalabels: {
           display: true, anchor: 'end', align: 'top', offset: 6, clamp: true,
           color: P.ink,
-          font: { family: "'Space Grotesk', sans-serif", size: 24, weight: 500 },
+          font: { family: "'Schibsted Grotesk', sans-serif", size: 24, weight: 500 },
           formatter: v => v
         }
       },
@@ -593,7 +593,7 @@
         tooltip: { callbacks: { label: function(c){ return '$' + c.parsed.y.toLocaleString(); } } }
       },
       scales: {
-        x: { grid: { display: false }, ticks: { font: { family: "'Inter', sans-serif", size: 12.5 } } },
+        x: { grid: { display: false }, ticks: { font: { family: "'IBM Plex Sans', sans-serif", size: 12.5 } } },
         y: { beginAtZero: true, suggestedMax: 1400000, grid: { color: '#E8E5DC' },
           ticks: { font: { family: MONO, size: 11 }, callback: function(v){ return '$' + (v/1000000).toFixed(1) + 'M'; } } }
       }

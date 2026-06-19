@@ -35,7 +35,7 @@ HTML = r'''<!DOCTYPE html>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
 <link rel="stylesheet" href="site.css">
 <style>
@@ -50,7 +50,7 @@ HTML = r'''<!DOCTYPE html>
   table.data td.ola-partial { color: var(--gold); font-weight: 500; }
   table.data td.ola-planned { color: var(--ink-faint); font-weight: 500; }
   table.data tr:last-child td { border-bottom: 0; }
-  .sdpd-map-legend { background: rgba(250,248,243,0.96); border: 1px solid var(--rule); border-radius: 10px; padding: 10px 12px; font-family: 'Inter', sans-serif; font-size: 12px; line-height: 1.7; color: var(--ink); box-shadow: 0 6px 20px -10px rgba(26,23,18,0.18); }
+  .sdpd-map-legend { background: rgba(250,248,243,0.96); border: 1px solid var(--rule); border-radius: 10px; padding: 10px 12px; font-family: 'IBM Plex Sans', sans-serif; font-size: 12px; line-height: 1.7; color: var(--ink); box-shadow: 0 6px 20px -10px rgba(26,23,18,0.18); }
   .sdpd-map-legend .hdr { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 6px; }
   .sdpd-map-legend .row { display: flex; align-items: center; gap: 8px; }
   .sdpd-map-legend .dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; box-shadow: 0 0 0 2px #fff; flex: none; }
@@ -344,7 +344,7 @@ HTML = r'''<!DOCTYPE html>
 <script>
 const D = __DATA__;
 const P = SDPD.palette;
-const FONT = "'Inter', sans-serif";
+const FONT = "'IBM Plex Sans', sans-serif";
 const FONT_MONO = "'IBM Plex Mono', monospace";
 
 // NEW — resident complaint data (PRR C263990), 2024-26
