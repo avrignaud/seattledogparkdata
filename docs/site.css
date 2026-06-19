@@ -224,6 +224,32 @@ h3 {
 p { margin-bottom: 18px; max-width: 68ch; }
 p.lead { font-size: 18.5px; line-height: 1.55; color: var(--ink); max-width: 62ch; }
 
+/* ---------- Type scale: use these classes instead of inline font-size ----------
+   Steps: .lead 18.5 / body 16.5 (default) / .note 15 / .fineprint 13.5.
+   .note  = secondary supporting prose.  .fineprint = captions, sources, methodology. */
+.note      { font-size: 15px;   color: var(--ink-soft); max-width: 68ch; }
+.fineprint { font-size: 13.5px; line-height: 1.55; color: var(--ink-soft); max-width: 72ch; }
+
+/* ---------- Collapsible "Data notes" disclosure (closed by default; open in print) ---------- */
+details.data-notes { margin: 36px 0 0; border-top: 1px solid var(--rule); }
+details.data-notes > summary {
+  list-style: none; cursor: pointer; padding: 16px 0;
+  font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft);
+  display: flex; align-items: center; gap: 10px;
+}
+details.data-notes > summary::-webkit-details-marker { display: none; }
+details.data-notes > summary::after {
+  content: "+"; margin-left: auto; font-size: 17px; line-height: 1; color: var(--ink-faint);
+}
+details.data-notes[open] > summary::after { content: "\2212"; }
+details.data-notes > summary:hover { color: var(--ink); }
+details.data-notes > summary:focus-visible { outline: 2px solid var(--accent-3, var(--navy)); outline-offset: 3px; }
+details.data-notes[open] > summary { padding-bottom: 4px; }
+details.data-notes h3 { font-size: 14px; margin: 18px 0 6px; color: var(--ink); }
+details.data-notes h3:first-of-type { margin-top: 4px; }
+details.data-notes p, details.data-notes li { font-size: 13.5px; line-height: 1.55; color: var(--ink-soft); max-width: 78ch; }
+
 ul, ol { margin: 0 0 20px 22px; }
 li { margin-bottom: 8px; max-width: 68ch; }
 
@@ -681,6 +707,9 @@ footer a:hover { color: var(--orange); border-bottom-color: var(--orange); }
   html, body { background: #fff; color: #000; font-size: 10.5pt; line-height: 1.45; }
   .wrap, .container { padding: 0; max-width: none; }
   .topbar, .nav, nav.paginate { display: none; }
+  /* Data notes are collapsed on screen but must print in full. */
+  details.data-notes > *:not(summary) { display: revert !important; }
+  details.data-notes > summary::after { content: ""; }
   .masthead { padding: 8px 0 6px; font-size: 8pt; margin-bottom: 12px; }
   h1.hed { font-size: 28pt; line-height: 1.02; margin-bottom: 12px; }
   .hero.hero-number .big-number { font-size: 120pt; }

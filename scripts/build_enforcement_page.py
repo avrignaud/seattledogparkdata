@@ -127,7 +127,7 @@ HTML = r'''<!DOCTYPE html>
     </div>
     <div class="stat navy">
       <div><div class="label">2023 cost increase</div><div class="num">~2&ndash;3&times;</div></div>
-      <div class="note">FAS-side Animal Control Officer cost tripled &mdash; $152K (one officer) to $455K (three) &mdash; under the <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/moas/SPR-FAS-ACO2-MOA-2023-PRF1602.pdf">2023 Park District expansion</a>; ~$600K&ndash;$875K all-in with paired FMWs, up from ~$292K.</div>
+      <div class="note">Finance &amp; Administrative Services (FAS)-side Animal Control Officer cost tripled &mdash; $152,399 (one officer) to $454,652 (three) &mdash; under the <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/moas/SPR-FAS-ACO2-MOA-2023-PRF1602.pdf">2023 Park District expansion</a>; ~$600,000&ndash;$875,000 all-in with paired Facilities Maintenance Workers, up from ~$292,399.</div>
     </div>
   </div>
 </section>
@@ -150,7 +150,7 @@ HTML = r'''<!DOCTYPE html>
   <div class="chart-title">DLP citations vs. program cost per published citation, 2014&ndash;2025</div>
   <div class="chart-subtitle">Green bars (left axis): DLP citations per year, 2014&ndash;2025. Orange line (right axis): annual Finance &amp; Administrative Services (FAS) + FMW program cost &divide; that year's citations. The program cost-per-citation line begins in 2016 &mdash; the first year with a documented cost basis (the April 2016 MOA) &mdash; because pre-2016 part-time staffing has no separately documented cost. COVID period shaded. The line stops at 2025 because 2026 is a partial year (see Finding 02). All dollars nominal.</div>
   <div class="chart-wrap"><canvas id="chartCostPerCit" role="img" aria-label="Dual-axis chart: DLP citations per year as bars and program cost per published citation as a line, 2014-2025."></canvas></div>
-  <div class="chart-source">Citations: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-citations.csv">enforcement-citations.csv</a> &middot; FAS cost: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/moas/SPR-FAS-ACO2-MOA-2021-AG21-PRF03-032.pdf">2021 MOA Attachment A</a> ($152,399/yr per ACO II; the <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/moas/SPR-FAS-ACO2-MOA-2023-PRF1602.pdf">2023 MOA</a> funds three at $454,652/yr &mdash; this line uses attributable FTE, see <a href="#headcount-cost">cost footnote</a>) &middot; FMW pairing ~$140K/yr (author estimate, documented in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-year-metrics.csv">enforcement-year-metrics.csv</a>)</div>
+  <div class="chart-source">Citations: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-citations.csv">enforcement-citations.csv</a> &middot; FAS cost: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/moas/SPR-FAS-ACO2-MOA-2021-AG21-PRF03-032.pdf">2021 MOA Attachment A</a> ($152,399/yr per ACO II; the <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/moas/SPR-FAS-ACO2-MOA-2023-PRF1602.pdf">2023 MOA</a> funds three at $454,652/yr &mdash; this line uses attributable FTE, see <a href="#headcount-cost">cost footnote</a>) &middot; FMW pairing ~$140,000/yr (author estimate, documented in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-year-metrics.csv">enforcement-year-metrics.csv</a>)</div>
 </div>
 
 <div class="takeaway neutral">
@@ -184,7 +184,7 @@ HTML = r'''<!DOCTYPE html>
   <p>Animal Control Officers are not police. An ACO II holds a limited &ldquo;special commission&rdquo; that lets them issue citations, serve warrants, testify in court, retrieve state licensing records, and enter posted property &mdash; but it does <strong>not</strong> let them compel identification from someone who refuses to give it, and neither ACOs nor their paired Facilities Maintenance Workers (FMWs) have the power to detain. Because a name is required to write an infraction, an owner who declines to identify themselves can lawfully be given only a verbal warning.</p>
   <p>In its September 2022 report to the City Council, Finance &amp; Administrative Services (FAS) stated the position directly: &ldquo;only sworn officers have the sufficient level of commission to retrieve identification from resistant residents,&rdquo; that Seattle Police &ldquo;have historically assisted ACO IIs in obtaining identification&rdquo; but &ldquo;recently&hellip; have been unable to assist,&rdquo; and that absent SPD help &ldquo;SAS will continue to be unable to issue citations for leash law violations from people who refuse to show identification.&rdquo; FAS reported it had &ldquo;adjusted its approach&hellip; by issuing verbal warnings on all first contacts.&rdquo; The same report documents that residents &ldquo;regularly ignore officers&rsquo; requests for identification or simply walk away or flee when contacted&rdquo; and use neighborhood social-media groups to share patrol locations and encourage non-compliance.</p>
   <p>The records do not isolate what caused the post-2020 citation decline. But this is a <strong>city-documented mechanism</strong> by which patrols can be present and citation output can still fall: when refusing to identify yourself carries no consequence, and word of that spreads, fewer field contacts convert into citations regardless of how many dogs are off-leash. It is one more reason citation counts measure enforcement activity, not underlying violation rates.</p>
-  <p style="margin:10px 0 0;font-size:13px;color:var(--ink-soft);">Source: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/prr-responses/C265341/SLI-FAS-003-B-001-AnimalControlPatrolling-2022-09-30.pdf">FAS response to SLI FAS-003-B-001</a>, Sept 30 2022, pp.&nbsp;3&ndash;4 (<a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C265341">PRR C265341</a>).</p>
+  <p class="fineprint" style="margin:10px 0 0;">Source: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/prr-responses/C265341/SLI-FAS-003-B-001-AnimalControlPatrolling-2022-09-30.pdf">FAS response to SLI FAS-003-B-001</a>, Sept 30 2022, pp.&nbsp;3&ndash;4 (<a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C265341">PRR C265341</a>).</p>
 </div>
 
 <div class="chart-block">
@@ -273,7 +273,7 @@ HTML = r'''<!DOCTYPE html>
   <thead><tr><th class="num">Rank</th><th>Park</th><th>Neighborhood</th><th class="num">Citations 2014&ndash;2026</th><th class="num">Pre-COVID</th><th class="num">Post-COVID</th><th class="num">Complaints 2024&ndash;26</th><th>OLA?</th></tr></thead>
   <tbody id="topTable"></tbody>
 </table>
-<p style="font-size:13px;color:var(--ink-soft);max-width:74ch;margin:4px 0 0;"><strong>New column.</strong> Citation columns span 2014&ndash;2026; the complaint column is 2024&ndash;26 only (the complaint record begins in 2024), so the two are not the same window &mdash; read the column for the within-park <em>contrast</em> between enforcement and resident reporting, not as a like-for-like total. Source: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/complaints-vs-citations-by-park.csv">complaints-vs-citations-by-park.csv</a> (PRR C263990).</p>
+<p class="fineprint" style="margin:4px 0 0;"><strong>New column.</strong> Citation columns span 2014&ndash;2026; the complaint column is 2024&ndash;26 only (the complaint record begins in 2024), so the two are not the same window &mdash; read the column for the within-park <em>contrast</em> between enforcement and resident reporting, not as a like-for-like total. Source: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/complaints-vs-citations-by-park.csv">complaints-vs-citations-by-park.csv</a> (PRR C263990).</p>
 
 <!-- ============ FINDING 07 — RESIDENT COMPLAINTS (NEW) ============ -->
 <h2 class="finding" id="finding-07"><span class="num">Finding 07</span><span>More complaints, fewer citations &mdash; and no link between the two.</span></h2>
@@ -307,7 +307,8 @@ HTML = r'''<!DOCTYPE html>
 </div>
 
 <!-- ============ FOOTNOTES ============ -->
-<div class="footnotes">
+<details class="data-notes" id="data-notes">
+  <summary>Data notes</summary>
   <h3>Source &amp; method</h3>
   <p>Citation records come from two Seattle public records requests. <strong>C049204</strong> (filed 2019-08-29, produced 2019-10-15 by SPR) covers Dog Loose in Park citations 2014-01-01 through 2019-10-15. <strong>C263949</strong> (filed 2026-04-17, produced May 2026 by Seattle FAS) covers all parks-related violations 2019-01-01 through 2026-04-17. Raw files and documenting READMEs are at <a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/"><code>data/prr-responses/</code></a>. The consolidated CSV (<a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-citations.csv"><code>enforcement-citations.csv</code></a>) is built by <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/build_enforcement_datasets.py"><code>build_enforcement_datasets.py</code></a> and checked by <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/verify_enforcement_data.py"><code>verify_enforcement_data.py</code></a>.</p>
 
@@ -323,7 +324,7 @@ HTML = r'''<!DOCTYPE html>
 
   <h3>Location quality</h3>
   <p>Of the 7,015 DLP citations, about 89% are confidently attributable to a named park (top contributors: Discovery 564, Magnuson 367, Volunteer 328, Woodland 291, Golden Gardens 227). The rest are street-address citations (geocoded separately, used in the Finding 05 heatmap) or blank locations (excluded from spatial analysis). Park-name canonicalization is documented in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/METHODOLOGY.md">METHODOLOGY.md</a>.</p>
-</div>
+</details>
 
 <nav class="paginate">
   <a href="part3.html" class="prev"><span class="kicker">&larr; Previous</span><span class="title">Part III &mdash; Forward</span></a>

@@ -611,9 +611,9 @@ def verify_html_prose(rows: list[dict]) -> None:
         ("top-10 pre-COVID share", f"{pre_share}%"),
         ("top-10 post-COVID share", f"{post_share}%"),
         ("2026 annualized estimate", f"{annualized_2026}"),
-        ("baseline cost ~$292K", f"${round(base_cost/1000)}K"),
-        ("single-officer ACO cost ~$152K", f"${round(int(ym['2018']['traceable_aco_cost'])/1000)}K"),
-        ("three-officer ACO cost ~$455K", f"${round(int(ym['2023']['funded_aco_cost'])/1000)}K"),
+        ("baseline cost $292,399", f"${base_cost:,}"),
+        ("single-officer ACO cost $152,399", f"${int(ym['2018']['traceable_aco_cost']):,}"),
+        ("three-officer ACO cost $454,652", f"${int(ym['2023']['funded_aco_cost']):,}"),
     ]
     # top-5 named parks with their counts (footnote: "Discovery 564, ...")
     park_short = {"Discovery Park": "Discovery", "Magnuson Park": "Magnuson",

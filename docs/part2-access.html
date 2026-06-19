@@ -259,11 +259,6 @@
     border: 1px solid rgba(0,0,0,0.08);
   }
 
-  /* Figure + footnotes */
-  .footnotes { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--rule); }
-  .footnotes h3 { font-size: 20px; margin-top: 24px; }
-  .footnotes p { font-size: 14px; color: var(--ink-soft); max-width: 74ch; }
-
   /* Photo gallery (Kinnear) */
   .photo-gallery .gallery-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
   .gallery-item { text-decoration: none; color: inherit; display: block; cursor: zoom-in; }
@@ -375,7 +370,7 @@
         <div class="label">Seattle's dog-park density</div>
         <div class="num">1.82</div>
       </div>
-      <div class="note">Dog parks per 100K residents &mdash; <a href="https://www.tpl.org/city/seattle-washington">TPL 2025</a>, below every West Coast peer.</div>
+      <div class="note">Dog parks per 100,000 residents &mdash; <a href="https://www.tpl.org/city/seattle-washington">TPL 2025</a>, below every West Coast peer.</div>
     </div>
     <div class="stat navy">
       <div>
@@ -427,7 +422,7 @@
 
 <!-- =============================================================== -->
 <!-- =============================================================== -->
-<p style="max-width: 74ch;">Two independent checks point the same way. <strong>Enforcement:</strong> 73% of off-leash citations (2014&ndash;2026) fall outside any OLA's 10-minute walkshed, clustering in Capitol Hill, Queen Anne, Wallingford, Maple Leaf, and Ravenna &mdash; the full citation-vs-access analysis now lives on the <a href="enforcement.html">Enforcement</a> page. <strong>Equity:</strong> cross-tabbed against Trust for Public Land's park-priority index, OLA coverage is highest in the top-priority tier (44%) and lowest in the middle tier (15%), where most of those citation hotspots sit. (Method and sources in <a href="#data-notes">Data notes</a>.)</p>
+<p>Two independent checks point the same way. <strong>Enforcement:</strong> 73% of off-leash citations (2014&ndash;2026) fall outside any OLA's 10-minute walkshed, clustering in Capitol Hill, Queen Anne, Wallingford, Maple Leaf, and Ravenna &mdash; the full citation-vs-access analysis now lives on the <a href="enforcement.html">Enforcement</a> page. <strong>Equity:</strong> cross-tabbed against Trust for Public Land's park-priority index, OLA coverage is highest in the top-priority tier (44%) and lowest in the middle tier (15%), where most of those citation hotspots sit. (Method and sources in <a href="#data-notes">Data notes</a>.)</p>
 
 <h2 class="finding" id="finding-demand-supply"><span class="num">Finding 02d</span><span>OLA acreage vs. licensed-dog population, by ZIP.</span></h2>
 <p class="lead">Findings 01&ndash;02 measure geographic access. This one asks a different question: is OLA acreage inside each ZIP proportional to the dogs registered there? Joining the 26,652 active dog licenses (Seattle Open Data, April 2026) to OLA acreage by ZIP, the answer is no &mdash; nearly every Seattle ZIP sits below its fair share. (Method in <a href="#data-notes">Data notes</a>.)</p>
@@ -470,7 +465,7 @@
   </div>
 </div>
 
-<p style="font-size: 14px; color: var(--ink-soft);"><strong>On neighborhood labels and ZIPs.</strong> ZIP codes are the finest geography the Pet Licenses dataset provides, but they don't map cleanly to named neighborhoods. Most Seattle ZIPs span two to five recognizable neighborhoods (98103: Fremont, Wallingford, Green Lake, Phinney Ridge, south Greenwood; 98122: Capitol Hill + Central District). Labels here lead with a primary neighborhood name and cite the ZIP for precision. A few ZIPs (98133, 98155, 98177, 98178, 98146, 98168) extend past Seattle's city line; those are excluded from the deficit chart because OLA acreage is Seattle-only. Licensed-dog counts are floors — compliance estimates put the actual dog population several times higher.</p>
+<p class="fineprint"><strong>On neighborhood labels and ZIPs.</strong> ZIP codes are the finest geography the Pet Licenses dataset provides, but they don't map cleanly to named neighborhoods. Most Seattle ZIPs span two to five recognizable neighborhoods (98103: Fremont, Wallingford, Green Lake, Phinney Ridge, south Greenwood; 98122: Capitol Hill + Central District). Labels here lead with a primary neighborhood name and cite the ZIP for precision. A few ZIPs (98133, 98155, 98177, 98178, 98146, 98168) extend past Seattle's city line; those are excluded from the deficit chart because OLA acreage is Seattle-only. Licensed-dog counts are floors — compliance estimates put the actual dog population several times higher.</p>
 
 <!-- =============================================================== -->
 <div class="part-break">
@@ -521,7 +516,7 @@
     </div>
   </div>
 
-  <p style="font-size: 16px; line-height: 1.55; margin: 0 0 14px; max-width: 60ch;">
+  <p style="line-height: 1.55; margin: 0 0 14px; max-width: 60ch;">
     A Seattle resident has roughly <strong style="color: var(--ink);">66&times; more parkland per person</strong> than a Seattle dog has dedicated off-leash space per dog. At the conservative 150,000-dog floor (Seattle Humane's lower estimate), the ratio is <strong>40&times;</strong>.
   </p>
 
@@ -532,13 +527,13 @@
 </div>
 
 <div class="chart-source" style="margin: 4px 0 36px; padding-top: 0; border-top: 0;">
-  Math: 6,662 ac total parkland (<a href="https://www.tpl.org/city/seattle-washington">TPL 2025 ParkScore Seattle</a>) &divide; 816,600 residents (WA OFM 2025) = 0.00816 ac/resident = 355 sq ft. 30.7 ac OLA total (<a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">seattle-olas.csv</a>) &divide; 248,858 AVMA-estimated dogs (<a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/illegal-use-indicators.csv">illegal-use-indicators.csv</a>) = 5.37 sq ft/dog. Ratio 355/5.37 = 66.1.
+  Math: 6,662 ac total parkland (<a href="https://www.tpl.org/city/seattle-washington">TPL 2025 ParkScore Seattle</a>) &divide; 816,600 residents (WA Office of Financial Management (OFM) 2025) = 0.00816 ac/resident = 355 sq ft. 30.7 ac OLA total (<a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">seattle-olas.csv</a>) &divide; 248,858 American Veterinary Medical Association (AVMA)-estimated dogs (<a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/illegal-use-indicators.csv">illegal-use-indicators.csv</a>) = 5.37 sq ft/dog. Ratio 355/5.37 = 66.1.
 </div>
 
 <!-- ================================================================= -->
 <div class="size-standards">
   <h3>Amenities: lighting, water, small-dog areas</h3>
-  <p style="font-size: 15px; color: var(--ink-soft); max-width: 62ch;">
+  <p class="note">
     Amenity inventory for Seattle's 14 OLAs. <a href="https://www.seattlecola.info">Citizens for Off-Leash Areas (COLA)</a> surveyed OLA users and published the amenity breakdown; numbers are cross-checked against current SPR OLA pages (April 2026).
   </p>
 
@@ -560,7 +555,7 @@
     </div>
   </div>
 
-  <p style="font-size: 15px; max-width: 62ch;">
+  <p style="max-width: 62ch;">
     Approximately 79% of Seattle's total OLA acreage is concentrated in four parks (Magnuson, Westcrest, Dr. Jose Rizal, Genesee). SPR's own survey work identifies the top reason non-OLA users give for avoiding OLAs as location inconvenience. The four most-frequented OLAs in SPR's tracking are Magnuson, Westcrest, Golden Gardens, and Woodland. The <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/kinnear-timeline.csv">Kinnear</a> case study below details one site's usage profile.
   </p>
 
@@ -570,7 +565,7 @@
 <!-- ================================================================= -->
 <div class="size-standards" id="size-standards">
   <h3>What "too small" means, quantified</h3>
-  <p style="font-size: 15px; color: var(--ink-soft); max-width: 62ch;">
+  <p class="note">
     Three independent authorities publish overlapping standards for the size of a functioning neighborhood dog park and the per-dog capacity a park of a given size can support.
   </p>
 
@@ -578,7 +573,7 @@
     <div class="standard">
       <div class="label">AKC recommendation</div>
       <div class="val">&ge; 1 acre</div>
-      <div class="note">Minimum size with 4&ndash;6 ft fence, per <a href="https://images.akc.org/pdf/GLEG01.pdf">AKC <em>Establishing a Dog Park in Your Community</em></a>.</div>
+      <div class="note">Minimum size with 4&ndash;6 ft fence, per <a href="https://images.akc.org/pdf/GLEG01.pdf">American Kennel Club (AKC) <em>Establishing a Dog Park in Your Community</em></a>.</div>
     </div>
     <div class="standard">
       <div class="label">Industry design consensus</div>
@@ -592,7 +587,7 @@
     </div>
   </div>
 
-  <p style="font-size: 15px; max-width: 62ch;">
+  <p style="max-width: 62ch;">
     Applied to Seattle's 14 OLAs: <strong>seven of 14 are below the AKC 1-acre floor</strong>, and three are below a quarter-acre. At the 100 sq ft per-dog planning density, Kinnear (~5,400 sq ft) implies a peak of about <strong>54 dogs</strong> and Denny (~4,600 sq ft) about <strong>46</strong> &mdash; the two smallest in the system.
   </p>
 
@@ -670,7 +665,7 @@
       <th>City</th>
       <th>OLA count (methodology)</th>
       <th class="num">Est. total OLA acres</th>
-      <th class="num">OLA acres per 10K residents</th>
+      <th class="num">OLA acres per 10,000 residents</th>
       <th>Largest single OLA</th>
       <th class="num">Median OLA size</th>
     </tr>
@@ -684,7 +679,7 @@
   </tbody>
 </table>
 
-<p style="font-size: 13px; color: var(--ink-soft); margin-bottom: 40px;">
+<p class="fineprint" style="margin-bottom: 40px;">
 <strong>*</strong> Austin's "largest" entry (Walnut Creek Metropolitan Park, 293 ac voice-control natural area) is not a traditional fenced dog park; the unadjusted Austin total of ~680 ac (sometimes cited externally) reduces to ~80 ac on a fenced-comparable basis (the figure used here). Portland's ~85-ac total comes from PP&amp;R's published DOLA inventory and includes unfenced voice-control sites; Portland's largest single fully-fenced site is Gabriel Park's ~5-ac DOLA, well below the totals shown for SF, Vancouver BC, or Austin's largest.<br><strong>&Dagger;</strong> Fort Funston is GGNRA federal land, not SF Rec &amp; Parks property; off-leash access there has been contested under the GGNRA Dog Management Plan. Listed here as the largest off-leash <em>area</em> SF dogs commonly use; SF's largest city-managed dog play area is closer to 4 ac. The per-capita counts still substantially exceed Seattle. Vancouver BC's 168-acre total (from its 2017 <em>People, Parks &amp; Dogs Strategy</em>) reflects time-restricted shared-use areas on beaches and fields.
 </p>
 
@@ -831,7 +826,7 @@
 
 <p class="lead">The Part I, Part II, and Part III findings stack into a consistent profile:</p>
 
-<ul style="font-size: 16px; line-height: 1.7; max-width: 68ch; margin-bottom: 32px;">
+<ul style="line-height: 1.7; max-width: 68ch; margin-bottom: 32px;">
   <li>Seattle has held at 14 OLAs since 2009 while its population grew 34%; per-capita OLA count (1.82 per 100,000) is about a third of Portland, San Francisco, and Vancouver BC.</li>
   <li>11.7% of residents live within a 10-minute walk of an OLA, against 99% for any park.</li>
   <li>Seven of 14 OLAs are under one acre; four are under a quarter-acre. Every Seattle dog's share of off-leash space is about 5.4 sq ft &mdash; a doormat.</li>
@@ -841,24 +836,24 @@
 </ul>
 
 <!-- =============================================================== -->
-<div class="footnotes">
-  <h3 id="data-notes">Data notes</h3>
+<details class="data-notes" id="data-notes">
+  <summary>Data notes</summary>
 
-  <p><strong>10-minute walkshed methodology.</strong> TPL defines the 10-minute walk as a half-mile service area along the public road network, cut by physical barriers (highways, tracks, rivers without bridges). TPL publishes the &ldquo;99% of Seattle residents&rdquo; figure using this methodology for all parks; TPL does not publish a dog-park-specific version. The OLA walkshed figures on this page (11.7% at 10-min, 76.6% at 2.5-mi) are computed in-repo: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/compute_walkshed.py">scripts/compute_walkshed.py</a> runs osmnx against Seattle's OSM walk network (projected to UTM 10N; physical barriers respected) to compute per-OLA isochrones; <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/population_coverage.py">scripts/population_coverage.py</a> intersects the union with 2020 Census block-group population clipped to the Seattle city boundary. Each walk-area boundary is drawn as an alpha-shape (&alpha;=0.003) &mdash; a shape that hugs the reachable street network's actual concavities rather than bridging across them the way a simpler convex outline would &mdash; of reachable network nodes, with a 0.3 km&sup2; area floor and a convex-hull fallback for OLAs at the edge of OpenStreetMap (OSM) coverage (Westcrest is one). Output at <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/walkshed/population_coverage.csv">data/walkshed/population_coverage.csv</a>; full methodology in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/METHODOLOGY.md">METHODOLOGY.md</a>.</p>
+  <p class="fineprint"><strong>10-minute walkshed methodology.</strong> TPL defines the 10-minute walk as a half-mile service area along the public road network, cut by physical barriers (highways, tracks, rivers without bridges). TPL publishes the &ldquo;99% of Seattle residents&rdquo; figure using this methodology for all parks; TPL does not publish a dog-park-specific version. The OLA walkshed figures on this page (11.7% at 10-min, 76.6% at 2.5-mi) are computed in-repo: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/compute_walkshed.py">scripts/compute_walkshed.py</a> runs osmnx against Seattle's OSM walk network (projected to UTM 10N; physical barriers respected) to compute per-OLA isochrones; <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/population_coverage.py">scripts/population_coverage.py</a> intersects the union with 2020 Census block-group population clipped to the Seattle city boundary. Each walk-area boundary is drawn as an alpha-shape (&alpha;=0.003) &mdash; a shape that hugs the reachable street network's actual concavities rather than bridging across them the way a simpler convex outline would &mdash; of reachable network nodes, with a 0.3 km&sup2; area floor and a convex-hull fallback for OLAs at the edge of OpenStreetMap (OSM) coverage (Westcrest is one). Output at <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/walkshed/population_coverage.csv">data/walkshed/population_coverage.csv</a>; full methodology in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/METHODOLOGY.md">METHODOLOGY.md</a>.</p>
 
-  <p><strong>Peer-city OLA counts.</strong> The methodological differences are real and material. Portland's 38 DOLAs (TPL 2025) include 20+ unfenced voice-control areas; Seattle counts zero unfenced sites. Redefining Seattle's approach to include unfenced designated sites (as several other cities do) would raise its count, though SPR has publicly stated a preference for fenced sites on liability and environmental-impact grounds. The comparison in this report uses each city's TPL ParkScore count.</p>
+  <p class="fineprint"><strong>Peer-city OLA counts.</strong> The methodological differences are real and material. Portland's 38 DOLAs (TPL 2025) include 20+ unfenced voice-control areas; Seattle counts zero unfenced sites. Redefining Seattle's approach to include unfenced designated sites (as several other cities do) would raise its count, though SPR has publicly stated a preference for fenced sites on liability and environmental-impact grounds. The comparison in this report uses each city's TPL ParkScore count.</p>
 
-  <p><strong>OLA acreage.</strong> Per-OLA acreage is pulled from SPR's Dog Off-Leash Areas ArcGIS FeatureServer (April 2026) and cross-checked against SPR individual OLA pages &mdash; see <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">data/seattle-olas.csv</a>. Peer-city totals are rougher (&plusmn;20% reasonable) because no peer city publishes a single authoritative inventory in the way Seattle does.</p>
+  <p class="fineprint"><strong>OLA acreage.</strong> Per-OLA acreage is pulled from SPR's Dog Off-Leash Areas ArcGIS FeatureServer (April 2026) and cross-checked against SPR individual OLA pages &mdash; see <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">data/seattle-olas.csv</a>. Peer-city totals are rougher (&plusmn;20% reasonable) because no peer city publishes a single authoritative inventory in the way Seattle does.</p>
 
-  <p><strong>Kinnear Park timeline.</strong> Drawn from contemporaneous reporting: Seattle Weekly (2007), Seattle Times (2008), Aussiedoodle Adventures (2020), Fix Homelessness (2023), KOMO News (2025). The 2008 Dewey Potter quote is verbatim from the Seattle Times piece.</p>
+  <p class="fineprint"><strong>Kinnear Park timeline.</strong> Drawn from contemporaneous reporting: Seattle Weekly (2007), Seattle Times (2008), Aussiedoodle Adventures (2020), Fix Homelessness (2023), KOMO News (2025). The 2008 Dewey Potter quote is verbatim from the Seattle Times piece.</p>
 
-  <p><strong>&ldquo;Dogs per OLA&rdquo; calculation.</strong> Using the widely-cited 150,000 dog-population floor divided by 14 OLAs gives ~10,700 dogs per OLA; SPR's 2023 Expansion Study cites higher estimates (up to 400,000), which would raise the ratio to ~28,500.</p>
+  <p class="fineprint"><strong>&ldquo;Dogs per OLA&rdquo; calculation.</strong> Using the widely-cited 150,000 dog-population floor divided by 14 OLAs gives ~10,700 dogs per OLA; SPR's 2023 Expansion Study cites higher estimates (up to 400,000), which would raise the ratio to ~28,500.</p>
 
   <h3>Primary sources</h3>
-  <p><a href="https://www.tpl.org/city/seattle-washington">TPL 2025 ParkScore Seattle PDF</a> &middot; <a href="https://www.tpl.org/parkserve/about">TPL ParkServe methodology documentation</a> &middot; <a href="https://www.seattle.gov/parks/recreation/dog-off-leash-areas">Seattle Parks &amp; Recreation individual OLA pages</a> &middot; <a href="https://parkways.seattle.gov/2024/03/29/seattle-parks-and-recreation-announces-the-selection-of-two-new-off-leash-areas/">SPR Off-Leash Area Expansion Study recommendations (Parkways blog, Feb 2024)</a> &middot; <a href="https://www.seattle.gov/parks/about-us/policies-and-plans/people-dogs-and-parks-strategic-plan">SPR People, Dogs and Parks Strategic Plan (2017)</a> &middot; <a href="https://komonews.com/news/local/city-clears-homeless-camp-in-seattles-kinnear-park-but-tents-reappear-within-days-drugs-unified-care-team-we-heart-seattle-andrea-suarez">KOMO News on Kinnear (April &amp; May 2025)</a> &middot; Seattle Weekly &ldquo;Ruff Trade&rdquo; (2007) &middot; Seattle Times Queen Anne encampment clearing coverage (2008) &middot; Queen Anne &amp; Magnolia News OLA expansion coverage (Nov 2023) &middot; <a href="https://www.portland.gov/parks/find-dog-off-leash-area">Portland Parks &amp; Recreation DOLA list</a> &middot; <a href="https://www.sniffspot.com/">Sniffspot</a> and <a href="https://www.bringfido.com/">BringFido</a> (cross-referenced)</p>
+  <p class="fineprint"><a href="https://www.tpl.org/city/seattle-washington">TPL 2025 ParkScore Seattle PDF</a> &middot; <a href="https://www.tpl.org/parkserve/about">TPL ParkServe methodology documentation</a> &middot; <a href="https://www.seattle.gov/parks/recreation/dog-off-leash-areas">Seattle Parks &amp; Recreation individual OLA pages</a> &middot; <a href="https://parkways.seattle.gov/2024/03/29/seattle-parks-and-recreation-announces-the-selection-of-two-new-off-leash-areas/">SPR Off-Leash Area Expansion Study recommendations (Parkways blog, Feb 2024)</a> &middot; <a href="https://www.seattle.gov/parks/about-us/policies-and-plans/people-dogs-and-parks-strategic-plan">SPR People, Dogs and Parks Strategic Plan (2017)</a> &middot; <a href="https://komonews.com/news/local/city-clears-homeless-camp-in-seattles-kinnear-park-but-tents-reappear-within-days-drugs-unified-care-team-we-heart-seattle-andrea-suarez">KOMO News on Kinnear (April &amp; May 2025)</a> &middot; Seattle Weekly &ldquo;Ruff Trade&rdquo; (2007) &middot; Seattle Times Queen Anne encampment clearing coverage (2008) &middot; Queen Anne &amp; Magnolia News OLA expansion coverage (Nov 2023) &middot; <a href="https://www.portland.gov/parks/find-dog-off-leash-area">Portland Parks &amp; Recreation DOLA list</a> &middot; <a href="https://www.sniffspot.com/">Sniffspot</a> and <a href="https://www.bringfido.com/">BringFido</a> (cross-referenced)</p>
 
-  <p style="margin-top: 24px;"><strong>On framing.</strong> SPR foregrounds the city's overall park access, which is genuinely strong, and OLA investment has recently increased. TPL appropriately weights total park access more heavily than any single amenity. This report presents the specific slice of data that describes the off-leash system, computed on the same standards TPL and SPR use elsewhere. Related opinions and policy recommendations are kept on a separate <a href="opinion.html">opinion page</a>.</p>
-</div>
+  <p class="fineprint" style="margin-top: 24px;"><strong>On framing.</strong> SPR foregrounds the city's overall park access, which is genuinely strong, and OLA investment has recently increased. TPL appropriately weights total park access more heavily than any single amenity. This report presents the specific slice of data that describes the off-leash system, computed on the same standards TPL and SPR use elsewhere. Related opinions and policy recommendations are kept on a separate <a href="opinion.html">opinion page</a>.</p>
+</details>
 
 <!-- =============================================================== -->
 <nav class="paginate">
