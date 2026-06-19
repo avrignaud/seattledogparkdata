@@ -234,21 +234,21 @@ p.lead { font-size: 18.5px; line-height: 1.55; color: var(--ink); max-width: 62c
 details.data-notes { margin: 36px 0 0; border-top: 1px solid var(--rule); }
 details.data-notes > summary {
   list-style: none; cursor: pointer; padding: 16px 0;
-  font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 500;
-  letter-spacing: 0.08em; text-transform: uppercase; color: var(--orange);
+  font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--orange);
   display: flex; align-items: baseline; gap: 10px;
 }
 details.data-notes > summary::-webkit-details-marker { display: none; }
 /* leading chevron that rotates open */
 details.data-notes > summary::before {
-  content: "\25B8"; color: var(--orange); font-size: 11px;
+  content: "\25B8"; color: var(--orange); font-size: 13px;
   transition: transform 120ms ease-out; transform: translateY(-1px);
 }
 details.data-notes[open] > summary::before { transform: translateY(-1px) rotate(90deg); }
 /* trailing "expand / collapse" hint */
 details.data-notes > summary::after {
   content: "expand for sources & methodology"; margin-left: auto;
-  font-size: 11px; letter-spacing: 0.04em; text-transform: none; color: var(--ink-faint);
+  font-size: 12.5px; letter-spacing: 0.02em; text-transform: none; color: var(--ink-faint);
 }
 details.data-notes[open] > summary::after { content: "collapse"; }
 details.data-notes > summary:hover { color: var(--danger); text-decoration: underline; text-underline-offset: 3px; }
