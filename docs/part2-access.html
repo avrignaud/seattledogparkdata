@@ -331,12 +331,7 @@
 
 <div class="masthead">
   <span class="dateline">Part II: Access &middot; seattledogparkdata.com</span>
-  <span>JUNE 2026</span>
-</div>
-
-<div class="data-currency">
-  <strong class="banner-label">About this data</strong>
-  Off-leash survey data referenced below is from Seattle Parks &amp; Recreation's (SPR) 2016 owner survey, published in the 2017 <a href="https://www.seattle.gov/parks/about-us/policies-and-plans/people-dogs-and-parks-strategic-plan">People, Dogs and Parks Strategic Plan</a>. That decade-old behavioral survey is the most recent public version; the 39% figure needs a current replacement. The Find-It-Fix-It complaint figure is now a primary source: the records request (<a href="https://github.com/avrignaud/seattledogparkdata/blob/main/prrs/02-spu-fifi-dog-complaints.md">PRR #2</a>) has been answered as <a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C263990">C263990</a> &mdash; ~3,010 &ldquo;Nuisance Dogs in a Park&rdquo; reports in 2025, replacing the earlier partial-year &ldquo;~1,100 in 2024&rdquo; secondary citation. Corrections and better primary sources are welcome — see <a href="index.html">the overview</a>.
+  <span>UPDATED JUNE 2026</span>
 </div>
 
 <header class="hero hero-number">
@@ -345,7 +340,6 @@
     <span class="kicker orange">Part II &middot; Access</span>
     <h1 class="hed">99% of Seattleites live within a 10-minute walk of a park. <em>11.7%</em> live within a 10-minute walk of one where dogs are legal.</h1>
     <p class="deck">11.7% of Seattleites are within a 10-minute walk of a legal off-leash area (OLA). 76.6% are within SPR's published 2.5-mile OLA standard. This report measures the gap between "a park" and "a park where dogs are legal."</p>
-    <div class="byline"><strong>Andre Vrignaud</strong> &middot; Network-distance analysis &middot; Updated June 2026</div>
   </div>
 </header>
 
@@ -618,7 +612,7 @@
   <!-- Lightbox overlay -->
   <div id="gallery-lightbox" role="dialog" aria-modal="true" aria-hidden="true" style="display:none; position:fixed; inset:0; background:rgba(26,23,18,0.92); z-index:1000; align-items:center; justify-content:center; padding:40px; cursor:zoom-out;">
     <figure style="margin:0; max-width: 100%; max-height: 100%; display:flex; flex-direction:column; align-items:center;">
-      <img id="lightbox-img" src="" alt="" style="max-width: 100%; max-height: calc(100vh - 140px); box-shadow: 0 20px 60px rgba(0,0,0,0.5); background:#fff; border-radius: 4px;">
+      <img id="lightbox-img" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" style="max-width: 100%; max-height: calc(100vh - 140px); box-shadow: 0 20px 60px rgba(0,0,0,0.5); background:#fff; border-radius: 4px;">
       <figcaption id="lightbox-caption" style="color:var(--bg); font-family:'Inter',sans-serif; font-size:14px; line-height:1.45; margin-top:16px; max-width: 640px; text-align:center;"></figcaption>
       <button id="lightbox-close" aria-label="Close" style="position:absolute; top:20px; right:24px; background:none; border:none; color:var(--bg); font-size:32px; cursor:pointer; line-height:1; padding:4px 12px;">&times;</button>
     </figure>
@@ -838,6 +832,9 @@
 <!-- =============================================================== -->
 <details class="data-notes" id="data-notes">
   <summary>Data notes</summary>
+
+  <h3>About this data</h3>
+  <p class="fineprint">Off-leash survey data referenced below is from Seattle Parks &amp; Recreation's (SPR) 2016 owner survey, published in the 2017 <a href="https://www.seattle.gov/parks/about-us/policies-and-plans/people-dogs-and-parks-strategic-plan">People, Dogs and Parks Strategic Plan</a>. That decade-old behavioral survey is the most recent public version; the 39% figure needs a current replacement. The Find-It-Fix-It complaint figure is now a primary source: the records request (<a href="https://github.com/avrignaud/seattledogparkdata/blob/main/prrs/02-spu-fifi-dog-complaints.md">PRR #2</a>) has been answered as <a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C263990">C263990</a> &mdash; ~3,010 &ldquo;Nuisance Dogs in a Park&rdquo; reports in 2025, replacing the earlier partial-year &ldquo;~1,100 in 2024&rdquo; secondary citation. Corrections and better primary sources are welcome — see <a href="index.html">the overview</a>.</p>
 
   <p class="fineprint"><strong>10-minute walkshed methodology.</strong> TPL defines the 10-minute walk as a half-mile service area along the public road network, cut by physical barriers (highways, tracks, rivers without bridges). TPL publishes the &ldquo;99% of Seattle residents&rdquo; figure using this methodology for all parks; TPL does not publish a dog-park-specific version. The OLA walkshed figures on this page (11.7% at 10-min, 76.6% at 2.5-mi) are computed in-repo: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/compute_walkshed.py">scripts/compute_walkshed.py</a> runs osmnx against Seattle's OSM walk network (projected to UTM 10N; physical barriers respected) to compute per-OLA isochrones; <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/population_coverage.py">scripts/population_coverage.py</a> intersects the union with 2020 Census block-group population clipped to the Seattle city boundary. Each walk-area boundary is drawn as an alpha-shape (&alpha;=0.003) &mdash; a shape that hugs the reachable street network's actual concavities rather than bridging across them the way a simpler convex outline would &mdash; of reachable network nodes, with a 0.3 km&sup2; area floor and a convex-hull fallback for OLAs at the edge of OpenStreetMap (OSM) coverage (Westcrest is one). Output at <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/walkshed/population_coverage.csv">data/walkshed/population_coverage.csv</a>; full methodology in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/METHODOLOGY.md">METHODOLOGY.md</a>.</p>
 

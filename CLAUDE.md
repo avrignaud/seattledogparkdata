@@ -168,6 +168,17 @@ Generated artifacts and their sources:
 * **`docs/data/*`** ← `scripts/sync-data.sh` mirrors `data/*` so GitHub Pages can serve them at runtime. Re-run after editing any `data/*.csv` or walkshed GeoJSON.  
 * **`docs/seattle-dog-parks-report.pdf`** ← `build-pdf.mjs` (also stamps a cache-bust version into `docs/index.html`).  
 **The other HTML pages are hand-maintained** (no generator): `index.html`, `part1-the-gap.html`, `part2-access.html`, `part3.html`, `budget.html`, `peer-cities.html`, `opinion.html`, `updates.html`. Edit those directly.  
+## Page template & UX conventions (keep consistent; don't drift)  
+Design context for `/impeccable` lives in [`.agents/context/PRODUCT.md`](.agents/context/PRODUCT.md) and [`DESIGN.md`](.agents/context/DESIGN.md). The agreed page template:  
+* **Date:** the masthead strip carries `UPDATED <MONTH> <YEAR>` (uppercase) on every page. That is the page's update stamp.  
+* **No author byline** on factual pages. There is no per-page "Andre Vrignaud · … · Updated …" block. Authorship lives in the footer; the **only** signed byline/signature is on `opinion.html` (it's a signed editorial).  
+* **"About this data" is not a top box.** It lives at the **bottom**, as the first `<h3>About this data</h3>` section inside the collapsible Data Notes (`<details class="data-notes" id="data-notes">`). The top of every page goes masthead → hero (kicker, title, deck) → content.  
+* **Data Notes** = one `<details class="data-notes" id="data-notes">` per content page, summary text `Data notes`, closed on screen, forced open in print (CSS handles the chevron, accent color, "expand for sources & methodology" hint, and print rule). Keep `id="data-notes"` so `#data-notes` anchors resolve.  
+* **Type scale** (use classes, never inline `font-size`): `.lead` 18.5 / body 16.5 / `.note` 15 / `.fineprint` 13.5. Defined in `site.css`.  
+* **Numbers:** spell out sub-$1M figures and counts in full ($100,000, 150,000); millions as `$X.XXM`; chart axis/legend unit labels may keep `($M)`/`per 100K`. No `($K)`/`($M)` in table headers.  
+* **Acronyms:** spell out on first use per page, then abbreviate.  
+* **Em-dashes and the left-border callouts** (`.note-box`/`.takeaway`/`.fair-note`) are intentional house style — keep them even though generic design linters flag them.  
+* The `enforcement.html` equivalents of all the above live in the builder `scripts/build_enforcement_page.py` (regenerate after editing).  
 ## Git / GitHub conventions  
 * **Main branch:** main.  
 * **Commit style:** Imperative mood, scoped. Example: Add network-distance walkshed analysis not Added walkshed stuff. Subject under 72 chars; body paragraphs if needed.  

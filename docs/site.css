@@ -235,16 +235,25 @@ details.data-notes { margin: 36px 0 0; border-top: 1px solid var(--rule); }
 details.data-notes > summary {
   list-style: none; cursor: pointer; padding: 16px 0;
   font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 500;
-  letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft);
-  display: flex; align-items: center; gap: 10px;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--orange);
+  display: flex; align-items: baseline; gap: 10px;
 }
 details.data-notes > summary::-webkit-details-marker { display: none; }
-details.data-notes > summary::after {
-  content: "+"; margin-left: auto; font-size: 17px; line-height: 1; color: var(--ink-faint);
+/* leading chevron that rotates open */
+details.data-notes > summary::before {
+  content: "\25B8"; color: var(--orange); font-size: 11px;
+  transition: transform 120ms ease-out; transform: translateY(-1px);
 }
-details.data-notes[open] > summary::after { content: "\2212"; }
-details.data-notes > summary:hover { color: var(--ink); }
-details.data-notes > summary:focus-visible { outline: 2px solid var(--accent-3, var(--navy)); outline-offset: 3px; }
+details.data-notes[open] > summary::before { transform: translateY(-1px) rotate(90deg); }
+/* trailing "expand / collapse" hint */
+details.data-notes > summary::after {
+  content: "expand for sources & methodology"; margin-left: auto;
+  font-size: 11px; letter-spacing: 0.04em; text-transform: none; color: var(--ink-faint);
+}
+details.data-notes[open] > summary::after { content: "collapse"; }
+details.data-notes > summary:hover { color: var(--danger); text-decoration: underline; text-underline-offset: 3px; }
+details.data-notes > summary:hover::before { color: var(--danger); }
+details.data-notes > summary:focus-visible { outline: 2px solid var(--navy); outline-offset: 3px; }
 details.data-notes[open] > summary { padding-bottom: 4px; }
 details.data-notes h3 { font-size: 14px; margin: 18px 0 6px; color: var(--ink); }
 details.data-notes h3:first-of-type { margin-top: 4px; }

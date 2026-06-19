@@ -96,12 +96,7 @@ HTML = r'''<!DOCTYPE html>
 
 <div class="masthead">
   <span class="dateline">Enforcement &middot; seattledogparkdata.com</span>
-  <span>JUNE 2026</span>
-</div>
-
-<div class="data-currency">
-  <strong class="banner-label">About this data</strong>
-  Citations on this page run from <strong>January 1, 2014 through April 17, 2026</strong>, combining two Seattle public-records requests (PRRs) to cover the full period: <a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C049204">C049204</a> for 2014&ndash;2018 and <a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C263949">C263949</a> for 2019 through April 17, 2026. Headline figures use <strong>&ldquo;Dog Loose in Park&rdquo; (DLP)</strong> citations &mdash; Seattle's off-leash violation under the <a href="https://library.municode.com/wa/seattle/codes/municipal_code?nodeId=TIT18PALA_CH18.12GEPRRE_SUBCHAPTER_IIOFPRPA_18.12.080DORELI">Seattle Municipal Code (SMC) 18.12.080(A)</a> &mdash; so every year is measured the same way. Where 2019 appears in both requests, the fuller C263949 record is used. 2026 is a partial year (through April 17) and is marked as such on every chart. <strong>New:</strong> Finding 07 and the complaint figures in Findings 04 and 06 add <strong>resident &ldquo;Nuisance Dogs in a Park&rdquo; complaints</strong> (Find It Fix It, 2024&ndash;26, <a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C263990">PRR C263990</a>) as a separate, resident-reported read on off-leash activity &mdash; reports filed, not verified incidents. Findings 02 and 03 also cite Seattle dog-license counts (<a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C264029">PRR C264029</a>) for scale.
+  <span>UPDATED JUNE 2026</span>
 </div>
 
 <header class="hero">
@@ -309,6 +304,9 @@ HTML = r'''<!DOCTYPE html>
 <!-- ============ FOOTNOTES ============ -->
 <details class="data-notes" id="data-notes">
   <summary>Data notes</summary>
+  <h3>About this data</h3>
+  <p>Citations on this page run from <strong>January 1, 2014 through April 17, 2026</strong>, combining two Seattle public-records requests (PRRs) to cover the full period: <a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C049204">C049204</a> for 2014&ndash;2018 and <a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C263949">C263949</a> for 2019 through April 17, 2026. Headline figures use <strong>&ldquo;Dog Loose in Park&rdquo; (DLP)</strong> citations &mdash; Seattle's off-leash violation under the <a href="https://library.municode.com/wa/seattle/codes/municipal_code?nodeId=TIT18PALA_CH18.12GEPRRE_SUBCHAPTER_IIOFPRPA_18.12.080DORELI">Seattle Municipal Code (SMC) 18.12.080(A)</a> &mdash; so every year is measured the same way. Where 2019 appears in both requests, the fuller C263949 record is used. 2026 is a partial year (through April 17) and is marked as such on every chart. <strong>New:</strong> Finding 07 and the complaint figures in Findings 04 and 06 add <strong>resident &ldquo;Nuisance Dogs in a Park&rdquo; complaints</strong> (Find It Fix It, 2024&ndash;26, <a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C263990">PRR C263990</a>) as a separate, resident-reported read on off-leash activity &mdash; reports filed, not verified incidents. Findings 02 and 03 also cite Seattle dog-license counts (<a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C264029">PRR C264029</a>) for scale.</p>
+
   <h3>Source &amp; method</h3>
   <p>Citation records come from two Seattle public records requests. <strong>C049204</strong> (filed 2019-08-29, produced 2019-10-15 by SPR) covers Dog Loose in Park citations 2014-01-01 through 2019-10-15. <strong>C263949</strong> (filed 2026-04-17, produced May 2026 by Seattle FAS) covers all parks-related violations 2019-01-01 through 2026-04-17. Raw files and documenting READMEs are at <a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/"><code>data/prr-responses/</code></a>. The consolidated CSV (<a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-citations.csv"><code>enforcement-citations.csv</code></a>) is built by <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/build_enforcement_datasets.py"><code>build_enforcement_datasets.py</code></a> and checked by <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/scripts/verify_enforcement_data.py"><code>verify_enforcement_data.py</code></a>.</p>
 
