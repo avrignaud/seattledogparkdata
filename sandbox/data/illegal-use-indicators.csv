@@ -1,0 +1,12 @@
+metric,value,year,source,notes,provenance
+Dog owners admitting weekly-to-monthly illegal off-leash in parks,39%,2016,SPR owner survey - People Dogs Parks Plan,Self-reported to enforcement agency likely undercount,sourced: SPR owner survey / agency output (2016)
+Dog owners admitting weekly-to-monthly illegal off-leash on trails,38%,2016,SPR owner survey - People Dogs Parks Plan,Separate question same survey,sourced: SPR owner survey / agency output (2016)
+Find It Fix It nuisance-dog complaints filed via app,1100,2024,Seattle Find It Fix It approximate,Trend line would need PRR,sourced: per row source column (2024)
+Off-leash tickets issued by Seattle Animal Control,435,2016-Mar-Aug,Seattle Animal Control 6-month period,Not current but indicative,sourced: per row source column (2016-Mar-Aug)
+OLA Expansion Study survey respondents,4700,2023,SPR Parkways Feb 2024 announcement,Demonstrates demand,sourced: SPR owner survey / agency output (2023)
+Dog park amenity score out of 100,65,2025,TPL ParkScore Seattle,Lowest of Seattle's amenity sub-scores,sourced: TPL 2025 ParkScore Seattle
+Playground amenity score,48,2025,TPL ParkScore Seattle,For comparison,sourced: TPL 2025 ParkScore Seattle
+Seattle overall ParkScore,77.4,2025,TPL ParkScore Seattle,8th nationally,sourced: TPL 2025 ParkScore Seattle
+Pct residents within 10-min walk of any park,99%,2025,TPL ParkScore Seattle,National top-tier,sourced: TPL 2025 ParkScore Seattle
+Pct residents within 10-min network walk of an OLA,11.7%,2026,scripts/compute_walkshed.py + scripts/population_coverage.py,Population-weighted osmnx walkshed × 2020 Census block groups; supersedes earlier 33% straight-line estimate,calculated: reproducible from committed Python script against 2020 Census + OSM walk network
+Pct residents within SPR's 2.5-mi OLA access standard,76.6%,2026,scripts/compute_walkshed.py + scripts/population_coverage.py,Same pipeline; for comparison to SPR's People Dogs Parks Plan access claim,calculated: reproducible from committed Python script against 2020 Census + OSM walk network

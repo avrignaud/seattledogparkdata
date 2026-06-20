@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>DRAFT — Where the new data could go (non-enforcement pages)</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+<style>
+  .proto-banner { background: var(--danger); color:#fff; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; text-align:center; padding:9px 16px; }
+  .board { max-width: 880px; margin: 0 auto; padding: 0 24px 100px; }
+  .board > h1 { font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:30px; letter-spacing:-0.02em; margin: 40px 0 8px; }
+  .board > .intro { color: var(--ink-soft); font-size:16px; max-width:70ch; margin:0 0 10px; }
+  .suggestion { background: var(--surface); border:1px solid var(--rule); border-radius:14px; padding:26px 26px 22px; margin: 30px 0; }
+  .pagechip { display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:0.12em; text-transform:uppercase; color:#fff; background:var(--navy); border-radius:5px; padding:4px 9px; margin-bottom:12px; }
+  .pagechip.gap { background: var(--orange); }
+  .pagechip.access { background: var(--sage); }
+  .pagechip.budget { background: var(--gold); }
+  .suggestion h2 { font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:600; letter-spacing:-0.015em; margin: 0 0 6px; }
+  .suggestion .what { color: var(--ink-soft); font-size:14.5px; max-width:74ch; margin: 0 0 18px; }
+  .mock { border:1px dashed var(--rule); border-radius:10px; padding:18px; background: var(--bg); }
+  .mock .mocklabel { font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-faint); margin:0 0 12px; }
+  .statrow { display:grid; grid-template-columns: repeat(3, 1fr); gap:14px; }
+  .scard { background: var(--surface); border:1px solid var(--rule); border-radius:10px; padding:16px; }
+  .scard .lab { font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:8px; }
+  .scard .big { font-family:'Space Grotesk',sans-serif; font-size:30px; font-weight:600; line-height:1; }
+  .scard .sub { font-size:12px; color:var(--ink-soft); margin-top:7px; }
+  .compbar { height: 30px; border-radius:6px; background: var(--rule); overflow:hidden; position:relative; margin: 6px 0 4px; }
+  .compbar .fill { position:absolute; left:0; top:0; bottom:0; background: var(--orange); opacity:0.85; }
+  .compbar .fill2 { position:absolute; left:0; top:0; bottom:0; background: var(--orange); opacity:0.45; }
+  .barlbl { display:flex; justify-content:space-between; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--ink-faint); }
+  .note { background: var(--navy-soft); border-left:3px solid var(--navy); border-radius:0 6px 6px 0; padding:12px 16px; margin-top:16px; font-size:13.5px; line-height:1.55; }
+  .note strong.h { display:block; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:var(--navy); margin-bottom:5px; }
+  .caveat { background: rgba(184,135,43,0.10); border-left:3px solid var(--gold); border-radius:0 6px 6px 0; padding:12px 16px; margin-top:12px; font-size:13px; line-height:1.5; color:var(--ink-soft); }
+  .caveat strong.h { display:block; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold); margin-bottom:5px; }
+  .chart-host { position:relative; }
+  @media (max-width:640px){ .statrow{ grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<div class="proto-banner">Draft suggestions board &middot; mockups only &middot; shows where the new licensing &amp; complaint data could land on other pages &middot; not published</div>
+<div class="board">
+  <h1>Where the new data could go</h1>
+  <p class="intro">Three mockups of how the licensing (PRR&nbsp;C264029) and complaint (PRR&nbsp;C263990) findings could be folded into the existing non-enforcement pages. Each block names its target page, shows a rough component, and notes placement + the caveat that gates it. Numbers are real; layout and copy are drafts to mark up.</p>
+
+  <!-- ===== THE GAP ===== -->
+  <div class="suggestion">
+    <span class="pagechip gap">Part I &middot; The Gap</span>
+    <h2>Put a real number on &ldquo;how many dogs are licensed?&rdquo;</h2>
+    <p class="what">Part I already leans on the &ldquo;150,000+ dogs&rdquo; floor. The licensing data lets us state, for the first time, how few of those dogs the city actually has on its books &mdash; and that the share is falling. SAS publishes no compliance figure, so this would be ours.</p>
+    <div class="mock">
+      <p class="mocklabel">Mock &mdash; stat trio + compliance bar</p>
+      <div class="statrow">
+        <div class="scard"><div class="lab">Dog licenses / year</div><div class="big" style="color:var(--orange);">~20,700</div><div class="sub">issued in 2024; down ~21% from 2014</div></div>
+        <div class="scard"><div class="lab">Estimated Seattle dogs</div><div class="big">150K&ndash;400K</div><div class="sub">SPR 2023 Expansion Study range</div></div>
+        <div class="scard"><div class="lab">Licensed share</div><div class="big" style="color:var(--orange);">~10&ndash;27%</div><div class="sub">our estimate &mdash; the city publishes none</div></div>
+      </div>
+      <div style="margin-top:16px;">
+        <div class="barlbl"><span>Share of Seattle dogs that are licensed (estimate)</span><span>100% = all dogs</span></div>
+        <div class="compbar"><div class="fill2" style="width:27%;"></div><div class="fill" style="width:10%;"></div></div>
+        <div class="barlbl"><span style="color:var(--orange);">~10% (if 400K dogs) &rarr; ~27% (if 150K dogs)</span><span>~73&ndash;90% unlicensed</span></div>
+      </div>
+    </div>
+    <div class="note"><strong class="h">Placement</strong>Drop alongside Part I&rsquo;s population/scale section as a stat trio, or a one-line callout: &ldquo;Of an estimated 150,000+ Seattle dogs, only ~40,000 hold a current license &mdash; and licensing is declining.&rdquo;</div>
+    <div class="caveat"><strong class="h">Caveat to keep</strong>&ldquo;Active&rdquo; licenses are a modeled estimate (the data has no license-term field); present the share as a labeled range, never a point. Compliance depends on the population estimate, which is itself uncertain.</div>
+  </div>
+
+  <!-- ===== ACCESS ===== -->
+  <div class="suggestion">
+    <span class="pagechip access">Part II &middot; Access</span>
+    <h2>Show where the dogs are, next to where the OLAs aren&rsquo;t.</h2>
+    <p class="what">Access maps supply (the 11.7% within a 10-minute walk of an off-leash area). The licensing data adds a <em>demand</em> layer: which neighborhoods have the most dogs. Pairing the two answers &ldquo;do the dog-dense neighborhoods have access?&rdquo;</p>
+    <div class="mock">
+      <p class="mocklabel">Mock &mdash; licensed dogs by neighborhood (2014&ndash;25, top 10 ZIPs)</p>
+      <div class="chart-host" style="height:340px;"><canvas id="zipChart"></canvas></div>
+    </div>
+    <div class="note"><strong class="h">Placement</strong>Best as an overlay/toggle on the existing Access walkshed map (a dog-density layer under the OLA walksheds), or this bar as a supporting exhibit. The strongest version flags dog-dense neighborhoods that fall <em>outside</em> any OLA walkshed &mdash; demand vs. supply in one view.</div>
+    <div class="caveat"><strong class="h">Caveat to keep</strong>ZIP is the owner&rsquo;s home address, and counts are 12-year issuance totals, not current or per-capita. Good for &ldquo;where dogs are owned&rdquo; at neighborhood scale; normalize by population before ranking &ldquo;underserved.&rdquo;</div>
+  </div>
+
+  <!-- ===== BUDGET ===== -->
+  <div class="suggestion">
+    <span class="pagechip budget">Budget</span>
+    <h2>Dog owners pay far more in licenses than the city spends on off-leash areas.</h2>
+    <p class="what">The Budget page tracks SPR&rsquo;s small OLA line. The licensing data adds the other side of the ledger: what the city collects from dog owners. The two numbers are an order of magnitude apart.</p>
+    <div class="mock">
+      <p class="mocklabel">Mock &mdash; annual dog-license revenue vs. OLA-only operating budget</p>
+      <div class="chart-host" style="height:240px;"><canvas id="budgetChart"></canvas></div>
+    </div>
+    <div class="note"><strong class="h">Placement</strong>A single comparison bar or paired stat on the Budget page: &ldquo;Dog-license revenue ~$1.24M/yr vs. OLA-only operating budget ~$100,000&ndash;130,000/yr &mdash; the city collects roughly 10&times; more from dog owners than it spends operating their off-leash areas.&rdquo;</div>
+    <div class="caveat"><strong class="h">Caveat that gates this</strong>Different departments and funds: license revenue goes to the Seattle Animal Shelter (FAS) for <em>all</em> animal services, not to SPR&rsquo;s parks budget. This is an honest scale contrast, <strong>not</strong> a claim that license money should or does fund OLAs. Frame it as a civic observation, with the cross-department note attached.</div>
+  </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script src="chart-defaults.js"></script>
+<script>
+var PAL = (window.SDPD && SDPD.palette) ? SDPD.palette : {orange:'#D1481A',navy:'#1F3A5F',sage:'#4C6B54',gold:'#B8872B',inkSoft:'#4C4A44',grid:'#E8E5DC'};
+var MONOF = "'IBM Plex Mono', monospace";
+
+var ZIPS = [["NE Seattle / Wedgwood (98115)",22841],["Wallingford / Fremont (98103)",19866],["Ballard (98117)",18590],["Lake City / Northgate (98125)",15106],["Columbia City (98118)",14208],["West Seattle / Alki (98116)",11770],["Magnolia (98199)",11575],["Capitol Hill / CD (98122)",11218],["West Seattle / Delridge (98126)",10384],["Ballard / Fremont (98107)",10346]];
+
+function buildZip(){
+  var el=document.getElementById('zipChart'); if(!el) return;
+  new Chart(el, { type:'bar',
+    data:{ labels: ZIPS.map(function(z){return z[0];}), datasets:[{ data: ZIPS.map(function(z){return z[1];}), backgroundColor: PAL.sage }] },
+    options:{ indexAxis:'y', responsive:true, maintainAspectRatio:false, animation:false,
+      plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label:function(c){return c.parsed.x.toLocaleString()+' licenses';} } } },
+      scales:{ y:{ ticks:{ font:{ family:"'Inter', sans-serif", size:12 } }, grid:{display:false} },
+               x:{ title:{display:true, text:'Dog licenses issued, 2014-25', font:{family:MONOF, size:11}}, ticks:{ font:{family:MONOF,size:10}, callback:function(v){return (v/1000)+'k';} } } } } });
+}
+function buildBudget(){
+  var el=document.getElementById('budgetChart'); if(!el) return;
+  new Chart(el, { type:'bar',
+    data:{ labels:['Dog-license revenue\n(avg 2018-24)','OLA-only operating budget\n(2024)'],
+      datasets:[{ data:[1240000, 129000], backgroundColor:[PAL.orange, PAL.gold] }] },
+    options:{ responsive:true, maintainAspectRatio:false, animation:false,
+      plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label:function(c){return '$'+c.parsed.y.toLocaleString();} } } },
+      scales:{ x:{ ticks:{ font:{family:"'Inter', sans-serif", size:12} }, grid:{display:false} },
+               y:{ beginAtZero:true, ticks:{ font:{family:MONOF,size:10}, callback:function(v){return '$'+(v/1000000).toFixed(1)+'M';} } } } } });
+}
+function refit(){ try{ Object.values(Chart.instances).forEach(function(c){c.resize();}); }catch(e){} }
+buildZip(); buildBudget();
+window.addEventListener('load', refit); window.addEventListener('resize', refit);
+document.addEventListener('visibilitychange', function(){ if(!document.hidden) refit(); });
+if(document.fonts && document.fonts.ready) document.fonts.ready.then(refit);
+[100,300,700,1500].forEach(function(t){ setTimeout(refit, t); });
+</script>
+</body>
+</html>
