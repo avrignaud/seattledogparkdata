@@ -1,3 +1,0 @@
-facility,count,constituent_label,constituent_count,source,provenance
-Playgrounds,157,Children under 18,115000,SPR Park Inventory + ACS B01001,sourced: SPR park inventory facility count; constituent count from ACS 2023 5-year B01001 (Seattle under-18 population)
-Off-leash areas,14,Dogs (conservative floor),150000,seattle-olas.csv + Seattle Humane / Cascade PBS,sourced: seattle-olas.csv (count of fenced dedicated OLAs); 150K floor cited since ~2013 by Seattle Humane and Cascade PBS

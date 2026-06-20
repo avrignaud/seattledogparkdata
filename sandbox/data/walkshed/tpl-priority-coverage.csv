@@ -1,5 +1,0 @@
-priority_tier,pct_inside_walkshed,provenance
-Low,15.6,calculated: walkshed pipeline 2026-04 (tier 1-2; already-served / lowest priority for new parks)
-Medium,14.5,calculated: walkshed pipeline 2026-04 (tier 2-3)
-Medium-High,24.1,calculated: walkshed pipeline 2026-04 (tier 3-4)
-High,43.7,calculated: walkshed pipeline 2026-04 (tier 4-5; highest priority for new parks)
