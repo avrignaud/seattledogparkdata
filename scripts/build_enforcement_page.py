@@ -101,7 +101,7 @@ HTML = r'''<!DOCTYPE html>
 <header class="hero">
   <h1 class="hed">13 years of off-leash enforcement in Seattle: <em>rising cost, falling output</em>.</h1>
   <p class="deck">Seattle Animal Control's records cover 13 years of off-leash (&ldquo;Dog Loose in Park,&rdquo; DLP) enforcement. Citation output peaked in 2018, fell sharply during the COVID period, and has not recovered. The program's cost per published citation has risen. Across the full record, the available data does not show the program reducing violations &mdash; first-time offenders remain the overwhelming majority of citations every year. The 2026 staffing increase &mdash; the city finally hiring into the three-officer level it approved in 2023, not a new program &mdash; is proceeding without a published evaluation of the 2016 expansion's results.</p>
-  <div class="byline">Source: Seattle Animal Control PRRs <a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C049204">C049204</a> (2014&ndash;2018) and <a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C263949">C263949</a> (2019&ndash;2026-04-17) &middot; staffing: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/moas/SPR-FAS-ACO2-MOA-2016-04-02.pdf">2016 Memorandum of Agreement (MOA)</a>, <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/moas/SPR-FAS-ACO2-MOA-2021-AG21-PRF03-032.pdf">signed 2021 MOA</a>, <a href="https://www.axios.com/local/seattle/2026/04/17/more-paw-patrols-seattle-ramping-up-dog-related-enforcement">Axios Seattle April 2026</a> &middot; coordinates approximate from park names</div>
+  <div class="byline">Source: Seattle Animal Control PRRs <a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C049204">C049204</a> (2014&ndash;2018) and <a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C263949">C263949</a> (2019&ndash;2026-04-17) &middot; staffing: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/moas/SPR-FAS-ACO2-MOA-2016-04-02.pdf">2016 Memorandum of Agreement (MOA)</a>, <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/moas/SPR-FAS-ACO2-MOA-2021-AG21-PRF03-032.pdf">signed 2021 MOA</a>, <a href="https://www.axios.com/local/seattle/2026/04/17/seattle-animal-control-staffing-increase-off-leash-dogs-parks-enforcement">Axios Seattle April 2026</a> &middot; coordinates approximate from park names</div>
 </header>
 
 <!-- ============ COST-FRAMING CONTEXT (top, sets the frame) ============ -->
@@ -168,7 +168,7 @@ HTML = r'''<!DOCTYPE html>
 
 <div class="takeaway neutral">
   <span class="kicker">Observation</span>
-  <p>Across 2014&ndash;2025, fee revenue ($351,099 cumulative) covered roughly 11% of the program&rsquo;s estimated $3.30M cost. Cost per published citation was lowest in the peak-output years ($229 in 2018) and highest in the trough ($1,730 in 2022); even 2024&rsquo;s partial recovery to 447 citations leaves it at $654, nearly triple the 2018 figure. Because this ratio is measured against the program <em>as actually staffed</em> (~one officer), the rise reflects falling output &mdash; not money spent on officers who were never hired. What the 2023 funding decision means for actual cost going forward is detailed just below.</p>
+  <p>Across 2014&ndash;2026, fee revenue ($351,099 cumulative) covered roughly 11% of the program&rsquo;s estimated $3.30M cost. Cost per published citation was lowest in the peak-output years ($229 in 2018) and highest in the trough ($1,730 in 2022); even 2024&rsquo;s partial recovery to 447 citations leaves it at $654, nearly triple the 2018 figure. Because this ratio is measured against the program <em>as actually staffed</em> (~one officer), the rise reflects falling output &mdash; not money spent on officers who were never hired. What the 2023 funding decision means for actual cost going forward is detailed just below.</p>
 </div>
 
 <div class="fair-note">
@@ -216,7 +216,7 @@ HTML = r'''<!DOCTYPE html>
 <div class="chart-block">
   <div class="chart-title">First-offense share of DLP citations, 2014&ndash;2026</div>
   <div class="chart-subtitle">Share of each year's DLP citations that are first offenses (vs. 2nd, 3rd, or 4th+ under SMC 18.12.080's escalation schedule). COVID period shaded. 2026 partial-year.</div>
-  <div class="chart-wrap short"><canvas id="chartFirstOffense" role="img" aria-label="Line chart of first-offense share of DLP citations per year, consistently 85-96%."></canvas></div>
+  <div class="chart-wrap short"><canvas id="chartFirstOffense" role="img" aria-label="Line chart of first-offense share of DLP citations per year, consistently 84-96%."></canvas></div>
   <div class="chart-source">Source: offense levels in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-citations.csv">enforcement-citations.csv</a> &middot; <a href="https://library.municode.com/wa/seattle/codes/municipal_code?nodeId=TIT18PALA_CH18.12GEPRRE_SUBCHAPTER_IIOFPRPA_18.12.080DORELI">SMC 18.12.080(A)</a></div>
 </div>
 

@@ -15,6 +15,7 @@ Exit code is non-zero if any check fails.
 from __future__ import annotations
 
 import csv
+import statistics
 import sys
 from pathlib import Path
 
@@ -92,7 +93,7 @@ def main() -> None:
     SQFT_AC = 43560
     expect = {  # city -> the precise figure printed in the chart aria-label
         "Seattle WA": 5.5, "Austin TX": 11.3, "Portland OR": 18.7,
-        "San Francisco CA": 20.0, "Vancouver BC": 36.7,
+        "San Francisco CA": 20.0, "Vancouver BC": 36.8,
     }
     for city, shown in expect.items():
         r = peers[city]
@@ -152,6 +153,104 @@ def main() -> None:
     present("150,000", "dog-population floor (cross-page anchor)")
     present("157 playground", "playground count")
     present("115,000", "under-18 population")
+
+    # ---- [5] Audit-pass additions (June 2026) -----------------------------
+    # Load-bearing numbers neither verifier asserted before the June 2026
+    # full-site audit, plus regression guards on figures corrected in that pass.
+    print("\n[5] Audit additions (acreage, facilities ratios, per-capita multiples, quarter-acre)")
+
+    # Canonical Seattle parkland acreage = 6,662 (TPL 2025 ParkScore; peer-cities.csv).
+    acreage = peers["Seattle WA"]["parkland_acres"]
+    check(acreage == "6662", f"peer-cities.csv Seattle parkland_acres == 6662 (got {acreage})")
+    present("6,662", "canonical Seattle parkland acreage")
+    legal_share = round(100 * 30.7 / 6662, 2)  # 30.7 legal OLA ac / 6,662 parkland ac
+    check(approx(legal_share, 0.46, 0.005), f"legal off-leash share of parkland == 0.46% (got {legal_share})")
+    present("0.46%", "legal off-leash share of parkland")
+    present("99.5%", "share of parkland off-limits to off-leash")
+    check("6,400 acres" not in html, "stale '6,400 acres' figure removed (audit June 2026; canonical 6,662)")
+
+    # Budget Finding 02 (Fix A, audit June 2026): OLA-only operating share in basis
+    # points, with one-time Cycle 2 capital EXCLUDED from the disclosed (solid) bars.
+    # The disclosed peak is 6.4 bp (2016); no disclosed bar may exceed it. If capital
+    # is ever re-folded, the 2024 bar jumps to 58.0 bp and these checks fail.
+    def _bp(numer_k: float, spr_m: float) -> float:
+        return round(numer_k * 1000 / (spr_m * 1_000_000) * 10000 * 10) / 10
+    disclosed_bp = {y: _bp(float(r["ola_only_k"]), float(r["spr_total_budget_m"]))
+                    for y, r in bud.items() if r["ola_only_k"]}
+    peak_y = max(disclosed_bp, key=disclosed_bp.get)
+    check(peak_y == "2016" and disclosed_bp["2016"] == 6.4,
+          f"budget Finding 02 disclosed peak == 6.4 bp in 2016 (got {disclosed_bp[peak_y]} bp in {peak_y})")
+    check(disclosed_bp["2024"] == 4.0,
+          f"2024 disclosed bar == 4.0 bp w/o capital (got {disclosed_bp['2024']}; 58.0 = capital re-folded)")
+    present("6.4 bp", "2016 disclosed basis-point peak")
+
+    # Facilities-per-constituent ratios (part1 Finding 06): playgrounds vs OLAs.
+    fac = {r["facility"]: r for r in load_csv("seattle-facility-counts.csv")}
+    kids_per_play = int(fac["Playgrounds"]["constituent_count"]) / int(fac["Playgrounds"]["count"])
+    n_ola = int(fac["Off-leash areas"]["count"])
+    ratio_floor = (int(fac["Off-leash areas"]["constituent_count"]) / n_ola) / kids_per_play  # 150K floor
+    ratio_high = (400_000 / n_ola) / kids_per_play  # 400K SPR 2023 study high
+    check(approx(ratio_floor, 14.6, 0.1), f"facilities ratio at 150,000-dog floor == 14.6x (got {ratio_floor:.1f})")
+    check(approx(ratio_high, 39.0, 0.2), f"facilities ratio at 400,000 SPR-study est == 39x (got {ratio_high:.1f})")
+    present("14.6&times;", "facilities ratio (150,000-dog floor)")
+    present("39&times;", "facilities ratio (400,000 SPR-study estimate)")
+
+    # dogs:children ratio uses the 150,000 floor and 115,000 under-18 (Finding 06 lead).
+    dk = round(150_000 / 115_000, 1)
+    check(dk == 1.3, f"dogs:children ratio (150K floor / 115K kids) == 1.3 (got {dk})")
+    present("1.3 to 1", "dogs-outnumber-children ratio")
+    check("1.4 to 1" not in html, "stale '1.4 to 1' dogs:children ratio removed (audit June 2026)")
+
+    # Per-capita OLA-acreage multiples vs Seattle (ola_acres_per_10k ratios, part2 takeaway).
+    sea10 = float(peers["Seattle WA"]["ola_acres_per_10k"])
+    sf_mult = round(float(peers["San Francisco CA"]["ola_acres_per_10k"]) / sea10, 1)
+    por_mult = round(float(peers["Portland OR"]["ola_acres_per_10k"]) / sea10, 1)
+    van_mult = round(float(peers["Vancouver BC"]["ola_acres_per_10k"]) / sea10, 1)
+    check(sf_mult == 3.6, f"San Francisco per-capita multiple == 3.6x (got {sf_mult})")
+    check(por_mult == 3.4, f"Portland per-capita multiple == 3.4x (got {por_mult})")
+    check(van_mult == 6.7, f"Vancouver per-capita multiple == 6.7x (got {van_mult})")
+    present("3.6&times;", "San Francisco per-capita OLA-acreage multiple")
+
+    # Quarter-acre OLA count = 3 (Denny 0.105, Kinnear 0.124, Plymouth Pillars 0.2 < 0.25 ac).
+    qa = [r for r in olas if r["acres"] and float(r["acres"]) < 0.25]
+    check(len(qa) == 3, f"OLAs under a quarter-acre == 3 (got {len(qa)})")
+    check("four are under a quarter-acre" not in html, "stale 'four are under a quarter-acre' removed (audit June 2026)")
+
+    # OLA-only as ~22% of the combined OLA+P-Patch BSL (2023-2024 disclosed years).
+    sh23 = 100 * 126 / float(bud["2023"]["ola_ppatch_combined_k"])
+    sh24 = 100 * 129 / float(bud["2024"]["ola_ppatch_combined_k"])
+    check(approx(sh23, 22, 1.0) and approx(sh24, 22, 1.0),
+          f"OLA-only ~22% of combined BSL (2023 {sh23:.0f}%, 2024 {sh24:.0f}%)")
+    present("22%", "OLA-only share of combined BSL")
+
+    # Space-per-dog reconciliation: 5.37 sq ft (AVMA 248,858 dogs) vs 5.5 (0.30 peer rate).
+    avma_sqft = round(30.7 * SQFT_AC / 248_858, 2)
+    check(approx(avma_sqft, 5.37, 0.02), f"space-per-dog at AVMA 248,858 dogs == 5.37 (got {avma_sqft})")
+    present("5.37", "space-per-dog at AVMA dog estimate")
+    present("248,858", "AVMA-estimated Seattle dog count")
+
+    # ---- [6] Complaint-side enforcement figures ---------------------------
+    # Enforcement-page figures that verify_enforcement_data.py does not yet
+    # assert (it covers citations, not the complaint series). Added here per the
+    # audit's "machine-check the whole site" directive. Source:
+    # data/complaints-citations-monthly.csv (FiFi nuisance-dog complaints).
+    print("\n[6] Complaint series (data/complaints-citations-monthly.csv)")
+    cm = load_csv("complaints-citations-monthly.csv")
+    comp_2025 = sum(int(r["complaints"]) for r in cm if r["month"].startswith("2025"))
+    check(comp_2025 == 3010, f"2025 complaint total == 3,010 (got {comp_2025:,})")
+    present("3,010", "2025 nuisance-dog complaint total")
+    # complaints-to-citations ratio vs 2025 DLP citations (enforcement-year-metrics.csv)
+    ym = {r["year"]: r for r in load_csv("enforcement-year-metrics.csv")}
+    dlp_2025 = int(ym["2025"]["dlp_citations"])
+    ratio = round(comp_2025 / dlp_2025)
+    check(ratio == 11, f"2025 complaints-to-citations ratio == 11 (got {comp_2025}/{dlp_2025} = {ratio})")
+    present("11 complaints", "complaints-to-citations ratio prose")
+    # Pearson r over the page's co-availability window (2024-04..2026-06 = CMP_MONTHLY).
+    win = [r for r in cm if "2024-04" <= r["month"] <= "2026-06"]
+    r_corr = round(statistics.correlation(
+        [float(r["complaints"]) for r in win], [float(r["dlp_citations"]) for r in win]), 2)
+    check(r_corr == 0.13, f"complaint/citation Pearson r (2024-04..2026-06) == 0.13 (got {r_corr})")
+    present("0.13", "complaint/citation correlation r")
 
     # ---- summary ----------------------------------------------------------
     print("\n" + "=" * 64)

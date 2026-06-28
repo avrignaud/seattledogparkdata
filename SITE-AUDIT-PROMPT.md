@@ -15,6 +15,31 @@ source, (b) is arithmetically correct and reproducible from committed scripts,
 and (c) is stated **identically and fairly** everywhere it appears. Pay special
 attention to the staffing-framing invariant below — the most error-prone area.
 
+## Prior audit state (June 28, 2026) — re-verify, don't trust
+
+This site was audited on June 28, 2026; the results are in `AUDIT-FINDINGS.md`.
+Treat that file as a **hypothesis to attack, not ground truth** — your value is
+(a) confirming each applied fix is correct *and complete*, and (b) catching what
+the prior pass missed. Re-derive from primary sources; don't inherit conclusions.
+At the start of this pass both verifiers pass, the enforcement builder is
+idempotent, and `docs/data` mirrors `data/` — so a fresh failure is a regression
+to localize.
+
+- **Applied last pass (confirm, don't merely re-report):** dead Axios slug;
+  enforcement cost-recovery window 2014–2025→2014–2026; first-offense aria
+  84–96%; part2 quarter-acre four→three; part1 dogs:kids 1.4→1.3; part2 SF
+  per-capita 3.4×→3.6×; budget Vancouver aria 36.7→36.8; NYC citation May→April 10
+  plus the article title; peer-cities `$X.00M`→`$XM`; **budget Finding 02 "Fix A"**
+  (one-time capital removed from the disclosed bars — the 2024 disclosed bar
+  drops 58.0→4.0 bp and 2016 = 6.4 bp is the peak again); acreage standardized
+  to **6,662** (most recent TPL vintage).
+- **Reported but NOT fixed — independently resolve or challenge:**
+  `part3.html:253/267/281` per-park citation counts (page says Magnuson 248 /
+  Genesee 130 / Westcrest 86 for 2014–2019; `enforcement-hotspots.csv` says
+  367 / 152 / 122 for 2014–2026) — a P0 left for the owner; verify the proposed
+  367/152/122 from the raw CSV before trusting it. Also: the stale downloadable
+  PDF, and the still-unguarded per-year enforcement JSON series.
+
 ## How to run (multi-agent fan-out)
 
 Use the Workflow tool (or spawn subagents). Structure:
@@ -162,7 +187,15 @@ and inbound link still lands).
 
 **F. Links & sources.** No 404s; MOA/PRR blob links resolve to files that exist
 in the repo; the Axios link uses the live canonical URL (not the dead
-`more-paw-patrols` slug); seattle.gov/SMC/TPL links valid.
+`more-paw-patrols` slug); seattle.gov/SMC/TPL links valid. **Check link *text*,
+not just the URL** — a citation's article title and date must match the linked
+document (the prior pass missed a stale article title that matched the old URL
+slug). The Axios article is **HTTP-403 / bot-blocked**: don't try to fetch it;
+confirm only that the URL is canonical, and note it sources *only* the
+deployment-status facts (one officer now, two vacant, "two full-time seven-day
+positions plus backup," 26 rangers, "more than 460 parks") — the three-FTE count
+and every dollar figure ($152,399 / $454,652 / $528,279) are MOA/PRR, so flag any
+of those if they are attributed to Axios.
 
 **G. Charts vs prose vs alt-text.** Chart data matches the prose around it and
 the CSV behind it; each `aria-label`/alt text describes the *current* data
@@ -186,15 +219,24 @@ now reflect the 2026 re-up.
 
 ## Also check (things easy to miss)
 
-- **Two verify harnesses now exist** — `verify_enforcement_data.py` (enforcement)
-  and `verify_site_data.py` (walkshed/access, peer-city space-per-dog, budget,
-  facilities, cross-page anchors). Run both. Any load-bearing number **not** yet
-  asserted by either (esp. newer Part I/II figures, or anything you had to
-  compute by hand to check) should be **added to `verify_site_data.py`** as part
-  of the fix pass, so the whole site stays machine-checkable, not just
-  enforcement.
-- **Park-count / acreage drift:** "485+ parks", "460 parks", "more than 460",
-  "6,414 acres", "6,400 acres" — pin the canonical values and make them match.
+- **Two verify harnesses, now broader** — `verify_enforcement_data.py`
+  (enforcement) and `verify_site_data.py` (walkshed/access, peer-city
+  space-per-dog, budget, facilities, cross-page anchors; **now also** §[5] —
+  acreage 6,662, the 14.6×/39× facilities ratios, per-capita multiples,
+  quarter-acre count, 22%-of-combined, AVMA space-per-dog, and a budget Finding-02
+  bp guard — and §[6], the complaint series 3,010 / 11:1 / r=0.13). Run both. Any
+  load-bearing number **not** yet asserted by either (esp. newer Part I/II
+  figures, or anything you had to compute by hand) should be **added to
+  `verify_site_data.py`**. **Caveat learned last pass:** a number absent from
+  `enforcement_page_data.json` may still be machine-checked —
+  `verify_enforcement_data.py` recomputes several (e.g., the 46%/40% top-10
+  shares) from the raw CSV. **Grep the verifier scripts before flagging anything
+  "not machine-checked."**
+- **Park-count / acreage drift (resolved June 2026 — re-confirm):** acreage is
+  now **6,662** site-wide (most recent TPL ParkScore); confirm no "6,400"/"6,414"
+  survives on public pages. The site states **no Seattle park count**, so
+  "485+/460 parks" is moot (Axios's "more than 460" is available if one is ever
+  added).
 - **Dog-population denominator misuse:** confirm floor (150,000) is used for
   floor/lower-bound claims and the higher figures are attributed to the SPR
   study; check the 5.4 vs 5.5 sq-ft reconciliation note is intact and correct.

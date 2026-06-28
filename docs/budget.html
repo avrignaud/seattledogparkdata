@@ -108,14 +108,14 @@
 
 <div class="chart-block">
   <div class="chart-title">OLA-related budget as a share of SPR total, 2016&ndash;2026</div>
-  <div class="chart-subtitle">Bars in basis points (1 bp = 0.01%). Solid = SPR's publicly disclosed OLA-only figure plus any Cycle 2 capital that year. Dashed-outline = combined OLA + P-Patch BSL plus capital &mdash; SPR does not publish the OLA-only split for 2019&ndash;2022 or 2025&ndash;2026, so those bars are an upper bound on the OLA share.</div>
+  <div class="chart-subtitle">Bars in basis points (1 bp = 0.01%). Solid = SPR's publicly disclosed OLA-only figure. Dashed-outline = combined OLA + P-Patch BSL &mdash; SPR does not publish the OLA-only split for 2019&ndash;2022 or 2025&ndash;2026, so those bars are an upper bound on the OLA share. One-time Cycle 2 capital is excluded here (see Finding 01).</div>
   <div class="chart-wrap"><canvas id="chartPercentage" role="img" aria-label="Bar chart: OLA-related share of SPR total, 2016-2026, in basis points. Disclosed OLA-only peak is 6.4 bp in 2016."></canvas></div>
   <div class="chart-source">Source: Seattle budget books (SPR total) &middot; <a href="https://www.seattle.gov/parks/about-us/policies-and-plans/people-dogs-and-parks-strategic-plan">SPR People, Dogs and Parks Strategic Plan (2017)</a> &middot; raw calculation in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/budget-detail.csv">data/budget-detail.csv</a></div>
 </div>
 
 <div class="takeaway neutral">
   <span class="kicker">Observation</span>
-  <p>The tallest disclosed OLA-only bar is 2016 at 6.4 bp (0.064% of SPR spending); by 2018 it was 6.0 bp. Dashed-outline bars for 2025&ndash;2026 reach roughly 36&ndash;54 bp because they include P-Patch community gardens and, in 2024&ndash;2025, one-time Cycle 2 OLA capital; the OLA-only slice inside those bars is smaller and not published. For scale, SPR's 2016 survey found about 25% of residents use OLAs &mdash; a constituency whose budget share would be orders of magnitude higher if it tracked usage.</p>
+  <p>The tallest disclosed OLA-only bar is 2016 at 6.4 bp (0.064% of SPR spending); by 2018 it was 6.0 bp. Dashed-outline bars for 2025&ndash;2026 reach roughly 36&ndash;54 bp because they include P-Patch community gardens and the combined OLA + P-Patch BSL roughly tripled to ~$1.83M; the OLA-only slice inside those bars is smaller and not published. For scale, SPR's 2016 survey found about 25% of residents use OLAs &mdash; a constituency whose budget share would be orders of magnitude higher if it tracked usage.</p>
 </div>
 
 <!-- ================================================================= -->
@@ -147,7 +147,7 @@
 <div class="chart-block">
   <div class="chart-title">Off-leash space per dog, five West Coast &amp; peer cities</div>
   <div class="chart-subtitle">Published OLA acreage divided by estimated dogs (pop &times; 0.30). Reported in square feet per dog. Portland's 85 acres and San Francisco's 120 acres include unfenced voice-control sites that Seattle does not count; Austin's 80-acre figure is the fenced-comparable subset (the oft-cited 682-acre Austin total is inflated by Walnut Creek Metropolitan Park voice-control area).</div>
-  <div class="chart-wrap"><canvas id="chartSpacePerDogCities" role="img" aria-label="Horizontal bar chart: Off-leash space per dog. Seattle 5.5 sq ft, Austin fenced 11.3, Portland 18.7, San Francisco 20.0, Vancouver BC 36.7."></canvas></div>
+  <div class="chart-wrap"><canvas id="chartSpacePerDogCities" role="img" aria-label="Horizontal bar chart: Off-leash space per dog. Seattle 5.5 sq ft, Austin fenced 11.3, Portland 18.7, San Francisco 20.0, Vancouver BC 36.8."></canvas></div>
   <div class="chart-source">Math: OLA acreage from <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/peer-cities.csv">data/peer-cities.csv</a> (Seattle 30.7, Austin 80 fenced-comparable, Portland 85, SF 120, Vancouver BC 168). Populations: WA Office of Financial Management (OFM) 2025 (Seattle), US Census ACS 2023 (Portland/SF/Austin), Statistics Canada 2021 (Vancouver BC). Dog-ownership rate: AVMA 2025 Pet Ownership &amp; Demographics Sourcebook applied uniformly at 0.30 dogs/resident.</div>
 </div>
 
@@ -379,8 +379,11 @@
   // (hollow dashed-outline upper bound).
   const IS_DISCLOSED = YEARS.map((y, i) => OLA_ONLY_K[i] !== null);
   const BP_VALUES = YEARS.map((y, i) => {
-    const capK = CAPITAL_K[i] || 0;
-    const numerK = (IS_DISCLOSED[i] ? OLA_ONLY_K[i] : COMBINED_K[i]) + capK;
+    // OLA-only operating share only. One-time Cycle 2 capital is deliberately NOT
+    // folded in: doing so inflated the 2024 disclosed bar to ~58 bp and conflated
+    // one-time capital with the recurring OLA-only line. The $3.46M capital is
+    // narrated separately under Finding 01. (Audit June 2026.)
+    const numerK = IS_DISCLOSED[i] ? OLA_ONLY_K[i] : COMBINED_K[i];
     return Math.round((numerK * 1000) / (SPR_TOTAL_M[i] * 1000000) * 10000 * 10) / 10;
   });
 
