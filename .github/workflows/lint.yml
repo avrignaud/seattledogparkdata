@@ -71,3 +71,18 @@ jobs:
             sys.exit(1)
           print(f"All HTML files parse cleanly.")
           PY
+
+  verify:
+    name: Verify load-bearing numbers reconcile and appear on the site
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install deps (openpyxl, for raw PRR .xlsx reconciliation)
+        run: pip install openpyxl
+      - name: Enforcement numbers (data + rendered prose)
+        run: python3 scripts/verify_enforcement_data.py
+      - name: Budget / peer-city / walkshed / access numbers
+        run: python3 scripts/verify_site_data.py
