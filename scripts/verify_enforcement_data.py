@@ -437,11 +437,11 @@ def verify_year_metrics(rows: list[dict]) -> None:
             exp_first = round(100 * off_by_year[y].get(1, 0) / off_total, 1)
             check(abs(float(m["first_offense_pct"]) - exp_first) < 0.05, f"year-metrics {y} first-offense%: {m['first_offense_pct']} == {exp_first}")
 
-    # Cumulative cost-recovery cross-check (the 11% / $3.34M headline)
+    # Cumulative cost-recovery cross-check (the 11% / $3.30M headline)
     cum_cost = sum(round(STAFFING[y][0]*FAS + STAFFING[y][1]*FMW) for y in STAFFING)
     cum_rev = round(sum(rev_by_year.values()))
     recovery = 100 * cum_rev / cum_cost
-    check(3_300_000 <= cum_cost <= 3_400_000, f"cumulative cost ~$3.34M: ${cum_cost:,}")
+    check(3_250_000 <= cum_cost <= 3_350_000, f"cumulative cost ~$3.30M: ${cum_cost:,}")
     check(cum_rev == 351099, f"cumulative revenue == $351,099: ${cum_rev:,}")
     check(10.0 <= recovery <= 11.0, f"cost recovery 10-11%: {recovery:.1f}%")
     print(f"  INFO  cumulative cost ${cum_cost:,}, revenue ${cum_rev:,}, recovery {recovery:.1f}%")
@@ -601,7 +601,7 @@ def verify_html_prose(rows: list[dict]) -> None:
         ("per-FTE 2024", f"{perfte_2024}"),
         ("cumulative fee revenue", f"${cum_rev:,}"),
         ("cost recovery %", f"{recovery}%"),
-        ("cumulative cost $3.34M", "$3.34M"),
+        ("cumulative cost $3.30M", "$3.30M"),
         ("first-offense range low", f"{fo_lo}"),
         ("first-offense range high", f"{fo_hi}"),
         ("non-DLP post-2019 rows", f"{non_dlp_post2019}"),
@@ -614,6 +614,7 @@ def verify_html_prose(rows: list[dict]) -> None:
         ("baseline cost $292,399", f"${base_cost:,}"),
         ("single-officer ACO cost $152,399", f"${int(ym['2018']['traceable_aco_cost']):,}"),
         ("three-officer ACO cost $454,652", f"${int(ym['2023']['funded_aco_cost']):,}"),
+        ("2026 three-officer ACO cost $528,279", f"${int(ym['2026']['funded_aco_cost']):,}"),
     ]
     # top-5 named parks with their counts (footnote: "Discovery 564, ...")
     park_short = {"Discovery Park": "Discovery", "Magnuson Park": "Magnuson",

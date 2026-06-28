@@ -18,9 +18,12 @@ Sources:
     off-leash line. Flagged as estimate.
   - FTE schedule: 1 part-time ACO pre-2016 (imputed from PRR context); the April
     2016 MOA brought a full-time ACO II + paired FMW online mid-2016; the 2021
-    MOA continued that structure; the April 2026 expansion (Axios Seattle,
-    2026-04-17) doubles the ACO side. Pre-2016 and the 2016 transition year are
-    the softest assumptions and are flagged.
+    MOA continued that structure. The 2023 MOA *funded* three ACO IIs, but the
+    added positions were largely unfilled: as of April 2026 SPR said two of the
+    three were still being hired/trained, with roughly one officer working parks
+    (Axios Seattle, 2026-04-17). So attributable deployment is held at ~1.0 ACO
+    through 2026 — the funded-vs-deployed gap lives in FUNDED_ACO, not here.
+    Pre-2016 and the 2016 transition year are the softest assumptions and are flagged.
 
 2026 is a partial year (through 2026-04-17). cost_per_citation and
 citations_per_fte are emitted as blank for 2026 to avoid the partial-year
@@ -42,7 +45,9 @@ OUT = REPO_ROOT / "data" / "enforcement-year-metrics.csv"
 FAS_ACO_ANNUAL = 152399      # sourced: 2021 MOA Attachment A (per ACO II FTE)
 FAS_ACO_ANNUAL_2023 = 151551 # sourced: 2023 MOA PRF1602 (per ACO II FTE; 3 FTE = $454,652)
 FAS_ACO_TOTAL_2023 = 454652  # sourced: 2023 MOA PRF1602 (3 ACO II FTE, FAS-side)
-FMW_ANNUAL = 140000          # estimated: author triangulation
+FAS_ACO_ANNUAL_2026 = 176093 # sourced: 2026 MOA (per ACO II FTE; top rate $54.46/hr; 3 FTE = $528,279)
+FAS_ACO_TOTAL_2026 = 528279  # sourced: 2026 MOA (3 ACO II FTE, FAS-side authorized maximum)
+FMW_ANNUAL = 140000          # estimated: author triangulation (2016-2023 FMW pairing; the 2026 MOA pairs ACOs with Park Rangers instead)
 
 # (aco_fte, fmw_fte) attributable to OFF-LEASH enforcement, by year. This is the
 # conservative, output-anchored measure used for cost-per-citation and per-FTE —
@@ -63,7 +68,7 @@ STAFFING = {
     "2023": (1.0, 1.0),
     "2024": (1.0, 1.0),
     "2025": (1.0, 1.0),
-    "2026": (1.3, 1.0),   # YTD blend; expansion announced mid-April 2026
+    "2026": (1.0, 1.0),   # 2023-funded positions still being filled as of Apr 2026 (Axios); ~1 deployed, not 3
 }
 
 # FUNDED ACO headcount, by year — what the Park District actually pays for under
@@ -79,8 +84,11 @@ FUNDED_ACO = {
 
 
 def funded_aco_cost(year: str, fte: float) -> int:
-    """FAS-side funded ACO cost. 2023+ uses the documented MOA total; earlier
-    years use the 2021 MOA per-FTE rate."""
+    """FAS-side funded ACO cost (authorized annual maximum, 3 FTE). 2026+ uses the
+    2026 MOA total; 2023-2025 the 2023 MOA total; earlier years the 2021 MOA
+    per-FTE rate."""
+    if int(year) >= 2026:
+        return FAS_ACO_TOTAL_2026
     if int(year) >= 2023:
         return FAS_ACO_TOTAL_2023
     return round(fte * FAS_ACO_ANNUAL)

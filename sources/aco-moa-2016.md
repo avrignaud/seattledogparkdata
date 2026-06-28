@@ -40,17 +40,35 @@ Annual Salary of Animal Control Officer II:
 
 **This is the FAS-side personnel and divisional overhead only.** The SPR-side FMW cost (a full-time SPR employee), vehicle/equipment costs, SPR security supervisor time, and management overhead above the division level are not in this figure — they are on SPR's books.
 
-### What the 2021 MOA tells us about the 2026 expansion
+### Documented MOA costs (2023 and 2026, from primary documents)
 
-Per [Axios Seattle](https://www.axios.com/local/seattle) (April 2026), the Seattle Animal Shelter is expanding from **one officer (Wednesday–Saturday)** to **two full-time seven-day positions plus backup support**. Using the 2021 MOA baseline and an approximate 4% compound annual wage increase through 2026:
+The 2021 MOA above funded **one** ACO II. Two later MOAs — both obtained via records request — supersede its cost basis with documented, signed figures. **The earlier "~$185,000 projected / $700K–$1M" estimate on this page is retired; use the documented numbers below.**
 
-- 2021: $152,399 (one ACO II, FAS-side only)
-- 2026 projected: ~$185,000 per ACO II, FAS-side only (base + 45% OH + $22K divisional + supplies)
-- Two ACO II positions: **~$370,000 per year**, FAS-side only
-- Plus "backup support" (another 0.3–0.7 FTE of ACO coverage): **+$55,000–$130,000**
-- **FAS-side subtotal: ~$425,000 to $500,000 per year** for the expanded program, before any SPR-side costs
+**2023 MOA** ([PRF1602](../data/moas/SPR-FAS-ACO2-MOA-2023-PRF1602.pdf), signed Apr 2023, term through 2027-12-31; via PRR C265341). Funds **three** ACO IIs, each paired with an SPR Facilities Maintenance Worker (FMW):
 
-Adding equivalent SPR-side FMW staffing (if the pairing model is preserved — the 2021 MOA explicitly treats the ACO and FMW as a team) brings the total cost to **roughly $700,000 to $900,000 per year**. The fully-loaded number (including vehicle, dispatch, management share, training, and equipment refresh) could plausibly reach $1M.
+```
+Per ACO II FTE:
+  Top 2022 hourly rate $44.79 (2023 AWI then pending)
+  Salary $93,522 + benefits (47.97%) $44,864 = $138,386
+  Plus: $3,000 supplies + $10,165 divisional indirect
+  Per-FTE total: $151,551      3-FTE total: $454,652   (FAS-side)
+```
+
+**2026 MOA** ([SPR-FAS-ACO2-MOA-2026.pdf](../data/moas/SPR-FAS-ACO2-MOA-2026.pdf), signed 2026-05-29, term through 2026-12-31; via PRR C265589). Re-prices the **same** three-officer program for wage growth; pairs each ACO with an SPR **Park Ranger** (not FMW):
+
+```
+Per ACO II FTE:
+  Top hourly rate with AWI $54.46
+  Variable (billed on actual hours): salary $113,712 + variable benefits $26,246 = $139,958
+  Fixed (billed regardless):        pooled benefits $25,176 + supplies $3,000 + divisional indirect $7,959 = $36,135
+  Per-FTE total: $176,093      3-FTE authorized maximum: $528,279   (FAS-side)
+```
+
+Per officer, cost tracks wages, not scope: **$152,399 (2021) → $151,551 (2023) → $176,093 (2026)**. What changed in 2023 was the *number funded* (one → three); 2026 changes the price, not the plan.
+
+**Funded ≠ deployed.** The funded corps tripled in 2023, but the added positions sat largely unfilled: as of April 2026 SPR said two of three were still being hired, with ~one officer working parks ([Axios](https://www.axios.com/local/seattle/2026/04/17/seattle-animal-control-staffing-increase-off-leash-dogs-parks-enforcement)). The 2026 MOA bills variable labor on actual hours worked, so $528,279 is an authorized maximum, not actual spend.
+
+**SPR-side cost is still undocumented.** Both MOAs carry the paired SPR staff (FMW, then Park Ranger) on SPR's own books with no cost disclosed. The earlier ~$140,000/yr FMW figure was an author estimate; the 2023 Park District budget book's Park Safety Program package (2 ACOs + 2 Maintenance Laborers, $448,640) implies ~$73,000 per laborer, and the 2026 pairing is a general-corps Park Ranger anyway. The SPR-side cost is the subject of [PRR #10](../prrs/10-spr-ranger-pairing-cost.md); until it returns, the site reports the documented FAS-side figure and declines a firm all-in upper bound.
 
 ## Why this matters for the site's argument
 
@@ -59,7 +77,7 @@ The factual pages of this site already show:
 - Outcome: ~**0.5% annual enforcement probability per dog**; roughly **90% first-offense warnings** at $0 or $54
 - Structural: a team of **1 officer + 1 FMW, 4 days per week**, trying to cover **485+ parks** and **6,414 acres**
 
-The 2021 MOA pins down the cost side of that structure: about **$152K per year per ACO II (FAS only)** for 160 officer-hours per month of coverage. The 2026 expansion adds roughly one more ACO II of coverage and extends to seven-day operation, at a plausible annual cost of **$700K–$1M all-in**.
+The MOAs pin down the FAS-side cost of that structure: **$152K/yr per ACO II** (2021, one officer) rising to a **$528,279/yr authorized maximum** for three officers (2026 MOA). The expansion to three officers and seven-day operation was funded in **2023**; deployment has lagged the funding, and the SPR-side pairing cost is not yet documented (PRR #10).
 
 That is a meaningful sum aimed at a lever the enforcement data shows doesn't move compliance. The [opinion page's Recommendation](../docs/opinion.html#recommendation) argues this money would produce more result redirected to a clean-park compliance model (time-zoned shared use plus post-session cleanup staff).
 
@@ -68,13 +86,12 @@ That is a meaningful sum aimed at a lever the enforcement data shows doesn't mov
 When using these numbers on the site:
 
 - Cite the 2021 MOA directly, linking the PDF in this repo.
-- Do **not** round to "one million dollars" without acknowledging the upper bound is an estimate. The defensible single-sentence framing is: "The ACO-side cost of the current staffing model is $152,399 per officer per year per the signed 2021 MOA; the 2026 expansion plausibly runs $700K–$1M annually when SPR-side FMW staffing and overhead are included."
+- Use the **documented** figures: $151,551/FTE and $454,652 total (2023 MOA), re-priced to $176,093/FTE and a **$528,279/yr authorized maximum** (2026 MOA), FAS-side. Do **not** revive the old $700K–$1M all-in without flagging it as an estimate; the SPR-side pairing cost is undocumented pending PRR #10. Defensible single-sentence framing: "The FAS-side cost of the three-officer park-patrol program is an authorized $528,279/yr per the signed 2026 MOA — a re-pricing of the three officers funded in 2023, not a new expansion; the SPR-side ranger pairing is carried separately and not publicly itemized."
 - For the one-officer / four-days-per-week figure: "160 officer-hours per month covering 485+ parks" is directly defensible from the 2021 MOA schedule clause.
 
 ## Outstanding documents worth acquiring
 
-1. The **2016 MOA** (signed 2016-04-02) — the original contract for this program. Andre's copy is in personal archive; a copy pulled via formal records request would be publishable.
-2. The **2023–2025 MOA renewal** — needed to capture current-cycle terms exactly. The 2021 MOA explicitly anticipated renewal.
-3. The **2026 MOA amendment or renewal** reflecting the Axios-reported expansion to two FTE seven-day coverage. Likely not yet publicly filed as of April 2026; worth re-requesting in Q3 2026.
-
-A single records request to SPR referencing agreement family "Making Parks Safer / ACO / SPR-FAS MOA" should return all three.
+1. The **2016 MOA** (signed 2016-04-02) — original contract for this program. ✅ Obtained; archived in [`data/moas/`](../data/moas/SPR-FAS-ACO2-MOA-2016-04-02.pdf).
+2. The **2021, 2023, and 2026 MOAs** — ✅ all obtained (via PRRs C265341 and C265589); archived in [`data/moas/`](../data/moas/) with terms captured above.
+3. **SPR-side pairing cost** (FMW / Park Ranger) — still undocumented; requested via [PRR #10](../prrs/10-spr-ranger-pairing-cost.md).
+4. **Actual deployment** (filled FTE, parks patrolled) — requested via the MOA §5/§7 records in [PRR #9](../prrs/09-spr-aco-monthly-parks-reports.md).
