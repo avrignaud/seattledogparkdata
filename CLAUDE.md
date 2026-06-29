@@ -1,48 +1,16 @@
 # CLAUDE.md  
-Context for Claude Code sessions working on this project. Read this first, then README.md for the public-facing summary and TODO.md for planned work.  
+Context for Claude Code sessions working on this project. **Read `AGENTS.md` first** — it is the canonical shared context (Codex and Claude Code both use it), carrying the current file layout, methodology, and decisions. This file mirrors it plus the Claude-Code-specific operational notes below (generated-file discipline, the updates-log workflow, page-template conventions). **If anything here conflicts with `AGENTS.md` or the committed repo, AGENTS.md and the repo win** — treat this file as stale until reconciled. Then skim README.md and TODO.md.  
 ## What this is  
-A civic-data project about Seattle's off-leash dog area (OLA) system. Two HTML reports are already built (Part I: The Gap, Part II: Access) and render as GitHub Pages from /docs. The data behind them is in /data as plain CSVs. Primary sources are cataloged in /sources/SOURCES.md.  
-The domain will be **seattledogparkdata.com**. The GitHub org is **SyrinxVentures**.  
-The domain will be **seattledogparkdata.com**. The GitHub org is **SyrinxVentures**.  
-## The framing pivot (important — read this)  
-The earlier drafts (Parts I and II as they exist) were written in a somewhat editorial register — with pull quotes, rhetorical headers ("99% of Seattleites live within a ten-minute walk of a park. *Almost none of them* can legally use it with their dog"), and takeaway boxes that are frankly opinionated.  
-**The new direction is facts-first.** The site should be:  
-1. **A public data reference.** Numbers, charts, maps, sources, methodology.  
-2. **One clearly demarcated opinion section** with recommendations, flagged unmistakably as opinion (a separate page, or a visually-distinct "Editorial" section at the end of the report). Everything else stays neutral.  
-This means the existing Part I and Part II reports need editorial tone-adjustment — especially the chart-takeaway boxes and pull quotes, which should either be (a) rewritten as neutral factual observations, (b) moved to the opinion section, or (c) removed.  
-This is near-term priority-one work. Flag it proactively if asked "what should we do first."  
-## Current file layout  
-```
-./                              # Repo root
-├── CLAUDE.md                   # This file
-├── README.md                   # Public-facing overview
-├── TODO.md                     # Planned work, ranked by value/effort
-├── CHANGELOG.md                # Version log
-├── LICENSE                     # MIT
-├── .gitignore
-├── docs/                       # GitHub Pages publishes from here
-│   ├── index.html              # Landing page
-│   ├── part1-the-gap.html      # Report Part I
-│   └── part2-access.html       # Report Part II (has Leaflet map)
-├── data/
-│   ├── seattle-olas.csv        # 14 existing OLAs with coordinates + acreage
-│   ├── seattle-timeseries.csv  # Pop/budget/OLA count by year 2010-2026
-│   ├── peer-cities.csv         # Portland, SF, Vancouver BC, Austin, etc.
-│   ├── illegal-use-indicators.csv
-│   ├── kinnear-timeline.csv    # 20-year Kinnear incident chronology
-│   └── planned-olas.csv        # Under-construction + in-planning sites
-└── sources/
-    └── SOURCES.md              # All primary sources with URLs
-
-```
-## Directory setup note (if the files look wrong)  
-The tarball extracts to a seattle-dog-parks/ subdirectory. If the repo is at /Developer/seattledogparkdata.com/seattle-dog-parks/instead of directly at /Developer/seattledogparkdata.com/, move the contents up one level:  
-```
-cd /Developer/seattledogparkdata.com
-mv seattle-dog-parks/* seattle-dog-parks/.* . 2>/dev/null
-rmdir seattle-dog-parks
-
-```
+A civic-data project about Seattle's off-leash dog area (OLA) system: a neutral **public data reference** plus one clearly-labeled **opinion page**. It lives at **seattledogparkdata.com** (Cloudflare Pages, served from `docs/`); the repo is **github.com/avrignaud/seattledogparkdata** (private). Data is in `/data` as plain CSVs; primary sources are cataloged in `/sources/SOURCES.md`.  
+## Framing — facts first  
+The site is (1) a neutral data reference — numbers, charts, maps, sources, methodology, with every chart block linking its primary source — and (2) **one clearly-labeled opinion page, `docs/opinion.html`** (principles, counter-arguments, a signed policy recommendation; visually distinct). Keep new factual claims on the report pages and link them to primary sources; opinion goes on the opinion page — don't mix them. This facts-first pivot is **done**: earlier editorial drafts of Parts I/II were de-editorialized and the opinion content moved to `opinion.html`, so don't reintroduce pull quotes or opinionated takeaways on the data pages.  
+## File layout  
+The **repo itself is authoritative** (`AGENTS.md` has a fuller annotated tree, though its PRR/MOA/script counts lag slightly). Current shape:  
+* `docs/` — the site, served by **Cloudflare Pages**. Nine public pages: `index`, `part1-the-gap`, `part2-access`, `part3`, `enforcement`, `budget`, `peer-cities`, `opinion`, `updates`. Plus `print.html` (feeds the PDF), `_headers` (CSP/security), and `docs/data/` (a runtime mirror of `data/`). `mockup-*.html` and `proposal-*.html` are scratch — not public, never audited.  
+* `data/` — 21 CSVs, plus `walkshed/` (osmnx isochrones + population coverage), `moas/` (4 signed SPR/FAS MOAs: 2016, 2021, 2023, 2026), `prr-responses/` (6 raw PRR dirs), and `tpl-parkserve/`.  
+* `scripts/` — 17 builders/analysis scripts (enforcement page + datasets + metrics + hotspots, walkshed, licensing, TPL overlay, hero image, PDF, and the verifiers `verify_enforcement_data.py` / `verify_site_data.py`).  
+* `prrs/` — 10 PRR drafts (`01`–`10`) + README. `sources/` — `SOURCES.md` + archived threads.  
+* Root: `AGENTS.md`, `README.md`, `TODO.md`, `CHANGELOG.md`, `METHODOLOGY.md`, `DATA-AUDIT.md`, `DEPLOYMENT.md`, `LICENSE`, `package.json`, and the `*-AUDIT*.md` prompts/reports.  
 ## Working style  
 Andre's preferences (from conversation history):  
 * **Direct, no preamble.** Get to the point. Don't recap what was just said.  
@@ -75,8 +43,8 @@ Seattle Park District's "Maintaining Parks & Facilities" Budget Summary Level (B
 The "150,000+" number is the conservative floor, cited since ~2013 (Seattle Humane, Cascade PBS). SPR's own 2023 Expansion Study cites estimates up to 400,000. Use 150K for floor calculations. If higher numbers are used anywhere, cite SPR's Expansion Study explicitly.  
 ## 5. Austin's 682-acre figure is misleading  
 Austin shows up in some sources with ~682 acres of "off-leash area" — this is inflated by Walnut Creek Metropolitan Park (293 ac voice-control) and other natural-area sites, not fenced dog parks. Red Bud Isle is a *different* Austin dog park (~13 ac); earlier drafts of this project confused the two. When citing Austin, the fenced/traditional OLA acreage is closer to 80. The peer-cities.csv has both numbers — use the adjusted one for apples-to-apples.  
-## 6. OLA coordinates in seattle-olas.csv are approximations  
-They were derived from SPR address data, not from an official GeoJSON layer. Good enough for display on a Leaflet map at city scale; don't use them for legal or engineering purposes. If someone wants canonical geometry, they're on Seattle's ArcGIS Open Data portal somewhere.  
+## 6. OLA coordinates in seattle-olas.csv are now authoritative  
+As of April 2026 they were pulled from SPR's Dog Off-Leash Areas ArcGIS FeatureServer, replacing the earlier address-derived approximations (several points moved 0.3–1.5 km). They seed the walkshed analysis, so don't revert them to address guesses. Still display-grade, not survey-grade — don't use them for legal or engineering purposes.  
 ## Known-incomplete work (on TODO, don't re-invent)  
 See TODO.md for the full list. The highest-value items:  
 1. ~~**Replace straight-line walkshed with network analysis**~~ **DONE (April 2026).** The network-distance walkshed (osmnx + 2020 Census block groups) shipped and replaced the old 33% straight-line estimate with 11.7% (10-min) / 76.6% (2.5-mi). Remaining refinement: geocode the ~695 street-address citation rows and spatial-join against park polygons; recompute as Seattle's OSM walk network improves.  
@@ -88,12 +56,12 @@ See TODO.md for the full list. The highest-value items:
 ## Decisions already made (don't relitigate unless asked)  
 * **License: MIT.** For the code and analysis. Data is public-record and not separately licensed.  
 * **Domain: seattledogparkdata.com.** Factual register, matches the facts-first framing.  
-* **GitHub org: SyrinxVentures.** Andre's S-Corp org.  
-* **GitHub Pages from /docs folder on main branch.** Standard setup.  
+* **Repo: `avrignaud/seattledogparkdata`** (private). Earlier `SyrinxVentures` references are stale.  
+* **Deployment: Cloudflare Pages** from `docs/` on `main` (see DEPLOYMENT.md; GitHub Pages was considered earlier, then switched).  
 * **Static HTML only.** No framework, no build step, no bundler. Deliberate choice.  
 * **Chart.js + Leaflet.** No D3, no Plotly, no Observable notebooks. Unless there's a clear reason to upgrade.  
-* **Two reports, not ten.** Part I and Part II are the current structure. A Part III is conceivable (see TODO) but shouldn't be created reflexively.  
-* **No analytics, no cookies, no tracking.** Civic data project, keep it clean.  
+* **Pages: nine public + print.** Landing, Part I (the gap), Part II (access), Part III, Enforcement, Budget, Peer Cities, Opinion, Updates — plus `print.html` which feeds the PDF. This set is deliberate; don't add pages reflexively.  
+* **Analytics: Cloudflare Web Analytics only** (uptime / load-time). No cookies, no personal tracking — keep it clean.  
 ## Updates log and date conventions
 
 The site has a user-facing updates log at `docs/updates.html` and a "Recent updates" panel near the top of `docs/index.html`. Both are hand-maintained, kept in sync manually. The threshold for what counts as a logged update is **internal-only** — do not document it on the public site.
@@ -165,7 +133,7 @@ Generated artifacts and their sources:
 * **`data/tpl-parkserve/*.csv`** ← `build_tpl_overlay.py` (needs `geopandas`).  
 * **`data/walkshed/*.geojson`** ← `compute_walkshed.py` (needs `osmnx`; heavy, one-time).  
 * **`docs/images/enforcement-{hero,card}.png`** ← `build_hero_image.py` (needs `matplotlib`; note: PNG bytes are not reproducible across matplotlib versions, so a binary-only diff there is usually environment noise, not content drift).  
-* **`docs/data/*`** ← `scripts/sync-data.sh` mirrors `data/*` so GitHub Pages can serve them at runtime. Re-run after editing any `data/*.csv` or walkshed GeoJSON.  
+* **`docs/data/*`** ← `scripts/sync-data.sh` mirrors `data/*` so Cloudflare Pages can serve them at runtime. Re-run after editing any `data/*.csv` or walkshed GeoJSON.  
 * **`docs/seattle-dog-parks-report.pdf`** ← `build-pdf.mjs` (also stamps a cache-bust version into `docs/index.html`).  
 **The other HTML pages are hand-maintained** (no generator): `index.html`, `part1-the-gap.html`, `part2-access.html`, `part3.html`, `budget.html`, `peer-cities.html`, `opinion.html`, `updates.html`. Edit those directly.  
 ## Page template & UX conventions (keep consistent; don't drift)  
@@ -186,18 +154,15 @@ Design context for `/impeccable` lives in [`.agents/context/PRODUCT.md`](.agents
 * **Don't commit .DS_Store or editor configs.** .gitignore is set up.  
 * **CHANGELOG.md is versioned.** Increment on material updates to data or analysis. Bump the version in SemVer-ish style (0.2.0 currently).  
 ## What "good" looks like for the next session  
-If the next Claude Code session is asked "what should we work on?", good answers are any of:  
-* Refactor Part I and Part II to separate neutral factual content from opinion (the pivot described above). Create a new docs/opinion.html or equivalent for recommendations.  
-* Implement the network-distance walkshed analysis (TODO #1). This would be the single biggest methodological upgrade available.  
-* Add a dedicated docs/data.html page that presents the CSVs as interactive tables (DataTables.js or similar) so the "data site" framing is reinforced.  
-* Draft the PRRs from the TODO list as markdown files in a new /prrs directory, ready to send.  
-* Expand the peer-city data with deeper per-city pages (currently peer cities are only aggregate).  
-* Add a simple site header/footer template shared across the three HTML files (currently each file has its own complete styling).  
-Bad answers:  
-* "Let's rewrite this in React." No.  
-* "Let's add a CMS." No.  
-* "Let's write a script that scrapes SPR nightly." No — the data changes on multi-year timescales; a quarterly manual refresh is correct.  
-* "Let's add analytics so we can see who's reading." No.  
+If asked "what should we work on?", good answers draw from `TODO.md`. Live priorities:  
+* Geocode the ~695 street-address enforcement rows and spatial-join against park polygons; recompute the access × citation overlap as the OSM walk network improves.  
+* Citation-density backfill — ensure every bare number on Part I/II links to its primary source.  
+* Ingest pending PRR responses (SPR ranger-pairing cost #10; SPU FiFi complaints) as they land.  
+* Deepen peer-city per-city detail, or refine the walkshed / TPL overlays.  
+Bad answers (asked and settled before):  
+* "Let's rewrite this in React / add a CMS / a bundler." No — static HTML is deliberate.  
+* "Let's scrape SPR nightly." No — the data changes on multi-year timescales; a quarterly manual refresh is correct.  
+* "Let's add behavioral analytics / tracking cookies." No — Cloudflare's basic uptime analytics is the only telemetry, by design.  
 ## Communication context  
 Andre (the project owner) lives in Queen Anne — which is the neighborhood whose only nearby OLA is Kinnear (the 0.1-acre case study in Part II). This is personal for him as well as civic. That context matters for tone calibration, but the reports themselves should remain neutral.  
 The existing reports were drafted collaboratively via claude.ai; the expectation from here is that Claude Code will extend and refine the work from the repo directly.  
