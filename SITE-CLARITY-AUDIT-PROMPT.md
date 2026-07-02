@@ -1,5 +1,8 @@
 # Site audit prompt — clarity, consistency, and correctness across the whole site
 
+> **SUPERSEDED (July 2026):** folded into `SITE-AUDIT-PROMPT.md` v2 (Track 3,
+> dimensions K–L). Kept for reference; don't run standalone.
+
 Paste everything below the line into a capable LLM/agent running in this repo
 (`seattledogparkdata.com`) with read/execute access. It asks for a single
 whole-site pass that finds anything making the site hard to **read, parse, or
