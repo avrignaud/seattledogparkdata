@@ -80,7 +80,7 @@ The build prints a verification summary. The separate verifier asserts ~120 inva
 .venv/bin/python3 scripts/build_enforcement_metrics.py
 .venv/bin/python3 scripts/verify_enforcement_data.py
 ```
-The verifier recomputes every metric from the consolidated CSV + the model and asserts equality, plus cross-checks the cumulative cost (~$3.34M), revenue ($351,099), and cost-recovery (10.5%) headline figures.
+The verifier recomputes every metric from the consolidated CSV + the model and asserts equality, plus cross-checks the cumulative cost (~$3.30M), revenue ($351,099), and cost-recovery (~11%) headline figures.
 
 ### `data/walkshed/citation-rate-by-walkshed-status.csv`
 

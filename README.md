@@ -1,6 +1,6 @@
 # Seattle Off-Leash Areas: A Data Story
 
-Data-driven research on Seattle's 14 designated off-leash areas (OLAs), how they compare to peer cities, and why a system that serves ~150,000+ dogs with ~26 acres of fenced space produces measurable system failures — including rampant illegal off-leash use and one of the worst per-capita dog park ratios on the West Coast.
+Data-driven research on Seattle's 14 designated off-leash areas (OLAs), how they compare to peer cities, and why a system that serves ~150,000+ dogs with about 30.7 acres of fenced space produces measurable system failures — including rampant illegal off-leash use and one of the worst per-capita dog park ratios on the West Coast.
 
 This is a civic advocacy research project. Everything here is sourced from public data: Seattle Parks & Recreation budget books, the Seattle Park District financial plans, Trust for Public Land ParkScore, WA OFM population estimates, and contemporaneous reporting.
 
@@ -9,11 +9,11 @@ This is a civic advocacy research project. Everything here is sourced from publi
 - Seattle has been stuck at **14 OLAs since ~2009** while population grew **+34%**. First net increase (to 16) opens fall 2026.
 - Seattle's dog-park density is **1.82 per 100,000 residents** — one-third of Portland (5.74), SF (5.03), and Vancouver BC (5.44).
 - **99% of Seattle residents** live within a 10-minute walk of a park. Only **11.7%** live within a 10-minute network walk of an OLA (repo-computed April 2026; see Methodology).
-- Of Seattle's 14 OLAs, **7 are under 1 acre** and **4 are under a quarter-acre**. The smallest (Kinnear) is 0.1 ac.
+- Of Seattle's 14 OLAs, **7 are under 1 acre** and **3 are under a quarter-acre**. The smallest (Kinnear) is 0.1 ac.
 - SPR's own 2016 survey: **39% of dog owners** admit illegally off-leashing in parks monthly or more often. SPR acknowledges this in its own planning documents as a supply problem.
-- Peer-city OLA acreage per 10K residents: Vancouver BC 2.54, Portland 1.29, Seattle **0.32** (~8× and ~4× gaps respectively).
+- Peer-city OLA acreage per 10K residents: Vancouver BC 2.54, Portland 1.29, Seattle **0.38** (6.7× and 3.4× gaps respectively).
 - It's **not a money problem** — Seattle spends $418/resident on parks (near the top nationally). Portland spends less and has 3× the dog park density. This is an allocation issue, not a funding issue.
-- Park District Cycle 2 (2023–2028) is the first meaningful OLA investment since 2009 — 17 years — with $3.1M capital for two new OLAs plus ~$1.8M/yr operational. Real progress, but still <1% of SPR's total budget, and SPR has said additional OLAs will require future funding requests.
+- Park District Cycle 2 (2023–2028) is the first meaningful OLA investment since 2009 — 17 years — with $3.46M capital for two new OLAs plus design of a third, and ~$1.8M/yr operational. Real progress, but still <1% of SPR's total budget, and SPR has said additional OLAs will require future funding requests.
 
 ## The reports
 

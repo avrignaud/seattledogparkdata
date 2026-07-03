@@ -15,8 +15,10 @@ Exit code is non-zero if any check fails.
 from __future__ import annotations
 
 import csv
+import json
 import statistics
 import sys
+from collections import Counter
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
@@ -251,6 +253,75 @@ def main() -> None:
         [float(r["complaints"]) for r in win], [float(r["dlp_citations"]) for r in win]), 2)
     check(r_corr == 0.13, f"complaint/citation Pearson r (2024-04..2026-06) == 0.13 (got {r_corr})")
     present("0.13", "complaint/citation correlation r")
+
+    # ---- [7] Part III per-park citation counts (raw recompute, full window) --
+    # Owner decision (July 2026 audit): part3.html per-park counts move from the
+    # never-verified 2014-2019 slice (248/130/86 -- itself wrong; the true slice
+    # is 257/131/89) to the full 2014-Apr 2026 window, recomputed from the RAW
+    # citations CSV (not a derived file): DLP-only, park-named, grouped by
+    # canonical location -- the same filter build_enforcement_hotspots relies on.
+    print("\n[7] Part III per-park counts (raw enforcement-citations.csv, DLP park-named)")
+    cites = load_csv("enforcement-citations.csv")
+    park_ct = Counter(r["location_canon"] for r in cites
+                      if r["dlp_only"] == "True" and r["location_type"] == "park_named")
+    for park, want in (("Magnuson Park", 367), ("Genesee Park", 152), ("Westcrest Park", 122)):
+        check(park_ct[park] == want,
+              f"{park} full-window DLP park-named citations == {want} (got {park_ct[park]})")
+    p3 = (DOCS / "part3.html").read_text()
+    for needle in ("367 citations logged at Magnuson 2014&ndash;2026",
+                   "152 citations logged there 2014&ndash;2026",
+                   "122 enforcement-data citations 2014&ndash;2026"):
+        check(needle in p3, f"part3 shows the full-window count+label ({needle!r})")
+    for retired in ("248 citations logged at Magnuson", "130 citations logged there",
+                    "86 enforcement-data citations"):
+        check(retired not in p3, f"part3 retired 2014-2019 count phrase removed ({retired!r})")
+
+    # ---- [8] Enforcement per-year JSON series (year_trend) integrity ---------
+    # scripts/enforcement_page_data.json is committed source the enforcement page
+    # renders from; neither verifier guarded its per-year series before this pass.
+    # Recompute DLP-by-year from the raw citations CSV, assert the JSON agrees,
+    # and pin the 2026-row staffing-invariant anchors (funded vs attributable vs
+    # actual FTE) so a bad edit to the JSON cost model can't slip through.
+    print("\n[8] Enforcement year_trend JSON vs raw citations")
+    epd = json.loads((REPO / "scripts" / "enforcement_page_data.json").read_text())
+    dlp_year = Counter(r["year"] for r in cites if r["dlp_only"] == "True")
+    jt = {row["year"]: int(row["dlp"]) for row in epd["year_trend"]}
+    bad = {y: (jt[y], dlp_year.get(y, 0)) for y in jt if jt[y] != dlp_year.get(y, 0)}
+    check(not bad, f"year_trend dlp matches raw citations every year (mismatches: {bad})")
+    check(sum(dlp_year.values()) == 7015, f"raw DLP citations total == 7,015 (got {sum(dlp_year.values())})")
+    r26 = next(r for r in epd["year_trend"] if r["year"] == "2026")
+    check(r26["funded_aco_cost"] == 528279 and r26["traceable_aco_cost"] == 152399
+          and r26["aco_fte"] == 1.0,
+          "2026 year_trend: funded 528279 / attributable 152399 / actual FTE 1.0 "
+          f"(got {r26['funded_aco_cost']}/{r26['traceable_aco_cost']}/{r26['aco_fte']})")
+
+    # ---- [9] Retired-figure regression guards (July 2026 audit) --------------
+    # Cross-page contradictions the presence-based checks cannot catch: a
+    # superseded number surviving on ONE page while the corrected value lives
+    # elsewhere (part1's methodology table had drifted from budget.html). These
+    # fail if any retired figure/phrase reappears anywhere in the public site.
+    print("\n[9] Retired-figure regression guards (July 2026)")
+    for stale in ("$346,680", "$475,142", "$614,343", "$3.34M",
+                  "+$3.1M", "$3.1M for two", "about one officer"):
+        check(stale not in html, f"retired figure/phrase absent site-wide ({stale!r})")
+    # The 2016-survey 39% figure must be described the SAME way the committed data
+    # file does. illegal-use-indicators.csv is the source of record; part2/opinion
+    # had drifted to a non-equivalent band (the CSV says "weekly-to-monthly"),
+    # caught in the July second round. This guard DERIVES the band from the CSV --
+    # NOT a hardcoded direction -- so if a manual SPR-source check later corrects
+    # the CSV, the guard follows the data instead of enforcing a stale guess.
+    low = html.lower()
+    iui = (DATA / "illegal-use-indicators.csv").read_text().lower()
+    csv_weekly = "weekly-to-monthly" in iui or "weekly to monthly" in iui
+    csv_monthly = "monthly or more" in iui or "monthly-or-more" in iui
+    if csv_weekly and not csv_monthly:
+        check("monthly or more" not in low and "monthly-or-more" not in low,
+              "2016-survey 39% matches data file ('weekly-to-monthly'); no 'monthly or more' on site")
+    elif csv_monthly and not csv_weekly:
+        check("weekly-to-monthly" not in low and "weekly to monthly" not in low,
+              "2016-survey 39% matches data file ('monthly or more'); no 'weekly-to-monthly' on site")
+    else:
+        check(False, "illegal-use-indicators.csv ambiguous on the 2016-survey frequency band")
 
     # ---- summary ----------------------------------------------------------
     print("\n" + "=" * 64)
