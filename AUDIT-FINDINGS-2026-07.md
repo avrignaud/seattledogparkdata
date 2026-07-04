@@ -21,11 +21,13 @@ regression pass confirmed the applied edits introduced no new inconsistency; its
 fresh-eyes pass surfaced one further self-consistency defect — the 2016-survey
 "39%" figure, described as **"weekly-to-monthly"** in the committed data file
 (`illegal-use-indicators.csv`) and on the enforcement page, but as **"monthly or
-more"** on Part II (4 places) and Opinion. Part II and Opinion were aligned to the
-data file so the site stops contradicting itself — but the **direction** (which
-band the SPR survey actually reported) is unverified against the primary source
-and touches the signed editorial, so **it must not merge to `main` until
-confirmed** (see §1, §6, §7 #2).
+more"** on Part II (4 places) and Opinion. **RESOLVED (July 4):** the owner supplied
+the plan, now committed at `sources/people-dogs-and-parks-plan-august-2017.pdf`;
+p.17 confirms "weekly to monthly" verbatim, so the alignment was correct and the
+merge gate is lifted. Reading the plan added two more verified corrections — the
+survey was **2015** (not 2016), and the "38% trails" stat was actually large parks
+(trails is 36%) — and, per the owner, the three settings are now **blended to
+~38%** (see §1, §7 #2).
 
 ---
 
@@ -61,7 +63,7 @@ Site-wide dates, the masthead (JUNE 2026), `CHANGELOG.md`, and `updates.html` en
 | METHODOLOGY.md:83 | `~$3.34M` / `10.5%` → `~$3.30M` / `~11%` | enforcement year_trend cost sum = $3.30M; recovery 10.65% |
 | DATA-AUDIT.md:122, :164 | `$3.34M` / `10.5%` → `$3.30M` / `~11%` | same |
 | AGENTS.md:189 | `69.6%` / `72.1%` → `71.9%` / `73.4%` (gitignored file; fixed in working tree) | citation-rate-by-walkshed-status.csv (park-named 3,089/4,299; combined 3,631/4,948) |
-| part2-access.html:373, :707, :737, :827 · opinion.html:369 | 2016-survey 39% `monthly or more` / `monthly-or-more` → `weekly to monthly` / `weekly-to-monthly` (5 instances) | `illegal-use-indicators.csv` row 2 + enforcement.html:207/291 (site was contradicting its own data file) — **⚠ direction unverified against the SPR primary source; touches opinion.html. Do NOT merge to `main` until confirmed — see §7 #2.** |
+| part2-access.html, opinion.html, budget.html, enforcement builder (multiple) | **2015 survey / illegal-off-leash figure, resolved against the primary source.** (a) Dropped the stale `monthly or more` / `monthly-or-more` / `monthly+` framing; (b) corrected survey year `2016`→`2015` (~11 spots); (c) blended the plan's three settings (39% local parks, 38% large parks, 36% trails) to a single **~38%** headline; (d) relabeled the "38% trails" stat (that value is *large parks*; trails is 36%). | Verified verbatim against committed `sources/people-dogs-and-parks-plan-august-2017.pdf` **p.17** (owner-supplied). Blend + components documented on part2 Finding 05 and in the data notes. |
 
 **Part III per-park recompute (owner decision).** Recomputed directly from the raw
 `data/enforcement-citations.csv` (filter `dlp_only=True AND location_type=park_named`,
@@ -285,19 +287,17 @@ The `nrpa.org` 2018 courtesy-hours article URL now returns the current magazine 
 1. **AVMA inputs.** The live AVMA page now shows 42.6% ownership × 1.6 dogs/household; the site's
    ~248,900 derivation cites 45.5% × 1.5. The product lands within ~0.2% either way, but the per-
    household inputs differ — reconcile against the AVMA edition/table you intend to cite.
-2. **The 39% survey figure — MERGE GATE. The direction of this edit is unverified.** The site is
-   now internally consistent on "weekly-to-monthly" (matching its own `illegal-use-indicators.csv`
-   and the enforcement page; Part II and Opinion were aligned this pass). But that alignment picked
-   the CSV's band, and the CSV + enforcement page may share a common ancestor rather than being
-   independent confirmations — I could **not** read the SPR primary source (the People, Dogs and
-   Parks plan page is a nav shell). "Weekly-to-monthly" and "monthly or more" are **not
-   equivalent** (bounded band vs. cumulative ≥), and one of them is wrong. **Action: do not merge
-   `opinion.html` or `part2-access.html` to `main` until the SPR 2016 survey's actual frequency
-   band is confirmed by reading the plan's survey appendix.** If it turns out to be "monthly or
-   more," update `illegal-use-indicators.csv` first — the verifier guard **derives** the band from
-   that CSV, so the correct value will then propagate and the guard will follow it (it does not
-   hardcode a direction). (The site already flags this figure as decade-old and "needs a current
-   replacement.")
+2. **The 39% survey figure — RESOLVED (merge gate lifted).** The owner supplied the primary source;
+   it is now committed at `sources/people-dogs-and-parks-plan-august-2017.pdf`. Page 17 states the
+   figures verbatim: "39 percent illegally use local parks weekly to monthly," "38 percent … large
+   parks weekly to monthly," "36 percent illegally use park trails." So **"weekly to monthly" is
+   confirmed correct** (the plan never says "monthly or more"), and the earlier Part II/Opinion
+   drift was the error. Reading the plan surfaced two further corrections, both now applied and
+   verified against p.17: **(a)** the survey was conducted in **2015**, not 2016 (the site said
+   "2016 survey" in ~11 places); **(b)** the site's "38% on park trails" stat actually reported the
+   *large-parks* figure — trails was 36%. Per the owner's direction the three settings are now
+   **blended to ~38%** (unweighted mean of 39/38/36 = 37.7%, rounded) and documented on Part II
+   Finding 05 and in the data notes. See §1 and §6.
 3. **magnusondogpark.org** dead/redirected link — replace with an archived snapshot or a current
    MOLG URL?
 4. **"OLA improvement $" column** (§2 P1) — relabel, split, or footnote? Editorial/structural call.

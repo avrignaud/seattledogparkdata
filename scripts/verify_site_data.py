@@ -304,24 +304,34 @@ def main() -> None:
     for stale in ("$346,680", "$475,142", "$614,343", "$3.34M",
                   "+$3.1M", "$3.1M for two", "about one officer"):
         check(stale not in html, f"retired figure/phrase absent site-wide ({stale!r})")
-    # The 2016-survey 39% figure must be described the SAME way the committed data
-    # file does. illegal-use-indicators.csv is the source of record; part2/opinion
-    # had drifted to a non-equivalent band (the CSV says "weekly-to-monthly"),
-    # caught in the July second round. This guard DERIVES the band from the CSV --
-    # NOT a hardcoded direction -- so if a manual SPR-source check later corrects
-    # the CSV, the guard follows the data instead of enforcing a stale guess.
+    # 2015-survey illegal-off-leash figure. The primary source (People, Dogs and
+    # Parks Plan, Aug 2017, p.17 -- committed at sources/) reports three settings:
+    # 39% local parks + 38% large parks (weekly to monthly) + 36% trails. The site
+    # blends them into one headline, ~38%. This guard DERIVES the components and
+    # the blend from illegal-use-indicators.csv (source of record) so a corrected
+    # CSV propagates instead of tripping a hardcoded value.
     low = html.lower()
-    iui = (DATA / "illegal-use-indicators.csv").read_text().lower()
-    csv_weekly = "weekly-to-monthly" in iui or "weekly to monthly" in iui
-    csv_monthly = "monthly or more" in iui or "monthly-or-more" in iui
-    if csv_weekly and not csv_monthly:
-        check("monthly or more" not in low and "monthly-or-more" not in low,
-              "2016-survey 39% matches data file ('weekly-to-monthly'); no 'monthly or more' on site")
-    elif csv_monthly and not csv_weekly:
-        check("weekly-to-monthly" not in low and "weekly to monthly" not in low,
-              "2016-survey 39% matches data file ('monthly or more'); no 'weekly-to-monthly' on site")
-    else:
-        check(False, "illegal-use-indicators.csv ambiguous on the 2016-survey frequency band")
+    iu = load_csv("illegal-use-indicators.csv")
+    comps = sorted((int(r["value"].rstrip("%")) for r in iu
+                    if "illegal off-leash" in r["metric"].lower()
+                    and "blended" not in r["metric"].lower()
+                    and r["value"].rstrip("%").isdigit()), reverse=True)
+    check(comps == [39, 38, 36], f"2015-survey settings from CSV == 39/38/36 (got {comps})")
+    blend = round(sum(comps) / len(comps))
+    check(blend == 38, f"blended illegal-off-leash figure == 38% (mean {sum(comps)/len(comps):.1f})")
+    stated = next((r for r in iu if "blended illegal off-leash" in r["metric"].lower()), None)
+    check(stated is not None and int(stated["value"].rstrip("%")) == blend,
+          "CSV 'blended' row matches the derived mean (38%)")
+    present("about 38%", "blended illegal-off-leash headline figure")
+    # The two park components are weekly-to-monthly per the plan; the site must not
+    # revert to the non-equivalent 'monthly or more' / 'monthly+' mischaracterization,
+    # nor mislabel the survey year (the plan says a 2015 survey, published in 2017).
+    check("monthly or more" not in low and "monthly-or-more" not in low and "monthly+" not in low,
+          "2015-survey figure not mischaracterized as 'monthly or more'/'monthly+' (plan: weekly to monthly)")
+    check("weekly to monthly" in low or "weekly-to-monthly" in low,
+          "2015-survey park components documented as 'weekly to monthly' (plan wording)")
+    check("2016 survey" not in low and "2016 owner survey" not in low,
+          "SPR owner survey dated 2015 (plan), not mislabeled '2016 survey'")
 
     # ---- summary ----------------------------------------------------------
     print("\n" + "=" * 64)

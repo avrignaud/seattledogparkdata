@@ -6,7 +6,7 @@ All primary sources used in the Seattle Off-Leash Areas data analysis, organized
 
 - [SPR Dog Off-Leash Areas main page](https://www.seattle.gov/parks/recreation/dog-off-leash-areas)
 - [SPR Off-Leash Area Expansion Study](https://www.seattle.gov/parks/about-us/plans-and-reports/recreation-plans-and-reports/off-leash-area-study)
-- [People, Dogs and Parks Strategic Plan (2017)](https://www.seattle.gov/parks/about-us/plans-and-reports/recreation-plans-and-reports/people-dogs-and-parks-strategic-plan)
+- [People, Dogs and Parks Strategic Plan (2017)](https://www.seattle.gov/parks/about-us/plans-and-reports/recreation-plans-and-reports/people-dogs-and-parks-strategic-plan) — [full PDF (Aug 2017)](https://www.seattle.gov/documents/departments/parksandrecreation/policiesplanning/peopledogsandparksplan-august2017.pdf), committed locally at [`sources/people-dogs-and-parks-plan-august-2017.pdf`](people-dogs-and-parks-plan-august-2017.pdf). The **2015** owner survey (3,970 dog owners) is summarized on **p.17**: illegal off-leash use is 39% in local parks and 38% in large parks (weekly to monthly), 36% on park trails — blended to ~38% on the site.
 - [West Seattle Stadium OLA Development](https://www.seattle.gov/parks/about-us/projects/west-seattle-stadium-off-leash-area-development)
 - [Othello Playground OLA Development](https://www.seattle.gov/parks/about-us/projects/othello-playground-off-leash-area-development)
 - [Georgetown OLA Development](https://www.seattle.gov/parks/about-us/projects/georgetown-off-leash-area-development)
