@@ -95,7 +95,7 @@ HTML = r'''<!DOCTYPE html>
 
 <div class="masthead">
   <span class="dateline">Enforcement &middot; seattledogparkdata.com</span>
-  <span>UPDATED JUNE 2026</span>
+  <span>UPDATED JULY 2026</span>
 </div>
 
 <header class="hero">
@@ -352,7 +352,7 @@ HTML = r'''<!DOCTYPE html>
 </nav>
 
 <footer>
-  <p>Data current as of June 2026 (PRR C263990 ingest). Source code and all underlying data: <a href="https://github.com/avrignaud/seattledogparkdata">github.com/avrignaud/seattledogparkdata</a>. MIT license covers author-written code and analysis; primary data is public record. Corrections: <a href="https://github.com/avrignaud/seattledogparkdata/issues">issue tracker</a>.</p>
+  <p>Data current as of July 2026 (PRR C263990 ingest). Source code and all underlying data: <a href="https://github.com/avrignaud/seattledogparkdata">github.com/avrignaud/seattledogparkdata</a>. MIT license covers author-written code and analysis; primary data is public record. Corrections: <a href="https://github.com/avrignaud/seattledogparkdata/issues">issue tracker</a>.</p>
 </footer>
 
 </div></main>
