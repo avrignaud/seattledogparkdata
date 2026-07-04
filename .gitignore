@@ -38,8 +38,6 @@ tmp/
 # osmnx cache — large OSM tile blobs regenerated on demand
 cache/
 
-# Agent/context scratch files
-AGENTS.md
 
 
 # TPL ParkServe national shapefile — too big for the repo; we keep only the
