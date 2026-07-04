@@ -235,9 +235,17 @@ should verify these in a browser:
 "over 30 dog off-leash areas – both fenced and unfenced" · Minneapolis $38 resident / $66 non-resident
 first-dog permit · Westcrest reopened "by the end of day, June 10" 2022.
 
-**Link-integrity issue (needs owner action):** `magnusondogpark.org` issues a **301 redirect to
-`cpbetweenthelakes.com`** (which then 403s) — the Magnuson Off-Leash Group source link appears dead
-or repurposed. It's used on `part3.html` (Magnuson card + sources) and the `enforcement.html` byline.
+**Link-integrity issue — RESOLVED (July 4):** `magnusondogpark.org` 301-redirects to
+`cpbetweenthelakes.com` (dead), and MOLG's alternate domain `magnusonolg.org` no longer resolves.
+Research (ProPublica EIN 91-2059268; live domain checks; a Dec 2023 blog post that has since gone
+dark) showed the **Magnuson Off-Leash Group is a real 501(c)(3) that went dormant after ~2023**, not
+long-defunct. Per owner decision, Part III's Magnuson case study was **recast from "the volunteer-
+steward model" to "the site-specific steward model, now dormant"** (past tense; dead links removed;
+stat-card "founded 1999" corrected — the 501(c)(3) dates to 2011), the live stewardship exemplar
+recentered on **COLA** (still-active; SPR credited COLA's "ongoing stewardship" in a June 2022 post,
+EIN 91-1682685 confirmed 501(c)(3)), and MOLG removed from Opinion's *current*-advocates list while
+kept as a past-tense historical credit. A verifier guard now fails if `magnusondogpark.org` reappears.
+(My earlier note that the dead link was in the `enforcement.html` byline was wrong — it never was.)
 The `nrpa.org` 2018 courtesy-hours article URL now returns the current magazine homepage (possible rot).
 
 ---
@@ -298,8 +306,10 @@ The `nrpa.org` 2018 courtesy-hours article URL now returns the current magazine 
    *large-parks* figure — trails was 36%. Per the owner's direction the three settings are now
    **blended to ~38%** (unweighted mean of 39/38/36 = 37.7%, rounded) and documented on Part II
    Finding 05 and in the data notes. See §1 and §6.
-3. **magnusondogpark.org** dead/redirected link — replace with an archived snapshot or a current
-   MOLG URL?
+3. **magnusondogpark.org / MOLG — RESOLVED (July 4).** MOLG is a dormant-since-~2023 501(c)(3); Part
+   III recast as "site-specific steward model, now dormant," dead links removed, COLA made the live
+   exemplar, Opinion updated, and a verifier guard added (see §5). Optional follow-up: add a Wayback
+   snapshot of the old MOLG site as an archival citation if desired.
 4. **"OLA improvement $" column** (§2 P1) — relabel, split, or footnote? Editorial/structural call.
 5. **part2 equity charts** (44%/15%, deficit, walkshed-citation map) — restore the visualizations
    and the method note, or remove the dead JS and dangling pointers?

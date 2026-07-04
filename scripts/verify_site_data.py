@@ -302,8 +302,9 @@ def main() -> None:
     # fail if any retired figure/phrase reappears anywhere in the public site.
     print("\n[9] Retired-figure regression guards (July 2026)")
     for stale in ("$346,680", "$475,142", "$614,343", "$3.34M",
-                  "+$3.1M", "$3.1M for two", "about one officer"):
-        check(stale not in html, f"retired figure/phrase absent site-wide ({stale!r})")
+                  "+$3.1M", "$3.1M for two", "about one officer",
+                  "magnusondogpark.org"):  # dead MOLG domain (redirects off-site; group dormant)
+        check(stale not in html, f"retired figure/dead link absent site-wide ({stale!r})")
     # 2015-survey illegal-off-leash figure. The primary source (People, Dogs and
     # Parks Plan, Aug 2017, p.17 -- committed at sources/) reports three settings:
     # 39% local parks + 38% large parks (weekly to monthly) + 36% trails. The site
