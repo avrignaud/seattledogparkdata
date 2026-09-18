@@ -1,0 +1,47 @@
+PRR C264837-042426 - SPR response, 15 July 2026
+Verbatim text of the response document, plus the two budget tables that the
+original .docx carries as embedded EMF vector images (word/media/image1.emf,
+image2.emf). Table text extracted from the EMF EMR_EXTTEXTOUTW records; the
+images themselves are in documents/ inside the .docx.
+==============================================================================
+
+RESPONSE TEXT
+------------------------------------------------------------------------------
+1. **Annual OLA-only operating and improvement spending within BC-PR-50000, from 2023 to present** (actuals for closed fiscal years, current-budget for the active year). If this is not tracked as a discrete line, please indicate that explicitly.
+
+Please see chart below, listing Budget and Expenditures from January 1st 2023 through July 7th, 2026:
+
+2. **Annual P-Patch-only spending within the same BSL over the same period**, so the remaining share is transparent.
+
+Please see chart below, listing Budget and Expenditures from January 1st 2023 through July 7th, 2026:
+
+3. **Any internal allocation methodology** used to split BC-PR-50000 spending between OLA and P-Patch work — e.g. staff hours, acreage-weighted allocation, or project tracking.
+
+They are different Master Projects within BC-PR-50000, and the budget and spending is split out as per the above.
+
+4. **Cycle 2 one-time capital spending on OLA construction** separate from BC-PR-50000, including the ~$3.1M allocation for West Seattle Stadium OLA and Othello Playground OLA.
+
+The $3.1M is included in the BC-PR-50000 above, within the MC-PR-51002 Improve Dog Off Leash Areas Master project. Of the amount spent so far within the MC-PR-51002 Master project roughly $600K has been spent towards planning and design for the West Seattle Stadium OLA and Othello Playground OLA projects between January 1st 2023 and July 7th, 2026. Construction at these two sites is currently estimated to begin in Early 2027.
+
+==============================================================================
+TABLE 1 (image1.emf) - MC-PR-51002 Improve Dog Off Leash Areas
+------------------------------------------------------------------------------
+YTD | Available
+Year | BSL ID | BSL Name | Master Project ID | Master Project Name | Adopted Budget | Revised Budget | Expenses | Encumbrances | Balance
+2023 | BC-PR-50000 | Maintaining Parks & Facilities | MC-PR-51002 | Improve Dog OL Areas | 328,345 | 416,256 | 315,049 | - | 101,206
+2024 | BC-PR-50000 | Maintaining Parks & Facilities | MC-PR-51002 | Improve Dog OL Areas | 333,478 | 434,685 | 218,996 | - | 215,689
+2025 | BC-PR-50000 | Maintaining Parks & Facilities | MC-PR-51002 | Improve Dog OL Areas | 1,568,818 | 1,784,507 | 368,398 | (0) | 1,416,109
+2026 | BC-PR-50000 | Maintaining Parks & Facilities | MC-PR-51002 | Improve Dog OL Areas | 1,574,370 | 2,990,479 | 150,593 | 210,624 | 2,629,261
+Grand Total | 3,805,011 | 5,625,926 | 1,053,037 | 210,624 | 4,362,265
+
+==============================================================================
+TABLE 2 (image2.emf) - MC-PR-51001 Rejuvenate P-Patches
+------------------------------------------------------------------------------
+YTD | Available
+Year | BSL ID | BSL Name | Master Project ID | Master Project Name | Adopted Budget | Revised Budget | Expenses | Encumbrances | Balance
+2023 | BC-PR-50000 | Maintaining Parks & Facilities | MC-PR-51001 | Rejuvenate P-Patches | 241,216 | 638,631 | 160,092 | - | 478,539
+2024 | BC-PR-50000 | Maintaining Parks & Facilities | MC-PR-51001 | Rejuvenate P-Patches | 280,865 | 795,954 | 289,418 | - | 506,536
+2025 | BC-PR-50000 | Maintaining Parks & Facilities | MC-PR-51001 | Rejuvenate P-Patches | 260,899 | 767,435 | 255,766 | - | 511,669
+2026 | BC-PR-50000 | Maintaining Parks & Facilities | MC-PR-51001 | Rejuvenate P-Patches | 271,335 | 783,004 | 84,951 | - | 698,053
+Grand Total | 1,054,316 | 2,985,024 | 790,228 | - | 2,194,796
+
