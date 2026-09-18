@@ -1,0 +1,166 @@
+FW: Changes to Billing for EPPS and Lease Maintenance
+From:           "Williams, Amy" <amy.williams@seattle.gov>
+To:             "Catague, Daisy" <daisy.catague@seattle.gov >, "Finnegan, Michele"
+                <michele.finnegan@seattle.gov>
+Date:           Fri, 28 Feb 2025 15:32:45 -0800
+Attachments:    FAS ACO MOA_2025.docx (40.39 kB)
+
+Ignore the email title and most of the content except for the part about FAS only
+having capacity to dedicate 2 ACOs below.
+I think we keep the MOA as currently drafted (up to 3 based on actual hours worked)
+but wanted to confirm?
+
+From: Ellermeier, Tricia <Tricia.Ellermeier@seattle.gov>
+Sent: Thursday, February 27, 2025 11:48 AM
+To: Williams, Amy <Amy.Williams@seattle.gov>
+Subject: RE: Changes to Billing for EPPS and Lease Maintenance
+
+Hi Amy.
+
+Yes, they think it’s closer to 2 FTEs that they have staffing currently to commit to at
+this time. Although if they can get the right complement of staff, and fully staffed up
+they would be able to dedicate up to three, as they know there are complaints on off
+leash particularly. I'll talk with Jocelyn and Sherri if something on staffing has
+changed up, but I can check in if maybe we charge only for 2 FTEs back to you until
+we can get to 3 FTEs, but keep the MOA flexible up to 3 FTE? I could be dated on
+the info so I’ll check back in with them.
+
+From: Williams, Amy <Amy.Williams@seattle.gov>
+Sent: Wednesday, February 26, 2025 9:34 AM
+To: Ellermeier, Tricia <Tricia.Ellermeier@seattle.qov>
+Subject: RE: Changes to Billing for EPPS and Lease Maintenance
+
+Hi Tricia. This is great news on the fleet billing. Thanks again for working through it
+with Precy and I’ll circle back with Iris and Tom.
+
+We were actually just finalizing the MOA on our side, assuming 3 given all the
+complaints we get about off leash dogs. Are you saying that they don’t have capacity
+to dedicate 3 ACOs?
+
+From: Ellermeier, Tricia <Tricia.Ellermeier@seattle.gov>
+Sent: Wednesday, February 26, 2025 9:04 AM
+To: Williams, Amy <Amy.Williams@seattle.gov>
+Subject: RE: Changes to Billing for EPPS and Lease Maintenance
+
+Good morning, Amy.
+
+
+
+
+                                                                                     PKS C266465 01 00541
+After meeting with Precy (accounting) she confirmed this is indeed the item we
+worked out with Iris, when we met with her, to provide you all the info. She can still
+process the re-allocation to your programs in the same way, no change to her and
+how you’ll see the info. It’s really to make the process easier for our FAS Fleet group
+as they are changing their modeling system.
+
+Let me know if you want me to still set up a meeting, otherwise I think you can rest
+easy on this one.
+
++side note - we’re holding on charging you all on Animal Control work until we hear
+from you. I think we are only able to do park control for up to 1.5 - 2.0 FTEs, so
+maybe that’s really what the update MOA or agreement should be? I’ll check in with
+Jocelyn on my side as they were going to pull labor hours to confirm.
+
+Thanks,
+Tricia
+
+From: Williams, Amy <Amy.Williams@seattle.gov>
+Sent: Friday, February 21, 2025 12:19 PM
+To: Ellermeier, Tricia <Tricia.Ellermeier@seattle.qov>
+Subject: RE: Changes to Billing for EPPS and Lease Maintenance
+
+Thanks Tricia. We’ll wait to hear back then. Appreciate your triaging!
+
+From: Ellermeier, Tricia <Tricia.Ellermeier@seattle.qov>
+Sent: Friday, February 21, 2025 11:30 AM
+To: Williams, Amy <Amy.Williams@seattle.gov>
+Subject: RE: Changes to Billing for EPPS and Lease Maintenance
+
+Hi Amy. Okay, I think you’re okay and this is being handled like normal for Iris to
+receive in the way she needs to you can re-allocate out to your programs.
+
+I need to talk with Daniel Belay (Fleet) and Precy (FAS acctg) again to confirm this is
+what we already worked out to supply you the info in the way you need, we talked it
+over with Iris and she was good, but they're both flexing today. I’ll set up a meeting
+for next week, and sorry about this.
+
+TGIF,
+Tricia
+
+From: Williams, Amy <Amy.Williams@seattle.qov>
+Sent: Friday, February 21, 2025 9:08 AM
+To: Ellermeier, Tricia <Tricia.Ellermeier@seattle.qov>
+Subject: RE: Changes to Billing for EPPS and Lease Maintenance
+
+Hi Tricia. We’re all a bit stumped by this email. Would you mind if I set up a quick call
+with you, me, Iris and Tom (and anyone else on your team)?
+
+
+
+
+                                                                                PKS C266465 01 00542
+From: Kong, Grace <Grace.Konq@seattle.gov>
+Sent: Thursday, February 20, 2025 4:23 PM
+Cc: Belay, Daniel <Daniel.Belay@seattle.gov>; Bonomo, Lucy <Lucv.Bonomo@seattle.qov>
+Subject: Changes to Billing for EPPS and Lease Maintenance
+
+Hello, fleet colleagues -
+(bcc: Citywide fleet coordinators, managers, and advisors)
+
+I'm reaching out to let you know of changes to our billing processes. Starting this year, the charges for
+Equipment Planning and Procurement (EPPS) and Lease Maintenance will no longer be processed as monthly
+recurring charges in Fleet Anywhere. Instead, FAS Accounting and Budgeting Services (ABS) will handle these
+charges as direct allocations in PeopleSoft.
+
+This change is being made to align actuals with what is Council-adopted and published in the Central Cost
+Manual (CCM). The previous practice of charging rates per vehicle led to over or under collection due to the
+dynamic nature of vehicles being added or disposed of from the fleet. With this new approach, the standard
+allocations by department will remain consistent each month, with charges distributed to the asset/vehicle
+level in PeopleSoft. While the monthly totals will be the same, the distribution and resulting charge per asset
+may change if your fleet count is increased or reduced.
+
+As a result, you will no longer see a monthly EPPS or Maintenance fee in Fleet Anywhere (see the example
+below). However, you can still access these charges and asset details in PeopleSoft. Additionally, Lucy is
+developing a PowerBI report that will allow us to pull this data outside of PeopleSoft. Please note that Monthly
+Capital Lease rates will continue to be processed in Fleet Anywhere with no changes.
+
+These updates should have already been communicated by FAS ABS to your departmental finance teams. If
+you have any concerns about impacts on specialized reports your teams have built in PeopleSoft or other
+systems, I encourage you to reach out to your departmental representatives. I've attached the adopted CCM
+by function for your reference, and you can filter for your department using the Updated Payor filter. The
+relevant CCM functions are the Fleet Engineering & Planning and Preventative Maintenance (Lease
+Maintenance) line items.
+
+Please feel free to reach out with any questions or concerns, thanks!
+
+
+
+
+  Recurring Costs
+
+   Monthly EPPS           0.00
+   Monthly Maintenance    0.00
+   Monthly Capital Repl   977.77
+   Fixed licensing cost   0.00
+
+
+   Other fixed cost 1     0.00
+   Other fixed cost 2     0.00
+   Other fixed cost 3     0.00
+
+
+
+
+                                                                                                     PKS C266465 01 00543
+Grace Kong
+Deputy Director of Fleet Administration & Services, Fleet Management
+Pronouns: she/her/hers
+City of Seattle, Department of Finance & Administrative Services
+O: 206-256-6421 | M: 206-402-9059 | qrace.konq@seattle.gov
+
+
+
+
+                                                                       PKS C266465 01 00544
+

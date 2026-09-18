@@ -62,6 +62,21 @@ three-ACO program for wage growth and (per the Axios reporting and SPR's own sta
 the program is still filling positions authorized in 2023. The corps was **funded** at
 three since 2023; **actual** deployment was ≈one officer as of April 2026.
 
+> **Update (July 2026) — where the "up to three" language came from.** This README noted the
+> 2026 MOA's vague headcount language without being able to explain it. PRR
+> [C266465](../C266465/README.md) supplies the drafting history, and it also fills the gap in
+> the MOA series: the intervening **[2025 MOA](../../moas/SPR-FAS-ACO2-MOA-2025.pdf)** (signed
+> 2025-07-28, cap $508,695) is the document that actually introduced "up to three … any number
+> of positions" and actual-hours billing. The 2026 MOA inherits it.
+>
+> The sequence: Sep 2024, SPR's own Community Services manager recommends **cutting** the
+> program to 2 or 1 ACO; Jan 2025, a 2-ACO MOA is drafted; **2025-02-24** the Interim Deputy
+> Superintendent sends it back to 3 "given AP's priority with off leash"; **2025-02-26** FAS
+> replies it can staff "closer to 2 FTEs," possibly "1.5 – 2.0." The flexible headcount is the
+> compromise. C266465 also produced quarterly **ledger backup** confirming SPR was billed
+> **$456,173 in FY2024** for three staff on flat calendar-derived invoices — so the
+> funded-vs-deployed gap is now documented on the spend side, not just inferred.
+
 ## Why this matters for the site
 
 Drives the June 2026 update to the [Enforcement page](../../../docs/enforcement.html#finding-02)

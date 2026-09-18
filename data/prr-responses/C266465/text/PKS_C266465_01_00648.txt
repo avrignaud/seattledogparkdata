@@ -1,0 +1,242 @@
+RE: ACO MOA
+From:          "Pen, Thavy" <thavy.pen@seattle.gov>
+To:            "Jainga, Jon" <jon.jainga@seattle.gov>, "Ridal, Jasmine" <jasmine.ridal@seattle.gov>
+Cc:            "Teeters, Marian" <marlan.teeters@seattle.gov>
+Date:          Wed, 10 Sep 2025 16:43:22 -0700
+Attachments:   SPR_FAS Interdepartmental MOA for Animal Control Officer under Make Parks Safer
+               Initiative - signed.pdf (802.34 kB); 2024_Parks_Backup    MOA.xIsx (636.74 kB); FAS
+               PARKS_ACO MOA_2025 (signed)_7.28.25.pdf (280.67 kB)
+
+Hi Jon & Jasmine,
+
+This surfaced when I noticed no FAS/ACO charges posting to PRF602 (Make Parks Safer).
+At budget monitoring a few months ago, Amy (Parks Budget Manager) mentioned she had
+worked with Tricia (FAS manager) on the MOD budget piece. At last week’s budget review—
+since charges still weren't posting—Amy asked me to follow up with Parks Accounting.
+
+Iris hadn’t seen an MOU on our side, so she contacted her FAS counterpart and received the
+signed 2025 MOU along with last year’s spreadsheets. FAS indicated they're still working on
+the invoicing and the backup spreadsheet (they also sent the 2024 spreadsheet as a
+sample).
+
+From what I can tell, the signature routing wasn't used by Tricia on the MOU; it appears the
+document moved directly to FAS signer and Parks signer (AP), and our unit (including Amy)
+wasn’t looped and didn't receive the executed copy.
+
+Recommendation for next year
+When the contacted is due for renewal, let’s request the finalized MOU and route it through
+our standard review/approval/signature path (Manager -> SA —* Deputy/Director —»
+Contracts Manager —► FAS signer—* Parks signer (AP)), using our Adobe routing template
+with CCs to Budget/Amy, Accounting/lris, the unit lead(s)/SA, and the FAS POC. I’ve
+attached the 2022 example we last routed for reference. This will ensure everyone receives
+the executed copy and that we can upload it to CCMS. In addition, Eduardo attended
+Contract 101 and can help with this. Jasmine, if the new app rolls out by next year, we
+should also update the Documentation & Reporting section and include clear POCs in the
+MOU.
+
+Documentation & Reporting (current year)
+
+Marian — please provide a YTD monthly report from the Parks Code Violation Dashboard
+(violations, citations, patrols, etc.), since ACOs are still using it.
+
+Jasmine — please send the same YTD data from the Rangers’ MS Form to Marian.
+
+Marian — consolidate the two sources (or loop in Eduardo; he can assist).
+
+Going forward: Maybe Eduardo can support your team by consolidating the reports monthly
+and sending them to FAS.
+
+
+
+
+                                                                                       PKS C266465 01 00648
+Having these summaries on hand will give us the documentation we need to process
+payment as soon as we receive FAS’s 2025 spreadsheet. Please let me know how else I
+can help—and if you’ve already established a reporting role or process, your input is vital, so
+please chime in.
+
+Thanks,
+Thavy
+
+
+
+
+             Thavy Pen
+            Strategic Advisor, Parks and Environment Division
+            City of Seattle, Seattle Parks and Recreation
+            206-684-80911 Email: Thavv.pen@seattle.gov
+          Facebook | Twitter | Blog
+
+From: Jainga, Jon <Jon.Jainga@seattle.gov>
+Sent: Wednesday, September 10, 2025 8:28 AM
+To: Ridal, Jasmine <Jasmine.Ridal@seattle.gov>; Pen, Thavy <Thavy.Pen@seattle.gov>
+Cc: Teeters, Marian <Marlan.Teeters@seattle.gov>
+Subject: Re: ACO MOA
+
+Thavy
+Can you check with Colleen, Katie, Kristy, and Account Receivable, I don’t think
+anyone in our Unit has ever seen a monthly payment or statement. I have never
+seen monthly reports and thank you for sharing the signed mou, first time I’ve seen it
+and noticed it was just signed in July.
+
+
+
+
+Get Outlook for iOS
+
+From: Ridal, Jasmine <Jasmine.Ridal@seattle.qov>
+Sent: Wednesday, September 10, 2025 7:22:35 AM
+To: Pen, Thavy <Thavy.Pen@seattle.gov>; Jainga, Jon <Jon.Jainga@seattle.gov>
+Cc: Teeters, Marian <Marlan.Teeters@seattle.qov>
+Subject: Re: ACO MOA
+
+
+Good morning Thavy,
+
+I have not been involved in this Monthly Summary Reporting and Invoice Coordination. I
+know I gave suggestions several months ago about various items in the document, but this is
+the first time I'm seeing the signed agreement. Do you know who from our team received
+this?
+
+Based on my knowledge in this moment:
+
+        • I do not believe a monthly summary is being sent to FAS
+
+
+
+
+                                                                                     PKS C266465 01 00649
+     • Likely preferred point of contact would be Don.Baxter@seattle.gov - he manages the
+         ACOs
+
+     • I believe we could make the 5 day deadline work for September
+
+I'm including Marian to see if he can answer any of these questions as he has been more
+
+
+
+
+o
+involved in the ACO contract in the past.
+
+
+
+
+     JI      Jasmine Ridal (she/her)
+Ranger Operations Manager 2 #1205
+City of Seattle, Seattle Parks and Recreation
+M: 425-677-0813 | Dispatch: 206-684-7250
+
+From: Pen, Thavy <Thavy.Pen@seattle.qov>
+Sent: Tuesday, September 9, 2025 8:39 PM
+To: Ridal, Jasmine <Jasmine.Ridal@seattle.qov>; Jainga, Jon <Jon.Jainqa@seattle.gov>
+Subject: FW: ACO MOA
+
+Hi Jon and Jasmine,
+
+Following up on the Monthly Summary Reporting and Invoicing Coordination in the
+agreement:
+
+Within five (5) business days after month-end, SPR will transmit to FAS a summary report of
+that month’s activity (park complaints, warnings/citations issued, and patrols completed
+with/without Park Rangers). FAS will include SPR’s summary with its invoice to SPR
+Accounting. If no activity occurs, SPR will submit a zero-activity report.
+
+Marian shared the SPR Security Violations Dashboard - Overview, and it appears Animal Control
+Officers are still entering citations there. Could you please confirm:
+
+     • Whether the monthly summary is currently being sent to FAS so it can be included
+       with FAS’s invoice to SPR Accounting,
+
+     • The preferred point of contact and delivery method (email and/or shared folder) for
+       the monthly summary, and
+
+     • That the five-business-day timeline after month-end works for your team for
+       September reporting.
+
+For awareness, FAS is still working on the invoicing, but Iris inquired about this process and
+timing.
+
+Thanks
+
+
+
+
+                                                                                       PKS C266465 01 00650
+          Thavy Pen
+          Strategic Advisor, Parks and Environment Division
+          City of Seattle, Seattle Parks and Recreation
+          206-684-80911 Email: Thavy.pen@seattle.gov
+        Facebook | Twitter | Blog
+
+
+From: Pen, Thavy
+Sent: Monday, September 8, 2025 11:25 AM
+To: Jainga, Jon <Jon.Jainga@seattle.gov>; Ridal, Jasmine <Jasmine.Ridal@seattle.oov>
+Subject: ACO MOA
+
+Hi Jon and Jasmine-
+
+Attached is the 2025 ACO MOA. I just wanted to review the documentation and
+reporting terms and provide update on billing. Thanks
+
+5. DOCUMENTATION AND REPORTING SPR will provide the Park Ranger with the
+electronic equipment needed to record the origin and type of interaction with a
+member of the public, the infraction observed, and the result of the interaction, (i.e.,
+patrol and incident; scoop violation; warning). SPR will also collect data on the
+location and time of each interaction and on each visit by the team to a single park.
+SPR may also collect other points of data that reasonably relate to the work program
+and its goals. The Park Ranger will enter the data into the Park Ranger Data
+Tracking App. SPR will share the data collected with FAS. The ACO and Park
+Ranger shall record all contacts and citations in the SPR app on the Parks Code
+Violation Dashboard. FAS will provide access to PetPoint and training for Park
+Rangers from ACOs on ticket writing and utilizing PetPoint to track contacts. A
+regular reporting mechanism will be vital for tracking progress and outcomes.
+Monthly reports from ACOs should include park complaints received, the number of
+warnings and citations issued, and the number of patrols completed by ACOs, both
+with and without Park Rangers. Within five working days of the end of each month, SPR will
+provide FAS a summary report on that month's data, which FAS will include with its invoice to SPR
+Accounting.
+
+
+
+Year 2025 1 FTE ACO 2 3 FTEs ACO 2
+2025 2025
+Top 2025 hourly rate with AWI $52.56 $52.56
+Variable Costs (labor based on actual worked hours)
+        Salaries (assume 2,088 hours) $ 109,745 $329,236
+       Variable benefits (based on 2,088 hours) $ 25,552 $ 76,656
+Subtotal Variable Costs (based on actual worked
+hours) $ 135,297 $405,892
+Fixed Costs
+
+
+
+
+                                                                                       PKS C266465 01 00651
+        Pooled benefits ($23,586/ACO 2)) $ 23,586 $ 70,758
+        Supplies ($3,OOO/ACO 2) $3,000 $9,000
+        Divisional Indirect ($7,682/ACO 2) $ 7,682 $ 23,046
+Subtotal Fixed Costs $ 34,268 $ 102,804
+Total Billing $ 169,565 $508,695
+
+FAS will submit monthly requests for payment, along with a calculation spreadsheet
+of these costs, to SPR via
+a pre-established interdepartmental journal entry set up where FAS’s expenses will
+be charged to SPR’s PS 9.2
+financial coding below based on actual hours worked.
+
+
+
+
+         Thavy Pen
+         Strategic Advisor, Parks and Environment Division
+         City of Seattle, Seattle Parks and Recreation
+         206-684-80911 Email: Thavy.pen@seattle.gov
+       Facebook | Twitter | Blofl
+
+
+
+
+                                                                          PKS C266465 01 00652
+

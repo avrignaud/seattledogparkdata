@@ -1,0 +1,128 @@
+                               2023 Seattle City Council Budget Action
+
+                                                                                                BIP - Operating: Proposed Budget
+
+       Tab            Action        Option      Version
+    FAS          128_SAS_P
+
+
+
+
+Budget Action Title:           Park District Animal Control Officer Positions
+
+
+Ongoing:                       Yes                                                                   Has Budget Proviso:     No
+
+
+Has CIP Amendment:             No                                                                    Has Attachment:         No
+
+
+Primary Sponsor:
+
+
+Council Members:
+
+
+Staff Analyst:
+
+
+Council Bill or Resolution:
+Date                           Total          LH          TM        KS          AP         DJ   DS         AL          BC         SN
+                 Yes                 0
+                 No                  0
+                 Abstain             0
+                 Absent              0
+
+
+
+
+Oct 04, 2022 09:03 AM                                      Seattle City Council Budget Action                               Page 1 of 3
+
+
+
+
+                                                                                                                       PKS_C266465_01_00603
+     Tab          Action         Option         Version
+    FAS        128_SAS_P
+
+
+
+
+                                                        Summary of Dollar Effect
+                                           See the following pages for detailed technical information
+                                                       2023 Increase (Decrease)                         2024 Increase (Decrease)
+General Fund
+                           General Fund Revenues                                          $315,231                                  $319,978
+                        General Fund Expenditures                                         $315,231                                  $319,978
+                                Net Balance Effect                                                $0                                       $0
+Other Funds
+   Finance and Administrative Services Fund
+                                     (50300)
+                                          Revenues                                                $0                                       $0
+                                     Expenditures                                         $183,881                                  $255,041
+                                Net Balance Effect                                      $(183,881)                                 $(255,041)
+
+
+
+Total Budget Balance Effect                                                             $(183,881)                                 $(255,041)
+
+
+Budget Action Description:
+This item adds two (2) 1.0 FTE Animal Control Officer II positions in the Finance and Administrative
+Services department in the Seattle Animal Shelter to meet increasing community demand for security
+services and Park Code compliance support in Seattle Parks and Recreation (SPR) property. The
+positions will be funded through the Park District's Levy.
+
+
+
+
+Oct 04, 2022 09:03 AM                                       Seattle City Council Budget Action                                     Page 2 of 3
+
+
+
+
+                                                                                                                             PKS_C266465_01_00604
+      Tab            Action              Option         Version
+     FAS          128_SAS_P
+
+
+
+
+                                                              Budget Action Transactions
+
+
+#   Transaction          Position Title     Number      FTE   Dept            BSL                      Fund                      Year Revenue        Expenditure
+    Description                             of                                                                                        Amount         Amount
+                                            Positions
+
+1   1.0 FTE ACO2 Park                               0     0 FAS - FA000       FAS - BO-FA-SAS -        00100 - General Fund      2023           $0      $315,231
+    Funded                                                                    Seattle Animal Shelter
+2   1.0 FTE ACO2 Park                               0     0 FAS - FA000       FAS - BO-FA-SAS -        00100 - General Fund      2024           $0      $319,978
+    Funded                                                                    Seattle Animal Shelter
+3   Two 1.0 FTEs ACO2                               0     0 FAS - FA000       FAS - BO-FA-SAS -        00100 - General Fund      2023    $315,231             $0
+    Park funded                                                               Seattle Animal Shelter
+4   Two 1.0 FTEs ACO2                               0     0 FAS - FA000       FAS - BO-FA-SAS -        00100 - General Fund      2024    $319,978             $0
+    Park funded                                                               Seattle Animal Shelter
+5   Pocket Adjustments                              0     0 FAS - FA000       FAS - BO-FA-SAS -        50300 - Finance and       2023           $0      $183,881
+                                                                              Seattle Animal Shelter   Administrative Services
+                                                                                                       Fund
+6   Pocket Adjustments                              0     0 FAS - FA000       FAS - BO-FA-SAS -        50300 - Finance and       2024           $0      $255,041
+                                                                              Seattle Animal Shelter   Administrative Services
+                                                                                                       Fund
+7   Pocket Adjustments   Animal Contrl              2     2 FAS - FA000       FAS - BO-FA-SAS -        50300 - Finance and       2023           $0            $0
+                         Ofcr II                                              Seattle Animal Shelter   Administrative Services
+                                                                                                       Fund
+8   Pocket Adjustments   Animal Contrl              2     2 FAS - FA000       FAS - BO-FA-SAS -        50300 - Finance and       2024           $0            $0
+                         Ofcr II                                              Seattle Animal Shelter   Administrative Services
+                                                                                                       Fund
+
+
+
+
+Oct 04, 2022 09:03 AM                                                Seattle City Council Budget Action                                              Page 3 of 3
+
+
+
+
+                                                                                                                                            PKS_C266465_01_00605
+

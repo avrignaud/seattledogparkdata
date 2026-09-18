@@ -1,0 +1,213 @@
+FW: Park District Funding for FAS ACO
+From:            "Ratzliff, Traci" <traci.ratzliff@seattle.gov>
+To:              "Hellier, Justin" <justin.hellier@seattle.gov>, "Williams, Amy"
+                 <amy.williams@seattle.gov>
+Cc:              "Gaccione, Lisa" <lisa.gaccione@seattle.gov>
+Date:            Tue, 04 Oct 2022 09:07:27 -0700
+Attachments:     FAS 128 ACO II positions.pdf (121.61 kB)
+
+Why is this allocation showing as GF - when I think it is Park District Funding. Can we meet to
+discuss this quickly?
+
+TR
+
+From: Kaye, Lise <Lise.Kaye@seattle.gov>
+Sent: Tuesday, October 4, 2022 9:06 AM
+To: Ratzliff, Traci <Traci.Ratzliff@seattle.gov>; Mikesell, Tom <Tom.Mikesell@seattle.gov>
+Cc: McConaghy, Eric <Eric.McConaghy@seattle.gov>
+Subject: RE: Park District Funding for FAS ACO
+
+If it helps, here's the change request report. Please keep me posted and let me know if I should
+reference the Parks paper in my FAS paper. Thanks!
+
+Lise
+
+From: Ratzliff, Traci <Traci.Ratzliff@seattle.gov>
+Sent: Tuesday, October 4, 2022 9:00 AM
+To: Mikesell, Tom <Tom.Mikesell@seattle.qov>
+Cc: McConaghy, Eric <Eric.McConaghv@seattle.qov>; Kaye, Lise <Lise.Kaye@seattle.gov>
+Subject: RE: Park District Funding for FAS ACO
+
+o.k. I have asked SPR/CBO to explain what is going on here..
+
+TR
+
+From: Mikesell, Tom <Tom.lVlikesell@seattle.qov>
+Sent: Tuesday, October 4, 2022 8:55 AM
+To: Ratzliff, Traci <Traci.Ratzliff@seattle.qov>
+Cc: McConaghy, Eric <Eric.McConaqhy@seattle.qov>; Kaye, Lise <Lise.Kaye@seattle.gov>
+Subject: RE: Park District Funding for FAS ACO
+
+Good morning Traci,
+
+I am adding Lise since there is FAS oddness with this one. To answer your question: yes, FAS-
+128_SAS_POS1 adds GF revenue of ~$320k per year to the GF, and adds salaries for two ACO
+positions from the GF. BUT, the two positions are added as pocket changes in the FAS fund. THE
+BIP also includes salaries and wages in the FAS fund, but seemingly not for the two positions.
+
+
+
+
+                                                                                             PKS C266465 01 00599
+I only started looking at this because I am explaining the GF revenue implication (the budget adds
+new GF revenue for these positions, and it says the $ is from the levy increase) and the expenditures
+that are added in tandem. But there is something odd about it, particularly the mismatches between
+narrative, positions etc.
+
+Tom
+
+From: Ratzliff, Traci <Traci.Ratzliff@seattle.gov>
+Sent: Monday, October 3, 2022 6:31 PM
+To: Mikesell, Tom <Tom.Mikesell@seattle.qov>
+Cc: McConaghy, Eric <Eric.McConaqhv@seattle.qov>
+Subject: Park District Funding for FAS ACO
+
+This is what I pulled from the SPR IDD - that seems to show Park District appropriation in SPR - not
+in FAS for the 2 ACO's - which I believe are the two $142k positions with Salary and benefits listed
+below. We definitely increased the Annual Park District Levy from about $56 million a year to now
+$118 million in 2023 and $122m in 2024. The combination of several documents show this change.
+If you need me to send them, let me know. They are Table 1 - continuation of Cycle 1 programs and
+Table 2 that provide new programming for the 2nd cyle of MPD funding.
+
+Are you seeing revenue AND appropriation for the two new ACO's showing up in FAS??
+
+TR
+
+This is BIP SPR-100 - Park Safety Program
+
+I will confirm with SPR/CBO tomorrow - but that is what I see in SPR’s IDD.
+
+       O&M                                                                448,640            466,586
+          INDPOOL - Indirect Pooled Benefits                                  41,560          44,470
+             To meet increasing community demand for
+security services and Park Code compliance support, this
+proposal adds two additional ACO/SPR teams dedicated
+to OLA compliance on SPR properties.
+
+
+
+Note this proposal will ramp up in 2023 assuming a Q2
+start date. Corresponding one time savings are
+supporting one time capital investments as detailed in
+SPR-130 and included in the 2023-2028 Proposed Park
+District Spending Plan.                                                       41,560          44,470
+          OTHR - Other                                                                          2,296
+             To meet increasing community demand for
+security services and Park Code compliance support, this
+proposal adds two additional ACO/SPR teams dedicated
+to OLA compliance on SPR properties.
+
+
+
+Note this proposal will ramp up in 2023 assuming a Q2                                           2,296
+
+
+
+
+                                                                                           PKS C266465 01 00600
+start date. Corresponding one time savings are
+supporting one time capital investments as detailed in
+SPR-130 and included in the 2023-2028 Proposed Park
+District Spending Plan.
+          PROFSVCS - Professional Services                  15,054       28,475
+             To meet increasing community demand for
+security services and Park Code compliance support, this
+proposal adds two additional ACO/SPR teams dedicated
+to OLA compliance on SPR properties.
+
+
+
+Note this proposal will ramp up in 2023 assuming a Q2
+start date. Corresponding one time savings are
+supporting one time capital investments as detailed in
+SPR-130 and included in the 2023-2028 Proposed Park
+District Spending Plan.                                     15,054       28,475
+          REGBENCOLA - Regular Benefits - COLA              27,261       27,261
+             To meet increasing community demand for
+security services and Park Code compliance support, this
+proposal adds two additional ACO/SPR teams dedicated
+to OLA compliance on SPR properties.
+
+
+
+Note this proposal will ramp up in 2023 assuming a Q2
+start date. Corresponding one time savings are
+supporting one time capital investments as detailed in
+SPR-130 and included in the 2023-2028 Proposed Park
+District Spending Plan.                                     27,261       27,261
+           REGBENOTH - Regular Benefits - Other                  80           80
+             To meet increasing community demand for
+security services and Park Code compliance support, this
+proposal adds two additional ACO/SPR teams dedicated
+to OLA compliance on SPR properties.
+
+
+
+Note this proposal will ramp up in 2023 assuming a Q2
+start date. Corresponding one time savings are
+supporting one time capital investments as detailed in
+SPR-130 and included in the 2023-2028 Proposed Park
+District Spending Plan.                                          80          80
+          REGSAL - Regular Salary                          142,318      142,318
+             To meet increasing community demand for
+security services and Park Code compliance support, this
+proposal adds two additional ACO/SPR teams dedicated
+to OLA compliance on SPR properties.
+
+
+
+Note this proposal will ramp up in 2023 assuming a Q2
+start date. Corresponding one time savings are
+supporting one time capital investments as detailed in     142,318      142,318
+
+
+
+
+                                                                      PKS C266465 01 00601
+SPR-130 and included in the 2023-2028 Proposed Park
+District Spending Plan.
+           RETIREMT - Retirement                            22,515       21,803
+             To meet increasing community demand for
+security services and Park Code compliance support, this
+proposal adds two additional ACO/SPR teams dedicated
+to OLA compliance on SPR properties.
+
+
+
+Note this proposal will ramp up in 2023 assuming a Q2
+start date. Corresponding one time savings are
+supporting one time capital investments as detailed in
+SPR-130 and included in the 2023-2028 Proposed Park
+District Spending Plan.                                     22,515       21,803
+          TEMPLBR - Temporary Labor                        207,314      207,314
+             To meet increasing community demand for
+security services and Park Code compliance support, this
+proposal adds two additional ACO/SPR teams dedicated
+to OLA compliance on SPR properties.
+
+
+
+Note this proposal will ramp up in 2023 assuming a Q2
+start date. Corresponding one time savings are
+supporting one time capital investments as detailed in
+SPR-130 and included in the 2023-2028 Proposed Park
+District Spending Plan.                                    207,314      207,314
+           VACANCY - Vacancy                                 (7,461)     (7,431)
+             To meet increasing community demand for
+security services and Park Code compliance support, this
+proposal adds two additional ACO/SPR teams dedicated
+to OLA compliance on SPR properties.
+
+
+
+Note this proposal will ramp up in 2023 assuming a Q2
+start date. Corresponding one time savings are
+supporting one time capital investments as detailed in
+SPR-130 and included in the 2023-2028 Proposed Park
+District Spending Plan.                                     (7,461)      (7,431)
+
+
+
+
+                                                                       PKS C266465 01 00602
+

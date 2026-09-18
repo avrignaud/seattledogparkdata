@@ -15,15 +15,32 @@ records. They are stated here explicitly so the derived metrics are auditable.
 Sources:
   - FAS-side ACO II annual cost $152,399: 2021 MOA AG21-PRF03-032 Attachment A (sourced).
   - FMW pairing $140,000/yr: author estimate; SPR does not publish a per-FMW
-    off-leash line. Flagged as estimate.
+    off-leash line. Flagged as estimate. Applies 2016-2022 only: the paired
+    Facilities Maintenance Worker left for a Park Ranger post in 2023 and was never
+    backfilled ("There is no current FMW working with the Animal Control Officers",
+    SPR Jainga memo Sep 2024, PRR C266465 Bates PKS_C266465_01_00360).
+  - Billed ACO cost 2023-2024: SPR's quarterly ledger backup (PRR C266465, Bates
+    00485 / 00653; data/prr-responses/C266465/documents/enforcement-moa-billing.csv).
+    The 2023 MOA billed a flat 240 hr/pay period for three FTE regardless of hours
+    worked, so what SPR paid tracked the FUNDED headcount, not deployment:
+    FY2024 $456,173; H1 2023 $226,528 (Q3/Q4 not produced; annualized x2).
+  - Per-FTE ACO rate by MOA year: 2021 MOA $152,399 (2014-2022); 2025 MOA
+    $169,565 (2025); 2026 MOA $176,093 (2026). 2023-2024 use billed actuals.
   - FTE schedule: 1 part-time ACO pre-2016 (imputed from PRR context); the April
     2016 MOA brought a full-time ACO II + paired FMW online mid-2016; the 2021
-    MOA continued that structure. The 2023 MOA *funded* three ACO IIs, but the
-    added positions were largely unfilled: as of April 2026 SPR said two of the
-    three were still being hired/trained, with roughly one officer working parks
-    (Axios Seattle, 2026-04-17). So attributable deployment is held at ~1.0 ACO
-    through 2026 — the funded-vs-deployed gap lives in FUNDED_ACO, not here.
+    MOA continued that structure. Three categories from 2023 on: FUNDED (three
+    ACO II under the 2023/2025/2026 MOAs), BILLED (three, on calendar-derived
+    invoices, 2023-2024; actual-hours billing only from the 2025 MOA), and
+    DEPLOYED (FAS reported it could field 1.5-2.0 in Feb 2025, Bates 00541;
+    ~1 on parks as of Apr 2026 per Axios Seattle 2026-04-17). annual_cost() uses
+    billed where a ledger exists and the deployed model elsewhere.
     Pre-2016 and the 2016 transition year are the softest assumptions and are flagged.
+  - Fee revenue is summed over DLP-only rows (the same universe as every
+    denominator); non-DLP violations in the PRR files are excluded.
+  - Case results: the PRR records carry case_result (Citation / Verbal / blank /
+    Voided / Dismissed). Verbal warnings only appear from 2018, so
+    cost_per_actual_citation is blank before 2018 (warnings were not recorded in
+    the C049204 files, not absent).
 
 2026 is a partial year (through 2026-04-17). cost_per_citation and
 citations_per_fte are emitted as blank for 2026 to avoid the partial-year
@@ -47,7 +64,35 @@ FAS_ACO_ANNUAL_2023 = 151551 # sourced: 2023 MOA PRF1602 (per ACO II FTE; 3 FTE 
 FAS_ACO_TOTAL_2023 = 454652  # sourced: 2023 MOA PRF1602 (3 ACO II FTE, FAS-side)
 FAS_ACO_ANNUAL_2026 = 176093 # sourced: 2026 MOA (per ACO II FTE; top rate $54.46/hr; 3 FTE = $528,279)
 FAS_ACO_TOTAL_2026 = 528279  # sourced: 2026 MOA (3 ACO II FTE, FAS-side authorized maximum)
-FMW_ANNUAL = 140000          # estimated: author triangulation (2016-2023 FMW pairing; the 2026 MOA pairs ACOs with Park Rangers instead)
+FAS_ACO_ANNUAL_2025 = 169565 # sourced: 2025 MOA (per ACO II FTE; 3 FTE max $508,695 on actual hours)
+FMW_ANNUAL = 140000          # estimated: author triangulation (2016-2022 FMW pairing; position vacant from 2023, Bates 00360)
+
+# Billed ACO cost where SPR's ledger backup exists (PRR C266465). Calendar-derived
+# invoices for three staff; see documents/enforcement-moa-billing.csv.
+BILLED_ACO = {
+    "2023": 453056,  # H1 2023 $226,528 (Q1 $113,454.64 + Q2 $113,073.24) x 2 — ANNUALIZED, Q3/Q4 not produced
+    "2024": 456173,  # FY2024 actual: $113,391.08 + $113,073.24 + $114,854.56 + $114,854.56
+}
+
+
+def aco_rate(year: str) -> int:
+    """Per-FTE ACO II annual cost under the MOA in force that year."""
+    y = int(year)
+    if y >= 2026:
+        return FAS_ACO_ANNUAL_2026
+    if y == 2025:
+        return FAS_ACO_ANNUAL_2025
+    return FAS_ACO_ANNUAL
+
+
+def annual_cost(year: str) -> int:
+    """Single owner of the program's annual cost: billed actuals where the ledger
+    exists (2023-2024), otherwise the deployed-staffing model. verify_enforcement_data.py
+    calls this rather than re-deriving it."""
+    aco, fmw = STAFFING[year]
+    if year in BILLED_ACO:
+        return BILLED_ACO[year] + round(fmw * FMW_ANNUAL)
+    return round(aco * aco_rate(year) + fmw * FMW_ANNUAL)
 
 # (aco_fte, fmw_fte) attributable to OFF-LEASH enforcement, by year. This is the
 # conservative, output-anchored measure used for cost-per-citation and per-FTE —
@@ -65,10 +110,10 @@ STAFFING = {
     "2020": (1.0, 1.0),
     "2021": (1.0, 1.0),
     "2022": (1.0, 1.0),
-    "2023": (1.0, 1.0),
-    "2024": (1.0, 1.0),
-    "2025": (1.0, 1.0),
-    "2026": (1.0, 1.0),   # 2023-funded positions still being filled as of Apr 2026 (Axios); ~1 deployed, not 3
+    "2023": (1.0, 0.0),   # FMW vacant from 2023 (Bates 00360); ACO cost overridden by BILLED_ACO
+    "2024": (1.0, 0.0),   # same; BILLED_ACO
+    "2025": (1.0, 0.0),   # actual-hours billing from the 2025 MOA; ledger not produced; ~1-2 deployed
+    "2026": (1.0, 0.0),   # ~1 on parks as of Apr 2026 (Axios); 2026 MOA rate
 }
 
 # FUNDED ACO headcount, by year — what the Park District actually pays for under
@@ -98,6 +143,20 @@ Y2026_CUTOFF = date(2026, 4, 17)
 PARTIAL_YEARS = {"2026"}
 
 
+def partial_year(year: str) -> bool:
+    return year in PARTIAL_YEARS
+
+
+def result_bucket(case_result: str) -> str:
+    """Collapse case_result into citation / verbal / other (blank, Voided, Dismissed)."""
+    v = (case_result or "").strip().lower()
+    if v == "citation":
+        return "citation"
+    if v == "verbal":
+        return "verbal"
+    return "other"
+
+
 def main() -> None:
     rows = list(csv.DictReader(CITATIONS.open()))
 
@@ -105,6 +164,7 @@ def main() -> None:
     all_by_year = Counter()
     offense_by_year: dict[str, Counter] = defaultdict(Counter)
     revenue_by_year: dict[str, float] = defaultdict(float)
+    result_by_year: dict[str, Counter] = defaultdict(Counter)
 
     for r in rows:
         y = r["year"]
@@ -118,20 +178,26 @@ def main() -> None:
                     offense_by_year[y][int(r["offense_level"])] += 1
                 except ValueError:
                     pass
-        fee = r["fee"]
-        if fee not in ("", None):
-            try:
-                revenue_by_year[y] += float(fee)
-            except (TypeError, ValueError):
-                pass
+            result_by_year[y][result_bucket(r["case_result"])] += 1
+            fee = r["fee"]
+            if fee not in ("", None):
+                try:
+                    revenue_by_year[y] += float(fee)
+                except (TypeError, ValueError):
+                    pass
 
     years = sorted(STAFFING)
     out_rows = []
     for y in years:
         aco, fmw = STAFFING[y]
         total_fte = aco + fmw
-        cost = round(aco * FAS_ACO_ANNUAL + fmw * FMW_ANNUAL)
+        cost = annual_cost(y)
         dlp = dlp_by_year.get(y, 0)
+        res = result_by_year.get(y, Counter())
+        n_cit, n_verb, n_other = res.get("citation", 0), res.get("verbal", 0), res.get("other", 0)
+        # Verbal warnings are absent from the records before 2018 (not recorded, not zero),
+        # so a per-actual-citation cost is only meaningful from 2018.
+        cost_per_actual = "" if (partial_year(y) or int(y) < 2018 or not n_cit) else round(cost / n_cit)
         off = offense_by_year.get(y, Counter())
         off_total = sum(off.values())
         first_pct = round(100 * off.get(1, 0) / off_total, 1) if off_total else ""
@@ -156,7 +222,12 @@ def main() -> None:
             "partial_year": "true" if partial else "false",
             "funded_aco_fte": funded_aco,
             "funded_aco_cost": funded_aco_cost_y,
-            "traceable_aco_cost": round(aco * FAS_ACO_ANNUAL),
+            "traceable_aco_cost": BILLED_ACO[y] if y in BILLED_ACO else round(aco * aco_rate(y)),
+            "cost_basis": "billed" if y in BILLED_ACO else "modeled",
+            "result_citation": n_cit,
+            "result_verbal": n_verb,
+            "result_other": n_other,
+            "cost_per_actual_citation": cost_per_actual,
         })
 
     fields = list(out_rows[0].keys())
@@ -171,7 +242,8 @@ def main() -> None:
     cum_cost = sum(r["annual_cost"] for r in out_rows)
     cum_rev = sum(r["fee_revenue"] for r in out_rows)
     print(f"Total DLP: {total_dlp}")
-    print(f"Cumulative cost: ${cum_cost:,}  revenue: ${cum_rev:,}  recovery: {100*cum_rev/cum_cost:.1f}%")
+    print(f"Cumulative cost: ${cum_cost:,}  revenue (DLP-only): ${cum_rev:,}  recovery: {100*cum_rev/cum_cost:.1f}%")
+    print("Cost per actual citation: " + ", ".join(f"{r['year']} ${r['cost_per_actual_citation']:,}" for r in out_rows if r['cost_per_actual_citation'] != ''))
     print(f"Peak per-FTE: {max((r['citations_per_fte'] for r in out_rows if r['citations_per_fte'] != ''))}")
 
 

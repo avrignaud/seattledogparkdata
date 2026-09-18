@@ -1,0 +1,246 @@
+FW: ACO MOA
+From:                  "Williams, Amy" <amy.williams@seattle.gov>
+To:                    "Catague, Daisy” <daisy.catague@seattle.gov>
+Date:                  Thu, 20 Feb 2025 16:19:22 -0800
+Attachments:           FAS ACO MOA_2023-2027_revised O11425.docx (40.48 kB)
+
+So it’s at the top of your long email list@Would be great if they could mark up this
+version and resend.
+
+From: Catague, Daisy <Daisy.Catague@seattle.gov>
+Sent: Friday, February 14, 2025 10:29 AM
+To: Williams, Amy <Amy.Williams@seattle.gov>; Finnegan, Michele
+<Michele.Finnegan@seattle.gov>
+Subject: FW: ACO MOA
+
+
+Hi Amy and Michele,
+
+Jasmine drafted the info below. A lot so I am sharing. We can edit as we see fit.
+
+-Daisy
+
+
+
+From: Ridal, Jasmine <Jasmine.Ridal@seattle.gov>
+Sent: Tuesday, February 11, 2025 10:42 AM
+To: Catague, Daisy <Daisy.Cataque@seattle.gov>
+Cc: Jainga, Jon <Jon.Jainqa@seattle.gov>
+Subject: ACO MOA
+
+Hello Daisy,
+
+This is in no way brief, but I reviewed the draft Amy shared with Jon, provided
+recommendations for changes to the draft MOA, operationalizing, key metrics, and a
+potential elevator pitch. Please let me know if you have any questions.
+
+Draft Revisions
+
+     • 2. Scope of Work
+
+               o "Enforcement of these laws is within the purview of SAS, and the ACO will
+                 have the discretionary authority to issue citations for non-compliance."
+
+                      • ACO Guidance: ACOs may issue a verbal warning on the first contact
+                        with a focus on education but are not restricted from issuing a ticket if
+                        the situation calls for one. For subsequent contacts they are supposed
+                        to issue tickets but have discretion to issue an additional verbal
+                        warning depending on the situation. Example, the collar/leash broke
+
+
+
+
+                                                                                       PKS C266465 01 00498
+          and the owner was actively trying to catch the dog, it has been several
+          years since the last verbal warning etc.
+
+        • Possible SPR Guidance: Park Rangers may issue a verbal warning on
+          the first contact with a focus on voluntary compliance and education
+          but are not restricted from issuing a ticket if the situation calls for
+          one. For subsequent contacts, Park Rangers should issue tickets but
+          have discretion to issue an additional verbal warning depending on
+          the situation.
+
+o "SPR staff will also identify any park maintenance service needs and call SPR
+  Dispatch"
+
+        • Include improvements to signage to increase compliance
+
+o "enforce the City Park code"
+
+        • ACOs can issue citations from multiple chapters of the SMC, but Park
+          Rangers are limited to SMC 18.12 Parks Code
+
+o "enter completed task in Park Ranger Data Tracking App"
+
+        • Change to "enter patrol data in Park Ranger Data Tracking App" -
+          includes park location, contacts, incidents, etc.
+
+o "SPR and FAS will establish guidelines by which they will create the team's
+  work itineraries and the degree to which these itineraries will remain flexible,
+  for instance to respond to emergent issues and/or complaints"
+
+        • Conflicts with 4. Conditions of Work "The ACO shall be responsible for
+          organizing the daily patrol area and route based on complaints
+          received by SAS."
+
+        • Determine guidelines
+
+               • # of Complaints Received by ACOs & SPR
+
+                       o SPR has too many reporting mechanisms to effectively
+                         track these complaints, so it is better to guide this off of
+                         # of Complaints Received by ACOs
+
+               • Areas of Concern for SPR
+
+                       o This is where we can provide departmental guidance for
+                         beaches, playfields, parks, etc.
+
+
+
+
+                                                                          PKS C266465 01 00499
+                                  o Can pull from reports received by SPR Dispatch, known
+                                    areas for on going issues, Rachel's weekly comms
+                                    snapshot, etc.
+
+                          • When time permits, proactive patrols should happen in
+                            alignment with distinct areas to promote effective use of time
+                            in a geographical area
+
+    • 3. Work Schedule
+
+           o From information received from Don, 10am-8pm should be changed to 9am-
+             7pm to align with what ACO's work during daylight savings time
+
+    • 4. Conditions of Work
+
+           o "The ACO shall be responsible for organizing the daily patrol area and route
+             based on complaints received by SAS." - see above comments
+
+           o "The Park Ranger will carry similar protective equipment." - remove in interim
+             but explore more prior to 2026
+
+    • 5. Documentation and Reporting
+
+           o "The ACO and Park Ranger shall record all contacts and citations in the SPR
+             app on the Parks Code Violation Dashboard."
+
+                  • Currently Park Rangers are logging on a different patrol tracking
+                    application
+
+                  • Change to "The ACO shall record all contacts and citations in the SPR
+                    app on the Parks Code Violation Dashboard. Park Rangers shall record
+                    all contacts and citations in the Park Ranger Data Tracking App."
+
+           o "Within five working days of the end of each month, SPR will provide FAS a
+             summary report on that month's data, which FAS will include with its invoice
+             to SPR Accounting."
+
+                • Not sure how we do this, but I'm thinking we put the ownership on
+                  data tracking on FAS to provide their month's data to us instead.
+Overall Recommendations for Operationalizing:
+
+    • Support from FAS
+
+           o Access to PetPoint
+
+           o Training for Park Rangers from ACOs
+
+                  • Ticket writing
+
+
+
+
+                                                                                  PKS C266465 01 00500
+                     • Utilizing PetPoint to track contacts
+
+             o Regular reporting mechanism
+
+                     • Park complaints received by FAS (monthly or quarterly)
+
+                     • # of Warnings/Citations
+
+                     • Park patrols completed by ACOs (with or without Park Rangers)
+
+     • Support from SPD - when people refuse to provide their information
+
+     • Support from SPR
+
+             o Singular process for dog complaints - either direct everyone to contact Animal
+               Control, or direct them to AC and also have singular tracking mechanism
+               within Parks (potential area for growth in SPR Dispatch system)
+
+             o Inform public of increased enforcement through social media
+
+             o Better signage throughout all parks on Parks Code, especially around dog
+               violations
+
+           o Improved data tracking system (hopefully the GIS app will improve it for both
+              agencies) and a better incident reporting system
+Key Metrics to Track:
+
+     • # of Complaints Received by ACOs
+
+     • # of Warnings
+
+     • # of Citations
+
+      • # of Parks Patrolled by ACOs
+I'm curious if ACOs would have suggestions for good metrics to track as well, like reductions
+in # of complaints per park area.
+
+Potential Elevator Pitch:
+
+The partnership between SPR and Animal Control is critical to promoting compliance with
+leash and scoop laws at our park locations, especially those with a history of user complaints
+and violations that impact both the experience of park visitors and the health of our natural
+resources. Historically, a FWM partnered with ACOs for regular patrols aimed at encouraging
+responsible dog ownership and behavior. With the growth of the Park Ranger program, SPR
+has transitioned to utilizing Park Rangers on a limited basis in this effort, but it is clear that
+Animal Control's expertise and consistent presence remain essential to achieving the
+program's goals due to their database of contacts and experience enforcing dog violations.
+To continue improving park safety and user experience, we recommend increasing reliance
+on Animal Control to conduct regular patrols and enforce compliance, while also investing in
+
+
+
+
+                                                                                        PKS C266465 01 00501
+training and access to the ACO database to increase Park Rangers ability to also do this,
+ensuring a safer and more enjoyable environment for all park users from both agencies.
+
+Currently, Park Rangers are only able to partner with ACOs Sunday through Wednesday, and
+only when a single ACO is available without a partner. To improve coverage and maintain a
+consistent presence, it would be beneficial to have two ACOs assigned to the park patrols:
+one for Sunday through Wednesday, and another for Wednesday through Saturday, rather
+than the two FTE's working only Sunday-Wednesday. This schedule would ensure patrols are
+conducted seven days a week, with one Park Ranger available each day to collaborate with
+the ACO. This alignment would strengthen our efforts to enforce park regulations and
+enhance overall park safety.
+
+A regular reporting mechanism will also be vital for tracking progress and outcomes.
+Monthly reports from ACOs should include park complaints received, the number of
+warnings and citations issued, and the number of patrols completed by ACOs, both with and
+without Park Rangers. In support of this effort, SPR can assist by informing the public of the
+increased enforcement through social media, posting clearer signage throughout all parks
+regarding the Parks Code (particularly around dog-related violations), and improving the
+data tracking and incident reporting system. We hope the in-progress GIS app will help
+streamline and improve these systems for both agencies.
+
+
+
+
+             Jasmine Ridal (she/her)
+
+Ranger Operations Manager 2 #1205
+
+City of Seattle, Seattle Parks and Recreation
+M: 425-677-0813 | Dispatch: 206-684-7250
+
+
+
+
+                                                                                     PKS C266465 01 00502
+

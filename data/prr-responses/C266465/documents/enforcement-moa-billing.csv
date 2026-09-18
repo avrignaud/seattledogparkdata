@@ -1,0 +1,9 @@
+period,per_staff_billed,three_staff_billed,adjustment,net_billed,source_bates,notes
+2023-Q1,37818.21,113454.64,,113454.64,PKS_C266465_01_00485,flat 40 hr/week calendar template at $44.79/hr
+2023-Q2,37754.65,113263.94,-190.70,113073.24,PKS_C266465_01_00485,includes Q1 adjustment
+2023-Q3,,,,,,not produced in C266465
+2023-Q4,,,,,,not produced in C266465
+2024-Q1,37797.03,113391.08,,113391.08,PKS_C266465_01_00653,sheet header still reads "JAN 2023" (stale title; weekly dates are 2024 and leap-year correct)
+2024-Q2,37754.65,113263.94,-190.70,113073.24,PKS_C266465_01_00653,
+2024-Q3,38284.85,114854.56,,114854.56,PKS_C266465_01_00653,
+2024-Q4,38284.85,114854.56,,114854.56,PKS_C266465_01_00653,
