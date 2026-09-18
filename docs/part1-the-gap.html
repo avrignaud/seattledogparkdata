@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="site.css?v=f49414dc">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.umd.min.js"></script>
@@ -41,34 +41,34 @@
     <a href="budget.html">Budget</a>
     <a href="peer-cities.html">Peer Cities</a>
     <a href="opinion.html">Opinion</a>
+    <a href="data-methods.html">Data &amp; Methods</a>
     <a href="updates.html">Updates</a>
   </nav>
 </div>
 
 <div class="masthead">
   <span class="dateline">Part I: The Gap &middot; Seattle Dog Park Data &middot; seattledogparkdata.com</span>
-  <span>UPDATED JULY 2026</span>
+  <span>UPDATED SEPTEMBER 2026</span>
 </div>
 
 <header class="hero">
-  <h1 class="hed">Seattle added <em>zero</em> net off-leash areas in seventeen years.</h1>
-  <p class="deck">The city's <a href="https://ofm.wa.gov/washington-data-research/population-demographics/population-estimates/april-1-official-population-estimates">population grew by roughly 208,000</a> between 2010 and 2025. Its <a href="https://www.seattle.gov/city-budget-office/budget-archives">parks budget rose 37%</a> on an apples-to-apples baseline. Two new off-leash areas open in late 2026 &mdash; the first net increase since 2009.</p>
+  <h1 class="hed">Seattle added <em>zero</em> net off-leash areas in thirteen years.</h1>
+  <p class="deck">The last off-leash area (OLA) opened in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/sources/people-dogs-and-parks-plan-august-2017.pdf">2013</a>. Since 2010 the city's <a href="https://ofm.wa.gov/washington-data-research/population-demographics/population-estimates/april-1-official-population-estimates">population has grown by roughly 208,000</a> and its <a href="https://www.seattle.gov/city-budget-office/budget-archives">parks budget by 37%</a> on an apples-to-apples baseline. The two funded sites, West Seattle Stadium and Othello, are now expected in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/sources/spr-ola-project-status-2026.md">2027 and 2028</a>.</p>
 </header>
-
 <div class="stats">
   <div class="stat orange">
     <div>
       <div class="label">OLAs in 2010</div>
-      <div class="num">14<span class="unit" style="font-size:14px;">&dagger;</span></div>
+      <div class="num">11</div>
     </div>
-    <div class="note">Total Seattle off-leash areas (OLAs). <strong>&dagger;</strong> 2010 row in the timeseries CSV is flagged approximate &mdash; the 14 sites all opened by 2009; SPR did not publish a formal 2010 inventory. <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">src</a></div>
+    <div class="note">Per SPR's 2017 <em>People, Dogs &amp; Parks Plan</em>; Denny, Magnolia Manor and Kinnear were added in 2012&ndash;13. <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">src</a></div>
   </div>
   <div class="stat orange">
     <div>
       <div class="label">OLAs in 2025</div>
       <div class="num">14</div>
     </div>
-    <div class="note">Unchanged. West Seattle Stadium + Othello open late 2026. <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/planned-olas.csv">src</a></div>
+    <div class="note">Unchanged since 2013. Othello is expected fall 2027, West Seattle Stadium winter 2028. <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/planned-olas.csv">src</a></div>
   </div>
   <div class="stat navy">
     <div>
@@ -85,235 +85,80 @@
     <div class="note">$247.7M &rarr; $339.4M all funds (apples-to-apples baseline). <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-timeseries.csv">src</a></div>
   </div>
 </div>
-
 <!-- ================================================================= -->
-<h2 class="finding" id="finding-01"><span class="num">Finding 01</span>Residents per off-leash area, over time.</h2>
-<p class="lead">Dividing <a href="https://ofm.wa.gov/washington-data-research/population-demographics/population-estimates/april-1-official-population-estimates">Seattle's population</a> by the <a href="https://www.seattle.gov/parks/recreation/dog-off-leash-areas">number of off-leash areas</a>: in 2010, one OLA served about <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-timeseries.csv">43,500 residents</a>. In 2025 the figure is <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-timeseries.csv">58,329</a> — a 34% increase while the OLA count held at 14.</p>
-
+<h2 class="finding" id="finding-01">Residents per off-leash area keeps climbing.</h2>
+<p class="lead">Dividing <a href="https://ofm.wa.gov/washington-data-research/population-demographics/population-estimates/april-1-official-population-estimates">Seattle's population</a> by its <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">OLA count</a>: in 2016, the first full year the site's data covers after the 2013 additions, one OLA served about <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-timeseries.csv">50,300 residents</a>. In 2025 it served <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-timeseries.csv">58,329</a>, a 16% increase with the count fixed at 14. In 2010, with 11 OLAs, the figure was about 55,300; three additions in 2012&ndash;13 brought it down, and thirteen years of growth have pushed it back past that point.</p>
 <div class="chart-block">
   <div class="chart-title">Residents per OLA, 2010&ndash;2026</div>
-  <div class="chart-subtitle">The last OLAs opened in 2009 (Blue Dog Pond, Magnolia Manor). Two new ones are scheduled to open at the end of 2026 (<a href="https://www.seattle.gov/parks/about-us/projects/west-seattle-stadium-off-leash-area-development">West Seattle Stadium</a> and <a href="https://www.seattle.gov/parks/about-us/projects/othello-playground-off-leash-area-development">Othello Playground</a>).</div>
-  <div class="chart-wrap"><canvas id="chartResPerOla" role="img" aria-label="Line chart: residents per Seattle OLA rose from 43,476 in 2010 to 58,329 in 2025, then projects down to 52,000 in 2026 when two new OLAs open."></canvas></div>
-  <div class="chart-source">Source: <a href="https://ofm.wa.gov/washington-data-research/population-demographics/population-estimates/april-1-official-population-estimates">WA OFM April 1 population estimates</a> &middot; <a href="https://www.seattle.gov/parks/recreation/dog-off-leash-areas">SPR OLA inventory</a> &middot; <a href="https://harrell.seattle.gov/wp-content/uploads/sites/23/2022/08/Seattle-Park-District-Fact-sheet.pdf">Seattle Park District Cycle 2 Fact Sheet</a> &middot; data in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-timeseries.csv">data/seattle-timeseries.csv</a></div>
+  <div class="chart-subtitle">The last OLA opened in 2013 (Kinnear). The two funded sites, <a href="https://www.seattle.gov/parks/about-us/projects/west-seattle-stadium-off-leash-area-development">West Seattle Stadium</a> and <a href="https://www.seattle.gov/parks/about-us/projects/othello-playground-off-leash-area-development">Othello Playground</a>, are in design and expected in 2027 and 2028, so 2026 projects with no change in the count.</div>
+  <div class="chart-wrap"><canvas id="chartResPerOla" role="img" aria-label="Line chart: residents per Seattle OLA was 55,333 in 2010 with 11 OLAs, dipped to 50,314 in 2016 after three additions, and rose to 58,329 in 2025 and a projected 59,429 in 2026 with the count fixed at 14."></canvas></div>
+  <div class="chart-source">Source: <a href="https://ofm.wa.gov/washington-data-research/population-demographics/population-estimates/april-1-official-population-estimates">WA OFM April 1 population estimates</a> &middot; OLA count per <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/sources/people-dogs-and-parks-plan-august-2017.pdf">SPR People, Dogs &amp; Parks Plan (2017)</a> &middot; planned sites per <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/sources/spr-ola-project-status-2026.md">SPR project pages (archived Sept 2026)</a> &middot; data in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-timeseries.csv">data/seattle-timeseries.csv</a></div>
 </div>
-
-<div class="takeaway neutral">
-  <span class="kicker">Observation</span>
-  <p>With the two 2026 openings factored in, residents-per-OLA projects to ~52,000 &mdash; still above the 2010 figure of 43,476. Returning to the 2010 ratio at Seattle's projected 2026 population (~832,000) would require 19 OLAs total, three more than the 16 projected for fall 2026. Full calculation in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-timeseries.csv">data/seattle-timeseries.csv</a>.</p>
-</div>
-
 <div class="chart-block">
-  <div class="chart-title">When Seattle's 14 OLAs opened, and when the next ones will</div>
-  <div class="chart-subtitle">Count of OLAs that opened in each year, 1997&ndash;2026. The last fenced OLAs (Magnolia Manor and Blue Dog Pond) opened in 2009. West Seattle Stadium and Othello Playground are under construction for fall 2026.</div>
-  <div class="chart-wrap short"><canvas id="chartOlaOpenings" role="img" aria-label="Stacked bar chart: 14 OLAs opened between 1997 and 2009, zero new OLAs opened 2010-2025, and two new OLAs open in fall 2026."></canvas></div>
-  <div class="chart-source">Source: year-opened from SPR individual OLA pages &middot; planned sites per <a href="https://www.seattle.gov/parks/about-us/projects/west-seattle-stadium-off-leash-area-development">West Seattle Stadium project page</a> and <a href="https://www.seattle.gov/parks/about-us/projects/othello-playground-off-leash-area-development">Othello Playground project page</a> &middot; data in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">seattle-olas.csv</a> + <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/planned-olas.csv">planned-olas.csv</a></div>
+  <div class="chart-title">When Seattle's 14 OLAs opened, and when the next two are due</div>
+  <div class="chart-subtitle">Count of OLAs opened per year, from SPR's own chronology. Eight came out of the 1996&ndash;99 pilot, three were added in 2005, and the last three in 2012&ndash;13. The funded sites are expected in fall 2027 (Othello) and winter 2028 (West Seattle Stadium).</div>
+  <div class="chart-wrap short"><canvas id="chartOlaOpenings" role="img" aria-label="Stacked bar chart: 14 OLAs opened between 1996 and 2013, none opened 2014 through 2026, and two funded OLAs are expected in 2027 and 2028."></canvas></div>
+  <div class="chart-source">Source: year opened per <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/sources/people-dogs-and-parks-plan-august-2017.pdf">SPR People, Dogs &amp; Parks Plan (Aug 2017)</a>, pp. 11&ndash;12 and Section 7 &middot; planned sites per <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/sources/spr-ola-project-status-2026.md">SPR project pages (archived)</a> &middot; data in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">seattle-olas.csv</a> + <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/planned-olas.csv">planned-olas.csv</a></div>
 </div>
-
 <div class="takeaway neutral">
   <span class="kicker">Observation</span>
-  <p>The 1997&ndash;2009 build-out added Seattle's 14 existing OLAs. No new OLAs opened in the 16 years between 2010 and 2025. Over the same window the city's population grew from ~609,000 to ~817,000. SPR's 2023 Expansion Study acknowledges demand "has grown since the pilot program was launched in 1997."</p>
+  <p>No OLA has opened in the twelve full years from 2014 through 2025. SPR's 2023 Expansion Study acknowledges demand "has grown since the pilot program was launched in 1997," and SPR's own enforcement agency told the City Council in 2022 that <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/prr-responses/C266465/README.md">the shortage pushes owners to run dogs off-leash in regular parks</a>.</p>
 </div>
-
 <!-- ================================================================= -->
-<h2 class="finding" id="finding-02"><span class="num">Finding 02</span>The peer-city comparison.</h2>
-<p class="lead"><a href="https://www.tpl.org/parkscore">Trust for Public Land's 2025 ParkScore</a> measures dog parks per 100,000 residents across the 100 largest U.S. cities. Seattle sits below every major West Coast peer; <a href="https://www.portland.gov/parks/find-dog-off-leash-area">Portland</a> is at roughly 3.2&times; Seattle's per-capita supply.</p>
-
+<h2 class="finding" id="finding-02">Seattle has about a third of its West Coast peers' dog parks per capita.</h2>
+<p class="lead"><a href="https://www.tpl.org/parkscore">Trust for Public Land's 2025 ParkScore</a> counts dog parks per 100,000 residents across the 100 largest U.S. cities. Seattle sits below every major West Coast peer; <a href="https://www.portland.gov/parks/find-dog-off-leash-area">Portland</a> has roughly 3.2&times; Seattle's per-capita supply. Full per-city detail and counting caveats are on the <a href="peer-cities.html">Peer Cities</a> page.</p>
 <div class="chart-block">
   <div class="chart-title">Dog parks per 100,000 residents, 2025</div>
-  <div class="chart-subtitle">Comparable and aspirational cities. Vancouver BC is not in ParkScore (not in the U.S.), so this uses its self-reported count of 36 OLAs from the <a href="https://vancouver.ca/parks-recreation-culture/people-parks-dogs-strategy.aspx">People, Parks &amp; Dogs Strategy</a> and Statistics Canada 2021 census population (carried forward).</div>
-  <div class="chart-wrap tall"><canvas id="chartPeer" role="img" aria-label="Horizontal bar chart: Seattle has 1.82 dog parks per 100,000 residents — below Boise (7.60), Portland (5.74), Vancouver BC (5.44), SF (5.03), and above Austin (1.28)."></canvas></div>
+  <div class="chart-subtitle">Comparable and aspirational cities. Vancouver BC is not in ParkScore, so this uses its self-reported count of 36 OLAs from the <a href="https://vancouver.ca/parks-recreation-culture/people-parks-dogs-strategy.aspx">People, Parks &amp; Dogs Strategy</a> and the Statistics Canada 2021 census population.</div>
+  <div class="chart-wrap tall"><canvas id="chartPeer" role="img" aria-label="Horizontal bar chart: Seattle has 1.82 dog parks per 100,000 residents, below Boise (7.60), Portland (5.74), Vancouver BC (5.44) and SF (5.03), and above Austin (1.28)."></canvas></div>
   <div class="chart-source">Source: <a href="https://www.tpl.org/parkscore">Trust for Public Land 2025 ParkScore Index</a> &middot; <a href="https://vancouver.ca/parks-recreation-culture/people-parks-dogs-strategy.aspx">Vancouver Park Board People, Parks &amp; Dogs Strategy</a> (2017) &middot; data in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/peer-cities.csv">data/peer-cities.csv</a></div>
 </div>
-
 <div class="takeaway neutral">
   <span class="kicker">Observation</span>
-  <p>Seattle's West Coast peers cluster near 5 dog parks per 100,000 residents; Seattle is at <a href="https://www.tpl.org/city/seattle-washington">1.82</a>, adjacent to <a href="https://www.tpl.org/city/austin-texas">Austin</a> (1.28, ParkScore rank 54). <a href="https://www.tpl.org/city/boise-idaho">Boise</a> (7.6) has led TPL's dog-park-per-capita category in recent years. Counting rules differ across cities &mdash; Portland counts some unfenced voice-control areas, Vancouver BC includes time-restricted shared-use areas &mdash; but normalizing for those differences narrows the gap without closing it. Per-city data in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/peer-cities.csv">data/peer-cities.csv</a>.</p>
+  <p>Counting rules differ: Portland includes unfenced voice-control areas and Vancouver BC includes time-restricted shared-use areas. Normalizing for those differences narrows the gap without closing it. The City's own comparison agrees on Seattle's position: in its <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/prr-responses/C266465/README.md">June 2022 report to Council</a> (PRR C266465, Bates 00524), the Finance and Administrative Services department put Seattle at 1.9 OLAs per 100,000 residents against Portland's 4.9 and San Francisco's 6.5.</p>
 </div>
-
 <!-- ================================================================= -->
-<h2 class="finding" id="finding-02b"><span class="num">Finding 02b</span>The allocation question: how much of each city's parkland is legal off-leash.</h2>
-<p class="lead">Per-capita supply is one frame; <em>allocation within an existing park system</em> is another. The "Seattle is land-constrained" defense argues against building more parks; the allocation cut asks how much of the parks the city <em>already operates</em> are legal for dogs. Of Seattle's 6,662 acres of municipal parkland, 30.7 are legal off-leash &mdash; about <strong>0.46%</strong>.</p>
-
+<h2 class="finding" id="finding-02b">Less than half a percent of Seattle's parkland is legal off-leash.</h2>
+<p class="lead">Per-capita supply is one measure. How the city allocates the park system it already runs is a second. Of Seattle's <a href="https://www.tpl.org/city/seattle-washington">6,662 acres</a> of municipal parkland, <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">30.7</a> are legal off-leash, about <strong>0.46%</strong>. Vancouver BC allocates roughly five times that share and San Francisco about four times.</p>
 <div class="chart-block">
   <div class="chart-title">OLA acreage as a share of total municipal parkland</div>
-  <div class="chart-subtitle">OLA acres divided by total parkland acres in each city. Uses each city's own published count, with the same fenced-OLA caveats as Finding 02. Portland's 0.65% includes ~85 ac of mostly-unfenced voice-control DOLAs (Portland's fenced-only acreage understates the share by an unpublished but smaller amount). Austin's 0.43% sits below Seattle on a fenced-comparable basis (~80 ac), excluding the much larger Walnut Creek voice-control natural area. Vancouver figures from the Park Board's <a href="https://vancouver.ca/parks-recreation-culture/people-parks-dogs-strategy.aspx">People, Parks &amp; Dogs Strategy</a>; U.S. peers from <a href="https://www.tpl.org/parkscore">TPL 2025 ParkScore</a>.</div>
-  <div class="chart-wrap"><canvas id="chartOlaShare" role="img" aria-label="Horizontal bar chart: OLA acreage as a share of municipal parkland — Vancouver BC 2.27%, San Francisco 1.88%, Portland 0.65%, Seattle 0.46%, Austin 0.43%."></canvas></div>
+  <div class="chart-subtitle">OLA acres divided by total parkland acres in each city, using each city's own published count and the same counting caveats as above. Portland's 0.65% includes ~85 acres of mostly unfenced voice-control areas. Austin's 0.43% uses its ~80 fenced acres and excludes the much larger Walnut Creek voice-control natural area.</div>
+  <div class="chart-wrap"><canvas id="chartOlaShare" role="img" aria-label="Horizontal bar chart: OLA acreage as a share of municipal parkland: Vancouver BC 2.27%, San Francisco 1.88%, Portland 0.65%, Seattle 0.46%, Austin 0.43%."></canvas></div>
   <div class="chart-source">Source: total parkland acres from <a href="https://www.tpl.org/parkscore">TPL 2025 ParkScore</a> (US) and <a href="https://vancouver.ca/parks-recreation-culture/people-parks-dogs-strategy.aspx">Vancouver Park Board</a> &middot; OLA acres reconciled to each city's own inventory &middot; data in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/peer-cities.csv">data/peer-cities.csv</a></div>
 </div>
-
-<div class="takeaway neutral">
-  <span class="kicker">Observation</span>
-  <p>Vancouver allocates <strong>~5&times;</strong> the share of its parkland to off-leash use that Seattle does (2.27% vs 0.46%). San Francisco allocates ~4&times;. Even Portland, with most of its sites unfenced voice-control rather than dedicated acreage, still allocates a higher share. Austin sits at 0.43% on a fenced-comparable basis &mdash; comparable to Seattle. The framing matters because it isolates the policy choice (how much of the existing park system is legal for dogs) from the system-size argument (how much park land the city has overall).</p>
-</div>
-
 <!-- ================================================================= -->
-<h2 class="finding" id="finding-03"><span class="num">Finding 03</span>Park investment versus dog-park density.</h2>
-<p class="lead">Seattle is one of the <a href="https://www.tpl.org/parkscore">best-funded municipal park systems in the country</a>, with <a href="https://www.tpl.org/city/seattle-washington">$418 per resident per year</a> in TPL's investment category. The chart below plots each city's three-year average park investment against its dog-park density.</p>
-
+<h2 class="finding" id="finding-03">High park investment, low dog-park density.</h2>
+<p class="lead">Seattle is one of the <a href="https://www.tpl.org/parkscore">best-funded municipal park systems in the country</a>, at <a href="https://www.tpl.org/city/seattle-washington">$418 per resident per year</a> in TPL's investment category. <a href="https://www.tpl.org/city/san-francisco-california">San Francisco</a> spends more ($561) and has roughly 2.8&times; the dog-park density; <a href="https://www.tpl.org/city/portland-oregon">Portland</a> spends less ($274) and has 3.2&times;. Funding is not what separates Seattle from its peers.</p>
 <div class="chart-block">
   <div class="chart-title">Park investment per resident vs. dog parks per 100,000</div>
-  <div class="chart-subtitle">Each city's three-year average park investment (per TPL ParkScore methodology, all agencies), plotted against its dog-park density.</div>
+  <div class="chart-subtitle">Each city's three-year average park investment (TPL ParkScore methodology, all agencies), plotted against its dog-park density.</div>
   <div class="chart-wrap tall"><canvas id="chartScatter" role="img" aria-label="Scatter plot: park investment per resident (x-axis) vs dog parks per 100,000 (y-axis) for major US cities. Seattle highlighted."></canvas></div>
   <div class="chart-source">Source: <a href="https://www.tpl.org/parkscore">TPL 2025 ParkScore</a> (three-year average spending across all park-providing agencies) &middot; data in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/peer-cities.csv">data/peer-cities.csv</a></div>
 </div>
-
-<div class="takeaway neutral">
-  <span class="kicker">Observation</span>
-  <p><a href="https://www.tpl.org/city/san-francisco-california">San Francisco</a> spends more per resident than Seattle ($561) and has roughly 2.8&times; the dog-park density. <a href="https://www.tpl.org/city/portland-oregon">Portland</a> spends less ($274) and has 3.2&times; the density. Seattle's position on this plot is high investment, low dog-park density. See <a href="budget.html">Budget</a> for Seattle's OLA-specific allocation.</p>
-</div>
-
 <!-- ================================================================= -->
-<h2 class="finding" id="finding-04"><span class="num">Finding 04</span>Seattle's parks budget, versus its OLA budget.</h2>
-<p class="lead"><a href="https://www.seattle.gov/city-budget-office/budget-archives">Seattle Parks and Recreation's total budget</a> has grown substantially since 2016. During Park District Cycle 1, <a href="https://parkways.seattle.gov/">SPR publicly stated</a> the dedicated OLA improvement line was $100,000/year. The combined OLA + P-Patch line item (which the city has reported as a single number since 2019) has grown sharply; the OLA-only share inside it is not separately disclosed for 2025&ndash;2026. A <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/prrs/03-spr-ola-budget-split.md">public records request (PRR)</a> for that split has been filed and is awaiting SPR's response; this page will be updated when SPR responds. See <a href="budget.html">Budget</a> for the full picture.</p>
-
+<h2 class="finding" id="finding-04">The parks budget, and the sliver of it that goes to OLAs.</h2>
+<p class="lead"><a href="https://www.seattle.gov/city-budget-office/budget-archives">Seattle Parks and Recreation's budget</a> rose from $156M in 2016 to $506.9M proposed for 2026. During Park District Cycle 1, SPR's 2017 plan put the dedicated OLA line at <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/sources/people-dogs-and-parks-plan-august-2017.pdf">$103,000&ndash;$117,000</a> a year, costed at $106,000 through 2020. Since 2019 the published budget reports OLAs and P-Patch community gardens as one line, but SPR tracks them as separate Master Projects and released the split in July 2026: the OLA-only figure is <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/prr-responses/C264837/README.md">$328,345</a> in 2023, rising to about $1.57M in 2025 as Cycle 2 construction money lands inside it. Of the <a href="https://www.seattle.gov/parks/about-us/projects/othello-playground-off-leash-area-development">$3,103,000</a> for the two new OLAs, roughly $600,000 had been spent by July 2026, all on planning and design. The full breakdown, the per-dog math, and the playground comparison are on the <a href="budget.html">Budget</a> page.</p>
 <div class="chart-block">
   <div class="chart-title">Seattle Parks budget vs. dedicated OLA improvement funding</div>
-  <div class="chart-subtitle">All values in millions of dollars on a single log-scale axis. <strong>Solid orange diamonds</strong> mark years where SPR publicly disclosed the OLA-only amount. <strong>Hollow orange squares, dashed line</strong> show the combined OLA + P-Patch community-garden line &mdash; the OLA share is smaller by an unknown amount because SPR stopped separating them after 2024.</div>
+  <div class="chart-subtitle">All values in millions of dollars on a single log-scale axis. <strong>Solid orange diamonds</strong> mark years where SPR publicly disclosed the OLA-only amount. <strong>Hollow orange squares, dashed line</strong> show the combined OLA + P-Patch line; the OLA share inside it is smaller by an undisclosed amount.</div>
   <div class="chart-wrap tall"><canvas id="chartBudget" role="img" aria-label="Log-scale chart: SPR total budget vs OLA spend 2016-2026. SPR total grew from $156M in 2016 to $507M projected 2026; OLA-only operating stayed near $100-130,000 per year."></canvas></div>
   <div class="chart-source">Source: <a href="https://www.seattle.gov/city-budget-office/budget-archives">Seattle City Budget Office archives</a> &middot; <a href="https://parkways.seattle.gov/">Parkways (SPR blog)</a> &middot; <a href="https://www.seattle.gov/seattle-park-district/park-district-planning">Seattle Park District Cycle 1 &amp; Cycle 2 financial plans</a> &middot; data in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/budget-detail.csv">data/budget-detail.csv</a></div>
 </div>
-
-<div class="takeaway neutral">
-  <span class="kicker">Observation</span>
-  <p>SPR's total budget rose from $156M in 2016 to $506.9M proposed in 2026. Every OLA-related series on the chart sits two to three orders of magnitude below it. The combined OLA + P-Patch line rises in part because P-Patch funding has grown. The OLA-only markers that SPR has publicly confirmed are $100,000 in Cycle 1 and $126,000 / $129,000 in Cycle 2 years 1&ndash;2. The $3.46M Cycle 2 one-time capital line funds <a href="https://harrell.seattle.gov/wp-content/uploads/sites/23/2022/08/Seattle-Park-District-Fact-sheet.pdf">two new OLAs plus Ravenna design</a>. A <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/prrs/03-spr-ola-budget-split.md">public records request</a> for the 2025&ndash;2026 OLA-only share has been filed and is awaiting SPR's response.</p>
-</div>
-
+<p class="note" id="finding-05"><span id="finding-06"></span>Cycle 1 versus Cycle 2 funding, the playgrounds-for-children versus OLAs-for-dogs comparison, and the per-dog spending calculation now live on the <a href="budget.html#finding-04">Budget</a> page, in one place.</p>
 <!-- ================================================================= -->
-<h2 class="finding" id="finding-05"><span class="num">Finding 05</span>Cycle 1 vs. Cycle 2 improvement funding.</h2>
-<p class="lead">The Park District's "Maintaining Parks and Facilities" budget line (<a href="https://www.seattle.gov/seattle-park-district/park-district-planning">Budget Summary Level [BSL] BC-PR-50000</a>, which funds OLA <em>and</em> P-Patch community-garden improvements) has grown roughly 11&times; since 2019, and <a href="https://harrell.seattle.gov/wp-content/uploads/sites/23/2022/08/Seattle-Park-District-Fact-sheet.pdf">Cycle 2 added $3.46 million in capital</a> for new OLA construction. See <a href="budget.html">Budget</a> for chart-level detail.</p>
-
-<div class="chart-block">
-  <div class="chart-title">OLA improvement spending, 2016&ndash;2026</div>
-  <div class="chart-subtitle">The "Maintaining Parks &amp; Facilities" budget line covers both OLAs and P-Patch community gardens, so the actual OLA-only share is smaller than what's shown.</div>
-  <div class="chart-wrap"><canvas id="chartOlaSpend" role="img" aria-label="Bar chart: OLA improvement budget line 2016-2026, rising from $100,000/yr in Cycle 1 to a combined OLA+P-Patch $1.83M in 2025-26."></canvas></div>
-  <div class="chart-source">Source: <a href="https://www.seattle.gov/seattle-park-district/park-district-planning">Seattle Park District Cycle 1 &amp; Cycle 2 financial plans</a> &middot; <a href="https://www.seattle.gov/parks/about-us/projects/west-seattle-stadium-off-leash-area-development">West Seattle Stadium OLA project page</a> &middot; <a href="https://www.seattle.gov/parks/about-us/projects/othello-playground-off-leash-area-development">Othello Playground OLA project page</a> &middot; data in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/budget-detail.csv">data/budget-detail.csv</a></div>
-</div>
-
-<div class="takeaway neutral">
-  <span class="kicker">Observation</span>
-  <p><a href="https://www.seattle.gov/seattle-park-district/park-district-planning">Cycle 1 of the Seattle Park District</a> (2015&ndash;2020) allocated a flat $100,000/year for OLA improvements. <a href="https://harrell.seattle.gov/wp-content/uploads/sites/23/2022/08/Seattle-Park-District-Fact-sheet.pdf">Cycle 2</a> (2023&ndash;2028) added both operational funding and $3.46M in capital for two new OLAs plus design of a third. <a href="https://www.seattle.gov/parks/about-us/plans-and-reports/recreation-plans-and-reports/off-leash-area-study">SPR has acknowledged</a> that additional OLA construction will require future funding requests.</p>
-</div>
-
+<h2 class="finding" id="finding-licensing">Most Seattle dogs are unlicensed, and the share is falling.</h2>
+<p class="lead">Part of why the dog population is hard to pin down: Seattle licenses only a small fraction of its dogs. About <strong>26,700 dogs</strong> held a current license in the <a href="https://data.seattle.gov/City-Administration/Seattle-Pet-Licenses/jguv-t9rb/about_data">April 2026 Open Data snapshot</a>, which is 7&ndash;18% of the 150,000&ndash;400,000 population range and about 11% of the site's canonical ~249,000. A 2026 records release from the Seattle Animal Shelter (<a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C264029">PRR C264029</a>) shows licenses issued fell about <strong>21%</strong> from 24,309 in 2014 to 19,219 in 2025 while the city grew. Asked directly, the Shelter holds <strong>no compliance estimate and no dog-population figure of its own</strong>, so the share here is ours.</p>
 <!-- ================================================================= -->
-<h2 class="finding" id="finding-06"><span class="num">Finding 06</span>Dedicated facilities: playgrounds vs. OLAs.</h2>
-<p class="lead">Seattle famously has more dogs than children. Estimates for Seattle's dog population range from 150,000 (conservative floor cited by <a href="https://www.seattlehumane.org/">Seattle Humane</a> and <a href="https://www.cascadepbs.org/">Cascade PBS</a>) to over 400,000 (per the <a href="https://www.seattle.gov/parks/about-us/plans-and-reports/recreation-plans-and-reports/off-leash-area-study">SPR 2023&ndash;24 OLA Expansion Study</a>). Using the low estimate and the most recent child population, dogs outnumber children under 18 roughly 1.3 to 1.</p>
-
-<div class="chart-block">
-  <div class="chart-title">Facilities per constituent: playgrounds for kids vs. OLAs for dogs</div>
-  <div class="chart-subtitle">Seattle has <a href="https://www.tpl.org/city/seattle-washington">157 playgrounds</a> for its under-18 population, and <a href="https://www.seattle.gov/parks/recreation/dog-off-leash-areas">14 OLAs</a> for its dog population. Both are rough proxies for "dedicated recreational space."</div>
-  <div class="chart-wrap"><canvas id="chartKidsDogs" role="img" aria-label="Comparison bar chart: Seattle has 157 playgrounds for roughly 115,000 children (1 per 733 kids) and 14 OLAs for at least 150,000 dogs (1 per 10,714 dogs)."></canvas></div>
-  <div class="chart-source">Source: <a href="https://www.tpl.org/city/seattle-washington">TPL 2025 ParkScore Seattle</a> (157 playgrounds) &middot; <a href="https://ofm.wa.gov/washington-data-research/population-demographics/population-estimates/april-1-official-population-estimates">OFM 2025 population</a> &middot; <a href="https://www.seattlehumane.org/">Seattle Humane</a> / <a href="https://www.cascadepbs.org/">Cascade PBS</a> dog population estimates (150,000 low bound)</div>
-</div>
-
-<div class="takeaway neutral">
-  <span class="kicker">Observation</span>
-  <p>The ratio of dedicated facilities to constituents is roughly 14.6&times; more favorable for children than for dogs (1 playground per ~733 kids vs. 1 OLA per ~10,714 dogs using the low 150,000 dog-population estimate). At the 400,000 SPR Expansion Study estimate, the ratio is ~39&times;. See <a href="budget.html">Budget</a> Chart 03 for per-dog spending calculation.</p>
-</div>
-
-<!-- ================================================================= -->
-<!-- NEW — licensing / compliance (PRR C264029) -->
-<h2 class="finding" id="finding-licensing"><span class="num" style="color: var(--orange);">New</span>How many of those dogs are licensed? About 26,650 &mdash; and falling.</h2>
-<p class="lead">Part of why the dog population is so hard to pin down: Seattle licenses only a small fraction of its dogs. About <strong>26,650 dogs</strong> held a current license in the April 2026 Open Data snapshot &mdash; and a 2026 records release from the Seattle Animal Shelter (SAS) (<a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C264029">PRR C264029</a>) shows annual licensing has been <em>falling</em>, not rising: dog licenses issued dropped about <strong>21%</strong> from 24,309 in 2014 to 19,219 in 2025, even as the city&rsquo;s human population grew.</p>
-
-<div class="takeaway neutral">
-  <span class="kicker">Observation</span>
-  <p>Set against this page&rsquo;s population estimates, ~26,650 licensed dogs is only about <strong>7&ndash;18%</strong> of the 150,000&ndash;400,000 range (roughly 11% against the site&rsquo;s canonical ~249,000). By any reading, <strong>most Seattle dogs are unlicensed</strong> &mdash; and the share is shrinking. Asked directly, the Animal Shelter holds <strong>no compliance estimate and no internal dog-population figure of its own</strong> (PRR C264029, items #3 and #5: no responsive records), so the figure here is ours. Caveats: licenses run 1- or 2-year terms, so the active count is an estimate; and the compliance share depends on the population denominator, which is itself uncertain.</p>
-</div>
-
-<!-- ================================================================= -->
-<h2 class="finding" id="finding-07"><span class="num">Finding 07</span>Acreage, not just count.</h2>
-<p class="lead">The four largest parks hold <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">~79% of total OLA acreage</a>, and half of Seattle's OLAs are under one acre. The two smallest (<a href="https://www.seattle.gov/parks/find/parks/denny-park">Denny</a> at 0.105 and <a href="https://www.seattle.gov/parks/find/parks/kinnear-park">Kinnear</a> at 0.124) are roughly a tenth of an acre each. The <a href="part2-access.html#size-standards">dog-park size standards</a> in Part II quantify what "too small" means.</p>
-
+<h2 class="finding" id="finding-07">Half of Seattle's OLAs are under an acre.</h2>
+<p class="lead">The four largest sites hold <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">~79% of total OLA acreage</a>; <a href="https://www.seattle.gov/parks/find/parks/magnuson-park">Magnuson</a> alone holds nearly a third. Seven of the 14 sit below the <a href="https://images.akc.org/pdf/GLEG01.pdf">American Kennel Club (AKC) 1-acre minimum</a>, and the two smallest (<a href="https://www.seattle.gov/parks/find/parks/denny-park">Denny</a> at 0.105 and <a href="https://www.seattle.gov/parks/find/parks/kinnear-park">Kinnear</a> at 0.124) are roughly a tenth of an acre. What "too small" means in practice is quantified under <a href="part2-access.html#size-standards">size standards</a> in Part II.</p>
 <div class="chart-block">
   <div class="chart-title">OLA acreage concentration</div>
-  <div class="chart-subtitle">Share of Seattle's ~31 total OLA acres by park. Acreages from SPR's individual OLA pages (reconciled April 2026); see <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">data/seattle-olas.csv</a>.</div>
+  <div class="chart-subtitle">Share of Seattle's ~31 total OLA acres by park. Acreages from SPR's ArcGIS feature service (reconciled April 2026); see <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">data/seattle-olas.csv</a>.</div>
   <div class="chart-wrap"><canvas id="chartAcreage" role="img" aria-label="Bar chart: Seattle OLA acreages ranked, from Magnuson at 9.0 acres down to Denny Park at 0.105 acres. Seven OLAs sit below the AKC 1-acre minimum."></canvas></div>
-  <div class="chart-source">Source: <a href="https://www.seattlecola.info">Citizens for Off-Leash Areas (COLA)</a> 2017 biennial report &middot; <a href="https://www.seattle.gov/parks/recreation/dog-off-leash-areas">SPR off-leash area inventory</a> &middot; data in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">data/seattle-olas.csv</a></div>
+  <div class="chart-source">Source: <a href="https://www.seattle.gov/parks/recreation/dog-off-leash-areas">SPR off-leash area inventory</a> and ArcGIS feature service &middot; data in <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">data/seattle-olas.csv</a></div>
 </div>
-
-<div class="takeaway neutral">
-  <span class="kicker">Observation</span>
-  <p><a href="https://www.seattle.gov/parks/find/parks/magnuson-park">Magnuson</a> alone holds nearly a third of the city's total OLA acreage (9.0 of ~30.7 acres per <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">seattle-olas.csv</a>). The bottom ten OLAs, combined, hold about a fifth. Seven of the 14 sites sit below the <a href="https://images.akc.org/pdf/GLEG01.pdf">American Kennel Club (AKC) 1-acre minimum</a>. See <a href="part2-access.html#size-standards">Part II: size standards</a> for per-dog capacity math.</p>
-</div>
-
 <!-- ================================================================= -->
-<h2 class="finding" id="methodology"><span class="num">Appendix</span>Raw comparison data &amp; methodology.</h2>
-<p class="lead">All values below are the exact figures from Trust for Public Land's 2025 ParkScore methodology, except Vancouver BC (not in the U.S. dataset).</p>
-
-<div style="overflow-x: auto; margin: 24px 0 40px;">
-<table style="width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; font-feature-settings: 'tnum';">
-  <thead>
-    <tr style="border-bottom: 2px solid var(--ink);">
-      <th style="text-align: left; padding: 10px 16px 10px 0; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500;">City</th>
-      <th style="text-align: right; padding: 10px 16px 10px 0; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500;">Population</th>
-      <th style="text-align: right; padding: 10px 16px 10px 0; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500;">Parkland acres</th>
-      <th style="text-align: right; padding: 10px 16px 10px 0; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500;">% city area</th>
-      <th style="text-align: right; padding: 10px 16px 10px 0; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500;">Dog parks</th>
-      <th style="text-align: right; padding: 10px 16px 10px 0; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500;">Per 100,000</th>
-      <th style="text-align: right; padding: 10px 16px 10px 0; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500;">$/capita</th>
-      <th style="text-align: right; padding: 10px 16px 10px 0; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500;">ParkScore rank</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr style="border-bottom: 1px solid var(--rule);"><td style="padding: 9px 16px 9px 0;"><strong>Seattle, WA</strong></td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">816,600</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">6,662</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">12.6%</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">14</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace; color: var(--orange); font-weight: 500;">1.82</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">$418</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">8</td></tr>
-    <tr style="border-bottom: 1px solid var(--rule);"><td style="padding: 9px 16px 9px 0;">Portland, OR</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">660,000</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">13,029</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">15.8%</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">38</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">5.74</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">$274</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">9</td></tr>
-    <tr style="border-bottom: 1px solid var(--rule);"><td style="padding: 9px 16px 9px 0;">San Francisco, CA</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">870,000</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">6,398</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">21.4%</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">42</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">5.03</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">$561</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">6</td></tr>
-    <tr style="border-bottom: 1px solid var(--rule);"><td style="padding: 9px 16px 9px 0;">Vancouver, BC (est.)</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">662,000</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">~3,000 ha</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">~11%</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">36</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">5.44</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">n/a</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">n/a</td></tr>
-    <tr style="border-bottom: 1px solid var(--rule);"><td style="padding: 9px 16px 9px 0;">Austin, TX</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">1,025,000</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">18,437</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">9.0%</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">13</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace; color: var(--orange); font-weight: 500;">1.28</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">$211</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">54</td></tr>
-    <tr style="border-bottom: 1px solid var(--rule);"><td style="padding: 9px 16px 9px 0;">Boise, ID</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">240,000</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">~3,400</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">~10%</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">18</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">7.60</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">n/a</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">n/a</td></tr>
-  </tbody>
-</table>
-</div>
-
-<h3>Seattle time series: population vs. OLA count</h3>
-
-<div style="overflow-x: auto; margin: 16px 0 40px;">
-<table style="width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; font-feature-settings: 'tnum';">
-  <thead>
-    <tr style="border-bottom: 2px solid var(--ink);">
-      <th style="text-align: left; padding: 10px 16px 10px 0; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500;">Year</th>
-      <th style="text-align: right; padding: 10px 16px 10px 0; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500;">Population</th>
-      <th style="text-align: right; padding: 10px 16px 10px 0; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500;">OLAs</th>
-      <th style="text-align: right; padding: 10px 16px 10px 0; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500;">Residents / OLA</th>
-      <th style="text-align: right; padding: 10px 16px 10px 0; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500;">SPR budget (all funds)</th>
-      <th style="text-align: right; padding: 10px 16px 10px 0; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500;">OLA improvement $</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr style="border-bottom: 1px solid var(--rule);"><td style="padding: 9px 16px 9px 0;">2010</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">608,660</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">14</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">43,476</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">&mdash;</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">&mdash;</td></tr>
-    <tr style="border-bottom: 1px solid var(--rule);"><td style="padding: 9px 16px 9px 0;">2016</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">704,400</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">14</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">50,314</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">~$156M</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">$100,000</td></tr>
-    <tr style="border-bottom: 1px solid var(--rule);"><td style="padding: 9px 16px 9px 0;">2017</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">724,745</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">14</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">51,768</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">$163M (ops only)</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">$100,000</td></tr>
-    <tr style="border-bottom: 1px solid var(--rule);"><td style="padding: 9px 16px 9px 0;">2019</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">753,700</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">14</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">53,836</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">$247.7M</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">$160,757</td></tr>
-    <tr style="border-bottom: 1px solid var(--rule);"><td style="padding: 9px 16px 9px 0;">2020</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">737,015</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">14</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">52,644</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">$261.9M</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">$338,000</td></tr>
-    <tr style="border-bottom: 1px solid var(--rule);"><td style="padding: 9px 16px 9px 0;">2021</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">733,400</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">14</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">52,386</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">$228.1M (COVID)</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">$322,912</td></tr>
-    <tr style="border-bottom: 1px solid var(--rule);"><td style="padding: 9px 16px 9px 0;">2023</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">779,200</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">14</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">55,657</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">$328.2M</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">$569,561</td></tr>
-    <tr style="border-bottom: 1px solid var(--rule);"><td style="padding: 9px 16px 9px 0;">2024</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">797,700</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">14</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">56,979</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">$320.7M</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">$584,343</td></tr>
-    <tr style="border-bottom: 1px solid var(--rule);"><td style="padding: 9px 16px 9px 0;">2025</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">816,600</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">14</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">58,329</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">$339.4M</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">$1,829,717</td></tr>
-    <tr style="border-bottom: 1px solid var(--rule);"><td style="padding: 9px 16px 9px 0;">2026 (proj.)</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">~832,000</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">16</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">52,000</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">$506.9M (proposed)</td><td style="padding: 9px 16px 9px 0; text-align: right; font-family: 'IBM Plex Mono', monospace;">$1,845,706 +$3.46M Cycle 2 capital</td></tr>
-  </tbody>
-</table>
-</div>
-
-<details class="data-notes" id="data-notes"><summary>Data notes</summary>
-<h3>About this data</h3>
-<p>Population and budget data are current through Seattle Parks &amp; Recreation's (SPR) 2025&ndash;26 proposed budget and Washington Office of Financial Management (OFM) April 2025 estimates. Peer-city comparisons use the Trust for Public Land (TPL) 2025 ParkScore. Any of the figures below that are approximate, contested, or derived rather than citable are flagged in the "Data notes" at the bottom of the page. Corrections and better primary sources are welcome &mdash; see <a href="index.html">the overview</a>.</p>
-<p><strong>Dog park count methodology.</strong> Trust for Public Land and City of Seattle both count 14 OLAs. Definitions of "dog park" vary slightly between cities &mdash; Portland counts unfenced designated off-leash areas, Vancouver BC counts 36 including time-restricted unfenced areas, and Seattle counts only fully-fenced or clearly-delineated sites. Adjusting for these definitional differences does not close the per-capita gap.</p>
-<p><strong>OLA improvement budget.</strong> The Park District's "Maintaining Parks &amp; Facilities" Budget Summary Level (BC-PR-50000) funds both dog off-leash areas <em>and</em> community P-Patch gardens. The exact OLA-only share is not broken out in the budget books. During Cycle 1, SPR publicly stated the OLA portion was $100,000/year; the post-2023 OLA/P-Patch split is not disclosed separately.</p>
-<p><strong>SPR budget comparisons.</strong> Seattle's 2016&ndash;2018 SPR budgets of ~$156M&ndash;$168M are General Fund + core operating only; from 2019 forward the published figures are all-funds (operating + capital). To avoid methodology drift, the stat tile at the top of this page uses the 2019&rarr;2025 all-funds comparison ($247.7M &rarr; $339.4M, +37%). The log-scale budget chart in Finding 04 plots both eras on one axis with the methodology shift noted.</p>
-<p><strong>Dog population estimates &mdash; three independent sources bracketing the same range.</strong> Seattle does not universally license dogs, so dog-population figures are estimates. This site triangulates three:</p>
-<ul>
-<li><strong>Licensed floor:</strong> <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-pet-licenses/">26,652 active dog licenses</a> as of the April 1, 2026 snapshot of Seattle Open Data dataset <a href="https://data.seattle.gov/City-Administration/Seattle-Pet-Licenses/jguv-t9rb/about_data"><code>jguv-t9rb</code></a> (published by Finance &amp; Administrative Services [FAS] / Seattle Animal Shelter). A hard lower bound &mdash; every dog counted is a real paid license. Widely estimated to represent 20&ndash;30% of actual dogs, implying ~90,000&ndash;135,000 total. Per <a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C264029">PRR C264029</a>, annual dog-license issuance fell ~21% over 2014&ndash;2025 (24,309 &rarr; 19,219), so the licensed share is declining over time &mdash; see the licensing finding above.</li>
-<li><strong>AVMA-derived demographic estimate:</strong> <a href="https://www.avma.org/resources-tools/reports-statistics/us-pet-ownership-statistics">American Veterinary Medical Association (AVMA) 2025 Pet Ownership Sourcebook</a> reports 45.5% of U.S. households own a dog, averaging 1.5 dogs per dog-owning household. Applied to Seattle's <a href="https://data.census.gov/table/ACSDT1Y2023.B11001?g=160XX00US5363000">364,627 households (ACS 1-year 2023)</a>: <strong>364,627 &times; 0.455 &times; 1.5 &asymp; 248,900 dogs</strong>. Limitation: AVMA publishes state-level data in the paywalled Sourcebook, so the rate used here is the national figure as a Seattle proxy.</li>
-<li><strong>SPR upper bound:</strong> the <a href="https://www.seattle.gov/parks/about-us/plans-and-reports/recreation-plans-and-reports/off-leash-area-study">SPR 2023&ndash;24 OLA Expansion Study</a> cites estimates ranging from ~187,000 to "upwards of 400,000."</li>
-</ul>
-<p>All three estimates cluster between ~90,000 and ~400,000. The site uses the <strong>AVMA-derived ~248,900</strong> as its canonical dog-population number and names the <strong>150,000 conservative floor</strong> whenever a claim benefits from understating. The public records request to the Seattle Animal Shelter (<a href="https://github.com/avrignaud/seattledogparkdata/blob/main/prrs/06-sas-dog-license-history.md">PRR #6</a>, released June 2026 as <a href="https://github.com/avrignaud/seattledogparkdata/tree/main/data/prr-responses/C264029">C264029</a>) <strong>has now been answered</strong>: it provided 2014&ndash;2025 licensed counts and revenue, and confirmed SAS holds <strong>no</strong> compliance or dog-population estimate of its own. See the licensing finding above.</p>
-<p><strong>Vancouver BC.</strong> Because Canada is not in the TPL ParkScore, Vancouver's data comes from its own Park Board documents (36 OLAs per the "People, Parks &amp; Dogs Strategy") and current population estimates. Vancouver does not publish OLA-specific budget data in a format comparable to Seattle's.</p>
-<p><strong>Boise.</strong> Boise has led <a href="https://www.tpl.org/parkscore">TPL's dog-park-per-capita category</a> in recent years (7.6 per 100,000 in the 2025 ParkScore). It is not a true peer city in size or density, but is included as the national-best benchmark.</p>
-<p><strong>Playground count.</strong> Seattle's 157 playgrounds is from the TPL 2025 ParkScore data. This includes playgrounds in parks and schoolyards with joint-use agreements.</p>
-</details>
-
-<h3>Primary sources</h3>
-<p><a href="https://www.seattle.gov/city-budget-office/budget-archives">Seattle Parks &amp; Recreation budget books (2021, 2023&ndash;24, 2025&ndash;26 proposed)</a> &middot; <a href="https://www.seattle.gov/seattle-park-district/park-district-planning">Seattle Park District Cycle 1 (2015&ndash;2020) and Cycle 2 (2023&ndash;2028) financial plans</a> &middot; <a href="https://www.seattle.gov/parks/about-us/policies-and-plans/people-dogs-and-parks-strategic-plan">SPR "People, Dogs, and Parks Plan" (2017)</a> &middot; <a href="https://www.seattle.gov/parks/about-us/plans-and-reports/recreation-plans-and-reports/off-leash-area-study">SPR "Off-Leash Area Expansion Study" (2023&ndash;2024)</a> &middot; <a href="https://ofm.wa.gov/washington-data-research/population-demographics/population-estimates/april-1-official-population-estimates">Washington State OFM April 1 official population estimates</a> &middot; <a href="https://www.tpl.org/parkscore">Trust for Public Land 2025 ParkScore Index (city-level PDFs)</a> &middot; <a href="https://vancouver.ca/parks-recreation-culture/people-parks-dogs-strategy.aspx">Vancouver Park Board "People, Parks &amp; Dogs Strategy" (2017)</a> &middot; <a href="https://www.seattlecola.info">Citizens for Off-Leash Areas (COLA) Seattle</a> &middot; <a href="https://parkways.seattle.gov/">Parkways (SPR blog)</a> &middot; <a href="https://www.seattledogspot.com/">Seattle Dog Spot</a> &middot; <a href="https://www.cascadepbs.org/">Cascade PBS</a> &middot; <a href="https://www.kuow.org/">KUOW</a> &middot; <a href="https://www.theurbanist.org/">The Urbanist</a> &middot; <a href="https://westseattleblog.com/">West Seattle Blog</a></p>
+<p class="data-methods-link" id="data-notes">Sources, methodology and caveats for this page: <a href="data-methods.html#notes-part1">Data &amp; Methods</a>.</p>
 
 <nav class="paginate" aria-label="Report navigation">
   <a href="index.html" class="prev">
@@ -327,14 +172,14 @@
 </nav>
 
 <footer>
-  <p>Source code and all data: <a href="https://github.com/avrignaud/seattledogparkdata">github.com/avrignaud/seattledogparkdata</a> &middot; MIT license covers author-written code and analysis. Primary data: SPR public records, Seattle Open Data, U.S. Census &mdash; all public record. TPL ParkServe data is redistributed under TPL's own <a href="https://www.tpl.org/park-data-downloads">terms of use</a>.</p>
+  <p>Source code and all data: <a href="https://github.com/avrignaud/seattledogparkdata">github.com/avrignaud/seattledogparkdata</a> &middot; MIT license covers author-written code and analysis. Primary data: SPR public records, Seattle Open Data and the U.S. Census, all public record. TPL ParkServe data is redistributed under TPL's own <a href="https://www.tpl.org/park-data-downloads">terms of use</a>.</p>
   <p><a href="seattle-dog-parks-report.pdf">Download full report (PDF)</a> &middot; Corrections: <a href="https://github.com/avrignaud/seattledogparkdata/issues">issue tracker</a></p>
 </footer>
 
 </div></main>
 
-<script src="chart-defaults.js"></script>
-<script src="site-data.js"></script>
+<script src="chart-defaults.js?v=c060db2a"></script>
+<script src="site-data.js?v=47e1a65b"></script>
 <script>
 (async function init() {
   const P = SDPD.palette;
@@ -385,7 +230,7 @@
         tooltip: {
           callbacks: {
             label: ctx => ctx.parsed.y.toLocaleString() + ' residents per OLA',
-            title: ctx => ctx[0].label + (ctx[0].label == '2026' ? ' (projected, +2 OLAs)' : '')
+            title: ctx => ctx[0].label + (ctx[0].label == '2026' ? ' (projected)' : '')
           }
         },
         datalabels: {
@@ -394,7 +239,7 @@
             const y = ctx.chart.data.labels[ctx.dataIndex];
             return y === 2010
               ? '2010 · ' + v.toLocaleString()
-              : '2026 · ' + v.toLocaleString() + '\n(+2 OLAs)';
+              : '2026 · ' + v.toLocaleString() + '\n(projected)';
           },
           color: P.ink,
           backgroundColor: 'rgba(250,248,243,0.92)',
@@ -764,7 +609,7 @@
         },
         {
           type: 'line',
-          label: 'OLA + P-Patch combined (dashed — OLA share unknown)',
+          label: 'OLA + P-Patch combined (dashed line: the budget line containing the OLA one)',
           data: olaCombinedM,
           borderColor: P.orange,
           backgroundColor: 'rgba(209,72,26,0.15)',
@@ -781,7 +626,7 @@
         },
         {
           type: 'line',
-          label: 'OLA-only (solid — confirmed from SPR public disclosure)',
+          label: 'OLA-only (solid line: Master Project MC-PR-51002)',
           data: olaOnlyM,
           borderColor: P.orange,
           backgroundColor: P.orange,
@@ -832,110 +677,6 @@
             }
           }
         }
-      }
-    }
-  });
-
-  // --- Chart 5: OLA improvement spending --------------------------------
-  // Same source as Chart 4: budget-detail.csv (ola_ppatch_combined_k column).
-  const olaSpendRows = D.budget.filter(r => r.ola_ppatch_combined_k);
-  const olaYears = olaSpendRows.map(r => parseInt(r.year, 10));
-  const olaData  = olaSpendRows.map(r => parseFloat(r.ola_ppatch_combined_k));
-  const cycleByYear = Object.fromEntries(D.budget.map(r => [parseInt(r.year, 10), r.cycle]));
-  const cycleColors = olaYears.map(y => cycleByYear[y] === 'Cycle 2' ? P.orange : P.sageMute);
-  new Chart(document.getElementById('chartOlaSpend'), {
-    type: 'bar',
-    data: {
-      labels: olaYears,
-      datasets: [{
-        label: 'OLA + P-Patch improvement funding ($K)',
-        data: olaData,
-        backgroundColor: cycleColors
-      }]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      layout: { padding: { top: 28 } },
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          callbacks: {
-            label: ctx => `$${ctx.parsed.y.toLocaleString()}K · Park District ${cycleByYear[olaYears[ctx.dataIndex]] || 'Cycle 1'}`,
-            afterLabel: ctx => {
-              const cap = num((olaSpendRows[ctx.dataIndex] || {}).one_time_capital_k);
-              return cap ? `Plus: $${(cap/1000).toFixed(2)}M one-time capital this year` : '';
-            }
-          }
-        },
-        datalabels: {
-          display: true, anchor: 'end', align: 'top',
-          color: P.ink,
-          font: { family: "'IBM Plex Mono', monospace", size: 10, weight: 500 },
-          formatter: v => '$' + (v < 1000 ? v + 'K' : (v/1000).toFixed(1) + 'M')
-        }
-      },
-      scales: {
-        x: SDPD.catAxis({
-          title: { display: true, text: 'Sage = Park District Cycle 1 · Orange = Cycle 2', color: P.inkSoft, font: { size: 11, family: "'IBM Plex Mono', monospace" } }
-        }),
-        y: SDPD.yAxis({
-          beginAtZero: true, max: 2200,
-          title: { display: true, text: 'Thousands of dollars', color: P.inkSoft, font: { size: 11, family: "'IBM Plex Mono', monospace" } }
-        })
-      }
-    }
-  });
-
-  // --- Chart 6: Kids vs Dogs facilities ---------------------------------
-  // From seattle-facility-counts.csv. The OLA count is also derivable from
-  // seattle-olas.csv (D.olas.length); we use the explicit row so the
-  // playground figure has equal provenance.
-  function fmtConstituent(n) {
-    if (n >= 1000) return '~' + Math.round(n/1000) + ',000';
-    return String(n);
-  }
-  const kdLabels = D.facilities.map(r =>
-    r.facility + '\n(for ' + fmtConstituent(parseInt(r.constituent_count, 10)) + ' ' +
-    r.constituent_label.toLowerCase().replace(/\s*\(.*\)\s*$/, '') + ')'
-  );
-  const kdData = D.facilities.map(r => parseInt(r.count, 10));
-  const kdRatios = D.facilities.map(r => Math.round(parseInt(r.constituent_count, 10) / parseInt(r.count, 10)));
-  new Chart(document.getElementById('chartKidsDogs'), {
-    type: 'bar',
-    data: {
-      labels: kdLabels,
-      datasets: [{
-        label: 'Facility count',
-        data: kdData,
-        backgroundColor: [P.navy, P.orange]
-      }]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      layout: { padding: { top: 44 } },
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          callbacks: {
-            label: ctx => ctx.parsed.y + ' facilities',
-            afterLabel: ctx => '≈ 1 ' + D.facilities[ctx.dataIndex].facility.toLowerCase().replace(/s$/, '') +
-              ' per ' + kdRatios[ctx.dataIndex].toLocaleString() + ' ' +
-              D.facilities[ctx.dataIndex].constituent_label.toLowerCase().replace(/\s*\(.*\)\s*$/, '')
-          }
-        },
-        datalabels: {
-          display: true, anchor: 'end', align: 'top', offset: 6, clamp: true,
-          color: P.ink,
-          font: { family: "'Schibsted Grotesk', sans-serif", size: 24, weight: 500 },
-          formatter: v => v
-        }
-      },
-      scales: {
-        x: SDPD.catAxis({ ticks: { padding: 8, color: P.inkSoft, font: { size: 12 } } }),
-        y: SDPD.yAxis({
-          beginAtZero: true, max: 180,
-          title: { display: true, text: 'Total dedicated facilities, citywide', color: P.inkSoft, font: { size: 11, family: "'IBM Plex Mono', monospace" } }
-        })
       }
     }
   });
@@ -1047,7 +788,7 @@
           stack: 's1'
         },
         {
-          label: 'Planned OLAs (fall 2026)',
+          label: 'Funded OLAs (expected 2027-28)',
           data: openingCountsPlanned,
           backgroundColor: P.orange,
           stack: 's1'

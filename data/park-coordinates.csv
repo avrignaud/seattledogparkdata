@@ -6,7 +6,7 @@ Woodland Park,47.67042,-122.34431,partial,Green Lake,Lower Woodland has 0.75-acr
 Golden Gardens Park,47.69090,-122.40064,yes,Ballard,1.0-acre OLA in upper portion,sourced: coord from SPR ArcGIS FeatureServer (2026-04) via data/seattle-olas.csv
 Cal Anderson Park,47.6178,-122.3202,no,Capitol Hill,No OLA,sourced: park centroid approximation from Seattle GIS / manual geocode (pre-2024)
 Genesee Park,47.56395,-122.27608,yes,Columbia City,2.7-acre OLA (Genesee Park and Playfield); coord reconciled to SPR ArcGIS April 2026,sourced: coord from SPR ArcGIS FeatureServer (2026-04) via data/seattle-olas.csv
-Lincoln Park,47.5300,-122.3936,no,West Seattle,No OLA; West Seattle Stadium OLA opens fall 2026,sourced: park centroid approximation from Seattle GIS / manual geocode (pre-2024)
+Lincoln Park,47.5300,-122.3936,no,West Seattle,"No OLA; West Seattle Stadium OLA in design, completion winter 2028 (SPR, Jul 2026)",sourced: park centroid approximation from Seattle GIS / manual geocode (pre-2024)
 Martha Washington Park,47.5347,-122.2567,no,Rainier Beach,No OLA,sourced: park centroid approximation from Seattle GIS / manual geocode (pre-2024)
 Green Lake Park,47.6805,-122.3290,no,Green Lake,No OLA at Green Lake itself,sourced: park centroid approximation from Seattle GIS / manual geocode (pre-2024)
 Wallingford Playfield,47.6578,-122.3337,no,Wallingford,No OLA,sourced: park centroid approximation from Seattle GIS / manual geocode (pre-2024)

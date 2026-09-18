@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="site.css?v=f49414dc">
 <style>
   /* Part III-specific: three-card TOC with big numerals */
   .toc-p3 {
@@ -198,78 +198,70 @@
     <a href="budget.html">Budget</a>
     <a href="peer-cities.html">Peer Cities</a>
     <a href="opinion.html">Opinion</a>
+    <a href="data-methods.html">Data &amp; Methods</a>
     <a href="updates.html">Updates</a>
   </nav>
 </div>
 
 <div class="masthead">
   <span class="dateline">Part III: Forward &middot; Seattle Dog Park Data &middot; seattledogparkdata.com</span>
-  <span>UPDATED JULY 2026</span>
+  <span>UPDATED SEPTEMBER 2026</span>
 </div>
 
 <header class="hero">
   <h1 class="hed">What works, and what Seattle <em>hasn't tried</em>.</h1>
-  <p class="deck">Parts I and II document the supply gap and the access gap. Part III looks forward through three questions: which of Seattle's existing off-leash areas (OLAs) function well and why, what shared-use looks like in cities that have run it for decades, and what public land outside Seattle Parks' portfolio could host off-leash space without a new Park District dollar.</p>
+  <p class="deck">Parts I and II document the supply gap and the access gap. Part III looks forward through three questions: which of Seattle's existing off-leash areas (OLAs) function well and why, what shared-use looks like in cities that have run it for decades, and what public land outside Seattle Parks' portfolio could host off-leash space without new Park District dollars.</p>
 </header>
-
-<div class="note-box">
-  <strong class="tag">About this page</strong>
-  Parts I and II document supply and access using data Seattle Parks &amp; Recreation (SPR) and the Census publish. Part III looks forward, and some of the underlying research involves public-records requests still outstanding, organizational records not publicly indexed, and peer-city operational data that is not separately published. Each section names what is available, what is not, and what is still open. Corrections and primary materials on any of these topics &mdash; Citizens for Off-Leash Areas (COLA) records, SPR internal memos, or peer-city operational data &mdash; are welcome via <a href="https://github.com/avrignaud/seattledogparkdata/issues">the issue tracker</a>.
-</div>
 
 <div class="toc-p3">
   <a href="#what-works">
     <span class="kicker orange">Section 3a</span>
     <div class="idx">01</div>
     <h3>What works</h3>
-    <p>Three Seattle OLAs that consistently draw community praise, and the governance and design they share.</p>
+    <p>Three Seattle OLAs that draw sustained community support, and what they share.</p>
   </a>
   <a href="#shared-use">
     <span class="kicker orange">Section 3b</span>
     <div class="idx">02</div>
     <h3>Shared-use</h3>
-    <p>The off-leash-hours model. How New York, Boston, and Chicago run time-windowed access in existing parks.</p>
+    <p>The off-leash-hours model: what New York's record shows, and what it doesn't.</p>
   </a>
   <a href="#non-spr-land">
     <span class="kicker orange">Section 3c</span>
     <div class="idx">03</div>
     <h3>Non-SPR land</h3>
-    <p>WSDOT, Seattle City Light, Port of Seattle &mdash; public land SPR does not manage but Seattle hosts.</p>
+    <p>WSDOT, Seattle City Light, Port of Seattle: public land SPR does not manage but Seattle hosts.</p>
   </a>
 </div>
-
 <!-- ==================================================================== -->
-<h2 class="finding" id="what-works"><span class="num">Finding 03a</span>What works: three Seattle OLAs that draw sustained community support.</h2>
-<p class="lead">The <a href="enforcement.html">Enforcement</a> data shows where the system is failing. It is equally worth asking where it is working. Three of Seattle's 14 OLAs have visible organizational structure behind them &mdash; a site-specific 501(c)(3) at Magnuson (now dormant), still-active system-wide stewardship by COLA at Genesee, and a recent Park District-funded renovation at Westcrest. Each card below documents the governance model and what the public record shows; usage and satisfaction data are flagged as gaps where they are missing.</p>
-
+<h2 class="finding" id="what-works">What works: three OLAs with a steward, a structure, and room.</h2>
+<p class="lead">The <a href="enforcement.html">Enforcement</a> data shows where the system is failing. Three of Seattle's 14 OLAs show what holds up, and all three have organizational structure behind them: a site-specific nonprofit at Magnuson (now dormant), system-wide stewardship by COLA at Genesee, and a recent Park District-funded renovation at Westcrest. Each has enough physical area to absorb demand (9.0, 2.7 and 8.4 acres against Kinnear's 0.124). Part II measured distance. What separates these three is size and stewardship.</p>
 <div class="profile-card">
   <h3>Magnuson &mdash; the site-specific steward model, now dormant</h3>
   <div class="headline-stats">
-    <div class="hs-stat"><div class="label">Acres</div><div class="value">9.0</div><div class="small-note">Largest OLA in Seattle; only one with water access to Lake Washington</div></div>
+    <div class="hs-stat"><div class="label">Acres</div><div class="value">9.0</div><div class="small-note">Largest OLA in Seattle; includes Lake Washington shoreline; the only OLA with water access per <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/prr-responses/C266465/README.md">FAS to Council, 2022</a></div></div>
     <div class="hs-stat"><div class="label">Opened</div><div class="value">1996 / 1999</div><div class="small-note">1996 pilot trial &middot; 1999 permanent designation &middot; former NAS Sand Point</div></div>
     <div class="hs-stat"><div class="label">Steward</div><div class="value">MOLG</div><div class="small-note">Volunteer group formed 1999, 501(c)(3) since 2011 (EIN 91-2059268); public presence now dark</div></div>
   </div>
-  <p>Magnuson is a structural outlier on land area, physical features (shoreline, gravel paths, woods), and governance. For roughly two decades it was stewarded by the Magnuson Off-Leash Group (MOLG), an all-volunteer 501(c)(3) that raised donations, ran volunteer maintenance days, and partnered formally with Seattle Parks &mdash; the closest Seattle parallel to the Portland or San Francisco "dog park friends" model in which a local nonprofit partners with the parks department. MOLG's website and public presence have since gone dark and its current status is unclear, so the site-specific model it represented is, for now, dormant.</p>
-  <p>The 367 citations logged at Magnuson 2014&ndash;2026 (<a href="enforcement.html">Enforcement top-20</a>) read in context: Magnuson is the biggest park with the biggest footprint, most citations occur on the non-OLA portions (athletic fields, shoreline outside the fenced OLA), and MOLG's stewardship, in its active years, raised both compliance inside the OLA and reporting of violations outside it. The park draws traffic from across the region, not just the surrounding neighborhoods.</p>
+  <p>Magnuson is a structural outlier on land area, physical features (shoreline, gravel paths, woods), and governance. For roughly two decades it was stewarded by the Magnuson Off-Leash Group (MOLG), an all-volunteer 501(c)(3) that raised donations, ran volunteer maintenance days, and partnered formally with Seattle Parks, the closest Seattle parallel to the Portland or San Francisco "dog park friends" model. MOLG's website and public presence have since gone dark (last visible activity late 2023), so the site-specific model it represented is, for now, dormant.</p>
+  <p>The 367 citations logged at Magnuson 2014&ndash;2026 (<a href="enforcement.html">Enforcement top-20</a>) count the whole park. Magnuson is the biggest park with the biggest footprint and draws traffic from across the region, and the enforcement records name the park, not the fence, so they cannot say how many contacts were inside the OLA versus on the athletic fields and shoreline outside it.</p>
   <div class="data-gap"><strong>Data gap</strong>
-  Still open: MOLG's records from its active years (IRS 990s, the MOLG&ndash;SPR memorandum, any usage counts); and confirmation of the group's current status &mdash; its website and public presence have gone dark (last visible activity was late 2023).</div>
+  Still open: MOLG's records from its active years (IRS 990s, the MOLG&ndash;SPR memorandum, any usage counts); confirmation of the group's current status.</div>
   <div class="sources"><strong>Sources</strong> &middot; <a href="https://www.seattle.gov/parks/parks/magnuson-park/off-leash-area">SPR: Magnuson Off-Leash Area</a> &middot; <a href="https://www.historylink.org/File/2281">HistoryLink: June 15, 1996 trial opening</a> &middot; <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">data/seattle-olas.csv</a></div>
 </div>
-
 <div class="profile-card">
   <h3>Genesee &mdash; the COLA-steward model</h3>
   <div class="headline-stats">
     <div class="hs-stat"><div class="label">Acres</div><div class="value">2.7</div><div class="small-note">Fourth-largest Seattle OLA; small-dog area separated</div></div>
-    <div class="hs-stat"><div class="label">Opened</div><div class="value">2005</div><div class="small-note">Genesee Park &amp; Playfield, Columbia City / Rainier Valley</div></div>
-    <div class="hs-stat"><div class="label">Steward</div><div class="value">COLA</div><div class="small-note"><a href="https://www.seattlecola.info">Citizens for Off-Leash Areas</a>, 501(c)(3), system-wide SPR partner since 1996</div></div>
+    <div class="hs-stat"><div class="label">Opened</div><div class="value">1999</div><div class="small-note">Genesee Park &amp; Playfield, Columbia City / Rainier Valley, per <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/sources/people-dogs-and-parks-plan-august-2017.pdf">SPR's 2017 plan</a></div></div>
+    <div class="hs-stat"><div class="label">Steward</div><div class="value">COLA</div><div class="small-note"><a href="https://www.seattlecola.info">Citizens for Off-Leash Areas</a>, 501(c)(3), SPR's system-wide partner since the 1990s</div></div>
   </div>
-  <p><a href="https://www.seattlecola.info">COLA</a> is the system-wide advocacy and stewardship group for Seattle's OLAs, and Genesee is one of the sites where COLA's volunteer stewardship is most visible. COLA organized the 1996 resolution that created the year-long OLA pilot (<a href="https://www.historylink.org/File/2281">Magnuson opened as the first site on June 15, 1996</a>) and the 1997 City Council vote that made OLAs permanent. The organization has held formal memoranda with Seattle Parks for most of the intervening decades, and steward-volunteers continue to show up at Genesee, Westcrest, and other OLAs. Where MOLG is site-specific to Magnuson, COLA works across the whole system.</p>
-  <p>Genesee's physical design has held up: small-dog-separated area, multiple gates, drainage that handles Seattle winters. The 152 citations logged there 2014&ndash;2026 include many from the larger Genesee Park &amp; Playfield (athletic fields) rather than the OLA itself.</p>
+  <p><a href="https://www.seattlecola.info">COLA</a> is the system-wide advocacy and stewardship group for Seattle's OLAs, and Genesee is one of the sites where its volunteer stewardship is most visible. SPR's 2017 plan credits COLA with the initial list of pilot sites for the 1996&ndash;97 program and records a standing umbrella agreement with the group dating from the late 1990s; steward volunteers continue to show up at Genesee, Westcrest, and other OLAs. Where MOLG was site-specific, COLA works across the whole system.</p>
+  <p>Genesee's physical design has held up: a separated small-dog area, multiple gates, drainage that handles Seattle winters. The 152 citations logged there 2014&ndash;2026 name Genesee Park &amp; Playfield as a whole, athletic fields included, not the OLA.</p>
   <div class="data-gap"><strong>Data gap</strong>
   Still open: COLA organizational documents (current board, current SPR memorandum); verified quotes from Genesee users on what works about the site and what does not.</div>
-  <div class="sources"><strong>Sources</strong> &middot; <a href="https://www.seattlecola.info">Citizens for Off-Leash Areas (seattlecola.info)</a> &middot; <a href="https://www.seattlecola.info">COLA &mdash; Our Story</a> &middot; <a href="https://council.seattle.gov/2011/06/07/for-the-dogs-furry-5k-and-the-great-work-of-citizens-for-off-leash-areas/">Seattle City Council blog (2011) on COLA</a> &middot; <a href="https://www.seattle.gov/parks/recreation/dog-off-leash-areas?id=398">SPR: Genesee OLA</a></div>
+  <div class="sources"><strong>Sources</strong> &middot; <a href="https://www.seattlecola.info">Citizens for Off-Leash Areas (seattlecola.info)</a> &middot; <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/sources/people-dogs-and-parks-plan-august-2017.pdf">SPR People, Dogs &amp; Parks Plan (2017)</a>, pp. 11 and 27 &middot; <a href="https://council.seattle.gov/2011/06/07/for-the-dogs-furry-5k-and-the-great-work-of-citizens-for-off-leash-areas/">Seattle City Council blog (2011) on COLA</a> &middot; <a href="https://www.seattle.gov/parks/recreation/dog-off-leash-areas?id=398">SPR: Genesee OLA</a></div>
 </div>
-
 <div class="profile-card">
   <h3>Westcrest &mdash; the recent-investment model</h3>
   <div class="headline-stats">
@@ -277,72 +269,51 @@
     <div class="hs-stat"><div class="label">Investment</div><div class="value">$505,000</div><div class="small-note">Park District Major Maintenance &amp; Asset Management Fund, 2021&ndash;2022</div></div>
     <div class="hs-stat"><div class="label">Partners</div><div class="value">HPAC + COLA</div><div class="small-note">Highland Park Action Committee on-site; COLA credited for ongoing stewardship</div></div>
   </div>
-  <p>Westcrest is an example of a funded OLA renovation. The <a href="https://parkways.seattle.gov/2022/06/13/seattle-parks-and-recreation-opens-renovated-and-improved-westcrest-off-leash-area/">2021&ndash;2022 Park District renovation</a> addressed drainage, erosion control, access/parking, and accessibility after seven months of closure, reopening June 10, 2022. Scope was maintenance-driven, not a full rebuild: rock-lined swales, piping and outfalls, sediment traps, regraded high-use areas, and accessible pathways. Community input came through the Highland Park Action Committee (HPAC); ongoing stewardship is credited to COLA.</p>
-  <p>Westcrest's 122 enforcement-data citations 2014&ndash;2026 are lower than those of the four biggest host parks, and the site generates sustained community advocacy. Per-acre, Westcrest operates closer to Magnuson's scale than to Kinnear's 0.1 acres.</p>
+  <p>The <a href="https://parkways.seattle.gov/2022/06/13/seattle-parks-and-recreation-opens-renovated-and-improved-westcrest-off-leash-area/">2021&ndash;2022 Park District renovation</a> at Westcrest addressed drainage, erosion control, access and parking, and accessibility, reopening June 10, 2022. Scope was maintenance-driven, not a rebuild: rock-lined swales, piping and outfalls, sediment traps, regraded high-use areas, accessible pathways. Community input came through the Highland Park Action Committee; ongoing stewardship is credited to COLA. Its 122 enforcement-data citations 2014&ndash;2026 are lower than the four biggest host parks'.</p>
   <div class="data-gap"><strong>Data gap</strong>
-  Still open: post-renovation usage or satisfaction data (MOLG-style volunteer counts existed for Magnuson; a Westcrest equivalent is not documented).</div>
-  <div class="sources"><strong>Sources</strong> &middot; <a href="https://parkways.seattle.gov/2022/06/13/seattle-parks-and-recreation-opens-renovated-and-improved-westcrest-off-leash-area/">Parkways blog (June 13, 2022) &mdash; reopening and scope</a> &middot; <a href="https://www.seattle.gov/parks/allparks/westcrest-park">SPR: Westcrest Park</a> &middot; <a href="https://hpaction.org/">Highland Park Action Committee</a></div>
+  Still open: post-renovation usage or satisfaction data.</div>
+  <div class="sources"><strong>Sources</strong> &middot; <a href="https://parkways.seattle.gov/2022/06/13/seattle-parks-and-recreation-opens-renovated-and-improved-westcrest-off-leash-area/">Parkways blog (June 13, 2022): reopening and scope</a> &middot; <a href="https://www.seattle.gov/parks/allparks/westcrest-park">SPR: Westcrest Park</a> &middot; <a href="https://hpaction.org/">Highland Park Action Committee</a></div>
 </div>
-
 <div class="takeaway neutral">
-  <span class="kicker">What the three profiles share</span>
-  <p>Each has a named community partner, a specific governance structure, and enough physical area to absorb demand: Magnuson at 9.0 acres, Westcrest at 8.4, Genesee at 2.7 &mdash; compared to Kinnear at 0.124. The access story in Part II is about distance; the design story here is about size plus stewardship.</p>
+  <span class="kicker">What SPR itself has named</span>
+  <p>SPR's own 2016 capital-priority list (<a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/prr-responses/C266465/documents/00168-ola-capital-priority-list-2016.pdf">PRR C266465, Bates 00168</a>) priced $1.15M&ndash;$2.22M of deferred work across the 14 OLAs in 2016 dollars, against Park District OLA maintenance of $103,000&ndash;$117,000 a year. In its February 2024 Expansion Study deck (<a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/prr-responses/C266465/README.md">Bates 00416</a>), SPR named Capitol Hill, Ballard and Northgate as unaddressed gaps and listed East Queen Anne Playfield as a recommended future site, pending field-scheduling discussions with the community. Those are SPR's words, not this site's.</p>
 </div>
-
 <!-- ==================================================================== -->
-<h2 class="finding" id="shared-use"><span class="num">Finding 03b</span>Shared-use: the off-leash-hours model in peer cities.</h2>
-<p class="lead">Several U.S. cities designate time-windowed off-leash access in existing parks rather than building new fenced OLAs. The policy has been in formal operation in New York City since 2007, and in functional operation for roughly two decades. Adoption in Seattle would expand access without new capital expenditure.</p>
-
-<h3>New York City &mdash; formal since 2007, functional longer</h3>
-<p>New York's current Dog Friendly Areas policy designates specific parks (or sub-areas within parks) where dogs may be off-leash between 9pm and 9am. NYC Parks maintains the <a href="https://www.nycgovparks.org/facilities/dogareas">official list</a> of Dog-Friendly Areas and off-leash-hours parks. Formalization happened in 2007 via <a href="https://www.nycgovparks.org/news/press-releases?id=19877">a 2007 NYC Parks rulemaking action</a>; the operational pattern predated formalization by a decade or more.</p>
-<p>As of April 2026, no public post-2018 longitudinal evaluation of the policy's outcomes is searchable &mdash; a boundary condition for interpreting the model. What is in the public record: the policy has not been rolled back, has not produced the liability outcomes that were initially feared, and is cited by secondary sources as a working example of shared-use.</p>
+<h2 class="finding" id="shared-use">Shared-use: the off-leash-hours model.</h2>
+<p class="lead">Several U.S. cities designate time-windowed off-leash access in existing parks rather than building new fenced OLAs. New York has run it formally since 2007 and informally since roughly 1986. Adopting it in Seattle would change the coverage figure without new capital.</p>
+<h3>New York City: formal since 2007, functional longer</h3>
+<p>NYC Parks <a href="https://www.nycgovparks.org/news/press-releases?id=19877">codified its Off-Leash Hours policy on April 10, 2007</a>. In designated areas of participating parks, licensed and vaccinated dogs may be off-leash from park opening until 9:00 AM and from 9:00 PM until park closing; normal leash rules apply otherwise (<a href="https://www.nycgovparks.org/facilities/dogareas">NYC Parks</a>). It runs alongside NYC's fenced dog runs, not instead of them, and the off-leash footprint, sections of Central, Prospect, Riverside and Van Cortlandt plus dozens of neighborhood parks across all five boroughs (<a href="https://council.nyc.gov/public-advocate/dog-run-and-off-leash-area-locations/">directory</a>), dwarfs Seattle's 14 fenced OLAs.</p>
+<p>NYC publishes no longitudinal evaluation of the policy: no official citation, complaint, or injury tracking. What stands in for it is longevity, nineteen years of formal operation renewed through administrations with different parks politics, and no reversal. The National Recreation and Park Association treated it as the mature U.S. example in a November 2018 <em>Parks &amp; Recreation</em> law review; Boston and Chicago run parallel time-based systems, and Chicago's fenced Dog-Friendly Areas sit alongside them. None of this proves clean transfer to Seattle, with its different density, topography, rainfall, enforcement institutions, and parks-homelessness dynamics. What it shows is that a city of eight million has run time-zoned shared-use for nearly twenty years without catastrophic failure.</p>
 <div class="data-gap"><strong>Data gap</strong>
-Still open: NYC Parks internal operational data on off-leash hours enforcement, injury and complaint statistics 2007&ndash;present, and comparison cities that formally evaluated similar policies.</div>
-
-<h3>Boston, Chicago, and variants</h3>
-<p>Boston and Chicago each run variants of shared-use access. Chicago's Dog-Friendly Areas (DFAs) are closer to Seattle's fenced-dedicated model than to NYC's time-windowed shared-use, but Chicago also allows specific park areas to operate on an off-leash basis during defined hours. Boston's approach is less formalized but includes documented time-windowed use at specific parks.</p>
-<div class="data-gap"><strong>Data gap</strong>
-Still open: city-by-city operational documents for Boston and Chicago, clear scope of time-windowed vs. fenced-dedicated at each, and a comparison table that makes the policy space legible.</div>
-
+Still open: NYC Parks operational data on off-leash-hours enforcement, injury and complaint statistics 2007&ndash;present; Boston and Chicago operational documents; any city that formally evaluated a similar policy.</div>
 <div class="takeaway neutral">
   <span class="kicker">Relevance to Seattle</span>
-  <p>Seattle's 14 OLAs cover 11.7% of residents within a 10-minute walk (<a href="part2-access.html#finding-01">Part II Finding 01</a>). Time-windowed access to existing large parks &mdash; Green Lake, Volunteer Park, Lincoln Park, Seward Park, Discovery Park &mdash; would change the coverage figure without the multi-year capital timelines of building new dedicated OLAs. The <a href="opinion.html">Opinion page</a> takes a position on this; the mechanism itself is a matter of peer-city record.</p>
+  <p>Seattle's 14 OLAs cover 11.7% of residents within a 10-minute walk (<a href="part2-access.html#finding-01">Part II</a>). Time-windowed access to existing large parks such as Green Lake, Volunteer Park, Lincoln Park, Seward Park and Discovery Park would change that figure without the multi-year capital timelines of new dedicated OLAs.</p>
 </div>
-
-<p class="sources-line"><strong>Sources</strong> &middot; <a href="https://www.nycgovparks.org/facilities/dogareas">NYC Parks Dog Friendly Areas</a> &middot; <a href="https://www.nycgovparks.org/news/press-releases?id=19877">NYC Parks 2007 press release</a></p>
-
+<p class="sources-line"><strong>Sources</strong> &middot; <a href="https://www.nycgovparks.org/facilities/dogareas">NYC Parks Dog Friendly Areas</a> &middot; <a href="https://www.nycgovparks.org/news/press-releases?id=19877">NYC Parks 2007 press release</a> &middot; <a href="https://council.nyc.gov/public-advocate/dog-run-and-off-leash-area-locations/">NYC Public Advocate directory</a></p>
 <!-- ==================================================================== -->
-<h2 class="finding" id="non-spr-land"><span class="num">Finding 03c</span>Non-SPR land: public space SPR does not manage.</h2>
-<p class="lead">Seattle's OLA supply is bounded by Seattle Parks &amp; Recreation's real-estate portfolio. Significant acreage of other public land inside city limits &mdash; WSDOT right-of-way, Seattle City Light transmission corridors, Port of Seattle property &mdash; is, under current rules, unused for off-leash recreation. COLA raised this in its comments on SPR's 2023 Off-Leash Area Expansion Study: the study did not consider non-SPR public land.</p>
-
-<h3>WSDOT &mdash; state highway right-of-way</h3>
-<p>The Washington State Department of Transportation (WSDOT) manages land adjacent to every state-numbered road in the city. Some of that land is unusable (active lanes, on-ramps), but a portion is landscaped setback, substantially fenced, and physically distant from active traffic. I-5 Colonnade &mdash; an existing Seattle OLA &mdash; sits under I-5 on WSDOT land, a functioning precedent.</p>
+<h2 class="finding" id="non-spr-land">Non-SPR land: public space SPR does not manage.</h2>
+<p class="lead">Seattle's OLA supply is bounded by SPR's real-estate portfolio, but two existing OLAs already sit on other agencies' land: I-5 Colonnade on WSDOT right-of-way and Magnolia Manor on a Seattle Public Utilities reservoir site, and SPR's 2017 plan records two City Light sites considered in the 1996&ndash;97 pilot (<a href="https://github.com/avrignaud/seattledogparkdata/blob/main/sources/people-dogs-and-parks-plan-august-2017.pdf">pp. 11&ndash;12</a>). The precedent exists; what's missing is an inventory. COLA raised this in its comments on SPR's 2023 Off-Leash Area Expansion Study, which did not consider non-SPR public land.</p>
+<h3>WSDOT: state highway right-of-way</h3>
+<p>WSDOT manages land adjacent to every state-numbered road in the city. Some is unusable (active lanes, on-ramps), but a portion is landscaped setback, substantially fenced, and distant from traffic. I-5 Colonnade, under I-5 on WSDOT land, is the functioning precedent.</p>
 <div class="data-gap"><strong>Data gap</strong>
-Still open: inventory of WSDOT-managed parcels inside Seattle city limits that could host off-leash use without a lane closure; WSDOT's formal policy on recreational use of right-of-way (if any); the I-5 Colonnade agreement as a template.</div>
-
-<h3>Seattle City Light &mdash; transmission corridors and utility property</h3>
-<p>Seattle City Light owns transmission corridors running across the city. Several already host informal recreational use (walking trails, community gardens). These are typically fenced, signed, and maintained on a predictable schedule &mdash; attributes compatible with off-leash use relative to most other non-Parks categories of public land.</p>
+Still open: inventory of WSDOT-managed parcels inside city limits that could host off-leash use without a lane closure; WSDOT's formal policy on recreational use of right-of-way; the I-5 Colonnade agreement as a template.</div>
+<h3>Seattle City Light and SPU: corridors and utility property</h3>
+<p>City Light owns transmission corridors across the city, several already hosting informal recreation (walking trails, community gardens); they are typically fenced, signed, and maintained on a schedule. SPU's Magnolia Manor site shows a utility parcel can host an OLA outright.</p>
 <div class="data-gap"><strong>Data gap</strong>
-Still open: City Light's recreational-use policy for transmission corridors; identified corridors with a minimum of one acre of contiguous flat ground; any existing precedent for dog-specific use.</div>
-
-<h3>Port of Seattle &mdash; waterfront and industrial-adjacent</h3>
-<p>The Port of Seattle owns substantial waterfront property. Most is industrial and security-restricted, but parcels at the edges &mdash; landscape buffer, parking, unused waterfront &mdash; may be compatible with off-leash use within the Port's operational constraints.</p>
+Still open: City Light's recreational-use policy for transmission corridors; identified corridors with at least one acre of contiguous flat ground; the Magnolia Manor SPU&ndash;SPR arrangement as a template.</div>
+<h3>Port of Seattle: waterfront and industrial-adjacent</h3>
+<p>The Port owns substantial waterfront property. Most is industrial and security-restricted, but edge parcels (landscape buffer, parking, unused waterfront) may be compatible with off-leash use within the Port's operational constraints.</p>
 <div class="data-gap"><strong>Data gap</strong>
-Still open: Port of Seattle asset inventory inside Seattle city limits; Port's public-access policy; precedent for Port&ndash;SPR partnerships on recreational use.</div>
-
+Still open: Port asset inventory inside city limits; the Port's public-access policy; precedent for Port&ndash;SPR partnerships on recreational use.</div>
 <div class="takeaway neutral">
   <span class="kicker">Framing observation</span>
-  <p>Seattle's multi-agency public-land footprint is larger than SPR's portfolio alone. Framed as "where can SPR build a new OLA on SPR land?" the answer is a multi-decade capital cycle. Framed as "where inside city limits is there public land where dogs could be off-leash without a new capital project?" the answer involves three agencies SPR has not historically partnered with on this use. The <a href="opinion.html">Opinion page</a> argues for the second framing; this page documents the land.</p>
+  <p>Framed as "where can SPR build a new OLA on SPR land?" the answer is a multi-decade capital cycle. Framed as "where inside city limits is there public land where dogs could be off-leash without a new capital project?" the answer involves agencies SPR has partnered with before, on two of the existing 14.</p>
 </div>
-
-<p class="sources-line"><strong>Sources</strong> &middot; <a href="https://www.seattle.gov/parks/about-us/plans-and-reports/recreation-plans-and-reports/off-leash-area-study">SPR Off-Leash Area Expansion Study (2023&ndash;24)</a> &middot; <a href="https://www.seattlecola.info">COLA comments on the Expansion Study</a> &middot; <a href="https://wsdot.wa.gov/">WSDOT</a> &middot; <a href="https://www.seattle.gov/city-light">Seattle City Light</a> &middot; <a href="https://www.portseattle.org/">Port of Seattle</a></p>
-
+<p class="sources-line"><strong>Sources</strong> &middot; <a href="https://www.seattle.gov/parks/about-us/plans-and-reports/recreation-plans-and-reports/off-leash-area-study">SPR Off-Leash Area Expansion Study (2023&ndash;24)</a> &middot; <a href="https://www.seattlecola.info">COLA comments on the Expansion Study</a> &middot; <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/sources/people-dogs-and-parks-plan-august-2017.pdf">SPR People, Dogs &amp; Parks Plan (2017)</a> &middot; <a href="https://wsdot.wa.gov/">WSDOT</a> &middot; <a href="https://www.seattle.gov/city-light">Seattle City Light</a> &middot; <a href="https://www.portseattle.org/">Port of Seattle</a></p>
 <!-- ==================================================================== -->
-<h2 class="finding" id="closing"><span class="num">Part III &middot; closing</span>Open lines for primary source material.</h2>
-<p>Part III is the forward-looking half of this project. The three sections above sketch each direction and name the specific primary sources that would strengthen them. Materials on any of the three &mdash; Magnuson stewardship records, NYC/Boston/Chicago operational data, or WSDOT/City Light/Port recreational-use policies &mdash; can be submitted via the <a href="https://github.com/avrignaud/seattledogparkdata/issues">project issue tracker</a>.</p>
-
-<p>The <a href="opinion.html">Opinion &amp; Recommendation page</a> is where the policy argument lives. This page documents the case studies and implementation options. The two are meant to be read together.</p>
-
+<h2 class="finding" id="closing">Open lines for primary source material.</h2>
+<p>Each section above names the primary sources that would strengthen it. Materials on any of the three, Magnuson stewardship records, NYC, Boston or Chicago operational data, or WSDOT, City Light and Port recreational-use policies, can be submitted via the <a href="https://github.com/avrignaud/seattledogparkdata/issues">project issue tracker</a>. The <a href="opinion.html">Opinion page</a> is where the policy argument lives; this page documents the case studies and the options.</p>
 <!-- =============================================================== -->
 <nav class="paginate">
   <a href="part2-access.html" class="prev">
@@ -356,7 +327,7 @@ Still open: Port of Seattle asset inventory inside Seattle city limits; Port's p
 </nav>
 
 <footer>
-  <p>Part III &middot; June 2026. Blocks marked "Data gap" name specific primary sources we have not been able to verify; every other claim on this page links to its source. Source code and all underlying data: <a href="https://github.com/avrignaud/seattledogparkdata">github.com/avrignaud/seattledogparkdata</a>. MIT license covers author-written code and analysis. Corrections: <a href="https://github.com/avrignaud/seattledogparkdata/issues">issue tracker</a>.</p>
+  <p>Part III &middot; September 2026. Blocks marked "Data gap" name specific primary sources we have not been able to verify; other claims link to a source where a public one exists, and are marked as open where it does not. Source code and all underlying data: <a href="https://github.com/avrignaud/seattledogparkdata">github.com/avrignaud/seattledogparkdata</a>. MIT license covers author-written code and analysis. Corrections: <a href="https://github.com/avrignaud/seattledogparkdata/issues">issue tracker</a>.</p>
   <p><a href="seattle-dog-parks-report.pdf">Download full report (PDF)</a> &middot; <a href="opinion.html#about">About this project</a></p>
 </footer>
 
