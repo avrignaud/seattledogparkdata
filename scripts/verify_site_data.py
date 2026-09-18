@@ -29,7 +29,7 @@ DOCS = REPO / "docs"
 PUBLIC_PAGES = [
     "index.html", "part1-the-gap.html", "part2-access.html", "part3.html",
     "enforcement.html", "budget.html", "peer-cities.html", "opinion.html",
-    "updates.html",
+    "data-methods.html", "updates.html",
 ]
 
 _FAILS = 0
@@ -68,6 +68,18 @@ def main() -> None:
 
     def present(needle: str, label: str) -> None:
         check(needle in html, f"prose: {label} ({needle!r}) present in public site")
+
+    # Retired figures must not reappear. updates.html is excluded on purpose: its
+    # entries are a dated historical record of what the site said at the time, and
+    # rewriting them would falsify the log.
+    live_html = "\n".join(
+        (DOCS / n).read_text(encoding="utf-8")
+        for n in PUBLIC_PAGES if n != "updates.html" and (DOCS / n).exists()
+    )
+
+    def absent(needle: str, label: str) -> None:
+        check(needle not in live_html,
+              f"prose: {label} ({needle!r}) gone from the live pages")
 
     # ---- [1] Walkshed / access coverage -----------------------------------
     print("\n[1] Walkshed coverage (data/walkshed/population_coverage.csv)")
@@ -122,7 +134,7 @@ def main() -> None:
     avg = sum(rev) / len(rev)
     check(approx(avg, 1_240_000, 15_000), f"2018-24 license revenue avg ~= $1.24M (got ${avg:,.0f})")
     present("$1.24M", "license revenue / yr")
-    present("$29,000", "annual off-leash citation fines")
+    present("$24,500", "annual off-leash fine revenue (DLP-only, 2014-2025 avg)")
 
     bud = {r["year"]: r for r in load_csv("budget-detail.csv")}
     # 2023/2024 combined OLA+P-Patch are now the City-adopted figures (PRR C265589)
@@ -131,12 +143,68 @@ def main() -> None:
     check(bud["2022"]["ola_ppatch_combined_k"] == "355.347", "2022 combined BSL filled == $355,347")
     present("569,561", "2023 adopted combined BSL")
     present("584,343", "2024 endorsed combined BSL")
-    # 2016 OLA-only as basis points of SPR total: 100,000 / 156,000,000 = 0.064%
-    bp2016 = round(100 * 100_000 / 156_000_000, 3)
-    check(bp2016 == 0.064, f"2016 OLA-only share == 0.064% (got {bp2016})")
-    present("0.064%", "2016 OLA-only basis-point peak")
-    present("$100,000", "Cycle 1 OLA-only budget")
-    present("$3.46M", "Cycle 2 one-time OLA capital")
+    # Cycle 1 OLA-only is the 2017 plan's Cost-of-Services figure, $106,000/yr
+    # (pp. 3,5 give the range $103,000-$117,000). The earlier round $100,000 was a
+    # floor from a public statement and is retired; so is the unsourced $126K/$129K.
+    bp2016 = round(100 * 106_000 / 156_000_000, 3)
+    check(bp2016 == 0.068, f"2016 OLA-only share == 0.068% (got {bp2016})")
+    present("0.068%", "Cycle 1 OLA-only basis-point level")
+    present("$106,000", "Cycle 1 OLA-only budget (2017 plan, Cost of Services)")
+    present("$3,103,000", "Cycle 2 two-OLA construction line")
+    # The retired figures may still be NAMED, once, in the data-methods correction
+    # notice: a correction that cannot say what it corrects is not a correction.
+    # What must be gone is every form that asserts them as current.
+    for stale in ("$126,000&ndash;$129,000", "$100,000&ndash;129,000",
+                  "$100,000&ndash;$129,000", "$100,000 to $129,000",
+                  "disclosed $126,000", "roughly $129,000/year"):
+        absent(stale, "retired OLA-only claim (PRR C264837)")
+    absent("$3.46M", "retired capital figure with no findable source")
+    absent("SPR no longer breaks the OLA share out", "retired 'split unpublished' claim")
+    present("previously carried $126,000", "the correction notice naming what was withdrawn")
+
+    # --- OLA/P-Patch Master Projects (PRR C264837) ------------------------
+    mp = {(r["year"], r["master_project_id"]): r
+          for r in load_csv("ola-ppatch-master-projects.csv")}
+    OLA, PP = "MC-PR-51002", "MC-PR-51001"
+    i = lambda y, m, k: int(mp[(y, m)][k])
+    yrs = ["2023", "2024", "2025", "2026"]
+
+    # Row identity: revised - expenses - encumbrances == available balance.
+    for y in yrs:
+        for m in (OLA, PP):
+            lhs = i(y, m, "revised_budget_usd") - i(y, m, "ytd_expenses_usd") - i(y, m, "encumbrances_usd")
+            check(abs(lhs - i(y, m, "available_balance_usd")) <= 1,
+                  f"{m} {y} revised - spent - encumbered == balance")
+
+    # The two Master Projects exhaust BSL BC-PR-50000. 2024 differs by exactly
+    # $30,000 because budget-detail carries the ENDORSED figure and this the ADOPTED.
+    for y, tol in (("2023", 1), ("2024", 30_001), ("2025", 20), ("2026", 10)):
+        both = i(y, OLA, "adopted_budget_usd") + i(y, PP, "adopted_budget_usd")
+        combined = float(bud[y]["ola_ppatch_combined_k"]) * 1000
+        check(abs(both - combined) <= tol,
+              f"{y} OLA+P-Patch adopted == combined BSL (got ${both:,.0f} vs ${combined:,.0f})")
+
+    spent = sum(i(y, OLA, "ytd_expenses_usd") for y in yrs)
+    revised = sum(i(y, OLA, "revised_budget_usd") for y in yrs)
+    check(abs(spent - 1_053_037) <= 2, f"OLA 2023-26 spend == $1,053,037 (got ${spent:,})")
+    check(abs(revised - 5_625_926) <= 2, f"OLA 2023-26 revised budget == $5,625,926 (got ${revised:,})")
+    burn = round(100 * spent / revised, 1)
+    check(burn == 18.7, f"OLA 2023-26 burn == 18.7% (got {burn}%)")
+    present("$1,053,037", "OLA money spent 2023-26")
+    present("$5,625,926", "OLA revised budget 2023-26")
+    present("$4,362,265", "OLA unspent balance")
+
+    # Closed-year burn: OLA 34.2% vs P-Patch 32.0%. The site must not claim OLA
+    # execution is uniquely bad; these are within ~2 points of each other.
+    closed = ["2023", "2024", "2025"]
+    cb = {m: round(100 * sum(i(y, m, "ytd_expenses_usd") for y in closed)
+                   / sum(i(y, m, "revised_budget_usd") for y in closed), 1) for m in (OLA, PP)}
+    check(cb[OLA] == 34.2 and cb[PP] == 32.0,
+          f"closed-year burn OLA 34.2% / P-Patch 32.0% (got {cb[OLA]}% / {cb[PP]}%)")
+    check(abs(cb[OLA] - cb[PP]) < 5,
+          "OLA and P-Patch burn within 5 points: do not claim OLA is uniquely unspent")
+    present("32.0%", "P-Patch closed-year burn")
+    present("34.2%", "OLA closed-year burn")
     present("$528,279", "2026 MOA FAS-side max (cross-page anchor)")
 
     # ---- [4] Facilities / access counts ----------------------------------
@@ -173,18 +241,23 @@ def main() -> None:
 
     # Budget Finding 02 (Fix A, audit June 2026): OLA-only operating share in basis
     # points, with one-time Cycle 2 capital EXCLUDED from the disclosed (solid) bars.
-    # The disclosed peak is 6.4 bp (2016); no disclosed bar may exceed it. If capital
-    # is ever re-folded, the 2024 bar jumps to 58.0 bp and these checks fail.
+    # There is no separate capital term any more: PRR C264837 established the Cycle 2
+    # OLA capital is booked inside MC-PR-51002, so it is already in ola_only_k for
+    # 2025-26. That is why the peak is 2025, not 2016.
     def _bp(numer_k: float, spr_m: float) -> float:
         return round(numer_k * 1000 / (spr_m * 1_000_000) * 10000 * 10) / 10
-    disclosed_bp = {y: _bp(float(r["ola_only_k"]), float(r["spr_total_budget_m"]))
-                    for y, r in bud.items() if r["ola_only_k"]}
-    peak_y = max(disclosed_bp, key=disclosed_bp.get)
-    check(peak_y == "2016" and disclosed_bp["2016"] == 6.4,
-          f"budget Finding 02 disclosed peak == 6.4 bp in 2016 (got {disclosed_bp[peak_y]} bp in {peak_y})")
-    check(disclosed_bp["2024"] == 4.0,
-          f"2024 disclosed bar == 4.0 bp w/o capital (got {disclosed_bp['2024']}; 58.0 = capital re-folded)")
-    present("6.4 bp", "2016 disclosed basis-point peak")
+    ola_bp = {y: _bp(float(r["ola_only_k"]), float(r["spr_total_budget_m"]))
+              for y, r in bud.items() if r["ola_only_k"]}
+    peak_y = max(ola_bp, key=ola_bp.get)
+    check(peak_y == "2025" and ola_bp["2025"] == 46.2,
+          f"budget Finding 02 peak == 46.2 bp in 2025 (got {ola_bp[peak_y]} bp in {peak_y})")
+    check(ola_bp["2016"] == 6.8, f"2016 Cycle 1 bar == 6.8 bp (got {ola_bp['2016']})")
+    check(ola_bp["2023"] == 10.0 and ola_bp["2024"] == 10.4,
+          f"2023/24 bars == 10.0/10.4 bp (got {ola_bp['2023']}/{ola_bp['2024']})")
+    check(max(ola_bp.values()) < 100,
+          "no OLA bar reaches 1% of SPR spending (the Finding 02 headline)")
+    present("6.8 bp", "Cycle 1 basis-point level")
+    present("46.2", "2025 basis-point peak")
 
     # Facilities-per-constituent ratios (part1 Finding 06): playgrounds vs OLAs.
     fac = {r["facility"]: r for r in load_csv("seattle-facility-counts.csv")}
@@ -218,12 +291,17 @@ def main() -> None:
     check(len(qa) == 3, f"OLAs under a quarter-acre == 3 (got {len(qa)})")
     check("four are under a quarter-acre" not in html, "stale 'four are under a quarter-acre' removed (audit June 2026)")
 
-    # OLA-only as ~22% of the combined OLA+P-Patch BSL (2023-2024 disclosed years).
-    sh23 = 100 * 126 / float(bud["2023"]["ola_ppatch_combined_k"])
-    sh24 = 100 * 129 / float(bud["2024"]["ola_ppatch_combined_k"])
-    check(approx(sh23, 22, 1.0) and approx(sh24, 22, 1.0),
-          f"OLA-only ~22% of combined BSL (2023 {sh23:.0f}%, 2024 {sh24:.0f}%)")
-    present("22%", "OLA-only share of combined BSL")
+    # Which Master Project is larger depends on the measure, and the three disagree.
+    # Guards the data-methods sentence that replaced the retired "P-Patch is the
+    # larger share" inference (which rested on the unsourced $126,000 figure).
+    share = lambda y, k: round(100 * i(y, OLA, k) / (i(y, OLA, k) + i(y, PP, k)), 1)
+    check(share("2023", "adopted_budget_usd") == 57.6 and share("2025", "adopted_budget_usd") == 85.7,
+          f"OLA adopted share 2023/2025 == 57.6/85.7% (got {share('2023','adopted_budget_usd')}/{share('2025','adopted_budget_usd')})")
+    check(share("2023", "revised_budget_usd") < 50 and share("2024", "revised_budget_usd") < 50,
+          "P-Patch is larger than OLA on REVISED budget in 2023-24 (the measure-dependence claim)")
+    present("57.6%", "OLA share of the adopted BSL, 2023")
+    present("60.5%", "P-Patch share of the revised BSL, 2023")
+    absent("suggesting P-Patch is the larger share", "retired inference (PRR C264837)")
 
     # Space-per-dog reconciliation: 5.37 sq ft (AVMA 248,858 dogs) vs 5.5 (0.30 peer rate).
     avma_sqft = round(30.7 * SQFT_AC / 248_858, 2)
@@ -290,10 +368,28 @@ def main() -> None:
     check(not bad, f"year_trend dlp matches raw citations every year (mismatches: {bad})")
     check(sum(dlp_year.values()) == 7015, f"raw DLP citations total == 7,015 (got {sum(dlp_year.values())})")
     r26 = next(r for r in epd["year_trend"] if r["year"] == "2026")
-    check(r26["funded_aco_cost"] == 528279 and r26["traceable_aco_cost"] == 152399
-          and r26["aco_fte"] == 1.0,
-          "2026 year_trend: funded 528279 / attributable 152399 / actual FTE 1.0 "
-          f"(got {r26['funded_aco_cost']}/{r26['traceable_aco_cost']}/{r26['aco_fte']})")
+    check(r26["funded_aco_cost"] == 528279 and r26["traceable_aco_cost"] == 176093
+          and r26["aco_fte"] == 1.0 and r26["fmw_fte"] == 0.0,
+          "2026 year_trend: funded 528279 / attributable 176093 (2026 MOA rate) / actual FTE 1.0 / FMW 0 "
+          f"(got {r26['funded_aco_cost']}/{r26['traceable_aco_cost']}/{r26['aco_fte']}/{r26['fmw_fte']})")
+    # The JSON year_trend is hand-maintained and decoupled from the metrics CSV
+    # (see the enforcement build chain); pin every cost cell to the CSV so a
+    # cost-model change that lands in one but not the other fails here.
+    ym = {r["year"]: r for r in load_csv("enforcement-year-metrics.csv")}
+    drift = {r["year"]: (r["cost"], ym[r["year"]]["annual_cost"]) for r in epd["year_trend"]
+             if str(r["cost"]) != ym[r["year"]]["annual_cost"]}
+    check(not drift, f"year_trend cost matches enforcement-year-metrics.csv every year (drift: {drift})")
+    for y, billed in (("2023", 453056), ("2024", 456173)):
+        check(ym[y]["cost_basis"] == "billed" and int(ym[y]["annual_cost"]) == billed,
+              f"{y} cost is BILLED ${billed:,} (PRR C266465 ledger), not modeled")
+    check(epd["totals"]["revenue_full"] == 294885, "page-data cumulative revenue is DLP-only $294,885")
+    # Citations vs warnings (Sept 2026 audit A4): the split must reconcile to the raw file
+    raw_cit = sum(1 for r in cites if r["dlp_only"] == "True" and r["case_result"].strip().lower() == "citation")
+    check(raw_cit == 3151 and epd["totals"]["result_citation_full"] == 3151,
+          f"actual citations (case_result=Citation) == 3,151 site-wide (raw {raw_cit}, json {epd['totals']['result_citation_full']})")
+    r24 = ym["2024"]
+    check(int(r24["result_citation"]) == 21 and int(r24["cost_per_actual_citation"]) == 21723,
+          f"2024: 21 actual citations, $21,723 per actual citation (got {r24['result_citation']}/{r24['cost_per_actual_citation']})")
 
     # ---- [9] Retired-figure regression guards (July 2026 audit) --------------
     # Cross-page contradictions the presence-based checks cannot catch: a
@@ -303,8 +399,38 @@ def main() -> None:
     print("\n[9] Retired-figure regression guards (July 2026)")
     for stale in ("$346,680", "$475,142", "$614,343", "$3.34M",
                   "+$3.1M", "$3.1M for two", "about one officer",
-                  "magnusondogpark.org"):  # dead MOLG domain (redirects off-site; group dormant)
+                  "magnusondogpark.org",  # dead MOLG domain (redirects off-site; group dormant)
+                  # Sept 2026 audit: retired headline phrasings (A1/A2/A3/A4/B5)
+                  "since 2009", "seventeen years", "17 years", "fall 2026", "Fall 2026",
+                  "roughly one officer", "never been fully spent", "has not tripled",
+                  "$351,099", "$3.30M", ">435<", "~1,100"):
         check(stale not in html, f"retired figure/dead link absent site-wide ({stale!r})")
+
+    # ---- [9b] OLA chronology + planned-site schedule guards (Sept 2026 audit A1/A2) --
+    # These were the audit's biggest misses: nothing asserted opening years, the
+    # 2010 baseline, or the planned sites' status.
+    print("\n[9b] OLA chronology and planned-site guards (Sept 2026)")
+    yrs = sorted(int(o["year_opened"]) for o in olas)
+    check(yrs[-1] == 2013, f"most recent OLA opened 2013 (Kinnear) per SPR 2017 plan (got {yrs[-1]})")
+    check(sum(1 for y in yrs if y <= 2010) == 11, f"11 OLAs open by 2010 (got {sum(1 for y in yrs if y <= 2010)})")
+    check(int(ts["2010"]["olas"]) == 11, f"timeseries 2010 OLA count == 11 (got {ts['2010']['olas']})")
+    check(int(ts["2026"]["olas"] or 0) == 14, f"timeseries 2026 OLA count == 14, no opening in 2026 (got {ts['2026']['olas']})")
+    perm = {o["ola_name"]: o["year_permanent"] for o in olas if o["year_permanent"]}
+    check(perm == {"Magnolia Manor": "2015", "Kinnear": "2014"}, f"year_permanent set only for Kinnear 2014 / Magnolia Manor 2015 (got {perm})")
+    planned = {r["ola_name"]: r for r in load_csv("planned-olas.csv")}
+    check(planned["West Seattle Stadium"]["expected_open"] == "Winter 2028"
+          and planned["Othello Playground"]["expected_open"] == "Fall 2027"
+          and not any(r["status"].startswith("Under construction") for r in planned.values()),
+          "planned-olas: WSS Winter 2028 / Othello Fall 2027, neither under construction (SPR pages, Apr/Jul 2026)")
+    present("2013", "last OLA opening year appears on site")
+    ind = {r["metric"]: r for r in load_csv("illegal-use-indicators.csv")}
+    check(ind["Off-leash tickets issued by Seattle Animal Control"]["value"] == "543",
+          "2016 Mar-Aug ticket row == 543 (recomputed from citations CSV, replaces unsourced 435)")
+    mar_aug = sum(1 for r in cites if r["dlp_only"] == "True" and r["year"] == "2016" and r["issued_at"][5:7] in ("03","04","05","06","07","08"))
+    check(mar_aug == 543, f"citations CSV Mar-Aug 2016 DLP rows == 543 (got {mar_aug})")
+    check(not any(m.startswith("Find It Fix It") for m in ind), "retired ~1,100 FiFi row removed from illegal-use-indicators.csv")
+    lic = {r["year"]: r for r in load_csv("licensing-revenue.csv")}
+    check(lic["2025"]["partial_flag"].startswith("not partial"), "2025 licensing revenue carries the 1-year-transition note")
     # 2015-survey illegal-off-leash figure. The primary source (People, Dogs and
     # Parks Plan, Aug 2017, p.17 -- committed at sources/) reports three settings:
     # 39% local parks + 38% large parks (weekly to monthly) + 36% trails. The site

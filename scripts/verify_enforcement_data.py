@@ -388,13 +388,14 @@ def verify_year_metrics(rows: list[dict]) -> None:
     assert spec.loader is not None
     spec.loader.exec_module(mod)
     STAFFING = mod.STAFFING
-    FAS = mod.FAS_ACO_ANNUAL
-    FMW = mod.FMW_ANNUAL
+    annual_cost = mod.annual_cost      # single owner of the cost model (billed 2023-24, modeled elsewhere)
+    result_bucket = mod.result_bucket
     PARTIAL = mod.PARTIAL_YEARS
 
     dlp_by_year = Counter()
     off_by_year: dict[str, Counter] = defaultdict(Counter)
     rev_by_year: dict[str, float] = defaultdict(float)
+    res_by_year: dict[str, Counter] = defaultdict(Counter)
     for r in rows:
         y = r["year"]
         if not y:
@@ -406,11 +407,13 @@ def verify_year_metrics(rows: list[dict]) -> None:
                     off_by_year[y][int(r["offense_level"])] += 1
                 except ValueError:
                     pass
-        if r["fee"] not in ("", None):
-            try:
-                rev_by_year[y] += float(r["fee"])
-            except (TypeError, ValueError):
-                pass
+            res_by_year[y][result_bucket(r["case_result"])] += 1
+            # DLP-only revenue: the same universe as every denominator (Sept 2026 audit B6)
+            if r["fee"] not in ("", None):
+                try:
+                    rev_by_year[y] += float(r["fee"])
+                except (TypeError, ValueError):
+                    pass
 
     with YEAR_METRICS.open() as fh:
         committed = {row["year"]: row for row in csv.DictReader(fh)}
@@ -420,8 +423,17 @@ def verify_year_metrics(rows: list[dict]) -> None:
         if not m:
             check(False, f"year-metrics missing row for {y}")
             continue
-        exp_cost = round(aco * FAS + fmw * FMW)
+        exp_cost = annual_cost(y)
         exp_dlp = dlp_by_year.get(y, 0)
+        exp_cit = res_by_year[y].get("citation", 0)
+        check(int(m["result_citation"]) == exp_cit and int(m["result_verbal"]) == res_by_year[y].get("verbal", 0)
+              and int(m["result_other"]) == res_by_year[y].get("other", 0),
+              f"year-metrics {y} case_result split: {m['result_citation']}/{m['result_verbal']}/{m['result_other']} == {dict(res_by_year[y])}")
+        if y not in PARTIAL and int(y) >= 2018 and exp_cit:
+            check(int(m["cost_per_actual_citation"]) == round(exp_cost / exp_cit),
+                  f"year-metrics {y} cost/actual citation: {m['cost_per_actual_citation']} == {round(exp_cost / exp_cit)}")
+        else:
+            check(m["cost_per_actual_citation"] == "", f"year-metrics {y} cost/actual citation blank (pre-2018 or partial)")
         check(int(m["dlp_citations"]) == exp_dlp, f"year-metrics {y} dlp: {m['dlp_citations']} == {exp_dlp}")
         check(int(m["annual_cost"]) == exp_cost, f"year-metrics {y} cost: {m['annual_cost']} == {exp_cost}")
         check(round(rev_by_year.get(y, 0.0)) == int(m["fee_revenue"]), f"year-metrics {y} revenue: {m['fee_revenue']} == {round(rev_by_year.get(y,0.0))}")
@@ -438,12 +450,14 @@ def verify_year_metrics(rows: list[dict]) -> None:
             check(abs(float(m["first_offense_pct"]) - exp_first) < 0.05, f"year-metrics {y} first-offense%: {m['first_offense_pct']} == {exp_first}")
 
     # Cumulative cost-recovery cross-check (the 11% / $3.30M headline)
-    cum_cost = sum(round(STAFFING[y][0]*FAS + STAFFING[y][1]*FMW) for y in STAFFING)
+    cum_cost = sum(annual_cost(y) for y in STAFFING)
     cum_rev = round(sum(rev_by_year.values()))
     recovery = 100 * cum_rev / cum_cost
-    check(3_250_000 <= cum_cost <= 3_350_000, f"cumulative cost ~$3.30M: ${cum_cost:,}")
-    check(cum_rev == 351099, f"cumulative revenue == $351,099: ${cum_rev:,}")
-    check(10.0 <= recovery <= 11.0, f"cost recovery 10-11%: {recovery:.1f}%")
+    check(3_350_000 <= cum_cost <= 3_450_000, f"cumulative cost ~$3.40M: ${cum_cost:,}")
+    check(cum_rev == 294885, f"cumulative DLP-only revenue == $294,885: ${cum_rev:,}")
+    check(8.0 <= recovery <= 9.0, f"cost recovery 8-9%: {recovery:.1f}%")
+    check(mod.BILLED_ACO == {"2023": 453056, "2024": 456173}, "billed ACO overrides == ledger (2023 annualized $453,056; FY2024 $456,173)")
+    check(STAFFING["2023"][1] == 0.0 and STAFFING["2022"][1] == 1.0, "FMW pairing ends 2022 (vacant from 2023, Bates 00360)")
     print(f"  INFO  cumulative cost ${cum_cost:,}, revenue ${cum_rev:,}, recovery {recovery:.1f}%")
 
 
@@ -484,6 +498,7 @@ PUBLIC_PAGES = [
     "budget.html",
     "peer-cities.html",
     "opinion.html",
+    "data-methods.html",
     "updates.html",
 ]
 # Content staged for the next push but not yet promoted into a public page.
@@ -596,12 +611,12 @@ def verify_html_prose(rows: list[dict]) -> None:
         ("2020 drop vs 2019", f"{abs(drop_2020)}%"),
         ("cost/citation 2018 (low)", f"${cpc_2018:,}"),
         ("cost/citation 2022 (high)", f"${cpc_2022:,}"),
-        ("cost/citation 2024", f"${cpc_2024}"),
+        ("cost/citation 2024", f"${cpc_2024:,}"),
         ("per-FTE 2018 peak", f"{perfte_2018}"),
         ("per-FTE 2024", f"{perfte_2024}"),
         ("cumulative fee revenue", f"${cum_rev:,}"),
         ("cost recovery %", f"{recovery}%"),
-        ("cumulative cost $3.30M", "$3.30M"),
+        ("cumulative cost $3.38M", "$3.38M"),
         ("first-offense range low", f"{fo_lo}"),
         ("first-offense range high", f"{fo_hi}"),
         ("non-DLP post-2019 rows", f"{non_dlp_post2019}"),
@@ -633,11 +648,15 @@ def verify_html_prose(rows: list[dict]) -> None:
 
 
 # Map tile hosts that are dead or deprecated and must not appear in any public
-# page. CARTO retired the fastly host (it now serves grey/blank tiles); the live
-# endpoint is {s}.basemaps.cartocdn.com. Add hosts here as vendors rotate them.
+# page. CARTO first retired its fastly host (grey/blank tiles), then in September
+# 2026 began burning an "API KEY REQUIRED" watermark into the keyless tiles on
+# its replacement host, so both are now unusable. The live basemap is Esri World
+# Light Gray, owned by SDPD.basemap() in docs/chart-defaults.js — route every new
+# map through that helper. Add hosts here as vendors rotate or paywall them.
 DEAD_TILE_HOSTS = [
     "cartodb-basemaps-",          # old CARTO fastly host (light_all etc.)
     ".global.ssl.fastly.net",     # the bare fastly domain it lived on
+    "basemaps.cartocdn.com",      # CARTO keyless tiles — watermarked from Sept 2026
 ]
 
 
