@@ -51,9 +51,41 @@
   Chart.defaults.plugins.legend.labels.boxHeight = 8;
   Chart.defaults.plugins.legend.labels.font = { family: "'IBM Plex Sans', sans-serif", size: 12.5 };
 
-  // ---- Bar defaults: rounded ends, no side-skip ----
+  // ---- Bar defaults: round the ends of a bar, never the middle of a stack ----
+  // A flat borderRadius rounds every segment of a stacked bar, which puts rounded
+  // corners partway up a column where two segments meet. This rounds only the
+  // outermost segments: the top of the stack and the bottom, or the two far ends
+  // on a horizontal chart. A chart that sets borderRadius itself overrides this.
+  const BAR_RADIUS = 6;
+
+  const stackedBarRadius = (ctx) => {
+    const chart = ctx.chart;
+    const sets = chart.data.datasets;
+    const me = sets[ctx.datasetIndex];
+    if (!me) return BAR_RADIUS;
+    const value = Number(me.data[ctx.dataIndex]);
+    if (!value) return 0;                 // nothing drawn, nothing to round
+
+    const key = (d) => (d.stack != null ? d.stack : d.label);
+    const mine = key(me);
+    let atTop = true;
+    for (let i = ctx.datasetIndex + 1; i < sets.length; i++) {
+      if (key(sets[i]) !== mine) continue;
+      if (!chart.isDatasetVisible(i)) continue;
+      if (Number(sets[i].data[ctx.dataIndex])) { atTop = false; break; }
+    }
+
+    // Only the far end is rounded. The baseline corners stay square so a bar
+    // sits flat on its axis, and a segment join inside a stack stays square.
+    const r = atTop ? BAR_RADIUS : 0;
+    if (chart.options && chart.options.indexAxis === 'y') {
+      return { topLeft: 0, bottomLeft: 0, topRight: r, bottomRight: r };
+    }
+    return { topLeft: r, topRight: r, bottomLeft: 0, bottomRight: 0 };
+  };
+
   if (Chart.defaults.datasets && Chart.defaults.datasets.bar) {
-    Chart.defaults.datasets.bar.borderRadius  = 6;
+    Chart.defaults.datasets.bar.borderRadius  = stackedBarRadius;
     Chart.defaults.datasets.bar.borderSkipped = false;
   }
 
@@ -95,5 +127,38 @@
     ticks: { padding: 8, color: palette.inkSoft }
   }, opts);
 
-  window.SDPD = { palette, highlightColors, xAxis, yAxis, catAxis };
+  // ---- Basemap ----------------------------------------------------------
+  // Single owner for the Leaflet basemap on every map in the site. Call as
+  // SDPD.basemap(map) right after L.map(...); pass { maxZoom } to cap zoom.
+  //
+  // September 2026: CARTO began burning an "API KEY REQUIRED" watermark into
+  // its keyless light_all tiles, so those tiles are no longer usable without a
+  // paid key. Esri's World Light Gray canvas is keyless and unwatermarked, and
+  // its warm neutral greys match the site palette better than OSM standard,
+  // whose blues, greens and route shields fight the data overlays.
+  //
+  // Esri splits the canvas in two: a label-free Base and a transparent
+  // Reference layer carrying place names. Esri also orders its tile path
+  // {z}/{y}/{x}, y before x, unlike the XYZ convention. The labels ride in a
+  // pane at z-index 250, between the tile pane (200) and the overlay pane
+  // (400), so they sit *under* the data the way CARTO's baked-in labels did.
+  const ESRI_CANVAS =
+    'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/{id}/MapServer/tile/{z}/{y}/{x}';
+  const ESRI_ATTRIB =
+    'Tiles &copy; <a href="https://www.esri.com/">Esri</a> &mdash; Esri, HERE, Garmin, ' +
+    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+
+  const basemap = (map, opts) => {
+    const maxZoom = (opts && opts.maxZoom) || 19;
+    L.tileLayer(ESRI_CANVAS.replace('{id}', 'World_Light_Gray_Base'),
+      { attribution: ESRI_ATTRIB, maxZoom }).addTo(map);
+    const labelPane = map.createPane('sdpd-labels');
+    labelPane.style.zIndex = 250;
+    labelPane.style.pointerEvents = 'none';
+    L.tileLayer(ESRI_CANVAS.replace('{id}', 'World_Light_Gray_Reference'),
+      { maxZoom, pane: 'sdpd-labels' }).addTo(map);
+    return map;
+  };
+
+  window.SDPD = { palette, highlightColors, xAxis, yAxis, catAxis, basemap };
 })();

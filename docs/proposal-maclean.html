@@ -411,8 +411,13 @@
         maxZoom: 19, attribution: '&copy; Esri World Imagery',
       }).addTo(map);
     } else {
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-        subdomains: 'abcd', maxZoom: 19, attribution: '&copy; CARTO',
+      // Inline rather than SDPD.basemap(): this scratch page is standalone and
+      // does not load chart-defaults.js. Keep in step with that helper.
+      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+        maxZoom: 19, attribution: '&copy; Esri',
+      }).addTo(map);
+      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}', {
+        maxZoom: 19,
       }).addTo(map);
     }
     // Parcel polygons
