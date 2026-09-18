@@ -2,7 +2,9 @@
 
 **Recipient:** Seattle Parks & Recreation · `PKS_PDR@seattle.gov` (cc: Seattle Animal Shelter / FAS, where appropriate)
 
-**Status:** Filed (awaiting response)
+**Status:** **Answered and closed** — filed as **C266465-050826**, released July 2026 (112 files / ~720 Bates pages / 90 unique documents). Response, responsiveness matrix and findings: [`data/prr-responses/C266465/`](../data/prr-responses/C266465/README.md).
+
+> **Outcome in brief.** Items 3 (patrol deployment logs) and 4 (compliance/complaint-trend analysis) produced **nothing**. Item 1 produced one internal review — the Aug/Sep 2024 Jainga memo — which tracks raw output, finds it falling, and recommends cutting the program from three officers to two or one. Item 5 (the decision record) produced a complete Oct 2022 → Feb 2025 paper trail and is the most valuable part of the release. Follow-on: a parallel **FAS/SAS** request is needed for items 3–4, since the dispatch and patrol records are SAS-held and SPR produced only SPR's holdings.
 
 ---
 

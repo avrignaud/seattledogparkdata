@@ -7,10 +7,17 @@ Next-work ideas, organized by effort and value. 1.0 shipped on 2026-04-19; every
 - [x] **PRR C049204** — off-leash citations 2014–2019. Responded Oct 2019; data at `data/prr-responses/C049204/` and consolidated as `data/enforcement-citations.csv`.
 - [x] **PRR #1 (filed)** — off-leash citations Oct 2019 to present. Draft at `prrs/01-spr-offleash-citations-post-2019.md`. Awaiting SPR response.
 - [x] **PRR #2 to SPU** for Find-It-Fix-It "dog in a park" complaint counts by year and park. Filed. Awaiting response.
-- [x] **PRR #3 to SPR** for OLA-only share of the Maintaining Parks & Facilities BSL. Filed. Awaiting response.
+- [x] **PRR #3 / C264837 — ANSWERED July 2026.** OLA-only share of the Maintaining Parks & Facilities BSL. SPR books OLAs and P-Patches as two separate Master Projects (`MC-PR-51002`, `MC-PR-51001`) and produced four years of budget and spend for each. Archived at [`data/prr-responses/C264837/`](data/prr-responses/C264837/README.md); figures at [`data/ola-ppatch-master-projects.csv`](data/ola-ppatch-master-projects.csv). The OLA-only line is $328,345 (2023) and $333,478 (2024), 2.6× the $126K/$129K the site carries, whose source has never been found; $1,053,037 of a $5,625,926 revised budget has been spent. Corrections **applied to the site September 2026**; reasoning record in [`C264837-PRR-AUDIT.md`](C264837-PRR-AUDIT.md).
 - [x] **PRR #4 to SPR** for the 2.5-mile OLA access standard methodology. Filed. Awaiting response.
 - [x] **PRR #5 to SPR** for per-OLA usage/headcount data. Filed. Awaiting response.
 - [x] **PRR #6 to SAS** for Seattle Animal Shelter dog-license history + compliance estimate. Filed. Awaiting response.
+- [x] **PRR #8 / C266465 — ANSWERED July 2026.** Program-evaluation, deployment and decision records for "Making Parks Safer." 90 unique documents at [`data/prr-responses/C266465/`](data/prr-responses/C266465/README.md). No effectiveness evaluation exists; no deployment logs produced; complete decision record for the three-officer expansion; first actual-spend ledger data (FY2024 $456,173). Proposed site changes drafted in [`C266465-PRR-AUDIT.md`](C266465-PRR-AUDIT.md) — **not yet applied, awaiting review**.
+
+### Follow-on requests C266465 justifies
+
+- [ ] **PRR to SPR** for Q3/Q4 2023 and 2025–2026 MOA ledger backup — completes the actual-spend series and would show whether the 2025 shift to actual-hours billing changed what was billed. Cheap to ask for now that the workbooks' existence and naming are known.
+- [x] ~~PRR to FAS/SAS for patrol deployment logs~~ — **already filed as C266744** (the FAS-side twin of #8); narrowed to July 2025 truck logs, installment pending. No new request needed. The two responses interlock: FAS holds only truck/dispatch logs, SPR holds none of those — both custodians have now separately confirmed no effectiveness evaluation exists.
+- [ ] **Apply the P0 corrections** from `C266465-PRR-AUDIT.md`: `docs/opinion.html` currently says actual FAS-side spend "tracked roughly one officer (about $176,000)", which the FY2024 ledger ($456,173, flat calendar billing) contradicts for 2023–24. Enforcement Data Notes ask a question this release partly answers.
 
 ## Outreach sent
 

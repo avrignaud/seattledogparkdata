@@ -1,5 +1,170 @@
 # Changelog
 
+## [1.3.0] — 2026-09-17
+
+SPR answered [PRR C264837](data/prr-responses/C264837/README.md) on 15 July 2026 with four
+years of budget and spending for the two Master Projects inside BSL BC-PR-50000. The answer
+retires a claim this project has carried since 2019, corrects the OLA-only budget figure by a
+factor of 2.6, removes a double-count, and supplies the strongest new finding on the budget
+page. Site restructure: a tenth page, `docs/data-methods.html`, now holds the reference
+material that was making the report pages too long.
+
+### Corrections (stated plainly)
+
+- **"SPR doesn't publish the OLA-only split, so we don't know" was wrong.** Not published is
+  not the same as not tracked. SPR books `MC-PR-51002` "Improve Dog Off Leash Areas" and
+  `MC-PR-51001` "Rejuvenate P-Patches" separately and produced both on request. The two
+  exhaust the budget line: their adopted budgets sum to the combined figure already on file,
+  to the dollar in 2023 and within rounding in 2025–26.
+- **The OLA-only figure was wrong by 2.6×, and was never sourced.** The site carried $126,000
+  (2023) and $129,000 (2024), attributed to "Parkways blog / Seattle Times coverage." No such
+  source could be located in September 2026 (both cited Parkways posts and the Mayor's Cycle 2
+  fact sheet were checked). The record gives **$328,345** and **$333,478**, then $1,568,818
+  (2025) and $1,574,370 (2026).
+- **"P-Patch is the larger share" is retired.** It rested on the withdrawn figure. Which
+  Master Project is larger depends on the measure and the three disagree: OLA leads on adopted
+  budget in all four years, P-Patch leads on revised budget in 2023–24, and spending
+  alternates. The page now names the measure.
+- **The Cycle 2 capital was double-counted.** SPR states the ~$3.1M sits *inside*
+  BC-PR-50000 within MC-PR-51002. `data-methods.html` rendered it as "$1,845,706 +$3.46M",
+  which reads as a sum. The separate capital series is gone from the budget chart.
+- **A $3.46M figure cited a document that does not contain it.** The Mayor's Park District
+  Cycle 2 fact sheet has no OLA capital line; its only off-leash entry is $450K for
+  seven-day enforcement. Replaced with the **$3,103,000** on SPR's own project pages, with
+  Ravenna Park's design-only status described separately.
+- **Cycle 1 tightened from $100,000 to $106,000.** The round figure was a floor from a public
+  statement; the 2017 *People, Dogs & Parks Plan* costs it at $106,000/year through 2020
+  (p. 19), with a range of $103,000–$117,000 (pp. 3, 5).
+
+### Added
+
+- **Budget finding: appropriated vs spent.** $1,053,037 of a $5,625,926 revised budget across
+  2023 to 7 July 2026, 18.7%, leaving $4,362,265. Burn by year: 75.7%, 50.4%, 20.6%, 5.0%.
+  The page states both cautions: 2026 is a partial year, and P-Patch burns at 32.0% against
+  OLA's 34.2% over the closed years, so this is not a claim of uniquely poor execution.
+- **`data/ola-ppatch-master-projects.csv`** — per-year, per-Master-Project adopted budget,
+  revised budget, expenses, encumbrances and available balance. The tables arrived as embedded
+  EMF images inside the .docx and were recovered from the EMF text records; the method is in
+  the archive README.
+- **`docs/data-methods.html`** — tenth public page, holding the primary-data list, the
+  methodology, and every page's data notes.
+
+### Changed
+
+- `budget-detail.csv` drops `one_time_capital_k` and `capital_source`; the capital is not
+  separate from the BSL. `ola_only_k` is now a **declared cache** of the Master Project file
+  for 2023+ and of the 2017 plan for 2016–18, with the refresh path written at the column.
+  `ola_ppatch_combined_k` is blanked for 2016–18, where no joint line was reported.
+- `seattle-timeseries.csv` splits `ola_improvement_budget_k`, which held OLA-only for 2016–18
+  and the *combined* figure from 2019 on under a name that read as OLA-only throughout, into
+  `ola_only_budget_k` and `ola_ppatch_combined_k`.
+- `verify_site_data.py` gains an `absent()` helper and guards for the new figures, the
+  Master-Project row identities, the sum-to-BSL identity, the burn rates, and the
+  measure-dependence claim. The basis-point peak moves from 6.4 bp (2016) to 46.2 bp (2025).
+
+## [1.2.0] — 2026-09-13
+
+A second full-site audit ([`SITE-AUDIT-2026-09.md`](SITE-AUDIT-2026-09.md)) found the
+arithmetic sound and three headline claims wrong. This release corrects them, ingests the July
+2026 records release (PRR C266465), splits citations from warnings, and cuts every page to its
+finding. Nothing in the underlying citation, walkshed, or budget data changed.
+
+### Corrections (stated plainly)
+
+- **"Zero net OLAs since 2009, seventeen years" was wrong.** SPR's own *People, Dogs & Parks
+  Plan* (Aug 2017) dates the last openings to 2012–13 (Denny, Magnolia Manor, Kinnear) and
+  puts the 2010 count at 11, not 14. `seattle-olas.csv` `year_opened` now follows the plan
+  on 12 of 14 rows (the old values came from unarchived SPR park pages), with a new
+  `year_permanent` column (Kinnear 2014, Magnolia Manor 2015). The headline is now
+  **thirteen years, since 2013**; the 2010 residents-per-OLA baseline moves from 43,476 to
+  55,333, so "+34% since 2010" becomes +16% since 2016.
+- **"Two new OLAs open fall 2026" was wrong.** SPR's project pages (archived in
+  `sources/spr-ola-project-status-2026.md`) put Othello at fall 2027 and West Seattle
+  Stadium at winter 2028; neither is under construction. `planned-olas.csv` status/dates
+  and the 2026 time-series row (16 → 14 OLAs) corrected.
+- **"The City hasn't spent the three-officer money" was wrong for 2023–24.** SPR's ledger
+  (C266465) shows $456,173 billed in 2024 and $226,528 in H1 2023 for three ACOs on
+  calendar-derived invoices, while FAS reported capacity for 1.5–2.0. Eight sentences across
+  the enforcement, budget, opinion and updates pages said otherwise; all corrected, and the
+  opinion page's "$176,000" spend figure removed. Funded ≠ deployed still holds; billed
+  tracked funded.
+- **"7,015 citations" were 3,151 citations and 3,191 verbal warnings.** Every page now says
+  contacts/records for the total and reserves "citation" for `case_result = Citation`.
+  Actual citations fell 95% from 2018 to 2024 (441 → 21).
+- Smaller corrections: Part II's "two largest deficits are SLU and Queen Anne" (they rank
+  10th and 12th by acre shortfall; 1st and 2nd by dogs per acre); Kinnear "smallest"
+  (Denny is smaller); amenity counts (water: 1 of 14 per FAS to Council; lighting: 3 per a
+  2021 COLA survey); Genesee opened 1999 not 2005; "2019 reporting shift is half the
+  jump" (it is about a quarter); the opinion page's "25% of residents use OLAs" (the
+  survey covered dog owners only) and "0.06% of the city's land" (0.46% of parkland);
+  San Francisco does require dog licenses; Boise fenced-only multiple 1.7×; the 2016
+  Mar–Aug ticket count 435 → 543 (recomputed from the citation CSV).
+
+### Cost model (`scripts/build_enforcement_metrics.py`)
+
+- `annual_cost()` is the single owner both verifiers call. 2023–24 use billed actuals
+  ($453,056 annualized; $456,173). The paired maintenance worker ($140,000 estimate) ends in
+  2022 (vacant from 2023 per SPR memo, Bates 00360). 2025–26 use one officer at the 2025 and
+  2026 MOA rates. Fee revenue is summed over DLP-only rows ($294,885, was $351,099).
+  Cumulative cost $3.38M (was $3.30M); recovery 8.7%.
+- New columns: `cost_basis`, `result_citation`, `result_verbal`, `result_other`,
+  `cost_per_actual_citation`.
+
+### Site
+
+- Every page cut to its finding: plain-language headings replace "Finding 0N" (old ids kept),
+  duplicated material has one home (playgrounds vs OLAs and Cycle 1/2 on Budget only; NYC
+  evidence on Part III; per-capita peers on Part I/Peer Cities), supporting detail moved into
+  Data notes. Opinion page cut by about a third and dated September 2026.
+- Enforcement page: new "funded / billed / deployed" framing, a citations-vs-warnings chart,
+  and a section recording that neither SPR (C266465) nor FAS (C266744) holds any evaluation
+  of the program, with SPR's 2024 recommendation to cut it and the February 2025 override.
+- Part II adds the FAS Director's 2022 statement to Council on why owners run dogs off
+  leash; Part I adds the City's own peer table (1.9 / 4.9 / 6.5 per 100k); Part III adds
+  SPR's named gaps (Capitol Hill, Ballard, Northgate) and East Queen Anne Playfield as a
+  recommended future site; Budget adds the $1.15M–$2.22M OLA capital backlog.
+- Peer Cities: dated recency caveats on Portland's levy and Vancouver's Park Board; sourcing
+  note that external facts are linked, not archived.
+- `verify_site_data.py` gains guards for opening years, the 2010 baseline, planned-site
+  status, the citation/warning split, billed cost, DLP-only revenue, and the retired phrases.
+- `licensing-revenue.csv` 2025 carries a "not partial; 1-year-license transition" note;
+  `illegal-use-indicators.csv` drops the retired ~1,100 complaint row.
+
+### Infrastructure
+
+- **Basemap moved from CARTO to Esri World Light Gray.** CARTO began burning an
+  "API KEY REQUIRED" watermark into its keyless `light_all` tiles in September 2026, so every
+  map on the site was serving defaced tiles. All six Leaflet maps now call a single new owner,
+  `SDPD.basemap(map, { maxZoom })` in `docs/chart-defaults.js`, which layers Esri's label-free
+  Base with its transparent Reference layer in a pane beneath the data overlays. Esri's host was
+  already in the Content Security Policy; the dead CARTO host was removed from it and added to
+  `DEAD_TILE_HOSTS` in `verify_enforcement_data.py`, so a future page that hard-codes a tile URL
+  fails the build.
+
+### New data
+
+- **PRR C266465 (SPR, July 2026)** — program-evaluation, deployment and decision records for
+  the "Making Parks Safer" ACO park-patrol program. 112 files / ~720 Bates pages / 90 unique
+  documents, archived at `data/prr-responses/C266465/` (17 load-bearing originals plus
+  OCR text for all 101 distinct documents). Fulfils [PRR #8](prrs/08-spr-program-evaluation-2016-expansion.md).
+  - **No program-effectiveness evaluation exists.** Patrol deployment logs and
+    compliance/complaint-trend analysis produced *nothing*. Read with PRR C266744 (the FAS-side
+    twin), both custodians have now separately confirmed the absence.
+  - **First actual-spend records for the ACO line.** Quarterly ledger backup →
+    `data/prr-responses/C266465/documents/enforcement-moa-billing.csv`. FY2024 billed
+    **$456,173** for three staff, on invoices computed from a flat 40-hour week rather than
+    hours worked. This contradicts a spend figure currently on `docs/opinion.html`.
+  - **Complete decision record** for the three-officer program: Council funds two added ACOs
+    (Oct 2022) → SPR's own manager recommends cutting to 2 or 1 (Sep 2024) → leadership
+    overrides to 3 (Feb 2025) → FAS says it can staff 1.5–2.0 (Feb 2025) → MOA funds "up to
+    three … any number of positions" (Jul 2025).
+- **`data/enforcement-program-activity.csv`** — SPR/FAS internal contact tracking, 2023–24
+  (ACO: 880/586 verbal warnings, 42/28 citations, 0 park exclusions). *Different record system
+  from `enforcement-citations.csv`; same shape once `case_result` is read (35/21 citations vs the memo's 42/28), but a different universe of contacts, so the two must not be merged.*
+- **`data/moas/SPR-FAS-ACO2-MOA-2025.pdf`** — the missing 2025 agreement, completing the MOA
+  series (2016 / 2021 / 2023 / 2025 / 2026). It is the document that introduced the "up to
+  three … any number of positions" language and actual-hours billing.
+
 ## [1.1.0] — 2026-06-18
 
 Ingests three public-records responses and weaves the new data across the site. The complaint and licensing datasets move from "filed, awaiting response" to primary sources.

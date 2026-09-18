@@ -19,12 +19,12 @@ fixed. Append as new audits happen.
 
 | File | Rows | Provenance column | Notes |
 |---|---:|:-:|---|
-| `seattle-olas.csv` | 14 | ✓ | All from SPR ArcGIS FeatureServer + individual OLA pages |
-| `planned-olas.csv` | 6 | ✓ | Under-construction pair sourced from SPR project pages |
+| `seattle-olas.csv` | 14 | ✓ | Coords/acres from SPR ArcGIS FeatureServer; `year_opened` from SPR's 2017 *People, Dogs & Parks Plan* (ruled Sept 2026; the earlier "individual OLA pages" years were wrong on 12 of 14 rows); `year_permanent` for Kinnear 2014 / Magnolia Manor 2015 |
+| `planned-olas.csv` | 6 | ✓ | Funded pair in design per SPR project pages archived 2026-09-13 (Othello fall 2027, West Seattle Stadium winter 2028); neither under construction |
 | `illegal-use-indicators.csv` | 11 | ✓ | Walkshed rows are `calculated:` via committed Python; others sourced |
 | `kinnear-timeline.csv` | 9 | ✓ | Every row has source title + URL |
 | `seattle-timeseries.csv` | 13 | ✓ | 2022 row is `interpolated:`; 2026 row is `estimated:` |
-| `budget-detail.csv` | 11 | ✓ | Post-2018 OLA-only split is `missing:` — SPR does not publish |
+| `budget-detail.csv` | 11 | ✓ | OLA-only filled for 2023–2026 from PRR C264837 (cache of `ola-ppatch-master-projects.csv`); 2019–2022 genuinely have no record |
 | `peer-cities-budget.csv` | 10 | ✓ | Most cities don't publish a dog-park-specific line |
 | `peer-cities.csv` | 14 | ✓ | Added `population_year` column for clarity on TPL vs OFM year |
 | `enforcement-citations.csv` | 7,532 | — | Consolidated PRRs C049204 + C263949 (2014–2026); DLP-only subset is 7,015. Already has per-row `source_file` + `source_sheet` + `location_type` + `source_prr` columns |
@@ -55,8 +55,9 @@ Every row spot-checked:
 > **Historical snapshot (April 2026, C049204-only).** The table below
 > reflects the pre-ingest 4,803-row dataset. It was superseded by the
 > May 2026 PRR C263949 ingest and rebuild — the live page now covers the
-> full 2014–2026 window (7,015 DLP citations, $351,099 cumulative fee
-> revenue). Retained here as the audit record of the original spot-check.
+> full 2014–2026 window (7,015 DLP records: 3,151 citations, 3,191 verbal
+> warnings, 673 other; $294,885 cumulative DLP-only fee revenue as of the
+> Sept 2026 model). Retained here as the audit record of the original spot-check.
 
 Audit spot-check of the CSV aggregate against the numbers on the
 then-current `docs/enforcement.html`:
@@ -119,7 +120,7 @@ New: `scripts/verify_enforcement_data.py`. Re-runs end-to-end every time the pip
 - DLP-only fee-tier consistency: ≥85% of paid rows at each offense level sit at the SMC 18.12.080 fee for that level. Empirically: 100% at all four levels.
 - Derived CSV sanity: `enforcement-hotspots.csv` and `enforcement-hotspots-extra.csv` now reconcile exactly to the consolidated DLP park-named counts over the full **2014–2026** window (verifier steps [5]/[6]) — they were regenerated in lockstep with the May 2026 page rebuild and are no longer pinned to the legacy 2014–2019 window.
 - `enforcement-by-park-year.csv` reconciles exactly to the consolidated CSV.
-- `enforcement-year-metrics.csv` recomputes every per-year metric from the consolidated CSV + the documented cost model (verifier step [8]); cumulative cost ~$3.30M, revenue $351,099, recovery ~11%.
+- `enforcement-year-metrics.csv` recomputes every per-year metric from the consolidated CSV + the documented cost model (verifier step [8]); cumulative cost ~$3.38M (billed actuals 2023–24), DLP-only revenue $294,885, recovery ~9%. **"Citations" means `case_result = Citation`** (Sept 2026 ruling); the total is reported as records/contacts.
 
 > **Note (May 2026 rebuild):** the earlier `enforcement-offense-mix.csv` and `enforcement-program-economics.csv` were **retired** — the offense mix and program economics are now embedded directly in `scripts/enforcement_page_data.json` and rendered by `scripts/build_enforcement_page.py`. The verifier no longer references those two files.
 
@@ -170,7 +171,8 @@ New committed artifact: [`data/enforcement-year-metrics.csv`](data/enforcement-y
 
 ## Outstanding audit items (unresolved, not hallucinations)
 
-- **Find-It-Fix-It "dog in a park" complaints = ~1,100 in 2024.** Labeled as approximate in `illegal-use-indicators.csv`; PRR #2 to SPU filed and awaiting response — will replace with authoritative number when answered.
+- ~~**Find-It-Fix-It "dog in a park" complaints = ~1,100 in 2024.**~~ Answered (PRR C263990, June 2026): 3,010 in 2025; the ~1,100 row was removed from `illegal-use-indicators.csv` in Sept 2026.
+- **OLA opening years (ruled Sept 2026).** `seattle-olas.csv` follows SPR's 2017 plan (Section 7 table for the pilot-era sites; pp. 11–12 for the six additions). The plan disagrees with itself on Magnolia Manor's permanent year (appendix 2015, Section 7 2016); the CSV carries 2015 and notes both. Headline: zero net since 2013; 2010 count 11.
 - **2022 budget row is blank** (`interpolated`/`missing`). Budget book for 2022 not consistently available; 2022 population is linear interpolation of 2021–2023.
 - **OLA-only 2025–2026 budget split** is `missing` — SPR publishes the combined OLA + P-Patch BSL only. PRR #3 filed; CBO and Department of Neighborhoods both closed their portions with no responsive records (May 2026). SPR's portion still pending.
 

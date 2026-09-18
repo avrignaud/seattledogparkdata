@@ -6,14 +6,14 @@ This is a civic advocacy research project. Everything here is sourced from publi
 
 ## Findings at a glance
 
-- Seattle has been stuck at **14 OLAs since ~2009** while population grew **+34%**. First net increase (to 16) opens fall 2026.
+- Seattle has been stuck at **14 OLAs since 2013** (last opening: Kinnear, per SPR's 2017 plan) while population grew **+34%** since 2010. The two funded sites are expected in 2027 and 2028.
 - Seattle's dog-park density is **1.82 per 100,000 residents** — one-third of Portland (5.74), SF (5.03), and Vancouver BC (5.44).
 - **99% of Seattle residents** live within a 10-minute walk of a park. Only **11.7%** live within a 10-minute network walk of an OLA (repo-computed April 2026; see Methodology).
 - Of Seattle's 14 OLAs, **7 are under 1 acre** and **3 are under a quarter-acre**. The smallest (Kinnear) is 0.1 ac.
 - SPR's own 2016 survey: **39% of dog owners** admit illegally off-leashing in parks monthly or more often. SPR acknowledges this in its own planning documents as a supply problem.
 - Peer-city OLA acreage per 10K residents: Vancouver BC 2.54, Portland 1.29, Seattle **0.38** (6.7× and 3.4× gaps respectively).
 - It's **not a money problem** — Seattle spends $418/resident on parks (near the top nationally). Portland spends less and has 3× the dog park density. This is an allocation issue, not a funding issue.
-- Park District Cycle 2 (2023–2028) is the first meaningful OLA investment since 2009 — 17 years — with $3.46M capital for two new OLAs plus design of a third, and ~$1.8M/yr operational. Real progress, but still <1% of SPR's total budget, and SPR has said additional OLAs will require future funding requests.
+- Park District Cycle 2 (2023–2028) is the first meaningful OLA capital investment since 2013, with $3,103,000 for two new OLAs (West Seattle Stadium, Othello) plus design for a third. SPR released the OLA-only budget in July 2026 (PRR C264837): $328,345 in 2023 rising to about $1.57M in 2025 once that capital lands inside the same budget line. Through 7 July 2026, $1,053,037 of a $5,625,926 revised budget had been spent; construction is now estimated to begin in early 2027.
 
 ## The reports
 

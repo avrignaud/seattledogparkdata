@@ -71,7 +71,7 @@ The build prints a verification summary. The separate verifier asserts ~120 inva
 
 **Input:** `data/enforcement-citations.csv` plus the staffing + cost model defined in the script.
 
-**Process:** For each year 2014–2026, computes DLP citations, all-category citations, the assumed ACO+FMW FTE, annual program cost, cost per citation, citations per FTE, first-offense share, repeat-offense share, and assessed fee revenue. The staffing FTE schedule and the FMW cost estimate ($140K/yr) are **assumptions** stated explicitly in the script header; the FAS-side ACO II cost ($152,399/yr) is sourced from the 2021 MOA. 2026 is a partial year (through April 17): its `cost_per_citation` and `citations_per_fte` are emitted blank and `partial_year=true`, because the partial-year denominator would inflate those ratios.
+**Process:** For each year 2014–2026, computes DLP enforcement records, all-category records, the case_result split (citation / verbal warning / other), the assumed ACO+FMW FTE, annual program cost, cost per record, cost per actual citation (from 2018, when verbal warnings first appear in the records), records per FTE, first-offense share, repeat-offense share, and DLP-only fee revenue. **Cost basis (September 2026):** `annual_cost()` in the script is the single owner. 2014–2022 use the deployed-staffing model (0.5 → 1.0 ACO at the 2021 MOA rate, plus the same FMW share at $140,000 from 2016); **2023–2024 use SPR's billed actuals** from the PRR C266465 ledger ($453,056 annualized from H1 2023; $456,173 for 2024); 2025–2026 use one officer at the 2025 and 2026 MOA rates with no FMW (the pairing was vacant from 2023, Bates 00360). The staffing FTE schedule and the FMW cost estimate ($140K/yr) are **assumptions** stated explicitly in the script header; the FAS-side ACO II cost ($152,399/yr) is sourced from the 2021 MOA. 2026 is a partial year (through April 17): its `cost_per_citation` and `citations_per_fte` are emitted blank and `partial_year=true`, because the partial-year denominator would inflate those ratios.
 
 **Honest-use note:** Pre-2016 cost and FTE are imputed (part-time staffing, no documented cost basis). The enforcement page therefore begins the cost-per-citation and per-FTE charts at **2016** — the first MOA-documented year — while the raw citation-volume charts keep the full 2014–2026 history. The metrics CSV still emits the pre-2016 rows (they are accurate given the stated assumption), but downstream charts treat them as not directly comparable.
 
@@ -80,7 +80,7 @@ The build prints a verification summary. The separate verifier asserts ~120 inva
 .venv/bin/python3 scripts/build_enforcement_metrics.py
 .venv/bin/python3 scripts/verify_enforcement_data.py
 ```
-The verifier recomputes every metric from the consolidated CSV + the model and asserts equality, plus cross-checks the cumulative cost (~$3.30M), revenue ($351,099), and cost-recovery (~11%) headline figures.
+The verifier recomputes every metric from the consolidated CSV + the model (calling the script's `annual_cost()` rather than re-deriving it) and asserts equality, plus cross-checks the cumulative cost (~$3.38M), DLP-only revenue ($294,885), cost-recovery (~9%), the billed 2023–24 overrides, and the citation/warning split (3,151 / 3,191 / 673).
 
 ### `data/walkshed/citation-rate-by-walkshed-status.csv`
 

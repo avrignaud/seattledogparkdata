@@ -2,10 +2,22 @@
 
 **Recipient:** Seattle Parks & Recreation · `PKS_PDR@seattle.gov`
 
-**Status:** Filed. Routed by the city to multiple departments:
+**Status:** **Responded 15 July 2026.** Routed by the city to multiple departments:
 - **C263991-041726 — City Budget Office**: Closed/No Responsive Records (May 2026). CBO reported a reasonable search of network drives and SharePoint folders located no responsive records.
 - **C264838-042426 — Department of Neighborhoods**: Closed/No Responsive Records (May 2026). DON reported a reasonable search including subject-matter expert contacts located no responsive records.
-- **C264837-042426 — Seattle Parks & Recreation**: In Progress / Being Researched-Reviewed. SPR is the actual records owner for BC-PR-50000; their response is the one that matters.
+- **C264837-042426 — Seattle Parks & Recreation**: **Responded 15 July 2026** (Gerald Asp). SPR is the actual records owner for BC-PR-50000, and answered all four items. Archived at [`data/prr-responses/C264837/`](../data/prr-responses/C264837/); figures extracted to [`data/ola-ppatch-master-projects.csv`](../data/ola-ppatch-master-projects.csv).
+
+### What came back
+
+The split **is** tracked: two Master Projects inside BC-PR-50000, `MC-PR-51002` "Improve Dog Off Leash Areas" and `MC-PR-51001` "Rejuvenate P-Patches," budgeted and expensed separately, with no allocation formula because nothing is allocated. Their adopted budgets exhaust the BSL (they sum to the combined figure already on file, to the dollar, in 2023, 2025 and 2026).
+
+Three consequences for the analysis purpose stated below:
+
+1. **The OLA-only line is 2.6× what this site says.** $328,345 (2023) and $333,478 (2024) against the $126,000/$129,000 currently carried, whose source has never been identified and could not be found in September 2026.
+2. **OLA is the larger Master Project, not the smaller.** 57.6% of the 2023 BSL. The site's "P-Patch is probably the larger share" inference is refuted.
+3. **The Cycle 1 vs Cycle 2 comparison now runs the other way.** Cycle 2 funded OLAs at roughly 3× Cycle 1 and then did not spend it: $1,053,037 of a $5,625,926 revised budget through 7 July 2026, 18.7%, with $4,362,265 available. Of the ~$3.1M capital, ~$600K has gone out, all planning and design; construction is now estimated to begin in early 2027.
+
+The $3.1M capital sits **inside** BC-PR-50000 within MC-PR-51002, so any chart adding a separate capital line on top of the combined BSL double-counts it.
 
 ---
 
