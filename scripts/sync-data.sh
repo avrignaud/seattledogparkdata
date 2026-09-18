@@ -26,6 +26,8 @@ csvs=(
   data/peer-cities.csv
   data/peer-cities-budget.csv
   data/budget-detail.csv
+  data/ola-ppatch-master-projects.csv
+  data/licensing-revenue.csv
   data/seattle-timeseries.csv
   data/illegal-use-indicators.csv
   data/kinnear-timeline.csv

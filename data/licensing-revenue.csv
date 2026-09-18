@@ -10,4 +10,4 @@ year,dog_license_revenue,partial_flag,provenance
 2022,1230154,,"sourced: PRR C264029 SAS_Licensing_Data_2014-25_revenue.xlsx; dog-license General Fund revenue; funds the whole Animal Shelter, not OLAs"
 2023,1167473,,"sourced: PRR C264029 SAS_Licensing_Data_2014-25_revenue.xlsx; dog-license General Fund revenue; funds the whole Animal Shelter, not OLAs"
 2024,1175758,,"sourced: PRR C264029 SAS_Licensing_Data_2014-25_revenue.xlsx; dog-license General Fund revenue; funds the whole Animal Shelter, not OLAs"
-2025,866430,,"sourced: PRR C264029 SAS_Licensing_Data_2014-25_revenue.xlsx; dog-license General Fund revenue; funds the whole Animal Shelter, not OLAs"
+2025,866430,not partial; 1-year-only license transition (SAS caveat) depresses revenue vs prior 2-year licenses,"sourced: PRR C264029 SAS_Licensing_Data_2014-25_revenue.xlsx; dog-license General Fund revenue; funds the whole Animal Shelter, not OLAs"
