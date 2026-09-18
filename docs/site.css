@@ -231,33 +231,19 @@ p.lead { font-size: 18.5px; line-height: 1.55; color: var(--ink); max-width: 62c
 .fineprint { font-size: 13.5px; line-height: 1.55; color: var(--ink-soft); max-width: 72ch; }
 
 /* ---------- Collapsible "Data notes" disclosure (closed by default; open in print) ---------- */
-details.data-notes { margin: 36px 0 0; border-top: 1px solid var(--rule); }
-details.data-notes > summary {
-  list-style: none; cursor: pointer; padding: 16px 0;
-  font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 600;
-  letter-spacing: 0.06em; text-transform: uppercase; color: var(--orange);
-  display: flex; align-items: baseline; gap: 10px;
+/* One-line pointer to this page's section of data-methods.html. Replaced the
+   collapsible <details> data-notes block in September 2026: once the notes
+   themselves moved to Data & Methods, the block held a single sentence, and an
+   expander that hides one line of text is friction with nothing behind it. */
+.data-methods-link {
+  margin: 36px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--rule);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  color: var(--ink-soft);
 }
-details.data-notes > summary::-webkit-details-marker { display: none; }
-/* leading chevron that rotates open */
-details.data-notes > summary::before {
-  content: "\25B8"; color: var(--orange); font-size: 13px;
-  transition: transform 120ms ease-out; transform: translateY(-1px);
-}
-details.data-notes[open] > summary::before { transform: translateY(-1px) rotate(90deg); }
-/* trailing "expand / collapse" hint */
-details.data-notes > summary::after {
-  content: "expand for sources & methodology"; margin-left: auto;
-  font-size: 12.5px; letter-spacing: 0.02em; text-transform: none; color: var(--ink-faint);
-}
-details.data-notes[open] > summary::after { content: "collapse"; }
-details.data-notes > summary:hover { color: var(--danger); text-decoration: underline; text-underline-offset: 3px; }
-details.data-notes > summary:hover::before { color: var(--danger); }
-details.data-notes > summary:focus-visible { outline: 2px solid var(--navy); outline-offset: 3px; }
-details.data-notes[open] > summary { padding-bottom: 4px; }
-details.data-notes h3 { font-size: 14px; margin: 18px 0 6px; color: var(--ink); }
-details.data-notes h3:first-of-type { margin-top: 4px; }
-details.data-notes p, details.data-notes li { font-size: 13.5px; line-height: 1.55; color: var(--ink-soft); max-width: 78ch; }
+.data-methods-link a { color: var(--accent, #C04A1E); font-weight: 500; }
 
 ul, ol { margin: 0 0 20px 22px; }
 li { margin-bottom: 8px; max-width: 68ch; }
@@ -711,9 +697,12 @@ footer a:hover { color: var(--orange); border-bottom-color: var(--orange); }
   html, body { background: #fff; color: #000; font-size: 10.5pt; line-height: 1.45; }
   .wrap, .container { padding: 0; max-width: none; }
   .topbar, .nav, nav.paginate { display: none; }
-  /* Data notes are collapsed on screen but must print in full. */
-  details.data-notes > *:not(summary) { display: revert !important; }
-  details.data-notes > summary::after { content: ""; }
+  /* Each report page ends in a one-line pointer to its section of
+     data-methods.html, which is printed later in this same document. The
+     pointer is page navigation, not content, so it is dropped in print.
+     Mirrored in PDF_OVERRIDES in scripts/build-pdf.mjs, which renders in
+     screen media and never sees this block. */
+  .data-methods-link { display: none !important; }
   .masthead { padding: 8px 0 6px; font-size: 8pt; margin-bottom: 12px; }
   h1.hed { font-size: 28pt; line-height: 1.02; margin-bottom: 12px; }
   .hero.hero-number .big-number { font-size: 120pt; }

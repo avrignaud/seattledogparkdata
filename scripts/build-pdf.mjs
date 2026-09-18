@@ -35,6 +35,7 @@ const PAGES = [
   'budget.html',
   'peer-cities.html',
   'opinion.html',
+  'data-methods.html',
 ];
 
 // CSS injected into every page during PDF build. Hides on-screen
@@ -46,6 +47,14 @@ const PDF_OVERRIDES = `
   .topbar,
   nav.paginate,
   footer { display: none !important; }
+
+  /* Since September 2026 each report page's data-notes block is a one-line
+     pointer to that page's section on data-methods.html, which is rendered
+     later in this same PDF. Pages are rendered in SCREEN media here, so the
+     <details> stays closed and only its "DATA NOTES" summary would print:
+     an orphan heading over nothing. Hide the pointer blocks outright. The
+     matching rule in site.css covers a reader printing from the browser. */
+  .data-methods-link { display: none !important; }
 
   /* Tighten the masthead so each chapter's date stamp is unobtrusive */
   .masthead { padding: 6px 0 4px !important; font-size: 9pt !important; margin-bottom: 8px !important; }
