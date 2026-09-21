@@ -138,6 +138,22 @@
   </ul>
 </div>
 
+<!-- ============ FINDING 05 — WALKSHED GAP (hero map; id kept for back-compat) ============ -->
+<h2 class="finding" id="finding-05">Enforcement concentrates in the areas without a walkable off-leash area.</h2>
+<p class="lead">The clearest single picture of this program. Citation density is overlaid on the half-mile walksheds around every existing off-leash area (OLA), the <a href="https://www.tpl.org/parkscore/about">Trust for Public Land 10-minute-walk standard</a>. The heat sits where the coverage does not. Everything after this section is the cost, the output and the record behind it.</p>
+
+<div class="map-block">
+  <div class="chart-title">Citation density and 0.5-mile OLA walksheds</div>
+  <div class="chart-subtitle">Heat = DLP citation density (a smoothed heat surface across geocoded park locations, weighted by citation count). Green rings = 0.5-mile walksheds around each of the 14 OLAs. Green dots = OLA locations. Grey dots = neighborhood reference points.</div>
+  <div id="gap-map" role="img" aria-label="Heatmap of off-leash citation density with 0.5-mile OLA walksheds overlaid."></div>
+  <div class="chart-source">Sources: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-citations.csv">enforcement-citations.csv</a> &middot; <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">seattle-olas.csv</a> &middot; walksheds per <a href="https://www.tpl.org/parkscore/about">TPL ParkScore</a> &middot; <a href="https://github.com/Leaflet/Leaflet.heat">Leaflet.heat</a> &middot; tiles: <a href="https://www.esri.com/">Esri</a> / <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a></div>
+</div>
+
+<div class="takeaway neutral">
+  <span class="kicker">Observation</span>
+  <p>Citation density concentrates outside OLA walksheds. North of the Ship Canal (Wallingford, Ravenna, Maple Leaf, Green Lake and Laurelhurst) shows heavy density with little walkable OLA coverage. The Queen Anne / Magnolia core has Kinnear (0.124 acre) and Magnolia Manor (0.48 acre), both below the <a href="https://images.akc.org/pdf/GLEG01.pdf">AKC one-acre minimum</a>, and a citation band through Discovery, West Queen Anne Playfield, and Smith Cove. Lincoln Park (West Seattle) carries 173 cumulative citations; the nearest OLA, Westcrest, is <a href="https://www.openstreetmap.org/directions?from=47.5300%2C-122.3936&to=47.5262%2C-122.3574">3.4 miles</a> away.</p>
+</div>
+
 <!-- ============ FINDING 01 — FISCAL LEAD ============ -->
 <h2 class="finding" id="finding-01">Contacts fell, citations collapsed, and the cost of each one rose.</h2>
 <p class="lead">Two things happened to the program's output. Total enforcement contacts fell well below their 2018 peak and stayed there. And within those contacts, the share that were actual citations, rather than $0 verbal warnings, fell from about a third in 2018 to under 5% by 2024, because officers cannot compel identification and now warn on every first contact (<a href="data-methods.html#authority-detail">detail</a>). Set against what the program cost, one officer and a maintenance worker through 2022 and the billed three-officer invoices from 2023, the cost per contact rose from $229 to $1,021 and the cost per actual citation from $663 to $21,723. The lines below are ratios (annual program cost &divide; that year's contacts or citations), not the price of writing one ticket.</p>
@@ -228,7 +244,7 @@
 
 <!-- ============ FINDING 04 — GEOGRAPHY ============ -->
 <h2 class="finding" id="finding-04">Where contacts happen, and where residents complain.</h2>
-<p class="lead">Citations cluster in a handful of large, heavily-used parks, mostly ones without a nearby legal off-leash area, while resident complaints concentrate somewhere else entirely. This section maps both: the citation hotspots and their pre/post-COVID persistence, the half-mile walkshed gaps, and the full per-park table. Throughout, the records show <em>where</em> citations were issued, not <em>why</em> officers were there.</p>
+<p class="lead">Citations cluster in a handful of large, heavily-used parks, mostly ones without a nearby legal off-leash area, while resident complaints concentrate somewhere else entirely. This section maps both: the citation hotspots and their pre/post-COVID persistence, and the full per-park table. Throughout, the records show <em>where</em> citations were issued, not <em>why</em> officers were there.</p>
 
 <div class="map-block">
   <div class="chart-title">Where off-leash citations were issued, 2014&ndash;2026</div>
@@ -246,24 +262,8 @@
 
 <div class="takeaway neutral">
   <span class="kicker">Observation</span>
-  <p>Citations cluster where designated OLAs aren't. Discovery, Volunteer, Cal Anderson, Lincoln, Martha Washington, Wallingford Playfield, Seward, and Maple Leaf Reservoir all rank in the top 20 and none has a dedicated OLA on site. Magnuson and Westcrest appear as hotspots because the non-OLA portions of those large host parks are used off-leash. The top 10 parks accounted for 46% of citations before COVID and 40% after. Concentration eased somewhat but the same handful of parks still dominate. <strong>The data records where citations were issued, not why officers were there</strong>, so it cannot establish whether a given park is a hotspot because of higher violation rates or because patrols were directed to it.</p>
+  <p>Citations cluster in areas without a designated OLA. Discovery, Volunteer, Cal Anderson, Lincoln, Martha Washington, Wallingford Playfield, Seward, and Maple Leaf Reservoir all rank in the top 20 and none has a dedicated OLA on site. Magnuson and Westcrest appear as hotspots because the non-OLA portions of those large host parks are used off-leash. The top 10 parks accounted for 46% of citations before COVID and 40% after. Concentration eased somewhat but the same handful of parks still dominate. <strong>The data records where citations were issued, not why officers were there</strong>, so it cannot establish whether a given park is a hotspot because of higher violation rates or because patrols were directed to it.</p>
   <p><strong>Complaints by park type.</strong> The 2024&ndash;26 complaint data (<a href="#finding-07">Finding 4</a>) sharpens this: destination and natural-area parks (Discovery, Woodland, Golden Gardens, Magnuson) stay roughly balanced between complaints and citations (the ones Animal Control patrols) while dense-neighborhood playfields run 5:1 to 100:1 complaints-over-citations (West Queen Anne Playfield 255 complaints, Maple Leaf Reservoir 147, Beacon Hill 108). Where officers go and where neighbors object are structurally different places.</p>
-</div>
-
-<!-- ---- sub: walkshed gap (kept at id=finding-05 for back-compat links) ---- -->
-<h3 id="finding-05" style="margin-top:40px;">Citation density vs. walkable off-leash coverage</h3>
-<p>Overlaying citation density on the half-mile walksheds around every existing OLA (the <a href="https://www.tpl.org/parkscore/about">Trust for Public Land 10-minute-walk standard</a>) shows citation activity concentrating where there is no walkable OLA.</p>
-
-<div class="map-block">
-  <div class="chart-title">Citation density and 0.5-mile OLA walksheds</div>
-  <div class="chart-subtitle">Heat = DLP citation density (a smoothed heat surface across geocoded park locations, weighted by citation count). Green rings = 0.5-mile walksheds around each of the 14 OLAs. Green dots = OLA locations. Grey dots = neighborhood reference points.</div>
-  <div id="gap-map" role="img" aria-label="Heatmap of off-leash citation density with 0.5-mile OLA walksheds overlaid."></div>
-  <div class="chart-source">Sources: <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/enforcement-citations.csv">enforcement-citations.csv</a> &middot; <a href="https://github.com/avrignaud/seattledogparkdata/blob/main/data/seattle-olas.csv">seattle-olas.csv</a> &middot; walksheds per <a href="https://www.tpl.org/parkscore/about">TPL ParkScore</a> &middot; <a href="https://github.com/Leaflet/Leaflet.heat">Leaflet.heat</a> &middot; tiles: <a href="https://www.esri.com/">Esri</a> / <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a></div>
-</div>
-
-<div class="takeaway neutral">
-  <span class="kicker">Observation</span>
-  <p>Citation density concentrates outside OLA walksheds. North of the Ship Canal (Wallingford, Ravenna, Maple Leaf, Green Lake and Laurelhurst) shows heavy density with little walkable OLA coverage. The Queen Anne / Magnolia core has Kinnear (0.124 acre) and Magnolia Manor (0.48 acre), both below the <a href="https://images.akc.org/pdf/GLEG01.pdf">AKC one-acre minimum</a>, and a citation band through Discovery, West Queen Anne Playfield, and Smith Cove. Lincoln Park (West Seattle) carries 173 cumulative citations; the nearest OLA, Westcrest, is <a href="https://www.openstreetmap.org/directions?from=47.5300%2C-122.3936&to=47.5262%2C-122.3574">3.4 miles</a> away.</p>
 </div>
 
 <!-- ---- sub: full table (kept at id=finding-06 for back-compat links) ---- -->
